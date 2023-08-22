@@ -6,6 +6,11 @@
       aliases = {
         st = "status";
       };
+      extraConfig = {
+        core = {
+          editor = "nvim";
+        };
+      };
     };
   };
 }
