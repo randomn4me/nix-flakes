@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 CONFIG_FILES="$HOME/.config/waybar/config $HOME/.config/waybar/style.css"
 

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+res=$(printf "logout\nreboot\nsuspend\nshutdown" | wofi --show dmenu)
+
+case "$res" in
+    "logout")     ownlogout ;;
+    "reboot")     systemctl reboot ;;
+    "suspend")    systemctl suspend ;;
+    "shutdown")   systemctl poweroff ;;
+esac
+
+exit 0

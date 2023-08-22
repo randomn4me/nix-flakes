@@ -13,8 +13,6 @@ in
 	hidpi = true;
       };
 
-      #light.enable = true;
-
       package = hyprland.packages.${pkgs.system}.hyprland;
     };
   };
@@ -38,6 +36,7 @@ in
       hyprpicker
       jq
       inotify-tools
+      libnotify
 
       grim
       slurp

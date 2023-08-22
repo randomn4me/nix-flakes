@@ -31,7 +31,7 @@ test $# -ne 1 && usage && exit
 case $1 in
     1) switch alacritty 1 ;;
     2) switch obsidian 2 ;;
-    4) switch mymutt 4 ;;
+    4) switch thunderbird 4 ;;
     5) switch firefox 5 ;;
     9) switch myspot 9 ;;
     *) hyprctl dispatch workspace $1 ;;

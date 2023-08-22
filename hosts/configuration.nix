@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, user, ... }:
+{ config, lib, pkgs, unstable, inputs, user, ... }:
 
 {
   imports =
@@ -23,11 +23,16 @@
   environment = {
     systemPackages = with pkgs; [
       fd
+      sd
+      du-dust
+      bc
       ripgrep
       killall
       neovim
       wget
       git
+      pamixer
+      unstable.borgbackup
       udiskie
     ];
 
@@ -37,16 +42,29 @@
       XDG_DATA_HOME   = "$HOME/.local/share";
       XDG_STATE_HOME  = "$HOME/.local/state";
 
-      XDG_BIN_HOME    = "$HOME/.local/bin";
+      XDG_DESKTOP_DIR     = "$HOME/tmp";
+      XDG_DOCUMENTS_DIR   = "$HOME/usr/docs";
+      XDG_DOWNLOAD_DIR    = "$HOME/tmp";
+      XDG_MUSIC_DIR       = "$HOME/usr/music";
+      XDG_PICTURES_DIR    = "$HOME/usr/pics";
+      XDG_PUBLICSHARE_DIR = "$HOME/tmp";
+      XDG_TEMPLATES_DIR   = "$HOME/tmp";
+      XDG_VIDEOS_DIR      = "$HOME/usr/vids";
+
+      XDG_BIN_HOME    = "$HOME/bin";
       PATH = [ 
-        "${XDG_BIN_HOME}"
+        "$XDG_BIN_HOME/standalone"
+        "$XDG_BIN_HOME/hyprland"
       ];
     };
 
   };
 
+  fonts.fonts = with pkgs; [
+    inconsolata-nerdfont
+  ];
+
   services = {
-    # audio
     pipewire = {
       enable = true;
       alsa = {

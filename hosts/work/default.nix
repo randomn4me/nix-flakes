@@ -10,6 +10,7 @@
 
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+    plymouth.enable = true;
   };
 
   networking.hostName = "work"; # Define your hostname.

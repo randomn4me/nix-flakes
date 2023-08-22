@@ -1,4 +1,4 @@
-{ config, lib, pkgs, unstable, host, ... }:
+{ config, lib, pkgs, host, ... }:
 
 {
   home.file.".config/hypr" = {
@@ -6,7 +6,17 @@
     recursive = true;
   };
 
-  home.file.".local/bin" = {
+  home.file.".config/waybar" = {
+    source = ./waybar;
+    recursive = true;
+  };
+
+  home.file.".config/mako" = {
+    source = ./mako;
+    recursive = true;
+  };
+
+  home.file."bin/hyprland" = {
     source = ./bin;
     recursive = true;
   };

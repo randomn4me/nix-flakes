@@ -1,5 +1,7 @@
 [
   ./wofi.nix
-  ./rofi-rbw.nix
   ./thunderbird.nix
+  ./ncmpcpp.nix
+  ./taskwarrior.nix
+  ./git.nix
 ]

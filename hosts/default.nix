@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, user, location, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, user, location, nixvim, ... }:
 
 let
   system = "x86_64-linux";
@@ -18,7 +18,7 @@ in
   work = lib.nixosSystem {
     inherit system;
     specialArgs = {
-      inherit inputs unstable system user location hyprland;
+      inherit inputs unstable system user location hyprland nixvim;
     };
     modules = [
       ./work

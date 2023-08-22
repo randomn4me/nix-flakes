@@ -1,0 +1,4 @@
+[
+  ./mopidy.nix
+  ./udiskie.nix
+]

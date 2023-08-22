@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+mpc stop &
+
+pkill cava &
+
+pkill wendy &
+pkill unclutter &
+
+pkill xss-lock &
+pkill xautolock &
+
+pkill bar &
+pkill cwm &
+pkill Hyprland &

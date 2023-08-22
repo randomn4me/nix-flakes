@@ -1,9 +1,10 @@
-{ config, lib, pkgs, unstable, user, ... }:
+{ config, lib, pkgs, unstable, user, nixvim, ... }:
 
 {
   imports = 
-    (import ../modules/programs);
-  #  (import ../modules/services);
+    (import ../modules/programs) ++
+    (import ../modules/editors) ++
+    (import ../modules/services);
 
   home = {
     username = "${user}";
@@ -19,8 +20,10 @@
       rbw
       pinentry-qt
       obsidian
+      signal-desktop
 
       libreoffice
+      xfce.thunar
 
       unzip
       zip
@@ -39,8 +42,8 @@
     theme.name = "Darcula";
   };
 
-  #xdg = {
-  #  enable = true;
-  #};
+  xdg = {
+    enable = true;
+  };
 
 }
