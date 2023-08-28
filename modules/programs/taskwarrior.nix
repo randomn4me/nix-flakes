@@ -21,6 +21,9 @@
         };
       };
       dataLocation = "$HOME/var/task";
+
+      colorTheme = "solarized-dark-256";
+
     };
   };
 }
