@@ -34,6 +34,10 @@
       pamixer
       unstable.borgbackup
       udiskie
+
+      gnumake
+      zoxide
+      tmux
     ];
 
     sessionVariables = rec {

@@ -1,19 +1,30 @@
-{ pkgs, ... }:
+{ pkgs, user, config, home, ... }:
 
 {
-  programs.bash = {
-    enableCompletion = true;
+  #home.sessionVariables = {
+  #  PROMPT_DIRTRIM = 2;
+  #  PS1 = "\w >>";
+  #  HISTFILE = "/home/phil/.bash_history";
+  #};
 
-    shellAliases = {
-      ll = "ls -lhF --color=auto";
+  programs = {
+    bash = {
+      enableCompletion = true;
 
-      rm = "rm -i";
-      mv = "mv -i";
-      cp = "cp -r";
+      shellAliases = {
+        ll = "ls -lhF --color=auto";
+        la = "ls -ahF --color=auto";
 
-      cal = "cal -m";
+        ".." = "cd ..";
+        rm = "rm -i";
+        mv = "mv -i";
+        cp = "cp -r";
+        mkdir = "mkdir -p";
+        o = "xdg-open";
 
-      ".." = "cd ..";
+        cal = "cal -m";
+        disks="echo '╓───── m o u n t . p o i n t s'; echo '╙────────────────────────────────────── ─ ─ '; lsblk -a; echo ''; echo '╓───── d i s k . u s a g e'; echo '╙────────────────────────────────────── ─ ─ '; df -h;";
+      };
     };
   };
 }

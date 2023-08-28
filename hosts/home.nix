@@ -1,5 +1,8 @@
 { config, lib, pkgs, unstable, user, nixvim, ... }:
 
+let
+  homeDir = config.home.homeDirectory;
+in
 {
   imports = 
     (import ../modules/programs) ++
@@ -44,6 +47,18 @@
 
   xdg = {
     enable = true;
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      desktop = "${homeDir}/tmp";
+      download = "${homeDir}/tmp";
+      documents = "${homeDir}/usr/docs";
+      music = "${homeDir}/usr/music";
+      pictures = "${homeDir}/usr/pics";
+      videos = "${homeDir}/usr/vids";
+      publicShare = null;
+      templates = null;
+    };
   };
 
 }

@@ -6,4 +6,5 @@
   ./taskwarrior.nix
   ./git.nix
   ./zathura.nix
+  ./zoxide.nix
 ]
