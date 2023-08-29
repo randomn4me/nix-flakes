@@ -1,4 +1,4 @@
-{ config, lib, pkgs, unstable, user, nixvim, ... }:
+{ config, lib, pkgs, unstable, user, ... }:
 
 let
   homeDir = config.home.homeDirectory;

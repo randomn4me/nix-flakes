@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, user, location, nixvim, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, user, location, ... }:
 
 let
   system = "x86_64-linux";
@@ -10,6 +10,7 @@ let
 
   unstable = import nixpkgs-unstable {
     inherit system;
+    config.allowUnfree = true;
   };
 
   lib = nixpkgs.lib;
@@ -18,8 +19,9 @@ in
   work = lib.nixosSystem {
     inherit system;
     specialArgs = {
-      inherit inputs unstable system user location hyprland nixvim;
+      inherit inputs unstable system user location hyprland;
     };
+
     modules = [
       ./work
       ./configuration.nix
@@ -37,6 +39,7 @@ in
           ];
         };
       }
+
     ];
   };
 }

@@ -15,16 +15,9 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    nixvim = {
-      # url = "github:nix-community/nixvim";
-      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
-      url = "github:nix-community/nixvim/nixos-23.05";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, nixvim, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, ... }:
     let
       user = "phil";
       location = "$HOME/etc";
@@ -33,7 +26,7 @@
       nixosConfigurations = (
 	import ./hosts {
 	  inherit (nixpkgs) lib;
-	  inherit inputs nixpkgs nixpkgs-unstable user location home-manager hyprland nixvim;
+	  inherit inputs nixpkgs nixpkgs-unstable user location home-manager hyprland;
 	}
       );
     };

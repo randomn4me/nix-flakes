@@ -24,6 +24,7 @@
     texlive.combined.scheme-full
     brightnessctl
     xdg-utils
+    fzf
   ];
 
   hardware.bluetooth.enable = true;
