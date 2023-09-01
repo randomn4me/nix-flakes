@@ -27,4 +27,5 @@
 ## change the below line to be
 ##   exec /path/to/msmtpq --q-mgmt
 
+export LOG=$HOME/var/msmtp-queue
 exec msmtpq --q-mgmt "$1"

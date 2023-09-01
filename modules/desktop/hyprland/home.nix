@@ -19,6 +19,7 @@
   home.file."bin/hyprland" = {
     source = ./bin;
     recursive = true;
+    force = true;
   };
 
   systemd.user.sessionVariables = {

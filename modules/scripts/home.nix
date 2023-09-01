@@ -4,6 +4,7 @@
   home.file."bin/standalone" = {
     source = ./bin;
     recursive = true;
+    force = true;
   };
 }
 

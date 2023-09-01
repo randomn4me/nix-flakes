@@ -1,4 +1,4 @@
-{ config, lib, pkgs, host, system, hyprland, ... }:
+{ config, lib, pkgs, host, system, ... }:
 
 let
   exec = "exec dbus-launch Hyprland";
@@ -12,8 +12,6 @@ in
         enable = true;
 	hidpi = true;
       };
-
-      package = hyprland.packages.${pkgs.system}.hyprland;
     };
   };
 

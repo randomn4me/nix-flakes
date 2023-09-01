@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, user, location, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, user, location, ... }:
 
 let
   system = "x86_64-linux";
@@ -19,25 +19,21 @@ in
   work = lib.nixosSystem {
     inherit system;
     specialArgs = {
-      inherit inputs unstable system user location hyprland;
+      inherit inputs unstable system user location;
     };
 
     modules = [
       ./work
       ./configuration.nix
 
-      home-manager.nixosModules.home-manager {
+      home-manager.nixosModules.home-manager
+      {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
           inherit unstable user;
         };
-        home-manager.users.${user} = {
-          imports = [
-            ./home.nix
-            ./work/home.nix
-          ];
-        };
+        home-manager.users.${user} = import ./home.nix;
       }
 
     ];

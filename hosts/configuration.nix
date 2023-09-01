@@ -2,12 +2,11 @@
 
 {
   imports =
-    (import ../modules/editors) ++
-    (import ../modules/shell);
+    (import ../modules/editors);
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "vboxusers" ];
   };
   security.sudo.wheelNeedsPassword = false;
 
@@ -39,6 +38,10 @@
       zoxide
       tmux
     ];
+
+    variables = {
+      EDITOR = "nvim";
+    };
 
     sessionVariables = rec {
       XDG_CACHE_HOME  = "$HOME/.cache";
@@ -99,7 +102,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 2d";
+      options = "--delete-older-than 3d";
     };
   };
 

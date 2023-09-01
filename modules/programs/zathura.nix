@@ -41,4 +41,8 @@
       recolor-keephue         = "false";
     };
   };
+
+  xdg.mimeApps.defaultApplications = {
+    "application/pdf" = [ "zathura.desktop" ];
+  };
 }
