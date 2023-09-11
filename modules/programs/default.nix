@@ -1,10 +1,12 @@
 [
   ./alacritty.nix
-  ./wofi.nix
-  ./thunderbird.nix
+  ./firefox.nix
+  ./git.nix
   ./ncmpcpp.nix
   ./taskwarrior.nix
-  ./git.nix
+  ./thunderbird.nix
+  ./tmux.nix
+  ./wofi.nix
   ./zathura.nix
   ./zoxide.nix
 ]

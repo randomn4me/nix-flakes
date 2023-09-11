@@ -9,6 +9,7 @@ Usage: $(basename $0) [hbli]
 	h: help
 	b: backup
 	l: list
+    m: mount
 	i: info
 EOF
 	exit 1
@@ -81,11 +82,16 @@ backup() {
 
 }
 
+archivemount() {
+    echo To be implemented
+}
+
 main() {
 	case $1 in
 		b) sudo -E backup ;;
 		l) sudo -E borg list $BORG_REPO ;;
 		i) sudo -E borg info $BORG_REPO ;;
+        m) archivemount ;;
 		*) usage ;;
 	esac
 }

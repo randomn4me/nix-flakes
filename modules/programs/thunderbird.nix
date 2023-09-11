@@ -1,7 +1,3 @@
-#
-# Thunderbird
-#
-
 { config, lib, pkgs, ... }:
 
 { 
@@ -11,6 +7,4 @@
     ];
   };
 }
-
-
 

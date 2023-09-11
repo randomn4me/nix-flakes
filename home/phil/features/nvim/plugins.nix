@@ -64,14 +64,6 @@
       '';
     }
 
-    {
-      plugin = nvim-notify;
-      type = "lua";
-      config = /* lua */ ''
-        stages = "fade"
-      '';
-    }
-
     # {
     #   plugin = auto-session;
     #   type = "lua";

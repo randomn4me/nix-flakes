@@ -28,8 +28,6 @@
         }
 
         alpha.setup(dashboard.opts)
-
-        vim.keymap.set("n", "<leader><leader>", "<cmd>:Alpha<cr>", { desc = "Open Dashboard" })
       '';
     }
 

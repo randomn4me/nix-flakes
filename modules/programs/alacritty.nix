@@ -9,22 +9,27 @@
           background = "0x191724";
           foreground = "0xe0def4";
         };
+
         cursor = {
           text = "0xe0def4";
           cursor = "0x524f67";
         };
+
         vi_mode_cursor = {
           text = "0xe0def4";
           cursor = "0x524f67";
         };
+
         line_indicator = {
           foreground = "None";
           background = "None";
         };
+
         selection = {
           text = "0xe0def4";
           background = "0x403d52";
         };
+
         normal = {
           black = "0x26233a";
           red = "0xeb6f92";
@@ -35,6 +40,7 @@
           cyan = "0xebbcba";
           white = "0xe0def4";
         };
+
         bright = {
           black = "0x6e6a86";
           red = "0xeb6f92";
@@ -46,6 +52,11 @@
           white = "0xe0def4";
         };
       };
+
+      env = {
+        TERM = "xterm-256color";
+      };
+
       hints = {
         start = {
           foreground = "#908caa";
@@ -57,6 +68,10 @@
         };
       };
 
+      padding = {
+        x = 3;
+        y = 3;
+      };
     };
   };
 }
