@@ -1,14 +1,18 @@
 { inputs, lib, pkgs, config, outputs, ... }:
+let
+  inherit (inputs.nix-colors) colorSchemes;
+in
 {
   imports = [
-    imputs.nix-colors.homeManagerModule
-    ../editors/nvim
-    ../shell/bash.nix
-  ];
+    inputs.nix-colors.homeManagerModule
+    ../features/cli
+    ../features/nvim
+  ];# ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
     config = {
       allowUnfree = true;
+      allowUnfreePredicat = (_: true);
     };
   };
 
@@ -26,7 +30,7 @@
   };
 
   home = {
-    username = lib.mkDefault "r4ndom";
+    username = lib.mkDefault "phil";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
     sessionPath = [ "$HOME/.local/bin" ];
@@ -36,5 +40,5 @@
   };
 
   colorscheme = lib.mkDefault colorSchemes.rose-pine;
-  home.file.".colorscheme".text = config.colorscheme.rose-pine;
+  #home.file.".colorscheme".text = config.colorscheme.rose-pine; # TODO what's that
 }

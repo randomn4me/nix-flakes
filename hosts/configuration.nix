@@ -1,12 +1,12 @@
-{ config, lib, pkgs, unstable, inputs, user, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
     (import ../modules/editors);
 
-  users.users.${user} = {
+  users.users.phil = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "vboxusers" ];
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 
   time.timeZone = "Europe/Berlin";
@@ -31,7 +31,7 @@
       git
       pamixer
       pavucontrol
-      unstable.borgbackup
+      borgbackup
       udiskie
 
       gnumake

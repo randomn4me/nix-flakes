@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, user, location, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, ... }:
 
 let
   system = "x86_64-linux";
@@ -33,6 +33,7 @@ in
         home-manager.extraSpecialArgs = {
           inherit unstable user;
         };
+        #home-manager.users.${user} = import ./home.nix;
         home-manager.users.${user} = import ./home.nix;
       }
 

@@ -4,12 +4,12 @@
     ./bash.nix
     #./bat.nix
     #./direnv.nix
-    ./git.nix
-    ./taskwarrior.nix
+    #./git.nix
+    #./shellcolor.nix
   ];
   home.packages = with pkgs; [
     bc
-    exa
+    eza
     ripgrep
     fd
     jq
@@ -20,4 +20,3 @@
     ltex-ls
   ];
 }
-

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, unstable, host, ... }:
+{ config, lib, pkgs, host, ... }:
 
 {
   home.file."bin/standalone" = {

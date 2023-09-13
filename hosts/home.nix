@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   homeDir = config.home.homeDirectory;
@@ -13,6 +13,7 @@ in
       ../modules/scripts/home.nix
       ../modules/programs/zoxide.nix
       ../modules/shell/bash.nix
+      ../home/phil/work.nix
     ];
 
 
