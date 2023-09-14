@@ -1,7 +1,7 @@
 {
   imports = [
     ./firefox.nix
-    #./font.nix
+    ./font.nix
     ./gtk.nix
     ./qt.nix
   ];

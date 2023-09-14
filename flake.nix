@@ -14,14 +14,14 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
-    let
-      inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "aarch64-linux"
-        "i686-linux"
+  let
+    inherit (self) outputs;
+    forAllSystems = nixpkgs.lib.genAttrs [
+        #"aarch64-linux"
+        #"i686-linux"
         "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
+        #"aarch64-darwin"
+        #"x86_64-darwin"
       ];
   in rec {
     nixosModules = import ./modules/nixos;
@@ -29,22 +29,14 @@
 
     nixosConfigurations = {
       work = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs; };
-
-        modules = [
-          ./hosts/work
-          ./hosts/configuration.nix
-        ];
+        specialArgs = { inherit inputs outputs; };
+        modules = [ ./hosts/work ];
       };
+
+      # work = nixpkgs.lib.nixosSystem {
+      #   specialArgs = { inherit inputs outputs; };
+      #   modules = [ ./hosts/work ];
+      # };
     };
-
-    homeConfigurations = {
-        "phil@work" = home-manager.lib.homeManagerConfiguration {
-          modules = [ ./home/phil/work.nix ];
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
-        };
-      };
   };
 }

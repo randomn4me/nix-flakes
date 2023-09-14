@@ -1,5 +1,9 @@
-{ pkgs, config, ... }:
+{ inputs, outputs, config, ... }:
 {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+  ];
+
   users.users.phil = {
     isNormalUser = true;
     extraGroups = [
@@ -8,10 +12,13 @@
       "network"
     ];
 
-    packages = [ pkgs.home-manager ];
+    packages = [ inputs.pkgs.home-manager ];
   };
 
-  home-manager.users.phil = import ../../../../home/phil/${config.networking.hostName}.nix;
+  home-manager = {
+    extraSpecialArgs = { inherit inputs outputs; };
+    users.phil = import ../../../../home/phil/${config.networking.hostName}.nix;
+  };
 
   security.pam.services = { swaylock = {}; };
 }
