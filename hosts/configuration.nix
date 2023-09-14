@@ -69,6 +69,7 @@
 
   fonts.fonts = with pkgs; [
     inconsolata-nerdfont
+    vistafonts
   ];
 
   services = {
