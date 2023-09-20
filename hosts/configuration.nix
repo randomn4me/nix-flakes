@@ -15,7 +15,7 @@
   };
 
   console = {
-    keyMap = "bone";
+    keyMap = "de";
   };
 
   environment = {
