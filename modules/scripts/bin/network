@@ -1,7 +1,0 @@
-#!/bin/sh
-
-which iw > /dev/null 2>&1 || echo "no iw"
-
-INTERFACE=`iw dev | grep -i interface | cut -d' ' -f2`
-
-iw dev $INTERFACE link | grep SSID | cut -d: -f2 | xargs

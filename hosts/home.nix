@@ -50,6 +50,10 @@ in
   gtk = {
     enable = true;
     theme.name = "Darcula";
+    iconTheme = {
+      package = pkgs.gnome.adwaita-icon-theme;
+      name = "Adwaita";
+    };
   };
 
   xdg = {
