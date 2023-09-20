@@ -6,7 +6,7 @@
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "vboxusers" ];
+    extraGroups = [ "wheel" "networkmanager" "vboxusers" "lp" ];
   };
 
   time.timeZone = "Europe/Berlin";
@@ -15,7 +15,7 @@
   };
 
   console = {
-    keyMap = "de";
+    keyMap = "bone";
   };
 
   environment = {

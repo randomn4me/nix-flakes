@@ -13,11 +13,11 @@
         search.case.sensitive = "no";
 
         taskd = {
-          certificate = "$HOME/usr/docs/misc/task/philipp.cert.pem";
-          key = "$HOME/usr/docs/misc/task/philipp.key.pem";
-          ca = "$HOME/usr/docs/misc/task/ca.cert.pem";
+          certificate = "$HOME/usr/docs/misc/task/r4ndom/public.cert";
+          key = "$HOME/usr/docs/misc/task/r4ndom/private.key";
+          ca = "$HOME/usr/docs/misc/task/r4ndom/ca.cert";
           server = "audacis.net:53589";
-          credentials = "audacis/philipp/645f4519-332b-4c67-9cda-46ae34fa9494";
+          credentials = "personal/r4ndom/3bc693fb-9fcf-4e20-858d-3785afed332a";
         };
       };
       dataLocation = "$HOME/var/task";

@@ -24,6 +24,7 @@
 
     wget
     curl
+    openconnect
 
     brightnessctl
     xdg-utils
@@ -45,6 +46,9 @@
     texlive.combined.scheme-full
     zotero
     poppler_utils
+    udiskie
+
+    openjdk19
 
     jameica
   ];
@@ -66,6 +70,8 @@
   };
 
   services.thermald.enable = true;
+
+  services.udisks2.enable = true;
 
   #services.vdirsyncer = {
   #  enable = true;
