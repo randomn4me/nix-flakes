@@ -14,7 +14,8 @@ in {
     ];
 
     bind = [
-      "ALTSHIFT,q,killactive"
+      "ALT,q,killactive"
+
       "ALTSHIFT,e,exit"
 
       #"ALT,s,togglesplit"
@@ -47,17 +48,5 @@ in {
     (lib.mapAttrsToList (key: direction:
       "ALT,${key},movefocus,${direction}"
     ) directions);
-    # Swap windows
-    #(lib.mapAttrsToList (key: direction:
-    #  "ALTSHIFT,${key},swapwindow,${direction}"
-    #) directions) ++
-    # Move monitor focus
-    #(lib.mapAttrsToList (key: direction:
-    #  "ALTCONTROL,${key},focusmonitor,${direction}"
-    #) directions) ++
-    # Move window to other monitor
-    #(lib.mapAttrsToList (key: direction:
-    #  "ALTCONTROLSHIFT,${key},movewindow,mon:${direction}"
-    #) directions) ++
   };
 }

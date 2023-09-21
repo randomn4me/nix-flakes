@@ -1,4 +1,4 @@
-{ pkgs, vimUtils,... }:
+{ pkgs, ... }:
 {
   programs.neovim.plugins = with pkgs.vimPlugins; [
     vim-nix
@@ -9,12 +9,12 @@
       type = "lua";
       config = /* lua */ ''
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-        vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-        vim.keymap.set('n', '<leader>ps', function()
+        vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find in all files" })
+        vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find in git files" })
+        vim.keymap.set('n', '<leader>fs', function()
         builtin.grep_string({ search = vim.fn.input("Grep > ") })
-        end)
-        vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+        end, { desc = "Grep in all files" })
+        vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "View help" })
       '';
     }
 
@@ -60,7 +60,7 @@
       plugin = vim-fugitive;
       type = "lua";
       config = /* lua */ ''
-        vim.keymap.set("n", "<leader>G", vim.cmd.Ex, { desc = "Open Explorer" })
+        vim.keymap.set("n", "<leader>G", "<cmd>:Git<cr>", { desc = "Open Git interface" })
       '';
     }
 

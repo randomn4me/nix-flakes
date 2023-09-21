@@ -29,11 +29,6 @@
     ];
   };
 
-  gtk = {
-    enable = true;
-    #font.name = "Inconsolata 12";
-  };
-
   programs.dconf.enable = true;
 
   services.avahi = {

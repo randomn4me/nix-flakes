@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   imports = [
@@ -7,12 +7,13 @@
 
     ./tty-init.nix
     ./basic-binds.nix
+    ./windowrule.nix
     #./systemd-fixes.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+
     systemdIntegration = true;
 
     settings = {
@@ -21,7 +22,7 @@
         gaps_out = 10;
         border_size = 2;
         cursor_inactive_timeout = 4;
-        "col.active_border" = "0xff${config.colorscheme.colors.base09}";
+        "col.active_border" = "0xff${config.colorscheme.colors.base0A}";
         "col.inactive_border" = "0xff${config.colorscheme.colors.base03}";
       };
 
@@ -41,7 +42,7 @@
       };
 
       decoration = {
-        inactive_opacity = 0.75;
+        #inactive_opacity = 0.75;
         rounding = 5;
 
         blur = {
@@ -136,12 +137,13 @@
         "ALT,SPACE,exec,${wofi} -S drun"
       ]);
 
-      monitor = [
-        "eDP-1             , 1920x1080    , auto     , 1"
-        "DP-2              , 2540x1440@60 , auto     , 1"
-        "serial:V906A9XY   , 2540x1440@60 , auto     , 1"
-        "                  , preferred    , auto     , 1.5"
-      ];
+      #monitor = [
+      #  "eDP-1             , 1920x1080    , auto     , 1"
+      #  "DP-2              , 2540x1440@60 , auto     , 1"
+      #  "serial:V906A9XY   , 2540x1440@60 , auto     , 1"
+      #  "                  , preferred    , auto     , 1.5"
+      #];
+
       #monitor = map (m: let
       #  resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
       #  position = "${toString m.x}x${toString m.y}";

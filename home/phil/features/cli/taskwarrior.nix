@@ -30,4 +30,8 @@ in
       };
     };
   };
+
+  services.taskwarrior-sync = {
+    enable = true;
+  };
 }

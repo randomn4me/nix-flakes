@@ -36,12 +36,12 @@ in
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables = {
       FLAKE = "$HOME/etc";
-      XDG_DESKTOP_HOME = "$HOME/tmp";
-      XDG_DOWNLOAD_HOME = "$HOME/tmp";
-      XDG_DOCUMENTS_HOME = "$HOME/usr/docs";
-      XDG_MUSIC_HOME = "$HOME/usr/music";
-      XDG_PICTURES_HOME = "$HOME/usr/pics";
-      XDG_VIDEOS_HOME = "$HOME/usr/vids";
+      XDG_DESKTOP_DIR = "$HOME/tmp";
+      XDG_DOWNLOAD_DIR = "$HOME/tmp";
+      XDG_DOCUMENTS_DIR = "$HOME/usr/docs";
+      XDG_MUSIC_DIR = "$HOME/usr/music";
+      XDG_PICTURES_DIR = "$HOME/usr/pics";
+      XDG_VIDEOS_DIR = "$HOME/usr/vids";
     };
   };
 

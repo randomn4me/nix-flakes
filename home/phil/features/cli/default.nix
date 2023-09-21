@@ -5,9 +5,8 @@
     ./taskwarrior.nix
     ./eza.nix
     ./bat.nix
-    #./direnv.nix
     ./git.nix
-    #./shellcolor.nix
+    ./zoxide.nix
   ];
   home.packages = with pkgs; [
     bc

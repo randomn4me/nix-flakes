@@ -4,11 +4,15 @@
     ./global
     #./features/desktop/wireless
     ./features/desktop/hyprland
+    #./features/multimedia
     #./features/pass
   ];
 
   home.packages = with pkgs; [
     texlive.combined.scheme-full
+    libreoffice
+    zotero
+    obsidian
   ];
 
   #monitors = [
@@ -20,5 +24,5 @@
   #  }
   #];
 
-  colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
+  #colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
 }
