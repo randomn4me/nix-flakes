@@ -1,4 +1,4 @@
-{ inputs, outputs, config, ... }:
+{ pkgs, inputs, outputs, config, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -12,7 +12,7 @@
       "network"
     ];
 
-    packages = [ inputs.pkgs.home-manager ];
+    packages = [ pkgs.home-manager ];
   };
 
   home-manager = {

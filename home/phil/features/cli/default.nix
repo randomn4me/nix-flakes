@@ -2,14 +2,15 @@
 {
   imports = [
     ./bash.nix
-    #./bat.nix
+    ./taskwarrior.nix
+    ./eza.nix
+    ./bat.nix
     #./direnv.nix
-    #./git.nix
+    ./git.nix
     #./shellcolor.nix
   ];
   home.packages = with pkgs; [
     bc
-    eza
     ripgrep
     fd
     jq

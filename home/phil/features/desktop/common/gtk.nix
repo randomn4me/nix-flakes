@@ -1,15 +1,15 @@
 { config, pkgs, inputs, ... }:
 
-let
-  inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
-in
-rec {
+#let
+#  inherit (inputs.nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
+#in rec 
+{
   gtk = {
     enable = true;
-    font = {
-      name = config.fontProfiles.regular.family;
-      size = 12;
-    };
+    #font = {
+    #  name = config.fontProfiles.regular.family;
+    #  size = 12;
+    #};
     # TODO
     #theme = {
     #  name = "${config.colorscheme.rose-pine}";
@@ -21,11 +21,11 @@ rec {
     };
   };
 
-  #services.xsettingsd = {
-  #  enable = true;
-  #  settings = {
-  #    "Net/ThemeName" = "${gtk.theme.name}";
-  #    "Net/IconThemeName" = "${gtk.iconTheme.name}";
-  #  };
-  #};
+  services.xsettingsd = {
+    enable = true;
+    #settings = {
+    #  "Net/ThemeName" = "${gtk.theme.name}";
+    #  "Net/IconThemeName" = "${gtk.iconTheme.name}";
+    #};
+  };
 }

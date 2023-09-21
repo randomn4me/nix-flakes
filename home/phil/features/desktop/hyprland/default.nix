@@ -1,19 +1,19 @@
-{ lib, config, inputs, pkgs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 {
   imports = [
-    #inputs.hyprland.homeManagerModules.default
     ../common
     ../common/wayland-wm
 
     ./tty-init.nix
     ./basic-binds.nix
-    ./systemd-fixes.nix
+    #./systemd-fixes.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    #package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    systemdIntegration = true;
 
     settings = {
       general = {
@@ -24,6 +24,7 @@
         "col.active_border" = "0xff${config.colorscheme.colors.base09}";
         "col.inactive_border" = "0xff${config.colorscheme.colors.base03}";
       };
+
       input = {
         kb_layout = "de";
         #kb_layout = "de,de";
@@ -33,7 +34,6 @@
         follow_mouse = true;
 
         touchpad = {
-          disable_while_typing = false;
           natural_scroll = true;
         };
 
@@ -41,12 +41,11 @@
       };
 
       decoration = {
-        active_opacity = 0.94;
-        inactive_opacity = 0.84;
+        inactive_opacity = 0.75;
         rounding = 5;
 
         blur = {
-          enabled = true;
+          enabled = false;
           size = 5;
           passes = 3;
           new_optimizations = true;
@@ -84,6 +83,11 @@
         ];
       };
 
+      misc = {
+        disable_hyprland_logo = true;
+
+      };
+
       #exec = [
       #  "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
       #];
@@ -98,7 +102,7 @@
         terminal = config.home.sessionVariables.TERMINAL;
       in [
         # Program bindings
-        "SUPER,Return,exec,${terminal}"
+        "ALT,Return,exec,${terminal}"
         # Brightness control (only works if the system has lightd)
         ",XF86MonBrightnessUp,exec,light -A 10"
         ",XF86MonBrightnessDown,exec,light -U 10"
@@ -120,29 +124,34 @@
       ]) ++
       # Screen lock
       (lib.optionals config.programs.swaylock.enable [
-        "SUPER,backspace,exec,${swaylock}"
+        "CTRL ALT,l,exec,${swaylock}"
       ]) ++
       # Notification manager
       (lib.optionals config.services.mako.enable [
-        "SUPER,w,exec,${makoctl} dismiss"
+        "ALT,w,exec,${makoctl} dismiss"
       ]) ++
 
       # Launcher
       (lib.optionals config.programs.wofi.enable [
-        #"SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
-        "SUPER,d,exec,${wofi} -S run"
+        "ALT,SPACE,exec,${wofi} -S drun"
       ]);
 
-      monitor = map (m: let
-        resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-        position = "${toString m.x}x${toString m.y}";
-      in
-        "${m.name},${if m.enabled then "${resolution},${position},1" else "disable"}"
-      ) (config.monitors);
+      monitor = [
+        "eDP-1             , 1920x1080    , auto     , 1"
+        "DP-2              , 2540x1440@60 , auto     , 1"
+        "serial:V906A9XY   , 2540x1440@60 , auto     , 1"
+        "                  , preferred    , auto     , 1.5"
+      ];
+      #monitor = map (m: let
+      #  resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+      #  position = "${toString m.x}x${toString m.y}";
+      #in
+      #  "${m.name},${if m.enabled then "${resolution},${position},1" else "disable"}"
+      #) (config.monitors);
 
-      workspace = map (m:
-        "${m.name},${m.workspace}"
-      ) (lib.filter (m: m.enabled && m.workspace != null) config.monitors);
+      #workspace = map (m:
+      #  "${m.name},${m.workspace}"
+      #) (lib.filter (m: m.enabled && m.workspace != null) config.monitors);
 
     };
   };

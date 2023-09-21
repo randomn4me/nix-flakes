@@ -23,7 +23,6 @@
         "signon.rememberSignons" = false;
       };
     };
-
   };
 
   xdg.mimeApps.defaultApplications = {

@@ -92,7 +92,6 @@ in
         border: none;
         border-radius: 5px;
 
-        font-family: ${config.fontProfiles.regular.family}, ${config.fontProfiles.monospace.family};
         font-size: 12pt;
 
         padding: 0 10px;

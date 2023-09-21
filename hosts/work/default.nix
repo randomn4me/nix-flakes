@@ -8,6 +8,7 @@
     ../common/users/phil
 
     ../common/optional/wireless.nix
+    ../common/optional/bluetooth.nix
     ../common/optional/powersaving.nix
     ../common/optional/pipewire.nix
   ];
@@ -27,6 +28,13 @@
       pkgs.cups-kyodialog
     ];
   };
+
+  gtk = {
+    enable = true;
+    #font.name = "Inconsolata 12";
+  };
+
+  programs.dconf.enable = true;
 
   services.avahi = {
     enable = true;

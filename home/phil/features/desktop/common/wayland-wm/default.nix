@@ -13,7 +13,8 @@
   xdg.mimeApps.enable = true;
   home.packages = with pkgs; [
     grim
-    #gtk3 # For gtk-launch
+    gtk3 # For gtk-launch
+    flatpak
     imv
     mimeo
     xwayland
@@ -24,6 +25,7 @@
     wl-clipboard
     wl-mirror
     ydotool
+    libreoffice
   ];
 
   home.sessionVariables = {

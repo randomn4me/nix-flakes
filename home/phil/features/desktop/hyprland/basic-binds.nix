@@ -1,8 +1,6 @@
 { lib, ... }:
 let
-  workspaces =
-    (map toString (lib.range 0 9)) ++
-    (map toString (lib.range 0 9));
+  workspaces = (map toString (lib.range 0 9));
   # Map keys to hyprland directions
   directions = rec {
     left = "l" ; right = "r" ; up = "u" ; down = "d" ;
@@ -11,59 +9,55 @@ let
 in {
   wayland.windowManager.hyprland.settings = {
     bindm = [
-      "SUPER,mouse:272,movewindow"
-      "SUPER,mouse:273,resizewindow"
+      "ALT,mouse:272,movewindow"
+      "ALT,mouse:273,resizewindow"
     ];
 
     bind = [
-      "SUPERSHIFT,q,killactive"
-      "SUPERSHIFT,e,exit"
+      "ALTSHIFT,q,killactive"
+      "ALTSHIFT,e,exit"
 
-      #"SUPER,s,togglesplit"
-      #"SUPER,f,fullscreen,1"
-      #"SUPERSHIFT,f,fullscreen,0"
-      "SUPERSHIFT,space,togglefloating"
+      #"ALT,s,togglesplit"
+      #"ALT,f,fullscreen,1"
+      #"ALTSHIFT,f,fullscreen,0"
+      "ALTSHIFT,space,togglefloating"
 
-      #"SUPER,minus,splitratio,-0.25"
-      #"SUPERSHIFT,minus,splitratio,-0.3333333"
+      #"ALT,minus,splitratio,-0.25"
+      #"ALTSHIFT,minus,splitratio,-0.3333333"
 
-      #"SUPER,equal,splitratio,0.25"
-      #"SUPERSHIFT,equal,splitratio,0.3333333"
+      #"ALT,equal,splitratio,0.25"
+      #"ALTSHIFT,equal,splitratio,0.3333333"
 
-      #"SUPER,g,togglegroup"
-      #"SUPER,apostrophe,changegroupactive,f"
-      #"SUPERSHIFT,apostrophe,changegroupactive,b"
+      #"ALT,g,togglegroup"
+      #"ALT,apostrophe,changegroupactive,f"
+      #"ALTSHIFT,apostrophe,changegroupactive,b"
 
-      #"SUPER,u,togglespecialworkspace"
-      #"SUPERSHIFT,u,movetoworkspace,special"
+      #"ALT,u,togglespecialworkspace"
+      #"ALTSHIFT,u,movetoworkspace,special"
     ] ++
     # Change workspace
     (map (n:
-      "SUPER,${n},workspace,name:${n}"
+      "ALT,${n},workspace,name:${n}"
     ) workspaces) ++
     # Move window to workspace
     (map (n:
-      "SUPERSHIFT,${n},movetoworkspacesilent,name:${n}"
+      "ALTSHIFT,${n},movetoworkspacesilent,name:${n}"
     ) workspaces) ++
     # Move focus
     (lib.mapAttrsToList (key: direction:
-      "SUPER,${key},movefocus,${direction}"
+      "ALT,${key},movefocus,${direction}"
     ) directions);
     # Swap windows
     #(lib.mapAttrsToList (key: direction:
-    #  "SUPERSHIFT,${key},swapwindow,${direction}"
+    #  "ALTSHIFT,${key},swapwindow,${direction}"
     #) directions) ++
     # Move monitor focus
     #(lib.mapAttrsToList (key: direction:
-    #  "SUPERCONTROL,${key},focusmonitor,${direction}"
+    #  "ALTCONTROL,${key},focusmonitor,${direction}"
     #) directions) ++
     # Move window to other monitor
     #(lib.mapAttrsToList (key: direction:
-    #  "SUPERCONTROLSHIFT,${key},movewindow,mon:${direction}"
+    #  "ALTCONTROLSHIFT,${key},movewindow,mon:${direction}"
     #) directions) ++
-    # Move workspace to other monitor
-    #(lib.mapAttrsToList (key: direction:
-    #  "SUPERALT,${key},movecurrentworkspacetomonitor,${direction}"
-    #) directions);
   };
 }

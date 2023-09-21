@@ -1,7 +1,0 @@
-{
-  imports = [
-    ./wireless
-    ./bluetooth
-    ./powersaving
-  ];
-}

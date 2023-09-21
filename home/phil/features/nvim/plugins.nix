@@ -58,9 +58,9 @@
 
     {
       plugin = vim-fugitive;
-      type = "viml";
-      config = /* vim */ ''
-        nmap <space>G :Git<CR>
+      type = "lua";
+      config = /* lua */ ''
+        vim.keymap.set("n", "<leader>G", vim.cmd.Ex, { desc = "Open Explorer" })
       '';
     }
 
