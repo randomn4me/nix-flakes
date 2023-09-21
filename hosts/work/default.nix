@@ -56,6 +56,8 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  security.pam.services = { swaylock = {}; };
+
   services.printing = {
     enable = true;
     drivers = [
