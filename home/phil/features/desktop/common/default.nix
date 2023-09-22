@@ -4,5 +4,6 @@
     #./font.nix
     ./gtk.nix
     ./qt.nix
+    ./playerctl.nix
   ];
 }

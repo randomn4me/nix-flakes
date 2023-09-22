@@ -103,16 +103,17 @@ in
       }
 
       #pulseaudio {
-        background: #${colors.base08};
+        background: #${colors.base09};
       }
+      #custom-clock {
+        background: #${colors.base09};
+      }
+
       #battery {
-        background: #${colors.base0A};
-      }
-      #battery.discharging.critical {
         background: #${colors.base08};
       }
-      #battery.charging {
-        background: #${colors.base0D};
+      #custom-date {
+        background: #${colors.base08};
       }
 
       /*
@@ -120,6 +121,14 @@ in
         background: #${colors.base0C};
       }
       */
+
+      #battery.discharging.critical {
+        background: #${colors.base08};
+      }
+      #battery.charging {
+        background: #${colors.base0D};
+      }
+
 
       #mpd {
         background: #${colors.base0D};
@@ -130,13 +139,7 @@ in
         background: transparent;
       }
 
-      #custom-date {
-        background: #${colors.base0A};
-      }
 
-      #custom-clock {
-        background: #${colors.base08};
-      }
     '';
   };
 }

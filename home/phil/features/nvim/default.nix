@@ -9,6 +9,14 @@
     ./plugins.nix
   ];
 
+  home.packages = with pkgs; [
+    nil
+    nixfmt
+
+    texlab
+    ltex-ls
+  ];
+
   programs.neovim = {
     enable = true;
 

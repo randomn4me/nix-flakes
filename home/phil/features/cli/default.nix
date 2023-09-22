@@ -14,10 +14,5 @@
     ripgrep
     fd
     jq
-
-    nil
-    nixfmt
-
-    ltex-ls
   ];
 }

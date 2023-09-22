@@ -5,6 +5,7 @@
     #./features/desktop/wireless
     ./features/desktop/hyprland
     ./features/multimedia
+    ./features/backup
     #./features/pass
   ];
 
@@ -13,6 +14,7 @@
     libreoffice
     zotero
     obsidian
+    signal-desktop
   ];
 
   #monitors = [
@@ -24,5 +26,5 @@
   #  }
   #];
 
-  #colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
+  colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
 }

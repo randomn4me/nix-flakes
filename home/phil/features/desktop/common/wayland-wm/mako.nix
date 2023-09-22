@@ -6,7 +6,7 @@ in
   services.mako = {
     enable = true;
     anchor = "top-center";
-    defaultTimeout = 8000;
+    defaultTimeout = 15000;
     layer = "overlay";
 
     width = 400;

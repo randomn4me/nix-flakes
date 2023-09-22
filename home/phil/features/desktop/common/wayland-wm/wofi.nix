@@ -25,13 +25,13 @@ programs.wofi = {
             margin: 2px;
             border: 2px solid;
             border-radius: 8px;
-            border-color: #${colors.base0A};
+            border-color: #${colors.base09};
             background-color: #${colors.base02};
         }
         
         #input {
             border: 0px;
-            color: #${colors.base0A};
+            color: #${colors.base09};
         }
         
         #entry {
@@ -41,8 +41,8 @@ programs.wofi = {
         
         
         #entry:selected {
-            background-color: #${colors.base0A};
-            color: #${colors.base02};
+            background-color: #${colors.base09};
+            color: #${colors.base01};
         }
         
         #inner-box {

@@ -13,6 +13,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = pkgs.inputs.hyprland.hyprland;
 
     systemdIntegration = true;
 
@@ -22,8 +23,13 @@
         gaps_out = 10;
         border_size = 2;
         cursor_inactive_timeout = 4;
-        "col.active_border" = "0xff${config.colorscheme.colors.base0A}";
+        "col.active_border" = "0xff${config.colorscheme.colors.base09}";
         "col.inactive_border" = "0xff${config.colorscheme.colors.base03}";
+      };
+
+      binds = {
+        workspace_back_and_forth = true;
+        allow_workspace_cycles = true;
       };
 
       input = {
@@ -45,19 +51,19 @@
         #inactive_opacity = 0.75;
         rounding = 5;
 
-        blur = {
-          enabled = false;
-          size = 5;
-          passes = 3;
-          new_optimizations = true;
-          ignore_opacity = true;
-        };
+        #blur = {
+        #  enabled = false;
+        #  size = 5;
+        #  passes = 3;
+        #  new_optimizations = true;
+        #  ignore_opacity = true;
+        #};
 
-        drop_shadow = true;
-        shadow_range = 12;
-        shadow_offset = "3 3";
-        "col.shadow" = "0x44000000";
-        "col.shadow_inactive" = "0x66000000";
+        #drop_shadow = true;
+        #shadow_range = 12;
+        #shadow_offset = "3 3";
+        #"col.shadow" = "0x44000000";
+        #"col.shadow_inactive" = "0x66000000";
       };
 
       animations = {
@@ -84,10 +90,9 @@
         ];
       };
 
-      misc = {
-        disable_hyprland_logo = true;
-
-      };
+      #misc = {
+      #  disable_hyprland_logo = true;
+      #};
 
       #exec = [
       #  "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
@@ -99,20 +104,21 @@
         makoctl = "${config.services.mako.package}/bin/makoctl";
         wofi = "${config.programs.wofi.package}/bin/wofi";
 
+        pamixer = "${pkgs.pamixer}/bin/pamixer";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
         terminal = config.home.sessionVariables.TERMINAL;
       in [
         # Program bindings
         "ALT,Return,exec,${terminal}"
         # Brightness control (only works if the system has lightd)
-        ",XF86MonBrightnessUp,exec,light -A 10"
-        ",XF86MonBrightnessDown,exec,light -U 10"
+        ",XF86MonBrightnessUp,exec,light -A 5"
+        ",XF86MonBrightnessDown,exec,light -U 5"
         # Volume
-        ",XF86AudioRaiseVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
-        ",XF86AudioLowerVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
-        ",XF86AudioMute,exec,${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
+        ",XF86AudioRaiseVolume,exec,${pamixer} -i 5"
+        ",XF86AudioLowerVolume,exec,${pamixer} -d 5"
+        ",XF86AudioMute,exec,${pamixer} -t"
         "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
-        ",XF86AudioMicMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+        ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ] ++
 
       (lib.optionals config.services.playerctld.enable [
@@ -121,12 +127,13 @@
         ",XF86AudioPrev,exec,${playerctl} previous"
         ",XF86AudioPlay,exec,${playerctl} play-pause"
         ",XF86AudioStop,exec,${playerctl} stop"
-        "ALT,XF86AudioPlay,exec,systemctl --user restart playerctld"
       ]) ++
+
       # Screen lock
       (lib.optionals config.programs.swaylock.enable [
         "CTRL ALT,l,exec,${swaylock}"
       ]) ++
+
       # Notification manager
       (lib.optionals config.services.mako.enable [
         "ALT,w,exec,${makoctl} dismiss"

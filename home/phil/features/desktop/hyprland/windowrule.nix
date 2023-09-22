@@ -1,7 +1,7 @@
 {
   wayland.windowManager.hyprland.settings = {
     windowrule = [
-      "workspace 1, Alacritty"
+      "workspace 1, alacritty"
 
       "workspace 2, obsidian"
       "workspace 2, title:Quick Format Citation"

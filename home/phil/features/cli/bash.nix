@@ -7,7 +7,7 @@
       historySize = 10000;
       historyFile = "\${HOME}/.bash_history";
       historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
-      historyIgnore = [ "ls" "cd" "exit" ];
+      historyIgnore = [ "ls" "cd" "exit" "reboot" ];
 
       shellAliases = {
         ".." = "cd ..";
