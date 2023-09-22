@@ -7,6 +7,7 @@
     ./bat.nix
     ./git.nix
     ./zoxide.nix
+    ./tmux.nix
   ];
   home.packages = with pkgs; [
     bc

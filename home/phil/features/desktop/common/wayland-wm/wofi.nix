@@ -7,6 +7,7 @@ programs.wofi = {
     enable = true;
 
     settings = {
+      width = "20%";
       lines = 8;
       insensitive = true;
       location = "center";
@@ -15,6 +16,7 @@ programs.wofi = {
 
     style = ''
         * {
+            font: Share Tech Mono;
             font-size: 18px;
         }
         

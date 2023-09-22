@@ -29,4 +29,20 @@ in {
       recolor-darkcolor = "#${colors.base06}";
     };
   };
+
+  #xdg.desktopEntry = {
+  #  zathura = {
+  #    name = "Zathura";
+  #    genericName = "PDF Viewer";
+  #    commend = "Viewer for PDF files";
+  #    exec = "zathura %F";
+  #    mimeType = [ "application/pdf" ];
+  #    type = "Application";
+  #    categories = [ "Utility" ];
+  #  };
+  #};
+
+  xdg.mimeApps.defaultApplications = {
+    "application/pdf" = [ "Zathura.desktop" ];
+  };
 }

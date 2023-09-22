@@ -1,3 +1,7 @@
+{ pkgs, config, ... }:
+let
+  alacritty = "${config.programs.alacritty.package}/bin/alacritty";
+in
 { 
   programs = {
     ncmpcpp = {
@@ -65,6 +69,18 @@
         { key = "d"; command = "delete_stored_playlist"; }
 
       ];
+    };
+  };
+
+  xdg.desktopEntries = {
+    nvim = {
+      name = "ncmpcpp";
+      genericName = "Music Player";
+      comment = "MPC Music Player";
+      exec = "${alacritty} --class ncmpcpp -e ncmpcpp";
+      icon = "ncmpcpp";
+      type = "Application";
+      categories = [ "Utility" "Audio" ];
     };
   };
 }

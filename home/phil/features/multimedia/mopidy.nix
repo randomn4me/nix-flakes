@@ -1,9 +1,5 @@
 { pkgs, config, ... }:
 { 
-  #imports = [
-  #  ./ncmpcpp.nix
-  #];
-
   home = {
     packages = with pkgs; [
       mpc-cli
@@ -20,9 +16,7 @@
         mopidy-mpris
       ];
 
-      extraConfigFiles = [
-        config.home.homeDirectory."/var/extraconfigs/mopidy_spotify.conf"
-      ];
+      extraConfigFiles = [ "/home/phil/var/extraconfigs/mopidy_spotify.conf" ];
 
       settings = {
         file = {
@@ -32,9 +26,6 @@
           ];
         };
 
-        audio = {
-          output = "tee name=t ! queue ! autoaudiosink t. ! queue ! audio/x-raw,rate=44100,channels=2,format=S16LE ! udpsink host=localhost port=5555";
-        };
       };
     };
   };

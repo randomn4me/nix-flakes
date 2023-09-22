@@ -35,28 +35,25 @@ in
     stateVersion = lib.mkDefault "23.05";
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables = {
-      FLAKE = "$HOME/etc";
-      XDG_DESKTOP_DIR = "$HOME/tmp";
-      XDG_DOWNLOAD_DIR = "$HOME/tmp";
-      XDG_DOCUMENTS_DIR = "$HOME/usr/docs";
-      XDG_MUSIC_DIR = "$HOME/usr/music";
-      XDG_PICTURES_DIR = "$HOME/usr/pics";
-      XDG_VIDEOS_DIR = "$HOME/usr/vids";
+      FLAKE = "${config.home.homeDirectory}/etc";
     };
   };
 
   xdg = {
     enable = true;
-    #userDirs = {
-    #  desktop = "${config.home.homeDirectory}/tmp";
-    #  download = "${config.home.homeDirectory}/tmp";
-    #  documents = "${config.home.homeDirectory}/usr/docs";
-    #  music = "${config.home.homeDirectory}/usr/music";
-    #  pictures = "${config.home.homeDirectory}/usr/pics";
-    #  videos = "${config.home.homeDirectory}/usr/vids";
+    userDirs = {
+      enable = true;
+      createDirectories = true;
 
-    #  createDirectories = true;
-    #};
+      desktop = "${config.home.homeDirectory}/tmp";
+      documents = "${config.home.homeDirectory}/usr/docs";
+      download = "${config.home.homeDirectory}/tmp";
+      music = "${config.home.homeDirectory}/usr/music";
+      pictures = "${config.home.homeDirectory}/usr/pics";
+      publicShare = "${config.home.homeDirectory}/var/share";
+      templates = "${config.home.homeDirectory}/var/templates";
+      videos = "${config.home.homeDirectory}/usr/vids";
+    };
   };
 
   colorscheme = lib.mkDefault colorSchemes.rose-pine;

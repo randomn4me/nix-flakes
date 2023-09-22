@@ -17,6 +17,20 @@ in
   programs.alacritty = {
     enable = true;
     settings = {
+      font = {
+        normal = {
+          family = "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          style = "Regular";
+        };
+        italic = {
+          family = "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          style = "Regular";
+        };
+        bold = {
+          family = "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          style = "Bold";
+        };
+      };
       colors = {
         primary = {
           background = "0x${colors.base00}";

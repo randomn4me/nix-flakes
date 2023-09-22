@@ -13,6 +13,8 @@
       "workspace 4, signal"
 
       "workspace 5, firefox"
+
+      "workspace 9, ncmpcpp"
     ];
   };
 }

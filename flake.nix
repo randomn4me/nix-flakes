@@ -23,6 +23,8 @@
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
 
+    #packages = forAllSystems (pkgs: import ./pkgs { inherit pkgs; });
+
     nixosConfigurations = {
       work = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs; };

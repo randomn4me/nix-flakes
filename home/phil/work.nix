@@ -4,7 +4,7 @@
     ./global
     #./features/desktop/wireless
     ./features/desktop/hyprland
-    #./features/multimedia
+    ./features/multimedia
     #./features/pass
   ];
 

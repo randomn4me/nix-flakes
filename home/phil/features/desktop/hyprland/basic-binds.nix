@@ -18,6 +18,10 @@ in {
 
       "ALTSHIFT,e,exit"
 
+      "ALT,TAB,workspace,previous"
+      "ALT,mouse_down,workspace,e+1"
+      "ALT,mouse_up,workspace,e-1"
+
       #"ALT,s,togglesplit"
       #"ALT,f,fullscreen,1"
       #"ALTSHIFT,f,fullscreen,0"
