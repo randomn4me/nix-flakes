@@ -1,4 +1,4 @@
-{ inputs, outputs, config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -22,20 +22,46 @@
     loader.efi.canTouchEfiVariables = true;
   };
 
-  services.printing = {
-    enable = true;
-    drivers = [
-      pkgs.cups-kyodialog
-    ];
+  services = {
+    printing = {
+      enable = true;
+      drivers = [
+        pkgs.cups-kyodialog
+      ];
+    };
+
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      openFirewall = true;
+    };
+
+    udisks2.enable = true; # required by udiskie
   };
 
-  programs.dconf.enable = true;
+  programs = {
+    dconf.enable = true;
+    light.enable = true;
+    adb.enable = true;
+  };
 
-  services.avahi = {
+  xdg.portal = {
     enable = true;
-    nssmdns = true;
-    openFirewall = true;
+    wlr.enable = true;
+  };
+
+  services.clamav = {
+    daemon.enable = true;
+    updater.enable = true;
+  };
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
   };
 
   system.stateVersion = "23.05";
 }
+
+
