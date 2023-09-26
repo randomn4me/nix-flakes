@@ -39,13 +39,13 @@
       '';
     }
 
-    {
-      plugin = rose-pine;
-      type = "lua";
-      config = /* lua */ ''
-        vim.cmd('colorscheme rose-pine')
-      '';
-    }
+    #{
+    #  plugin = rose-pine;
+    #  type = "lua";
+    #  config = /* lua */ ''
+    #    vim.cmd('colorscheme rose-pine')
+    #  '';
+    #}
 
     {
       plugin = gitsigns-nvim;

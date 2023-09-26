@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 {
   programs = {
     bash = {
@@ -9,15 +7,16 @@
       historySize = 10000;
       historyFile = "\${HOME}/.bash_history";
       historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
-      historyIgnore = [ "ls" "cd" "exit" ];
+      historyIgnore = [ "ls" "cd" "exit" "reboot" ];
 
       shellAliases = {
-        ll = "ls -lhF --color=auto";
-        la = "ls -ahF --color=auto";
-
         ".." = "cd ..";
+
+        # saveguard
         rm = "rm -i";
         mv = "mv -i";
+
+        # shorter
         cp = "cp -r";
         mkdir = "mkdir -p";
         o = "xdg-open";
@@ -32,6 +31,7 @@
 
       bashrcExtra = ''
         export PS1="\w >> ";
+        export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share";
       '';
     };
   };

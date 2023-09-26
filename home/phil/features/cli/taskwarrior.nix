@@ -1,11 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 
+let
+  home = config.home.homeDirectory;
+in
 { 
   programs = {
     taskwarrior = {
       enable = true;
 
-      dataLocation = "$HOME/var/task";
+      dataLocation = "${home}/var/task";
       colorTheme = "solarized-dark-256";
 
       config = {
@@ -17,14 +20,18 @@
         search.case.sensitive = "no";
 
         taskd = {
-          # TODO: replace $HOME with home-manager config information
-          certificate = "$HOME/usr/docs/misc/task/philipp.cert.pem";
-          key = "$HOME/usr/docs/misc/task/philipp.key.pem";
-          ca = "$HOME/usr/docs/misc/task/ca.cert.pem";
+          # TODO: replace ${home} with home-manager config information
+          certificate = "${home}/usr/docs/misc/task/r4ndom/public.cert";
+          key = "${home}/usr/docs/misc/task/r4ndom/private.key";
+          ca = "${home}/usr/docs/misc/task/r4ndom/ca.cert";
           server = "audacis.net:53589";
-          credentials = "audacis/philipp/645f4519-332b-4c67-9cda-46ae34fa9494";
+          credentials = "personal/r4ndom/3bc693fb-9fcf-4e20-858d-3785afed332a";
         };
       };
     };
+  };
+
+  services.taskwarrior-sync = {
+    enable = true;
   };
 }

@@ -2,22 +2,22 @@
 {
   imports = [
     ./bash.nix
-    #./bat.nix
-    #./direnv.nix
+    ./bat.nix
+    ./eza.nix
+    ./fzf.nix
     ./git.nix
     ./taskwarrior.nix
+    ./tmux.nix
+    ./zoxide.nix
   ];
   home.packages = with pkgs; [
     bc
-    exa
-    ripgrep
-    fd
     jq
 
-    nil
-    nixfmt
+    ripgrep
+    fd
+    sd
 
-    ltex-ls
+    unzip
   ];
 }
-

@@ -1,6 +1,14 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
+let
+  color = pkgs.writeText "color.vim" (import ./theme.nix config.colorscheme);
+in
 {
   programs.neovim = {
+    extraConfig = ''
+    "Source colorscheme
+    source ${color}
+    '';
+
     extraLuaConfig = ''
       vim.opt.nu = true
       vim.opt.relativenumber = true

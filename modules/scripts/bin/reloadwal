@@ -1,7 +1,0 @@
-#!/bin/sh
-
-CACHEWAL="$HOME/.cache/wal"
-
-test ! -f "$(cat $CACHEWAL/wal)" && exit 1
-
-wal -i $(< $CACHEWAL/wal) -o wal-after &
