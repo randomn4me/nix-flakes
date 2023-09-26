@@ -5,5 +5,6 @@
     ./gtk.nix
     ./qt.nix
     ./playerctl.nix
+    ./banking.nix
   ];
 }

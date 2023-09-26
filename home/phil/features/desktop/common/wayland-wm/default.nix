@@ -15,17 +15,15 @@
     grim
     gtk3 # For gtk-launch
     flatpak
-    imv
-    mimeo
     xwayland
-    #pulseaudio
     slurp
-    #waypipe
     wf-recorder
     wl-clipboard
+
     wl-mirror
     ydotool
     libreoffice
+    feh
   ];
 
   home.sessionVariables = {

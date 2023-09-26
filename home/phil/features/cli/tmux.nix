@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
     programs.tmux = {
         enable = true;
@@ -9,19 +10,12 @@
           set -sg terminal-overrides ",*:RGB"
 
           # Format for the active window:
-          set-window-option -g window-status-current-format '#[fg=green,bg=black]#I:#W '
-
-          # Format for inactive windows:
-          set-window-option -g window-status-format '#I:#W '
-
-          set -g status-left-length 50
-          set -g status-right-length 50
-
-          set -g status-justify centre
-          set -g status-left '#[fg=green,bg=black] '
-
-          set -g status-right ' #[fg=green,bg=black]'
-          set -g status-right '#[fg=green,bg=black] #(date +"%Y-%m-%d %H:%M")'
+          set -g status-right '#(date +"%Y-%m-%d %H:%M")'
         '';
+        plugins = with pkgs.tmuxPlugins; [
+          yank
+          online-status
+          vim-tmux-navigator
+        ];
     };
 }

@@ -11,6 +11,7 @@ let
 
   fd = "${pkgs.fd}/bin/fd";
   bc = "${pkgs.bc}/bin/bc";
+  pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
 in
 {
   programs.waybar = {
@@ -27,20 +28,41 @@ in
         modules-left = [
           "pulseaudio"
           "battery"
-          #"custom/unread-mail"
+          "hyprland/workspaces"
         ];
         modules-center = [
           "mpd"
         ];
         modules-right = [
+          "tray"
           "custom/date"
           "custom/clock"
         ];
 
+        "hyprland/workspaces" = {
+          active-only = true;
+          all-outputs = true;
+          persistent-workspaces = {
+            "*" = 10;
+          };
+          #format = "{icon}";
+          #format-icons = {
+          #  "1" = "";
+          #  "2" = "";
+          #  "3" = "";
+          #  "4" = "";
+          #  "5" = "󰈹";
+          #  "6" = "";
+          #  "7" = "";
+          #  "8" = "";
+          #  "9" = "󰝚";
+          #};
+        };
 
         pulseaudio = {
           format = "{volume}";
           format-muted = "M";
+          on-click = pavucontrol;
         };
 
         mpd = {
@@ -58,6 +80,11 @@ in
           #format-charging = "󰂄 {capacity}";
           #format-plugged = "󰂄 {capacity}";
           onclick = "";
+        };
+
+        tray = {
+          icon-size = 15;
+          spacing = 5;
         };
 
         "custom/clock" = {
@@ -98,22 +125,33 @@ in
         color: #${colors.base00};
       }
 
+      tooltip {
+        background: #${colors.base00};
+        border: 1px solid #${colors.base09};
+      }
+
+      tooltip label {
+        color: #${colors.base05};
+      }
+
       window#waybar {
         background: transparent;
       }
 
-      #pulseaudio {
-        background: #${colors.base09};
+      window#waybar.hidden {
+        opacity: 0.2;
       }
-      #custom-clock {
+
+      #pulseaudio, #custom-clock {
         background: #${colors.base09};
       }
 
-      #battery {
+      #battery, #custom-date {
         background: #${colors.base08};
       }
-      #custom-date {
-        background: #${colors.base08};
+
+      #tray {
+        background: #${colors.base0A};
       }
 
       /*
@@ -130,15 +168,35 @@ in
       }
 
 
+      #workspaces {
+        background-color: #${colors.base03};
+        padding: 0;
+        margin: 0;
+      }
+
+      #workspaces button {
+        padding: 0;
+        margin: 0;
+      }
+
+      #workspaces button.active {
+        background-color: #${colors.base0A};
+        color: #${colors.base0A};
+      }
+
+      #workspaces button.urgent {
+        background-color: #${colors.base0F};
+      }
+
+
       #mpd {
-        background: #${colors.base0D};
+        background: #${colors.base0C};
       }
 
       #mpd.disconnected,
       #mpd.stopped {
         background: transparent;
       }
-
 
     '';
   };

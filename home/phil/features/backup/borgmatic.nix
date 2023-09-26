@@ -4,6 +4,10 @@ let
   home = config.home.homeDirectory;
 in
 {
+  services.borgmatic = {
+    enable = true;
+  };
+
   programs.borgmatic = {
     enable = true;
 
@@ -31,11 +35,18 @@ in
         };
 
         retention = {
-          keepHourly = 12;
-          keepDaily = 10;
+          keepHourly = 6;
+          keepDaily = 14;
           keepWeekly = 8;
           keepMonthly = 6;
-          keepYearly = 4;
+          keepYearly = 3;
+        };
+
+        consistency = {
+          checks = [
+            { name = "repository"; frequency = "1 weeks"; }
+            { name = "archives"; frequency = "2 weeks"; }
+          ];
         };
       };
     };

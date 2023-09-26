@@ -2,17 +2,22 @@
 {
   imports = [
     ./bash.nix
-    ./taskwarrior.nix
-    ./eza.nix
     ./bat.nix
+    ./eza.nix
+    ./fzf.nix
     ./git.nix
-    ./zoxide.nix
+    ./taskwarrior.nix
     ./tmux.nix
+    ./zoxide.nix
   ];
   home.packages = with pkgs; [
     bc
+    jq
+
     ripgrep
     fd
-    jq
+    sd
+
+    unzip
   ];
 }

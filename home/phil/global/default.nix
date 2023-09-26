@@ -7,7 +7,7 @@ in
     inputs.nix-colors.homeManagerModule
     ../features/cli
     ../features/nvim
-  ];# ++ (builtins.attrValues outputs.homeManagerModules);
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
     config = {
@@ -39,6 +39,8 @@ in
     };
   };
 
+  systemd.user.startServices = "sd-switch";
+
   xdg = {
     enable = true;
     userDirs = {
@@ -57,5 +59,5 @@ in
   };
 
   colorscheme = lib.mkDefault colorSchemes.rose-pine;
-  #home.file.".colorscheme".text = config.colorscheme.rose-pine; # TODO what's that
+  home.file.".colorscheme".text = config.colorscheme.slug;
 }

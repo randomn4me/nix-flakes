@@ -1,12 +1,11 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
 {
   imports = [
     ./mappings.nix
     ./setup.nix
     ./lsp.nix
-    ./ui.nix
     ./plugins.nix
+    ./ui.nix
   ];
 
   home.packages = with pkgs; [

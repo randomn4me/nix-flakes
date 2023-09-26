@@ -1,4 +1,4 @@
-{ inputs, outputs, config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -35,6 +35,8 @@
       nssmdns = true;
       openFirewall = true;
     };
+
+    udisks2.enable = true; # required by udiskie
   };
 
   programs = {
@@ -46,6 +48,11 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+  };
+
+  services.clamav = {
+    daemon.enable = true;
+    updater.enable = true;
   };
 
   hardware.opengl = {

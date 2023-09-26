@@ -6,6 +6,9 @@
     ./features/desktop/hyprland
     ./features/multimedia
     ./features/backup
+    #./features/rbw
+
+    ./features/cli/udiskie.nix
     #./features/pass
   ];
 
@@ -15,6 +18,8 @@
     zotero
     obsidian
     signal-desktop
+    thunderbird
+    gnumake
   ];
 
   #monitors = [
@@ -26,5 +31,5 @@
   #  }
   #];
 
-  colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
+  colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 }

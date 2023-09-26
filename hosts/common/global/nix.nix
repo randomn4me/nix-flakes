@@ -1,3 +1,4 @@
+{ inputs, lib, ... }:
 {
   nix = {
     settings = {
@@ -10,5 +11,8 @@
       dates = "weekly";
       options = "--delete-older-than 3d";
     };
+
+    # TODO understand
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
   };
 }

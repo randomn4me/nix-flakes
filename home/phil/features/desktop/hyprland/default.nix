@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -11,9 +11,13 @@
     #./systemd-fixes.nix
   ];
 
+  #home.packages = with pkgs; [
+  #  pkgs.inputs.hyprwm-contrib.grimblast
+  #];
+
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.inputs.hyprland.hyprland;
+    #package = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.hyprland;
 
     systemdIntegration = true;
 
@@ -90,9 +94,9 @@
         ];
       };
 
-      #misc = {
-      #  disable_hyprland_logo = true;
-      #};
+      misc = {
+        force_hypr_chan = true;
+      };
 
       #exec = [
       #  "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
@@ -104,21 +108,24 @@
         makoctl = "${config.services.mako.package}/bin/makoctl";
         wofi = "${config.programs.wofi.package}/bin/wofi";
 
+        #grimblast = "${pkgs.inputs.hyprwm-contrib.grimblast}/bin/grimblast";
+
         pamixer = "${pkgs.pamixer}/bin/pamixer";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
         terminal = config.home.sessionVariables.TERMINAL;
       in [
-        # Program bindings
         "ALT,Return,exec,${terminal}"
-        # Brightness control (only works if the system has lightd)
+
         ",XF86MonBrightnessUp,exec,light -A 5"
         ",XF86MonBrightnessDown,exec,light -U 5"
-        # Volume
+
         ",XF86AudioRaiseVolume,exec,${pamixer} -i 5"
         ",XF86AudioLowerVolume,exec,${pamixer} -d 5"
         ",XF86AudioMute,exec,${pamixer} -t"
         "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+
+        #"ALT,SHIFT,exec,${grimblast} --notify --freeze copy area"
       ] ++
 
       (lib.optionals config.services.playerctld.enable [
