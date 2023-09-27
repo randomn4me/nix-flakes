@@ -8,16 +8,16 @@
     ./tty-init.nix
     ./basic-binds.nix
     ./windowrule.nix
-    #./systemd-fixes.nix
+    ./systemd-fixes.nix
   ];
 
-  #home.packages = with pkgs; [
-  #  pkgs.inputs.hyprwm-contrib.grimblast
-  #];
+  home.packages = [
+    inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast
+  ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    #package = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.hyprland;
+    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     systemdIntegration = true;
 
@@ -35,6 +35,10 @@
         workspace_back_and_forth = true;
         allow_workspace_cycles = true;
       };
+
+      #xwayland = {
+      #  force_zero_scaling = true;
+      #};
 
       input = {
         kb_layout = "de";
@@ -54,20 +58,6 @@
       decoration = {
         #inactive_opacity = 0.75;
         rounding = 5;
-
-        #blur = {
-        #  enabled = false;
-        #  size = 5;
-        #  passes = 3;
-        #  new_optimizations = true;
-        #  ignore_opacity = true;
-        #};
-
-        #drop_shadow = true;
-        #shadow_range = 12;
-        #shadow_offset = "3 3";
-        #"col.shadow" = "0x44000000";
-        #"col.shadow_inactive" = "0x66000000";
       };
 
       animations = {
@@ -108,7 +98,7 @@
         makoctl = "${config.services.mako.package}/bin/makoctl";
         wofi = "${config.programs.wofi.package}/bin/wofi";
 
-        #grimblast = "${pkgs.inputs.hyprwm-contrib.grimblast}/bin/grimblast";
+        grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
 
         pamixer = "${pkgs.pamixer}/bin/pamixer";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
@@ -125,7 +115,7 @@
         "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
 
-        #"ALT,SHIFT,exec,${grimblast} --notify --freeze copy area"
+        "ALTSHIFT,s,exec,${grimblast} --notify --freeze copy area"
       ] ++
 
       (lib.optionals config.services.playerctld.enable [
@@ -157,18 +147,6 @@
       #  "serial:V906A9XY   , 2540x1440@60 , auto     , 1"
       #  "                  , preferred    , auto     , 1.5"
       #];
-
-      #monitor = map (m: let
-      #  resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-      #  position = "${toString m.x}x${toString m.y}";
-      #in
-      #  "${m.name},${if m.enabled then "${resolution},${position},1" else "disable"}"
-      #) (config.monitors);
-
-      #workspace = map (m:
-      #  "${m.name},${m.workspace}"
-      #) (lib.filter (m: m.enabled && m.workspace != null) config.monitors);
-
     };
   };
 }

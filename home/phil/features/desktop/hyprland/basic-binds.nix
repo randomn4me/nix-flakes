@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  workspaces = (map toString (lib.range 0 9));
+  workspaces = (map toString (lib.range 1 9));
   # Map keys to hyprland directions
   directions = rec {
     left = "l" ; right = "r" ; up = "u" ; down = "d" ;
@@ -19,8 +19,8 @@ in {
       "ALTSHIFT,e,exit"
 
       "ALT,TAB,workspace,previous"
-      "ALT,mouse_down,workspace,e+1"
-      "ALT,mouse_up,workspace,e-1"
+      #"ALT,mouse_down,workspace,e+1"
+      #"ALT,mouse_up,workspace,e-1"
 
       #"ALT,s,togglesplit"
       #"ALT,f,fullscreen,1"
@@ -37,8 +37,8 @@ in {
       #"ALT,apostrophe,changegroupactive,f"
       #"ALTSHIFT,apostrophe,changegroupactive,b"
 
-      #"ALT,u,togglespecialworkspace"
-      #"ALTSHIFT,u,movetoworkspace,special"
+      "ALT,u,togglespecialworkspace"
+      "ALTSHIFT,u,movetoworkspace,special"
     ] ++
     # Change workspace
     (map (n:

@@ -2,15 +2,7 @@
 
 let
   # Dependencies
-  pgrep = "${pkgs.procps}/bin/pgrep";
-
   date = "${pkgs.coreutils}/bin/date";
-  ls = "${pkgs.coreutils}/bin/ls";
-  paste = "${pkgs.coreutils}/bin/paste";
-  wc = "${pkgs.coreutils}/bin/wc";
-
-  fd = "${pkgs.fd}/bin/fd";
-  bc = "${pkgs.bc}/bin/bc";
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
 in
 {
@@ -35,16 +27,16 @@ in
         ];
         modules-right = [
           "tray"
-          "custom/date"
-          "custom/clock"
+          "clock"
         ];
 
         "hyprland/workspaces" = {
           active-only = true;
           all-outputs = true;
-          persistent-workspaces = {
-            "*" = 10;
-          };
+          sort-by = "id";
+          #persistent-workspaces = {
+          #  "*" = 10;
+          #};
           #format = "{icon}";
           #format-icons = {
           #  "1" = "";
@@ -57,6 +49,35 @@ in
           #  "8" = "";
           #  "9" = "󰝚";
           #};
+        };
+
+        clock = {
+          interval = 1;
+          format = "{:%d.%m %H:%M}";
+          format-alt = "{:%F %T %z}";
+          tooltip-format = ''
+            <tt><small>{calendar}</small></tt>
+          '';
+          calendar = {
+            mode           = "month";
+            mode-mon-col   = 3;
+            weeks-pos      = "left";
+            on-scroll      = 1;
+            format = let inherit (config.colorscheme) colors; in  {
+              months =   "<span color='#${colors.base05}'><b>{}</b></span>";
+              days =     "<span color='#${colors.base05}'>{}</span>";
+              weeks =    "<span color='#${colors.base0D}'><b>{}</b></span>";
+              weekdays = "<span color='#${colors.base0B}'><b>{}</b></span>";
+              today =    "<span color='#${colors.base0F}'><b>{}</b></span>";
+            };
+          };
+          "actions" =  {
+            on-click-right = "mode";
+            on-click-forward = "tz_up";
+            on-click-backward = "tz_down";
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+          };
         };
 
         pulseaudio = {
@@ -98,14 +119,9 @@ in
           exec = "${date} +%d-%m";
           interval = 60;
         };
-
-        #"custom/unread-mail" = {
-        #  interval = 5;
-        #  exec = "while read -r line; do ${ls} $line | ${wc} -l; done <<< for dir in `${fd} Inbox ~/var/mail`; do ${fd} new $dir; done | ${paste} -sd'+' | ${bc}";
-        #  format = "{}";
-        #};
       };
     };
+
     # Cheatsheet:
     # x -> all sides
     # x y -> vertical, horizontal
@@ -127,7 +143,7 @@ in
 
       tooltip {
         background: #${colors.base00};
-        border: 1px solid #${colors.base09};
+        border: 2px solid #${colors.base09};
       }
 
       tooltip label {
@@ -142,16 +158,12 @@ in
         opacity: 0.2;
       }
 
-      #pulseaudio, #custom-clock {
+      #pulseaudio, #clock {
         background: #${colors.base09};
       }
 
-      #battery, #custom-date {
+      #battery, #tray {
         background: #${colors.base08};
-      }
-
-      #tray {
-        background: #${colors.base0A};
       }
 
       /*
@@ -161,12 +173,8 @@ in
       */
 
       #battery.discharging.critical {
-        background: #${colors.base08};
+        background: #${colors.base0F};
       }
-      #battery.charging {
-        background: #${colors.base0D};
-      }
-
 
       #workspaces {
         background-color: #${colors.base03};
