@@ -22,6 +22,7 @@
     ../common/optional/bluetooth.nix
     ../common/optional/powersaving.nix
     ../common/optional/pipewire.nix
+    ../common/optional/tlp.nix
 
     ../common/optional/docker.nix
   ];
