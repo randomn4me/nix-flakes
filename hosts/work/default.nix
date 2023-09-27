@@ -1,7 +1,18 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
+
   imports = [
+    inputs.hardware.nixosModules.lenovo-thinkpad-t490
+
+    inputs.hardware.nixosModules.common-cpu-intel
+
+    inputs.hardware.nixosModules.common-gpu-intel
+    inputs.hardware.nixosModules.common-gpu-nvidia-disable
+
+    inputs.hardware.nixosModules.common-pc-ssd
+    inputs.hardware.nixosModules.common-pc-laptop-acpi_call
+
     ./hardware-configuration.nix
 
     ../common/global
@@ -11,6 +22,7 @@
     ../common/optional/bluetooth.nix
     ../common/optional/powersaving.nix
     ../common/optional/pipewire.nix
+
     ../common/optional/docker.nix
   ];
 
@@ -60,6 +72,10 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
   };
 
   system.stateVersion = "23.05";

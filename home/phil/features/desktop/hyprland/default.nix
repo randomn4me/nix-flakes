@@ -17,7 +17,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     systemdIntegration = true;
 
@@ -142,7 +142,7 @@
       ]);
 
       #monitor = [
-      #  "eDP-1             , 1920x1080    , auto     , 1"
+      #  "eDP-1             , 1920x1080@60 , auto     , 1"
       #  "DP-2              , 2540x1440@60 , auto     , 1"
       #  "serial:V906A9XY   , 2540x1440@60 , auto     , 1"
       #  "                  , preferred    , auto     , 1.5"
