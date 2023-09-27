@@ -11,6 +11,7 @@
     ../common/optional/bluetooth.nix
     ../common/optional/powersaving.nix
     ../common/optional/pipewire.nix
+    ../common/optional/docker.nix
   ];
 
   networking.hostName = "work";
@@ -37,6 +38,11 @@
     };
 
     udisks2.enable = true; # required by udiskie
+
+    clamav = {
+      daemon.enable = true;
+      updater.enable = true;
+    };
   };
 
   programs = {
@@ -48,11 +54,6 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-  };
-
-  services.clamav = {
-    daemon.enable = true;
-    updater.enable = true;
   };
 
   hardware.opengl = {
