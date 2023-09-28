@@ -8,6 +8,8 @@
     ./features/backup
     #./features/rbw
 
+    ./features/productivity
+
     ./features/cli/udiskie.nix
     #./features/pass
   ];

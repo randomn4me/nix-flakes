@@ -1,12 +1,11 @@
 {
   imports = [
     ./khard.nix
-    ./taskwarrior.nix
     ./vdirsyncer.nix
 
-    ./mailboxes.nix
+    ./mail.nix
     ./neomutt.nix
 
-    ../rbw
+    #../rbw
   ];
 }

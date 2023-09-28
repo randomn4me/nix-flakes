@@ -1,24 +1,8 @@
 { config, pkgs, lib, ... }:
+let
+  khard = "${pkgs.khard}/bin/khard";
+in
 {
-    xdg = {
-    desktopEntries = {
-      neomutt = {
-        name = "Neomutt";
-        genericName = "Email Client";
-        comment = "Read and send emails";
-        exec = "neomutt %U";
-        icon = "mutt";
-        terminal = true;
-        categories = [ "Network" "Email" "ConsoleOnly" ];
-        type = "Application";
-        mimeType = [ "x-scheme-handler/mailto" ];
-      };
-    };
-    mimeApps.defaultApplications = {
-      "x-scheme-handler/mailto" = "neomutt.desktop";
-    };
-  };
-
   programs.neomutt = {
     enable = true;
     vimKeys = true;
@@ -31,7 +15,7 @@
       mark_old = "no";
       text_flowed = "yes";
       reverse_name = "yes";
-      query_command = ''"khard email --parsable '%s'"'';
+      query_command = ''"${khard} email --parsable '%s'"'';
     };
 
     binds = [
@@ -133,4 +117,24 @@
       forward_format = "Fwd: %s";
     };
   };
+
+  xdg = {
+    desktopEntries = {
+      neomutt = {
+        name = "Neomutt";
+        genericName = "Email Client";
+        comment = "Read and send emails";
+        exec = "neomutt %U";
+        icon = "mutt";
+        terminal = true;
+        categories = [ "Network" "Email" "ConsoleOnly" ];
+        type = "Application";
+        mimeType = [ "x-scheme-handler/mailto" ];
+      };
+    };
+    mimeApps.defaultApplications = {
+      "x-scheme-handler/mailto" = "neomutt.desktop";
+    };
+  };
+
 }

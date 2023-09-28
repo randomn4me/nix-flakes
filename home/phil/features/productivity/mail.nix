@@ -1,9 +1,9 @@
 { config, pkgs, lib, ... }:
-{ pkgs, lib, config, ... }:
-
 let
   mbsync = "${config.programs.mbsync.package}/bin/mbsync";
-  rbw = "${config.programs.rbw.package}/bin/rbw";
+  cat = "${pkgs.coreutils}/bin/cat";
+  home = config.home.homeDirectory;
+
 
   common = rec {
     realName = "Philipp Kühn";
@@ -11,12 +11,13 @@ let
 in
 {
   accounts.email = {
-    maildirBasePath = "Mail";
+    maildirBasePath = "${home}/var/mail";
+
     accounts = {
       personal = rec {
         primary = true;
         address = "philipp@audacis.net";
-        passwordCommand = "${rbw} webmail.your-server.de ${address}";
+        passwordCommand = "${cat} ${home}/usr/misc/mail.audacis.net";
 
         imap.host = "mail.your-server.de";
         mbsync = {
@@ -76,28 +77,10 @@ in
     };
   };
 
-  programs.mbsync.enable = true;
   programs.msmtp.enable = true;
+  programs.mbsync.enable = true;
 
-  systemd.user.services.mbsync = {
-    Unit = { Description = "mbsync synchronization"; };
-    Service =
-      let gpgCmds = import ../cli/gpg-commands.nix { inherit pkgs; };
-      in
-      {
-        Type = "oneshot";
-        ExecCondition = ''
-          /bin/sh -c "${gpgCmds.isUnlocked}"
-        '';
-        ExecStart = "${mbsync} -a";
-      };
-  };
-  systemd.user.timers.mbsync = {
-    Unit = { Description = "Automatic mbsync synchronization"; };
-    Timer = {
-      OnBootSec = "30";
-      OnUnitActiveSec = "5m";
-    };
-    Install = { WantedBy = [ "timers.target" ]; };
-  };
+  #services.mbsync = {
+  #  enable = true;
+  #};
 }
