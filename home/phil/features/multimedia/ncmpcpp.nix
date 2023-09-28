@@ -1,6 +1,7 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 let
   alacritty = "${config.programs.alacritty.package}/bin/alacritty";
+  ncmpcpp = "${config.programs.ncmpcpp.package}/bin/ncmpcpp";
 in
 { 
   programs = {
@@ -77,7 +78,7 @@ in
       name = "ncmpcpp";
       genericName = "Music Player";
       comment = "MPC Music Player";
-      exec = "${alacritty} --class ncmpcpp -e ncmpcpp";
+      exec = "${alacritty} --class ncmpcpp -e ${ncmpcpp}";
       icon = "ncmpcpp";
       type = "Application";
       categories = [ "Utility" "Audio" ];
