@@ -1,13 +1,18 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   # Dependencies
   date = "${pkgs.coreutils}/bin/date";
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
+
+  alacritty = "${config.programs.alacritty.package}/bin/alacritty";
+  ncmpcpp = "${config.programs.ncmpcpp.package}/bin/ncmpcpp";
 in
 {
   programs.waybar = {
     enable = true;
+    #package = inputs.waybar.packages.${pkgs.system}.waybar;
+
     systemd.enable = true;
 
     settings = {
@@ -34,21 +39,6 @@ in
           active-only = true;
           all-outputs = true;
           sort-by = "id";
-          #persistent-workspaces = {
-          #  "*" = 10;
-          #};
-          #format = "{icon}";
-          #format-icons = {
-          #  "1" = "";
-          #  "2" = "";
-          #  "3" = "";
-          #  "4" = "";
-          #  "5" = "󰈹";
-          #  "6" = "";
-          #  "7" = "";
-          #  "8" = "";
-          #  "9" = "󰝚";
-          #};
         };
 
         clock = {
@@ -87,19 +77,19 @@ in
         };
 
         mpd = {
-          "interval" = 3;
-          "format" = "{artist} - {title}";
+          interval = 3;
+          format = "{artist} - {title}";
+          on-click = "${alacritty} --class ncmpcpp -e ${ncmpcpp}";
+          format-stopped = "";
+          format-disconnected = "";
         };
 
         battery = {
           interval = 10;
           #format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
           format = "{capacity}";
-          #format = "{icon} {capacity}";
           format-charging = "{capacity}+";
-          format-plugged = "{capacity}+";
-          #format-charging = "󰂄 {capacity}";
-          #format-plugged = "󰂄 {capacity}";
+          format-plugged = "{capacity}";
           onclick = "";
         };
 
@@ -184,12 +174,12 @@ in
 
       #workspaces button {
         padding: 0;
-        margin: 0;
+        margin: 0 2px;
+        min-width: 12px;
       }
 
       #workspaces button.active {
         background-color: #${colors.base0A};
-        color: #${colors.base0A};
       }
 
       #workspaces button.urgent {
@@ -203,6 +193,7 @@ in
 
       #mpd.disconnected,
       #mpd.stopped {
+        color: transparent;
         background: transparent;
       }
 

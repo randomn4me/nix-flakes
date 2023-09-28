@@ -10,6 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-colors.url = "github:misterio77/nix-colors";
+
     # Hyprland
     hyprland = {
       url = "github:hyprwm/hyprland";
@@ -21,7 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-colors.url = "github:misterio77/nix-colors";
+    waybar.url = "github:Alexays/Waybar";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
