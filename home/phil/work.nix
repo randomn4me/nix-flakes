@@ -3,8 +3,8 @@
   imports = [
     ./global
 
-    ./accounts/private
-    ./accounts/peasec
+    ./features/accounts/private
+    ./features/accounts/peasec
 
     #./features/desktop/wireless
     ./features/desktop/hyprland
