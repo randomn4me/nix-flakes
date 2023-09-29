@@ -6,7 +6,6 @@
     ./eza.nix
     ./fzf.nix
     ./git.nix
-    ./taskwarrior.nix
     ./tmux.nix
     ./zoxide.nix
   ];
