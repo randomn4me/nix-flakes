@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./peasec-mail.nix
+  ];
+}

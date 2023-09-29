@@ -2,6 +2,10 @@
 {
   imports = [
     ./global
+
+    ./accounts/private
+    ./accounts/peasec
+
     #./features/desktop/wireless
     ./features/desktop/hyprland
     ./features/multimedia
@@ -20,7 +24,6 @@
     zotero
     obsidian
     signal-desktop
-    thunderbird
     gnumake
   ];
 
