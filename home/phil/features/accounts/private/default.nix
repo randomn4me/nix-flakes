@@ -1,7 +1,6 @@
 {
   imports = [
-    ./audacis-mail.nix
-    ./personalvorstand-mail.nix
+    ./hetzner-mail.nix
 
     #./audacis-contacts.nix
 
