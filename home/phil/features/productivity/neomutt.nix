@@ -203,11 +203,11 @@ in
         key = "<f3>";
         map = [ "index" "pager" ];
       }
-      #{
-      #  action = "<enter-command>source ${home}/.config/neomutt/peasec<enter>><enter>";
-      #  key = "<f4>";
-      #  map = [ "index" ];
-      #}
+      {
+        action = "<sync-mailbox><enter-command>source ${home}/.config/neomutt/peasec<enter><change-folder>!<enter>";
+        key = "<f4>";
+        map = [ "index" "pager" ];
+      }
     ];
 
     changeFolderWhenSourcingAccount = true;
