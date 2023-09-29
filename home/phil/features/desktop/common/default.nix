@@ -1,6 +1,7 @@
 {
   imports = [
     ./banking.nix
+    ./imv.nix
     ./firefox.nix
     ./gtk.nix
     ./playerctl.nix
