@@ -74,7 +74,7 @@ in
   };
 
   xdg.desktopEntries = {
-    nvim = {
+    ncmpcpp = {
       name = "ncmpcpp";
       genericName = "Music Player";
       comment = "MPC Music Player";
