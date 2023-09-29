@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.firefox = {
     enable = true;
 
-    profiles.phil = {
+    profiles.${config.home.username} = {
       bookmarks = { };
       #extensions = with pkgs.inputs.firefox-addons; [
       #  ublock-origin
