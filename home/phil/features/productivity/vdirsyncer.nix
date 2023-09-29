@@ -27,7 +27,7 @@ in
     type = "carddav"
     url = "https://cloud.audacis.net/remote.php/dav/"
     username = "philippkuehn"
-    password.fetch = ["command", "${cat}" "${home}/usr/misc/cloud.audacis.net"]
+    password.fetch = ["command", "${cat}", "${home}/usr/misc/cloud.audacis.net"]
   '';
 
   # services.vdirsyncer.enable = true;
