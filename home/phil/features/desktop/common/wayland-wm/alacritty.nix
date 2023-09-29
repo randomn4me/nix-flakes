@@ -70,7 +70,7 @@ in
           blue = "0x${colors.base0C}";
           magenta = "0x${colors.base0D}";
           cyan = "0x${colors.base0A}";
-          white = "0x${colors.base05}";
+          white = "0x${colors.base06}";
         };
       };
       hints = {
