@@ -33,11 +33,15 @@ in
     sidebar = {
       enable = true;
       width = 20;
-      format = " %D%* %?N?%N/?%S";
+      format = "%D%* %?N?%N/?%S";
     };
 
     settings = {
       color_directcolor = "yes";
+
+      sidebar_sort_method = "path";
+      sidebar_folder_indent = "yes";
+      sidebar_indent_string = " ";
 
       menu_scroll = "yes";
 
@@ -203,11 +207,11 @@ in
         key = "<f3>";
         map = [ "index" "pager" ];
       }
-      {
-        action = "<sync-mailbox><enter-command>source ${home}/.config/neomutt/peasec<enter><change-folder>!<enter>";
-        key = "<f4>";
-        map = [ "index" "pager" ];
-      }
+      #{
+      #  action = "<sync-mailbox><enter-command>source ${home}/.config/neomutt/peasec<enter><change-folder>!<enter>";
+      #  key = "<f4>";
+      #  map = [ "index" "pager" ];
+      #}
     ];
 
     changeFolderWhenSourcingAccount = true;
@@ -238,7 +242,6 @@ in
       
 
       color body         #${colors.base05}   default    "[:;][-o]?[)/(|]"
-      
 
       color body         #${colors.base0D}   default    "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
       
@@ -258,6 +261,7 @@ in
       type = "Application";
       mimeType = [ "x-scheme-handler/mailto" ];
     };
+
     mimeApps.defaultApplications = {
       "x-scheme-handler/mailto" = "neomutt.desktop";
     };
