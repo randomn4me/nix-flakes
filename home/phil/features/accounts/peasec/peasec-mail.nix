@@ -4,7 +4,7 @@ let
   home = config.home.homeDirectory;
 in
 {
-  accounts.email = {
+  accounts.email = rec {
     maildirBasePath = "${home}/var/mail";
 
     accounts = {
@@ -14,7 +14,11 @@ in
         userName = "ba01viny";
         passwordCommand = "${cat} ${home}/usr/misc/ba01viny";
 
-        imap.host = "mail.tu-darmstadt.de";
+        imap = {
+          host = "mail.tu-darmstadt.de";
+          tls.certificatesFile = "${home}/usr/misc/t-telesec_globalroot_class_2.pem";
+        };
+
         smtp = {
           host = "smtp.tu-darmstadt.de";
           port = 465;
@@ -48,21 +52,31 @@ in
           expunge = "both";
         };
 
-        thunderbird = {
-          enable = true;
-          profiles = [ config.home.username ];
-        };
+        #thunderbird = {
+        #  enable = true;
+        #  profiles = [ config.home.username ];
+        #};
 
 
-        neomutt = {
-          enable = true;
-          extraConfig = ''
-          color indicator    #${config.colorscheme.colors.base0F}  black
-          color status       #${config.colorscheme.colors.base0F}  default
-          named-mailboxes Inbox +Inbox Archive +Archiv Sent "+Gesendete Elemente" Drafts +Entw&APw-rfe Junk +Junk-E-Mail Trash "+Gel&APY-schte Elemente"
-          macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
-          '';
-        };
+        #neomutt = {
+        #  enable = true;
+        #  extraMailboxes = [ "Archiv" "Entw&APw-rfe" "Gesendete Elemente" "Junk-E-Mail" "Gel&APY-schte Elemente" ];
+        #  extraConfig = let inherit (config.colorscheme) colors; in ''
+        #  color indicator    #${colors.base0F}  black
+        #  color status       #${colors.base0F}  default
+
+        #  color sidebar_highlight #${colors.base0F} default
+
+        #  named-mailboxes "peasec"    "+Inbox"
+        #  named-mailboxes " archive"  "+Archiv"
+        #  named-mailboxes " sent"     "+Gesendete Elemente"
+        #  named-mailboxes " drafts"   "+Entw&APw-rfe"
+        #  named-mailboxes " junk"     "+Junk-E-Mail"
+        #  named-mailboxes " trash"    "+Gel&APY-schte Elemente"
+
+        #  macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
+        #  '';
+        #};
       };
     };
   };
