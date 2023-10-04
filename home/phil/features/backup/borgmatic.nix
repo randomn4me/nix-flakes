@@ -21,17 +21,18 @@ in
             "${home}/usr"
             "${home}/var"
           ];
+          repositories = [ "ssh://u340000@u340000.your-storagebox.de:23/./backups/t490" ];
 
           excludeHomeManagerSymlinks = true;
 
-          repositories = [
-            "ssh://u340000@u340000.your-storagebox.de:23/./backups/t490"
-          ];
+          extraConfig = {
+            exclude_if_present = [ ".nobackup" ];
+          };
         };
 
         storage = {
           encryptionPasscommand = "${cat} ${home}/usr/misc/borg";
-          extraConfig = { ssh_command =  "ssh -i /home/phil/.ssh/storagebox"; };
+          extraConfig = { ssh_command = "ssh -i /home/phil/.ssh/storagebox"; };
         };
 
         retention = {
@@ -46,9 +47,15 @@ in
           checks = [
             { name = "repository"; frequency = "1 weeks"; }
             { name = "archives"; frequency = "2 weeks"; }
+            { name = "data"; frequency = "6 weeks"; }
+            { name = "extract"; frequency = "6 weeks"; }
           ];
         };
       };
     };
   };
+
+  home.file."usr/vids/movies/.nobackup".text = "";
+  home.file."usr/vids/photos/.nobackup".text = "";
+  home.file."tmp/.nobackup".text = "";
 }
