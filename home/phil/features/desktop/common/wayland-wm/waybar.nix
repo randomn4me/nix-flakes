@@ -89,7 +89,6 @@ in
           #format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
           format = "{capacity}";
           format-charging = "{capacity}+";
-          format-plugged = "{capacity}";
           onclick = "";
         };
 
