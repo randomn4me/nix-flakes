@@ -102,6 +102,8 @@
 
         pamixer = "${pkgs.pamixer}/bin/pamixer";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
+        rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
+
         terminal = config.home.sessionVariables.TERMINAL;
       in [
         "ALT,Return,exec,${terminal}"
@@ -139,6 +141,7 @@
       # Launcher
       (lib.optionals config.programs.wofi.enable [
         "ALT,SPACE,exec,${wofi} -S drun"
+        "ALT,p,exec,${rofi-rbw}"
       ]);
 
       #monitor = [

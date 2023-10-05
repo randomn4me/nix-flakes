@@ -10,7 +10,7 @@
     ./features/desktop/hyprland
     ./features/multimedia
     ./features/backup
-    #./features/rbw
+    ./features/rbw
 
     ./features/productivity
 
