@@ -60,7 +60,7 @@
       plugin = vim-fugitive;
       type = "lua";
       config = /* lua */ ''
-        vim.keymap.set("n", "<leader>G", "<cmd>:Git<cr>", { desc = "Open Git interface" })
+        vim.keymap.set("n", "<leader>g", "<cmd>:Git<cr>", { desc = "Open Git interface" })
       '';
     }
 
