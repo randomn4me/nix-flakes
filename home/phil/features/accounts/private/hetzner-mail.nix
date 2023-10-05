@@ -34,7 +34,6 @@ let
       trash = "Trash";
     };
 
-    signature.showSignature = "append";
 
     thunderbird = {
       enable = true;
@@ -53,16 +52,19 @@ in
           userName = address;
           passwordCommand = "${cat} ${home}/usr/misc/mail.audacis.net";
 
-          signature.text = ''
-            Hi
+          signature = {
+            showSignature = "append";
+            text = ''
+              Hi
 
-            --
+              --
 
-            Philipp Kühn
-            ${address}
+              Philipp Kühn
+              ${address}
 
-            https://email.is-not-s.ms/
-          '';
+              https://email.is-not-s.ms/
+            '';
+          };
 
           neomutt = {
             enable = true;
@@ -89,32 +91,35 @@ in
           userName = address;
           passwordCommand = "${cat} ${home}/usr/misc/personalvorstand";
 
-          signature.text = ''
-            Hi
-            Cheers,
-            Philipp
+          signature = {
+            showSignature = "append";
+            text = ''
+              Hi
+              Cheers,
+              Philipp
 
-            --
-            Philipp Kühn
-            Personalvorstand
+              --
+              Philipp Kühn
+              Personalvorstand
 
-            uniKITA Darmstadt e.V.
-            El-Lissitzky-Str. 5
-            64287 Darmstadt
+              uniKITA Darmstadt e.V.
+              El-Lissitzky-Str. 5
+              64287 Darmstadt
 
-            personalvorstand@unikita-darmstadt.de
-            www.unikita-darmstadt.de
+              personalvorstand@unikita-darmstadt.de
+              www.unikita-darmstadt.de
 
-            Meine Arbeitszeiten sind nicht unbedingt deine Arbeitszeiten.
-            Bitte fühle dich nicht verpflichtet, außerhalb deiner normalen Arbeitszeiten zu
-            antworten.
+              Meine Arbeitszeiten sind nicht unbedingt deine Arbeitszeiten.
+              Bitte fühle dich nicht verpflichtet, außerhalb deiner normalen Arbeitszeiten zu
+              antworten.
 
-            Diese Mail enthält vertrauliche und rechtlich geschützte Informationen. Wenn du
-            nicht der richtige Adressat bist und diese Mail irrtümlich erhalten hast,
-            informieren mich bitte sofort und vernichte diese Mail.
+              Diese Mail enthält vertrauliche und rechtlich geschützte Informationen. Wenn du
+              nicht der richtige Adressat bist und diese Mail irrtümlich erhalten hast,
+              informieren mich bitte sofort und vernichte diese Mail.
 
-            https://email.is-not-s.ms/
-          '';
+              https://email.is-not-s.ms/
+            '';
+          };
 
           neomutt = {
             enable = true;
