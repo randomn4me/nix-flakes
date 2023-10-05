@@ -25,6 +25,7 @@
     obsidian
     signal-desktop
     gnumake
+    openconnect
   ];
 
   #monitors = [
