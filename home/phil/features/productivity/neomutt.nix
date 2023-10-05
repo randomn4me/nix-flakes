@@ -58,6 +58,8 @@ in
       sig_on_top = "yes";
 
       postpone = "ask-yes";
+
+      sendmail_wait = "-1";
       
       abort_noattach = "ask-yes";
       abort_noattach_regex = ''"\\<(anhängen|angehängt|anhang|anhänge|hängt an|anbei|attach|attached|attachments|append)\\>"'';
@@ -250,22 +252,20 @@ in
 
   };
 
-  xdg = {
-    desktopEntries.neomutt = {
-      name = "neomutt";
-      genericName = "Email Client";
-      comment = "Read and mails emails";
-      exec = "TERM=xterm-direct ${alacritty} --class neomutt -e ${neomutt}";
-      icon = "mutt";
-      categories = [ "Network" "Email" "ConsoleOnly" ];
-      type = "Application";
-      mimeType = [ "x-scheme-handler/mailto" ];
-    };
+  xdg.desktopEntries.neomutt = {
+    name = "neomutt";
+    genericName = "Email Client";
+    comment = "Read and mails emails";
+    exec = "TERM=xterm-direct ${alacritty} --class neomutt -e ${neomutt}";
+    icon = "mutt";
+    type = "Application";
+    categories = [ "Network" "Email" ];
+  };
 
-    mimeApps.defaultApplications = {
-      "x-scheme-handler/mailto" = "neomutt.desktop";
-    };
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/mailto" = "neomutt.desktop";
   };
 
   programs.bash.shellAliases.neomutt = "TERM=xterm-direct ${neomutt}";
+  programs.bash.shellAliases.mutt = "neomutt";
 }
