@@ -39,6 +39,14 @@
       '';
     }
 
+    # TODO
+    #{
+    #  plugin = heirline-nvim;
+    #  type = "lua";
+    #  config = "
+    #  ";
+    #}
+
     #{
     #  plugin = rose-pine;
     #  type = "lua";
