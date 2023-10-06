@@ -16,11 +16,38 @@ in
 
         default.due = "2h";
 
-        report.maybe.filter = "status:pending and +maybe";
+        report = {
+          maybe = {
+            columns = [ "id" "project" "tags" "description" ];
+            labels = [ "ID" "Project" "Tags" "Description" ];
+            filter = "status:pending and +maybe";
+          };
+
+          next.filter = "status:pending and -maybe";
+        };
+
         search.case.sensitive = "no";
 
+        urgency = {
+          uda.priority = {
+            H.coefficient = 6.0;
+            M.coefficient = 3.0;
+            L.coefficient = -1.0;
+          };
+
+          project.coefficient = 0;
+          tags.coefficient = 0;
+          scheduled.coefficient = 0;
+          age.coefficient = 0;
+
+          user.tag = {
+            mail.coefficient = 2;
+            call.coefficient = 2;
+            unikita.coefficient = -0.5;
+          };
+        };
+
         taskd = {
-          # TODO: replace ${home} with home-manager config information
           certificate = "${home}/usr/docs/misc/task/r4ndom/public.cert";
           key = "${home}/usr/docs/misc/task/r4ndom/private.key";
           ca = "${home}/usr/docs/misc/task/r4ndom/ca.cert";
