@@ -19,7 +19,7 @@
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
-    systemdIntegration = true;
+    systemd.enable = true;
 
     settings = {
       general = {
@@ -100,22 +100,11 @@
 
         grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
 
-        pamixer = "${pkgs.pamixer}/bin/pamixer";
-        pactl = "${pkgs.pulseaudio}/bin/pactl";
         rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
 
         terminal = config.home.sessionVariables.TERMINAL;
       in [
         "ALT,Return,exec,${terminal}"
-
-        ",XF86MonBrightnessUp,exec,light -A 5"
-        ",XF86MonBrightnessDown,exec,light -U 5"
-
-        ",XF86AudioRaiseVolume,exec,${pamixer} -i 5"
-        ",XF86AudioLowerVolume,exec,${pamixer} -d 5"
-        ",XF86AudioMute,exec,${pamixer} -t"
-        "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
-        ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
 
         "ALTSHIFT,s,exec,${grimblast} --notify --freeze copy area"
       ] ++
@@ -143,6 +132,20 @@
         "ALT,SPACE,exec,${wofi} -S drun"
         "ALT,p,exec,${rofi-rbw}"
       ]);
+
+      binde = let
+        pamixer = "${pkgs.pamixer}/bin/pamixer";
+        pactl = "${pkgs.pulseaudio}/bin/pactl";
+      in [
+        ",XF86MonBrightnessUp,exec,light -A 5"
+        ",XF86MonBrightnessDown,exec,light -U 5"
+
+        ",XF86AudioRaiseVolume,exec,${pamixer} -i 5"
+        ",XF86AudioLowerVolume,exec,${pamixer} -d 5"
+        ",XF86AudioMute,exec,${pamixer} -t"
+        "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+        ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+      ];
 
       #monitor = [
       #  "eDP-1             , 1920x1080@60 , auto     , 1"
