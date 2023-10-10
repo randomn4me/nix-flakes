@@ -42,11 +42,11 @@ in {
     ] ++
     # Change workspace
     (map (n:
-      "ALT,${n},workspace,name:${n}"
+      "ALT,${n},workspace,${n}"
     ) workspaces) ++
     # Move window to workspace
     (map (n:
-      "ALTSHIFT,${n},movetoworkspacesilent,name:${n}"
+      "ALTSHIFT,${n},movetoworkspacesilent,${n}"
     ) workspaces) ++
     # Move focus
     (lib.mapAttrsToList (key: direction:
