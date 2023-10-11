@@ -252,20 +252,23 @@ in
 
   };
 
-  xdg.desktopEntries.neomutt = {
-    name = "neomutt";
-    genericName = "Email Client";
-    comment = "Read and mails emails";
-    exec = "TERM=xterm-direct ${alacritty} --class neomutt -e ${neomutt}";
-    icon = "mutt";
-    type = "Application";
-    categories = [ "Network" "Email" ];
+  xdg = {
+    desktopEntries = {
+      neomutt = {
+        name = "Neomutt";
+        genericName = "Email Client";
+        comment = "Read and send emails";
+        exec = "${alacritty} --class neomutt -e ${neomutt} %U";
+        icon = "mutt";
+        categories = [ "Network" "Email" "ConsoleOnly" ];
+        type = "Application";
+        mimeType = [ "x-scheme-handler/mailto" ];
+      };
+    };
+    mimeApps.defaultApplications = {
+      "x-scheme-handler/mailto" = "neomutt.desktop";
+    };
   };
 
-  xdg.mimeApps.defaultApplications = {
-    "x-scheme-handler/mailto" = "neomutt.desktop";
-  };
-
-  programs.bash.shellAliases.neomutt = "TERM=xterm-direct ${neomutt}";
   programs.bash.shellAliases.mutt = "neomutt";
 }

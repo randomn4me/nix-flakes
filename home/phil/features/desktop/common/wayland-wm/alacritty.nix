@@ -17,6 +17,10 @@ in
   programs.alacritty = {
     enable = true;
     settings = {
+      env = {
+        TERM = "xterm-direct";
+      };
+
       font = {
         normal = {
           family = "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
@@ -31,6 +35,7 @@ in
           style = "Bold";
         };
       };
+
       colors = {
         primary = {
           background = "0x${colors.base00}";
