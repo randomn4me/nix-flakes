@@ -9,6 +9,11 @@
           set -g default-terminal "tmux-256color"
           set -sg terminal-overrides ",*:RGB"
 
+          set -gw mode-keys vi
+
+          set-option -g renumber-windows on  # otherwise we might end up with window-numbers 1 2 4 7
+          set -g base-index 1
+
           set -g status-interval 5
 
           set -g status-bg "#${colors.base02}"
