@@ -47,8 +47,8 @@ in
           checks = [
             { name = "repository"; frequency = "1 weeks"; }
             { name = "archives"; frequency = "2 weeks"; }
-            { name = "data"; frequency = "6 weeks"; }
-            { name = "extract"; frequency = "6 weeks"; }
+            { name = "data"; frequency = "8 weeks"; }
+            { name = "extract"; frequency = "8 weeks"; }
           ];
         };
       };
