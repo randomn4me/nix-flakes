@@ -24,6 +24,12 @@
     };
 
     waybar.url = "github:Alexays/Waybar";
+
+    # vim plugins
+    harpoon = {
+      url = "github:ThePrimeagen/harpoon";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:

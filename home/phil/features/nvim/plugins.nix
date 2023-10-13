@@ -1,6 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
-  programs.neovim.plugins = with pkgs.vimPlugins; [
+  programs.neovim.plugins = with pkgs.vimPlugins;
+  let
+    harpoon = pkgs.vimUtils.buildVimPlugin {
+      name = "harpoon";
+      src = inputs.harpoon;
+    };
+  in [
     vim-nix
     vim-markdown
 
