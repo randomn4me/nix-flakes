@@ -33,6 +33,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "sg" ]; # for makemkv
 
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;

@@ -5,7 +5,6 @@
 
       "workspace 2, obsidian"
       "workspace 2, title:Quick Format Citation"
-      "workspace 2, zathura"
 
       "workspace 3, Zotero"
       "workspace 3, libreoffice"
