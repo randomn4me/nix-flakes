@@ -11,7 +11,6 @@
       "workspace 3, libreoffice"
 
       "workspace 4, neomutt"
-      "workspace 4, thunderbird"
       "workspace 4, Signal"
 
       "workspace 5, firefox"

@@ -7,6 +7,5 @@
     ./mpv.nix
     ./playerctl.nix
     ./qt.nix
-    ./thunderbird.nix
   ];
 }
