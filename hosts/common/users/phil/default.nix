@@ -10,6 +10,8 @@
       "wheel"
       "video"
       "network"
+      "scanner"
+      "lp"
     ];
 
     packages = [ pkgs.home-manager ];

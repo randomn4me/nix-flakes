@@ -24,6 +24,7 @@
     ../common/optional/tlp.nix
     ../common/optional/bluetooth.nix
     ../common/optional/pipewire.nix
+    ../common/optional/scanning.nix
 
     ../common/optional/docker.nix
   ];
