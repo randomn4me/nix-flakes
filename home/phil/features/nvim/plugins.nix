@@ -25,6 +25,25 @@
     }
 
     {
+      plugin = telescope-undo-nvim;
+      type = "lua";
+      config = /* lua */ ''
+        require("telescope").setup({
+          extensions = {
+            undo = {
+              side_by_side = true,
+              layout_config = {
+                preview_height = 0.8,
+              },
+            },
+          },
+        })
+
+        vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+      '';
+    }
+
+    {
       plugin = harpoon;
       type = "lua";
       config = /* lua */ ''
