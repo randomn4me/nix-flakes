@@ -6,7 +6,6 @@
     ./features/accounts/private
     ./features/accounts/peasec
 
-    #./features/desktop/wireless
     ./features/desktop/hyprland
     ./features/multimedia
     ./features/backup
@@ -15,7 +14,6 @@
     ./features/productivity
 
     ./features/cli/udiskie.nix
-    #./features/pass
   ];
 
   home.packages = with pkgs; [
@@ -27,16 +25,8 @@
     gnumake
     watchexec
     openconnect
+    pandoc
   ];
-
-  #monitors = [
-  #  {
-  #    name = "eDP-1";
-  #    width = 1920;
-  #    height = 1080;
-  #    primary = true;
-  #  }
-  #];
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 }

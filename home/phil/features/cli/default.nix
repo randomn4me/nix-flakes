@@ -17,6 +17,7 @@
     fd
     sd
 
+    zip
     unzip
   ];
 }
