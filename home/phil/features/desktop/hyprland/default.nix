@@ -147,12 +147,11 @@
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
-      #monitor = [
-      #  "eDP-1             , 1920x1080@60 , auto     , 1"
-      #  "DP-2              , 2540x1440@60 , auto     , 1"
-      #  "serial:V906A9XY   , 2540x1440@60 , auto     , 1"
-      #  "                  , preferred    , auto     , 1.5"
-      #];
+      monitor = [
+        "eDP-1             , preferred , auto     , 1.5"
+        "DP-2              , preferred , auto     , 1"
+        "                  , preferred , auto     , 1.5"
+      ];
     };
   };
 }
