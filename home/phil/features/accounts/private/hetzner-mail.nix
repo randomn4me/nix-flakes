@@ -140,6 +140,31 @@ in
             '';
           };
         } // common;
+
+        sink = rec {
+          address = "sink@audacis.net";
+          userName = address;
+          passwordCommand = "${cat} ${home}/usr/misc/sink.audacis.net";
+
+          neomutt = {
+            enable = true;
+            extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
+            extraConfig = ''
+              named-mailboxes "sink"   "+Inbox"
+              named-mailboxes " archive"  "+Archive"
+              named-mailboxes " sent"     "+Sent"
+              named-mailboxes " drafts"   "+Drafts"
+              named-mailboxes " trash"    "+Trash"
+
+              color indicator    #${config.colorscheme.colors.base0D}  black
+              color status       #${config.colorscheme.colors.base0D}  default
+
+              color sidebar_highlight  #${config.colorscheme.colors.base0D}  default
+
+              macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
+            '';
+          };
+        } // common;
       };
     };
 
