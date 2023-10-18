@@ -2,6 +2,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./kanshi.nix
     ./mako.nix
     ./swayidle.nix
     ./swaylock.nix
