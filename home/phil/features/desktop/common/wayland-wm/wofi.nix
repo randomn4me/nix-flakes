@@ -3,7 +3,7 @@ let
   inherit (config.colorscheme) colors;
 in
 {
-programs.wofi = {
+  programs.wofi = {
     enable = true;
 
     settings = {
@@ -48,6 +48,24 @@ programs.wofi = {
         #inner-box {
             margin: 4px;
         }
+    '';
+  };
+
+  home.file.".local/bin/shutdown-menu" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+
+      res=$(printf "logout\nreboot\nsuspend\nshutdown" | wofi --show dmenu)
+
+      case "$res" in
+        "logout")   loginctl terminate-user ${config.home.username} ;;
+        "reboot")   systemctl reboot ;;
+        "suspend")  systemctl suspend ;;
+        "shutdown") systemctl poweroff ;;
+      esac
+
+      exit 0
     '';
   };
 }

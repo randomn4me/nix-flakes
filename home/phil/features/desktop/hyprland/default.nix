@@ -131,6 +131,7 @@
       (lib.optionals config.programs.wofi.enable [
         "ALT,SPACE,exec,${wofi} -S drun"
         "ALT,p,exec,${rofi-rbw}"
+        "ALTSHIFT,q,exec,shutdown-menu" # TODO
       ]);
 
       binde = let
