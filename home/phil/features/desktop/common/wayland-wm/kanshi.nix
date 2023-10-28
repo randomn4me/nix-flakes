@@ -1,4 +1,7 @@
+{ pkgs, ... }:
 {
+  home.packages = [ pkgs.kanshi ];
+
   services.kanshi = {
     enable = true;
 
@@ -20,7 +23,7 @@
             status = "disable";
           }
           {
-            criteria = "Lenovo Group Limited P27h-30 V30A4CH5";
+            criteria = "DP-2";
             #mode = "2540x1440@@59.951Hz";
             status = "enable";
             scale = 1.0;
