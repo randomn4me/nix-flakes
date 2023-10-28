@@ -61,6 +61,10 @@
     };
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "zotero-6.0.27"
+  ];
+
   programs = {
     dconf.enable = true;
     light.enable = true;
