@@ -85,7 +85,7 @@
       };
 
       misc = {
-        force_hypr_chan = true;
+        force_default_wallpaper = 0;
       };
 
       #exec = [
