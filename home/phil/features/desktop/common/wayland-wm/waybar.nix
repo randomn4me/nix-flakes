@@ -64,7 +64,7 @@ in
               today =    "<span color='#${colors.base0F}'><b>{}</b></span>";
             };
           };
-          "actions" =  {
+          actions =  {
             on-click-right = "mode";
             on-click-forward = "tz_up";
             on-click-backward = "tz_down";
