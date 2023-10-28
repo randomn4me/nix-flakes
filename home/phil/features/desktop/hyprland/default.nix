@@ -32,7 +32,6 @@
       };
 
       binds = {
-        workspace_back_and_forth = true;
         allow_workspace_cycles = true;
       };
 
@@ -131,15 +130,16 @@
       (lib.optionals config.programs.wofi.enable [
         "ALT,SPACE,exec,${wofi} -S drun"
         "ALT,p,exec,${rofi-rbw}"
-        "ALTSHIFT,q,exec,shutdown-menu" # TODO
+        "ALTSHIFT,q,exec,shutdown-menu" # TODO add as package and use here
       ]);
 
       binde = let
+        light = "${pkgs.light}/bin/light";
         pamixer = "${pkgs.pamixer}/bin/pamixer";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
       in [
-        ",XF86MonBrightnessUp,exec,light -A 5"
-        ",XF86MonBrightnessDown,exec,light -U 5"
+        ",XF86MonBrightnessUp,exec,${light} -A 5"
+        ",XF86MonBrightnessDown,exec,${light} -U 5"
 
         ",XF86AudioRaiseVolume,exec,${pamixer} -i 5"
         ",XF86AudioLowerVolume,exec,${pamixer} -d 5"
