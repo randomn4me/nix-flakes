@@ -15,10 +15,6 @@
     slurp
     grim
 
-    gtk3 # For gtk-launch
-
-    flatpak
-
     wf-recorder
     wl-clipboard
 
@@ -26,8 +22,6 @@
 
     wl-mirror
     ydotool
-
-    libreoffice
   ];
 
   home.sessionVariables = {
