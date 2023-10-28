@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   # Dependencies
@@ -13,7 +13,10 @@ in
     enable = true;
     #package = inputs.waybar.packages.${pkgs.system}.waybar;
 
-    systemd.enable = true;
+    systemd = {
+      enable = true;
+      target = "hyprland-session.target";
+    };
 
     settings = {
       primary = {
@@ -167,17 +170,24 @@ in
 
       #workspaces {
         background-color: #${colors.base03};
-        padding: 0;
-        margin: 0;
       }
 
       #workspaces button {
         padding: 0;
-        margin: 0 2px;
-        min-width: 12px;
+        margin: 0;
+
+        border: none;
+        border-radius: 0;
+
+        box-shadow: inset 0 -3px transparent;
+        text-shadow: inherit;
       }
 
       #workspaces button.active {
+        background-color: #${colors.base09};
+      }
+
+      #workspaces button:hover {
         background-color: #${colors.base0A};
       }
 
