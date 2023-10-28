@@ -7,6 +7,7 @@
     aliases = {
       graph = "log --decorate --oneline --graph";
       st = "status";
+      tree = "log --oneline --graph --decorate --all";
     };
 
     userName = "Philipp Kühn";
