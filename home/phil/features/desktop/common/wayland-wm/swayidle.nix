@@ -4,10 +4,16 @@ let
   swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   pgrep = "${pkgs.procps}/bin/pgrep";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
+
+  chayang = "${pkgs.chayang}/bin/chayang";
+
   hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
   swaymsg = "${config.wayland.windowManager.sway.package}/bin/swaymsg";
 
   isLocked = "${pgrep} -x ${swaylock}";
+
+  dimStartTime = 210; # 3.5 * 60
+  dimTime = 30; # 0.5 * 60
   lockTime = 4 * 60;
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
@@ -21,6 +27,11 @@ in
     enable = true;
     systemdTarget = "graphical-session.target";
     timeouts =
+      # Start lock sequence by dimming
+      [{
+        timeout = dimStartTime;
+        command = "${chayang} -d ${toString dimTime}";
+      }] ++
       # Lock screen
       [{
         timeout = lockTime;
