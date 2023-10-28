@@ -3,6 +3,16 @@
     enable = true;
 
     profiles = {
+      primary = {
+        outputs = [
+          {
+            criteria = "eDP-1";
+            status = "enable";
+            scale = 1.5;
+          }
+        ];
+      };
+
       secondary = {
         outputs = [
           {
@@ -14,16 +24,6 @@
             #mode = "2540x1440@@59.951Hz";
             status = "enable";
             scale = 1.0;
-          }
-        ];
-      };
-
-      primary = {
-        outputs = [
-          {
-            criteria = "eDP-1";
-            status = "enable";
-            scale = 1.5;
           }
         ];
       };

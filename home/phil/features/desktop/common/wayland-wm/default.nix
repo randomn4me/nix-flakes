@@ -1,29 +1,33 @@
 { pkgs, ... }:
 {
   imports = [
-    ./kanshi.nix
+    #./kanshi.nix # TODO understand kanshi more until I can use it
     ./mako.nix
     ./swayidle.nix
     ./swaylock.nix
     ./waybar.nix
     ./wofi.nix
-    ./zathura.nix
   ];
 
   xdg.mimeApps.enable = true;
   home.packages = with pkgs; [
-    grim
-    gtk3 # For gtk-launch
-    flatpak
     xwayland
     slurp
+    grim
+
+    gtk3 # For gtk-launch
+
+    flatpak
+
     wf-recorder
     wl-clipboard
 
+    chayang
+
     wl-mirror
     ydotool
+
     libreoffice
-    feh
   ];
 
   home.sessionVariables = {
