@@ -28,7 +28,7 @@ in
         modules-left = [
           "pulseaudio"
           "battery"
-          "hyprland/workspaces"
+          #"hyprland/workspaces"
         ];
         modules-center = [
           "mpd"
