@@ -7,13 +7,17 @@
     ./features/accounts/peasec
 
     ./features/desktop/hyprland
-    ./features/multimedia
+    # ./features/multimedia
     ./features/backup
     ./features/rbw
 
     ./features/productivity
 
-    ./features/cli/udiskie.nix
+    # ./features/cli/udiskie.nix
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "zotero-6.0.27"
   ];
 
   home.packages = with pkgs; [
