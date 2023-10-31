@@ -167,11 +167,4 @@ in
         } // common;
       };
     };
-
-    programs.msmtp.enable = true;
-    programs.mbsync.enable = true;
-
-    services.mbsync = {
-      enable = true;
-    };
   }
