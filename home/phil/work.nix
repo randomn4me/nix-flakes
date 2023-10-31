@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, ... }:
 {
   imports = [
     ./global
@@ -8,13 +8,13 @@
 
     ./features/desktop/hyprland
     # ./features/desktop/cwm
-    # ./features/multimedia
+    ./features/multimedia
     ./features/backup
     ./features/rbw
 
     ./features/productivity
 
-    # ./features/cli/udiskie.nix
+    ./features/cli/udiskie.nix
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
