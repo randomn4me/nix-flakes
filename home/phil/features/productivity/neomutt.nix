@@ -17,7 +17,6 @@ in
   ];
 
   xdg.configFile."mailcap".text = ''
-      text/plain; ${cat} %s; copiousoutput;
       text/html; ${w3m} -I %{charset} -T text/html; copiousoutput;
 
       image/*; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s); rm /tmp/mutt/%s;

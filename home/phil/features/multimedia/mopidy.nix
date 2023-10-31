@@ -11,18 +11,18 @@
       enable = true;
 
       extensionPackages = with pkgs; [
-        mopidy-spotify
         mopidy-mpd
         mopidy-mpris
+        #mopidy-spotify # TODO mopidy-spotify currently not working
       ];
 
-      extraConfigFiles = [ "/home/phil/var/extraconfigs/mopidy_spotify.conf" ];
+      #extraConfigFiles = [ "${config.home.homeDirectory}/var/extraconfigs/mopidy_spotify.conf" ];
 
       settings = {
         file = {
           media_dirs = [
             "$XDG_MUSIC_DIR|music"
-            "~/usr/hoerbuecher|audiobooks"
+            "${config.home.homeDirectory}/usr/hoerbuecher|audiobooks"
           ];
         };
 
