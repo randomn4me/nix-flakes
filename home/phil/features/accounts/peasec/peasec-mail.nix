@@ -46,11 +46,11 @@ in
           '';
         };
 
-        mbsync = {
-          enable = true;
-          create = "both";
-          expunge = "both";
-        };
+        #mbsync = {
+        #  enable = true;
+        #  create = "both";
+        #  expunge = "both";
+        #};
 
         #thunderbird = {
         #  enable = true;
