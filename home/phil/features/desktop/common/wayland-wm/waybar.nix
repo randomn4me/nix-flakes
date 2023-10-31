@@ -7,6 +7,27 @@ let
 
   alacritty = "${config.programs.alacritty.package}/bin/alacritty";
   ncmpcpp = "${config.programs.ncmpcpp.package}/bin/ncmpcpp";
+  neomutt = "${config.programs.neomutt.package}/bin/neomutt";
+
+  wc = "${pkgs.coreutils}/bin/wc";
+  printf = "${pkgs.coreutils}/bin/printf";
+  pgrep = "${pkgs.procps}/bin/pgrep";
+
+  jq = "${pkgs.jq}/bin/jq";
+  find = "${pkgs.findutils}/bin/find";
+
+  # Function to simplify making waybar outputs
+  jsonOutput = name: { pre ? "", text ? "", tooltip ? "", alt ? "", class ? "", percentage ? "" }: "${pkgs.writeShellScriptBin "waybar-${name}" ''
+    set -euo pipefail
+    ${pre}
+    ${jq} -cn \
+    --arg text "${text}" \
+    --arg tooltip "${tooltip}" \
+    --arg alt "${alt}" \
+    --arg class "${class}" \
+    --arg percentage "${percentage}" \
+    '{text:$text,tooltip:$tooltip,alt:$alt,class:$class,percentage:$percentage}'
+  ''}/bin/waybar-${name}";
 in
 {
   programs.waybar = {
@@ -28,11 +49,12 @@ in
         modules-left = [
           "pulseaudio"
           "battery"
+          "custom/mail"
           #"hyprland/workspaces"
         ];
-        modules-center = [
-          "mpd"
-        ];
+        #modules-center = [
+        #  "mpd"
+        #];
         modules-right = [
           "tray"
           "clock"
@@ -89,10 +111,9 @@ in
 
         battery = {
           interval = 10;
-          #format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
           format = "{capacity}";
           format-charging = "{capacity}+";
-          onclick = "";
+          on-click = "";
         };
 
         tray = {
@@ -110,6 +131,40 @@ in
           format = "{}";
           exec = "${date} +%d-%m";
           interval = 60;
+        };
+
+        "custom/mail" = {
+          interval = 1;
+          format = "{}";
+          return-type = "json";
+          exec = jsonOutput "new-mails" {
+            pre = let
+              inherit (builtins) concatStringsSep attrValues filter;
+              email_accounts = filter (acc: acc.mbsync.enable) (attrValues config.accounts.email.accounts);
+            in ''
+              total_count=$(${find} ${config.home.homeDirectory}/var/mail/*/Inbox/new -type f | ${wc} -l)
+
+              ${concatStringsSep "\n" (map (acc : ''
+                new_${acc.name}=$(${find} ${config.home.homeDirectory}/var/mail/${acc.name}/Inbox/new -type f | ${wc} -l)
+              '') email_accounts)}
+
+              tooltip=$(${printf} "${concatStringsSep "" (map (acc : ''
+                ${acc.name}: $new_${acc.name}
+              '') email_accounts)}")
+
+              if ${pgrep} mbsync &>/dev/null; then
+                status="syncing"
+              else if [ "$total_count" == "0" ]; then
+                  status="read"
+                else
+                  status="unread"
+                fi
+              fi
+            '';
+            text = "$total_count";
+            tooltip = "$tooltip";
+          };
+          on-click = "${alacritty} --class neomutt -e ${neomutt}";
         };
       };
     };
@@ -158,41 +213,12 @@ in
         background: #${colors.base08};
       }
 
-      /*
       #custom-mail {
         background: #${colors.base0C};
       }
-      */
 
       #battery.discharging.critical {
         background: #${colors.base0F};
-      }
-
-      #workspaces {
-        background-color: #${colors.base03};
-      }
-
-      #workspaces button {
-        padding: 0;
-        margin: 0;
-
-        border: none;
-        border-radius: 0;
-
-        box-shadow: inset 0 -3px transparent;
-        text-shadow: inherit;
-      }
-
-      #workspaces button.active {
-        background-color: #${colors.base09};
-      }
-
-      #workspaces button:hover {
-        background-color: #${colors.base0A};
-      }
-
-      #workspaces button.urgent {
-        background-color: #${colors.base0F};
       }
 
 
