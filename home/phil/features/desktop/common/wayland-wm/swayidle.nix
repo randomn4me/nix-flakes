@@ -28,10 +28,10 @@ in
     systemdTarget = "graphical-session.target";
     timeouts =
       # Start lock sequence by dimming
-      [{
-        timeout = dimStartTime;
-        command = "${chayang} -d ${toString dimTime}";
-      }] ++
+      #[{
+      #  timeout = dimStartTime;
+      #  command = "${chayang} -d ${toString dimTime}";
+      #}] ++
       # Lock screen
       [{
         timeout = lockTime;
