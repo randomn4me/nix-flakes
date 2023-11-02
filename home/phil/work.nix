@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }:
+{ pkgs, inputs, outputs, ... }:
 {
   imports = [
     ./global
@@ -7,15 +7,18 @@
     ./features/accounts/peasec
 
     ./features/desktop/hyprland
-    #./features/desktop/cwm
     ./features/multimedia
     ./features/backup
     ./features/rbw
+    #./features/desktop/common/nextcloud.nix
 
     ./features/productivity
 
     ./features/cli/udiskie.nix
   ];
+  #++ (lib.optionals config.services.xserver.windowManager.cwm.enable [
+  #  ./features.desktop.cwm
+  #]);
 
   nixpkgs.config.permittedInsecurePackages = [
     "zotero-6.0.27"
@@ -36,4 +39,5 @@
   ];
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
+  wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;
 }
