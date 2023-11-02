@@ -56,6 +56,7 @@ in
   };
 
   home.file."usr/vids/movies/.nobackup".text = "";
+  home.file."usr/vids/anime/.nobackup".text = "";
   home.file."usr/vids/photos/.nobackup".text = "";
   home.file."tmp/.nobackup".text = "";
 }
