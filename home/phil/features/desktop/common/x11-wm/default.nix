@@ -2,8 +2,9 @@
 {
   imports = [
     #./autorandr.nix
-    ./lemonbar.nix
     ./rofi.nix
+    ./dmenu.nix
+    ./lemonbar.nix
   ];
 
   home.packages = with pkgs; [
@@ -13,6 +14,7 @@
     xorg.xbacklight
     xorg.xrandr
     arandr
+    i3lock-color
   ];
 
 }

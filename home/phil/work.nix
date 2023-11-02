@@ -7,7 +7,7 @@
     ./features/accounts/peasec
 
     ./features/desktop/hyprland
-    # ./features/desktop/cwm
+    #./features/desktop/cwm
     ./features/multimedia
     ./features/backup
     ./features/rbw

@@ -17,6 +17,7 @@
 
     ../common/global
     ../common/users/phil
+    #../common/optional/cwm.nix
     # ../common/optional/greetd.nix
 
     ../common/optional/wireless.nix
@@ -25,6 +26,7 @@
     ../common/optional/bluetooth.nix
     ../common/optional/pipewire.nix
     ../common/optional/scanning.nix
+
 
     ../common/optional/docker.nix
   ];
