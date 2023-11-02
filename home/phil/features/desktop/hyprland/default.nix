@@ -83,6 +83,10 @@
         ];
       };
 
+      exec = [
+        "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
+      ];
+
       misc = {
         force_default_wallpaper = 0;
       };
