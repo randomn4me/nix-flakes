@@ -5,33 +5,31 @@ let
   alacritty-xterm = pkgs.writeShellScriptBin "xterm" ''
     ${config.programs.alacritty.package}/bin/alacritty "$@"
   '';
-in
-{
+in {
   home = {
     packages = [ alacritty-xterm ];
-    sessionVariables = {
-      TERMINAL = "alacritty";
-    };
+    sessionVariables = { TERMINAL = "alacritty"; };
   };
 
   programs.alacritty = {
     enable = true;
     settings = {
-      env = {
-        TERM = "xterm-direct";
-      };
+      env = { TERM = "xterm-direct"; };
 
       font = {
         normal = {
-          family = "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          family =
+            "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
           style = "Regular";
         };
         italic = {
-          family = "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          family =
+            "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
           style = "Regular";
         };
         bold = {
-          family = "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          family =
+            "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
           style = "Bold";
         };
       };

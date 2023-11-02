@@ -13,7 +13,5 @@
     };
   };
 
-  xdg.mimeApps.defaultApplications = {
-    "image/*" = [ "imv.desktop" ];
-  };
+  xdg.mimeApps.defaultApplications = { "image/*" = [ "imv.desktop" ]; };
 }

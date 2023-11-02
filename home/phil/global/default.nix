@@ -1,13 +1,9 @@
 { inputs, lib, pkgs, config, outputs, ... }:
-let
-  inherit (inputs.nix-colors) colorSchemes;
-in
-{
-  imports = [
-    inputs.nix-colors.homeManagerModule
-    ../features/cli
-    ../features/nvim
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+let inherit (inputs.nix-colors) colorSchemes;
+in {
+  imports =
+    [ inputs.nix-colors.homeManagerModule ../features/cli ../features/nvim ]
+    ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
     config = {
@@ -34,9 +30,7 @@ in
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
     sessionPath = [ "$HOME/.local/bin" ];
-    sessionVariables = {
-      FLAKE = "${config.home.homeDirectory}/etc";
-    };
+    sessionVariables = { FLAKE = "${config.home.homeDirectory}/etc"; };
   };
 
   systemd.user.startServices = "sd-switch";

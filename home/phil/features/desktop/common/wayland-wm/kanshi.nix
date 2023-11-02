@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = [ pkgs.kanshi ];
 
   services.kanshi = {
@@ -7,13 +6,11 @@
 
     profiles = {
       primary = {
-        outputs = [
-          {
-            criteria = "eDP-1";
-            status = "enable";
-            scale = 1.5;
-          }
-        ];
+        outputs = [{
+          criteria = "eDP-1";
+          status = "enable";
+          scale = 1.5;
+        }];
       };
 
       secondary = {

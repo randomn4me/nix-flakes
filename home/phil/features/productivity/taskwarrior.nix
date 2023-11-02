@@ -1,9 +1,7 @@
 { config, ... }:
 
-let
-  home = config.home.homeDirectory;
-in
-{ 
+let home = config.home.homeDirectory;
+in {
   programs = {
     taskwarrior = {
       enable = true;
@@ -58,7 +56,5 @@ in
     };
   };
 
-  services.taskwarrior-sync = {
-    enable = true;
-  };
+  services.taskwarrior-sync = { enable = true; };
 }

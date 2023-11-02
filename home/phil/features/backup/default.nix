@@ -1,5 +1,1 @@
-{
-  imports = [
-    ./borgmatic.nix
-  ];
-}
+{ imports = [ ./borgmatic.nix ]; }

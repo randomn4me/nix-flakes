@@ -1,8 +1,6 @@
 { config, ... }:
-let
-  inherit (config.colorscheme) colors;
-in
-{
+let inherit (config.colorscheme) colors;
+in {
   services.mako = {
     enable = true;
     anchor = "top-center";

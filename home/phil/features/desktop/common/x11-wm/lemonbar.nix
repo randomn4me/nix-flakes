@@ -11,7 +11,7 @@ let
   wc = "${pkgs.coreutils}/bin/wc";
 
   find = "${pkgs.findutils}/bin/find";
-  
+
   lemonbar = "${pkgs.lemonbar-xft}/bin/lemonbar";
 
   sed = "${pkgs.gnused}/bin/sed";
@@ -21,11 +21,12 @@ let
 
   inherit (config.colorscheme) colors;
 
-  lemonbar-config = ''-d \
-    -f "Share Tech Mono:size=12" \
-    -B "#${colors.base01}" \
-    -F "#${colors.base05}" \
-    -n "bar"'';
+  lemonbar-config = ''
+    -d \
+        -f "Share Tech Mono:size=12" \
+        -B "#${colors.base01}" \
+        -F "#${colors.base05}" \
+        -n "bar"'';
 
   bar = pkgs.writeShellScriptBin "bar" ''
     MONWIDTH=`${xrandr} | ${grep} primary | ${sed} -n 's/.* \([0-9]\+\)x\([0-9]\+\).*/\1/p'`

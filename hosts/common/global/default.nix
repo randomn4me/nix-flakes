@@ -1,11 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./locale.nix
-    ./nix.nix
-    ./pkgs.nix
-  ];
+  imports = [ ./locale.nix ./nix.nix ./pkgs.nix ];
 
   fonts.packages = with pkgs; [
     fira
@@ -21,13 +17,7 @@
     google-fonts
   ];
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
+  nixpkgs = { config = { allowUnfree = true; }; };
 
-  console = {
-    keyMap = "de";
-  };
+  console = { keyMap = "de"; };
 }

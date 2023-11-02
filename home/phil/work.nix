@@ -1,5 +1,4 @@
-{ pkgs, inputs, outputs, ... }:
-{
+{ pkgs, inputs, outputs, ... }: {
   imports = [
     ./global
 
@@ -20,9 +19,7 @@
   #  ./features.desktop.cwm
   #]);
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "zotero-6.0.27"
-  ];
+  nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
 
   home.packages = with pkgs; [
     texlive.combined.scheme-full
@@ -37,6 +34,14 @@
     pandoc
     ffmpeg
   ];
+
+  monitors = [{
+    name = "eDP-1";
+    width = 1920;
+    height = 1080;
+    x = "0";
+    primary = true;
+  }];
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
   wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;

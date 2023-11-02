@@ -11,9 +11,7 @@
     ./systemd-fixes.nix
   ];
 
-  home.packages = [
-    inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast
-  ];
+  home.packages = [ inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast ];
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -31,9 +29,7 @@
         "col.inactive_border" = "0xff${config.colorscheme.colors.base03}";
       };
 
-      binds = {
-        allow_workspace_cycles = true;
-      };
+      binds = { allow_workspace_cycles = true; };
 
       #xwayland = {
       #  force_zero_scaling = true;
@@ -47,9 +43,7 @@
 
         follow_mouse = true;
 
-        touchpad = {
-          natural_scroll = true;
-        };
+        touchpad = { natural_scroll = true; };
 
         sensitivity = 0;
       };
@@ -83,13 +77,9 @@
         ];
       };
 
-      exec = [
-        "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
-      ];
+      exec = [ "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill" ];
 
-      misc = {
-        force_default_wallpaper = 0;
-      };
+      misc = { force_default_wallpaper = 0; };
 
       #exec = [
       #  "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
@@ -101,7 +91,9 @@
         makoctl = "${config.services.mako.package}/bin/makoctl";
         wofi = "${config.programs.wofi.package}/bin/wofi";
 
-        grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
+        grimblast = "${
+            inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast
+          }/bin/grimblast";
 
         rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
 
@@ -121,14 +113,12 @@
       ]) ++
 
       # Screen lock
-      (lib.optionals config.programs.swaylock.enable [
-        "CTRL ALT,l,exec,${swaylock}"
-      ]) ++
+      (lib.optionals config.programs.swaylock.enable
+        [ "CTRL ALT,l,exec,${swaylock}" ]) ++
 
       # Notification manager
-      (lib.optionals config.services.mako.enable [
-        "ALT,w,exec,${makoctl} dismiss"
-      ]) ++
+      (lib.optionals config.services.mako.enable
+        [ "ALT,w,exec,${makoctl} dismiss" ]) ++
 
       # Launcher
       (lib.optionals config.programs.wofi.enable [
@@ -152,11 +142,15 @@
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
-      monitor = [
-        "eDP-1             , preferred , auto     , 1.5"
-        "DP-2              , preferred , auto     , 1"
-        "                  , preferred , auto     , 1.5"
-      ];
+      monitor = map (m:
+        let
+          resolution = "${toString m.width}x${toString m.height}@${
+              toString m.refreshRate
+            }";
+          position = "${toString m.x}x${toString m.y}";
+        in "${m.name},${
+          if m.enabled then "${resolution},${position},1" else "disable"
+        }") (config.monitors);
     };
   };
 }

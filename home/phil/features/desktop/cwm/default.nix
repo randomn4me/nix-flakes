@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   imports = [
     ../common
     ../common/x11-wm
@@ -7,7 +6,7 @@
     ./tty-init.nix
   ];
 
-  home.file.".cwmrc".text = let 
+  home.file.".cwmrc".text = let
     alacritty = "${config.programs.alacritty.package}/bin/alacritty";
     firefox = "${config.programs.firefox.package}/bin/firefox";
 
@@ -15,7 +14,10 @@
   in ''
     fontname 'Share Tech Mono:pixelsize=11:bold'
 
-    ${if config.programs.alacritty.enable then "command alacritty alacritty" else ""}
+    ${if config.programs.alacritty.enable then
+      "command alacritty alacritty"
+    else
+      ""}
     ${if config.programs.firefox.enable then "command firefox firefox" else ""}
 
     ########################################
@@ -30,25 +32,25 @@
     # autogroups
     ########################################
     autogroup 1 "Alacritty"
-    
+
     autogroup 2 "Zathura"
-    
+
     autogroup 3 "mpv"
     autogroup 3 "Zotero"
     autogroup 3 "libreoffice"
-    
+
     autogroup 4 "Signal"
     autogroup 4 "neomutt"
-    
+
     autogroup 5 "firefox"
-    
+
     autogroup 6 "zoom"
-    
+
     autogroup 7 "obsidian"
-    
+
     autogroup 9 "spotify"
-    
-    
+
+
     ########################################
     # behavior, look & feel
     ########################################
@@ -61,17 +63,17 @@
     color selfont           "#${colors.base01}"
     color urgencyborder     "#${colors.base0A}"
     color urgencyborder     "#${colors.base0A}"
-    
+
     gap                     25 10 10 10 
     moveamount              20
-    
-    
+
+
     ########################################
     # POSITION & SIZE
     ########################################
     bind-key MS-d       window-vmaximize
     bind-key MS-f       window-maximize
-    
+
     bind-key M-h        window-move-left
     bind-key M-j        window-move-down
     bind-key M-k        window-move-up
@@ -80,7 +82,7 @@
     bind-key MS-j       window-move-down-big
     bind-key MS-k       window-move-up-big
     bind-key MS-l       window-move-right-big
-    
+
     bind-key 4-h        window-resize-left
     bind-key 4-j        window-resize-down
     bind-key 4-k        window-resize-up
@@ -89,21 +91,21 @@
     bind-key 4S-j       window-resize-down-big
     bind-key 4S-k       window-resize-up-big
     bind-key 4S-l       window-resize-right-big
-    
+
     bind-key MS-t       window-snap-up-left
     bind-key MS-z       window-snap-up-right
     bind-key MS-v       window-snap-down-left
     bind-key MS-b       window-snap-down-right
-    
-    
+
+
     ########################################
     # CONTROL
     ########################################
     bind-key MS-Return  window-hide
     bind-key M-q        window-delete
     bind-key M-Tab      window-cycle
-    
-    
+
+
     ########################################
     # Group control
     ########################################
@@ -116,7 +118,7 @@
     bind-key M-7        group-toggle-7
     bind-key M-8        group-toggle-8
     bind-key M-9        group-toggle-9
-    
+
     bind-key MS-1       window-movetogroup-1
     bind-key MS-2       window-movetogroup-2
     bind-key MS-3       window-movetogroup-3
@@ -126,32 +128,32 @@
     bind-key MS-7       window-movetogroup-7
     bind-key MS-8       window-movetogroup-8
     bind-key MS-9       window-movetogroup-9
-    
-    
+
+
     ########################################
     # Custom shortcuts
     ########################################
     bind-key M-Return   alacritty
     bind-key M-m        "alacritty --class 'mutt,mutt' -e neomutt"
     bind-key M-s        "alacritty --class 'spotify,spotify' -e ncmpcpp"
-    
+
     bind-key M-r        "mpc toggle"
-    
+
     bind-key CM-l       i3lock
     bind-key CM-s       screencapture
-    
+
     bind-key M-space    menu-run
     bind-key MS-q       shutdown-menu
     bind-key M-p        passmenu
     bind-key CS-space   "bone toggle"
-    
-    
+
+
     ########################################
     # Session management
     ########################################
     bind-key CM-r  restart
-    
-    
+
+
     ########################################
     # Mousebindings
     ########################################

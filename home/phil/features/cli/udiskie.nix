@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [ udiskie ];
 
-  services.udiskie = {
-    enable = true;
-  };
+  services.udiskie = { enable = true; };
 }

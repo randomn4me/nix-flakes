@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   imports = [
     #./kanshi.nix # TODO understand kanshi more until I can use it
     ./mako.nix

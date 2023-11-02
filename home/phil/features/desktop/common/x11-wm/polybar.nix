@@ -3,23 +3,15 @@ let
     width = "150px";
     height = "20px";
   };
-in
-{
+in {
   services.polybar = {
     enable = true;
 
     config = {
-      "bar/top-right" = {
-        modules-center = [
-          "date"
-        ];
-      } // common-config;
+      "bar/top-right" = { modules-center = [ "date" ]; } // common-config;
 
       "bar/top-left" = {
-        modules-center = [
-          "battery"
-          "pulseaudio"
-        ];
+        modules-center = [ "battery" "pulseaudio" ];
       } // common-config;
 
       "module/battery" = {

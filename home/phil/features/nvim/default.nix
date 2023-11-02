@@ -1,12 +1,5 @@
-{ pkgs, ... }:
-{
-  imports = [
-    ./mappings.nix
-    ./setup.nix
-    ./lsp.nix
-    ./plugins.nix
-    ./ui.nix
-  ];
+{ pkgs, ... }: {
+  imports = [ ./mappings.nix ./setup.nix ./lsp.nix ./plugins.nix ./ui.nix ];
 
   home.packages = with pkgs; [
     nil
@@ -24,10 +17,7 @@
 
     defaultEditor = true;
 
-    extraPackages = with pkgs; [
-      tree-sitter
-      gcc
-    ];
+    extraPackages = with pkgs; [ tree-sitter gcc ];
 
   };
 }

@@ -1,12 +1,9 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ... }:
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
-in
-{
-  services.borgmatic = {
-    enable = true;
-  };
+in {
+  services.borgmatic = { enable = true; };
 
   programs.borgmatic = {
     enable = true;
@@ -21,13 +18,12 @@ in
             "${home}/usr"
             "${home}/var"
           ];
-          repositories = [ "ssh://u340000@u340000.your-storagebox.de:23/./backups/t490" ];
+          repositories =
+            [ "ssh://u340000@u340000.your-storagebox.de:23/./backups/t490" ];
 
           excludeHomeManagerSymlinks = true;
 
-          extraConfig = {
-            exclude_if_present = [ ".nobackup" ];
-          };
+          extraConfig = { exclude_if_present = [ ".nobackup" ]; };
         };
 
         storage = {
@@ -45,10 +41,22 @@ in
 
         consistency = {
           checks = [
-            { name = "repository"; frequency = "1 weeks"; }
-            { name = "archives"; frequency = "2 weeks"; }
-            { name = "data"; frequency = "8 weeks"; }
-            { name = "extract"; frequency = "8 weeks"; }
+            {
+              name = "repository";
+              frequency = "1 weeks";
+            }
+            {
+              name = "archives";
+              frequency = "2 weeks";
+            }
+            {
+              name = "data";
+              frequency = "8 weeks";
+            }
+            {
+              name = "extract";
+              frequency = "8 weeks";
+            }
           ];
         };
       };

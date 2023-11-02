@@ -17,19 +17,23 @@ let
   find = "${pkgs.findutils}/bin/find";
 
   # Function to simplify making waybar outputs
-  jsonOutput = name: { pre ? "", text ? "", tooltip ? "", alt ? "", class ? "", percentage ? "" }: "${pkgs.writeShellScriptBin "waybar-${name}" ''
-    set -euo pipefail
-    ${pre}
-    ${jq} -cn \
-    --arg text "${text}" \
-    --arg tooltip "${tooltip}" \
-    --arg alt "${alt}" \
-    --arg class "${class}" \
-    --arg percentage "${percentage}" \
-    '{text:$text,tooltip:$tooltip,alt:$alt,class:$class,percentage:$percentage}'
-  ''}/bin/waybar-${name}";
-in
-{
+  jsonOutput = name:
+    { pre ? "", text ? "", tooltip ? "", alt ? "", class ? "", percentage ? ""
+    }:
+    "${
+      pkgs.writeShellScriptBin "waybar-${name}" ''
+        set -euo pipefail
+        ${pre}
+        ${jq} -cn \
+        --arg text "${text}" \
+        --arg tooltip "${tooltip}" \
+        --arg alt "${alt}" \
+        --arg class "${class}" \
+        --arg percentage "${percentage}" \
+        '{text:$text,tooltip:$tooltip,alt:$alt,class:$class,percentage:$percentage}'
+      ''
+    }/bin/waybar-${name}";
+in {
   programs.waybar = {
     enable = true;
     #package = inputs.waybar.packages.${pkgs.system}.waybar;
@@ -55,10 +59,7 @@ in
         #modules-center = [
         #  "mpd"
         #];
-        modules-right = [
-          "tray"
-          "clock"
-        ];
+        modules-right = [ "tray" "clock" ];
 
         "hyprland/workspaces" = {
           active-only = true;
@@ -74,16 +75,17 @@ in
             <tt><small>{calendar}</small></tt>
           '';
           calendar = {
-            mode           = "month";
-            mode-mon-col   = 3;
-            weeks-pos      = "left";
-            on-scroll      = 1;
-            format = let inherit (config.colorscheme) colors; in  {
-              months =   "<span color='#${colors.base05}'><b>{}</b></span>";
-              days =     "<span color='#${colors.base05}'>{}</span>";
-              weeks =    "<span color='#${colors.base0D}'><b>{}</b></span>";
+            mode = "month";
+            mode-mon-col = 3;
+            weeks-pos = "left";
+            on-scroll = 1;
+            format = let inherit (config.colorscheme) colors;
+            in {
+              months = "<span color='#${colors.base05}'><b>{}</b></span>";
+              days = "<span color='#${colors.base05}'>{}</span>";
+              weeks = "<span color='#${colors.base0D}'><b>{}</b></span>";
               weekdays = "<span color='#${colors.base0B}'><b>{}</b></span>";
-              today =    "<span color='#${colors.base0F}'><b>{}</b></span>";
+              today = "<span color='#${colors.base0F}'><b>{}</b></span>";
             };
           };
           actions = {
@@ -140,17 +142,20 @@ in
           exec = jsonOutput "new-mails" {
             pre = let
               inherit (builtins) concatStringsSep attrValues filter;
-              email_accounts = filter (acc: acc.mbsync.enable) (attrValues config.accounts.email.accounts);
+              email_accounts = filter (acc: acc.mbsync.enable)
+                (attrValues config.accounts.email.accounts);
             in ''
               total_count=$(${find} ${config.home.homeDirectory}/var/mail/*/Inbox/new -type f | ${wc} -l)
 
-              ${concatStringsSep "\n" (map (acc : ''
+              ${concatStringsSep "\n" (map (acc: ''
                 new_${acc.name}=$(${find} ${config.home.homeDirectory}/var/mail/${acc.name}/Inbox/new -type f | ${wc} -l)
               '') email_accounts)}
 
-              tooltip=$(${printf} "${concatStringsSep "" (map (acc : ''
-                ${acc.name}: $new_${acc.name}
-              '') email_accounts)}")
+              tooltip=$(${printf} "${
+                concatStringsSep "" (map (acc: ''
+                  ${acc.name}: $new_${acc.name}
+                '') email_accounts)
+              }")
 
               if ${pgrep} mbsync &>/dev/null; then
                 status="syncing"
@@ -174,7 +179,10 @@ in
     # x y -> vertical, horizontal
     # x y z -> top, horizontal, bottom
     # w x y z -> top, right, bottom, left
-    style = let inherit (config.colorscheme) colors; in /* css */ ''
+    style = let
+      inherit (config.colorscheme) colors;
+      # css
+    in ''
       * {
         border: none;
         border-radius: 5px;

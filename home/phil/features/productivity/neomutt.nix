@@ -9,19 +9,16 @@ let
   neomutt = "${pkgs.neomutt}/bin/neomutt";
 
   home = "${config.home.homeDirectory}";
-in
-{
+in {
 
-  home.packages = with pkgs; [
-    mailcap
-  ];
+  home.packages = with pkgs; [ mailcap ];
 
   xdg.configFile."mailcap".text = ''
-      text/html; ${w3m} -I %{charset} -T text/html; copiousoutput;
+    text/html; ${w3m} -I %{charset} -T text/html; copiousoutput;
 
-      image/*; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s); rm /tmp/mutt/%s;
+    image/*; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s); rm /tmp/mutt/%s;
 
-      application/*; xdg-open %s &> /dev/null &;
+    application/*; xdg-open %s &> /dev/null &;
   '';
 
   programs.neomutt = {
@@ -52,26 +49,27 @@ in
 
       forward_quote = "yes";
       fast_reply = "yes";
-      
+
       sig_dashes = "no";
       sig_on_top = "yes";
 
       postpone = "ask-yes";
 
       sendmail_wait = "-1";
-      
+
       abort_noattach = "ask-yes";
-      abort_noattach_regex = ''"\\<(anhängen|angehängt|anhang|anhänge|hängt an|anbei|attach|attached|attachments|append)\\>"'';
+      abort_noattach_regex = ''
+        "\\<(anhängen|angehängt|anhang|anhänge|hängt an|anbei|attach|attached|attachments|append)\\>"'';
 
       mailcap_path = "${home}/.config/mailcap";
-      edit_headers   = "yes";
+      edit_headers = "yes";
 
-      date_format    = ''"%F, %T"'';
-      index_format   = ''"%S [%{%m-%d}]  %-15.15F  %s"'';
+      date_format = ''"%F, %T"'';
+      index_format = ''"%S [%{%m-%d}]  %-15.15F  %s"'';
       compose_format = ''"%>-(~size: %l, Atts: %a)-"'';
-      status_format  = ''"-%?V?(Limit: %V)?-%>-(%P)-"'';
-      attach_format  = ''"%I %t%2n %T%.40d%> [%.15m/%.10M, %?C?%C, ?%s]"'';
-      pager_format   = ''"-(%C/%m)-%>-(%P)"'';
+      status_format = ''"-%?V?(Limit: %V)?-%>-(%P)-"'';
+      attach_format = ''"%I %t%2n %T%.40d%> [%.15m/%.10M, %?C?%C, ?%s]"'';
+      pager_format = ''"-(%C/%m)-%>-(%P)"'';
       forward_format = ''"Fwd: %s"'';
     };
 
@@ -199,12 +197,14 @@ in
         map = [ "attach" ];
       }
       {
-        action = "<sync-mailbox><enter-command>source ${home}/.config/neomutt/audacis<enter><change-folder>!<enter>";
+        action =
+          "<sync-mailbox><enter-command>source ${home}/.config/neomutt/audacis<enter><change-folder>!<enter>";
         key = "<f2>";
         map = [ "index" "pager" ];
       }
       {
-        action = "<sync-mailbox><enter-command>source ${home}/.config/neomutt/personalvorstand<enter><change-folder>!<enter>";
+        action =
+          "<sync-mailbox><enter-command>source ${home}/.config/neomutt/personalvorstand<enter><change-folder>!<enter>";
         key = "<f3>";
         map = [ "index" "pager" ];
       }
@@ -217,7 +217,8 @@ in
 
     changeFolderWhenSourcingAccount = true;
 
-    extraConfig = let inherit (config.colorscheme) colors; in ''
+    extraConfig = let inherit (config.colorscheme) colors;
+    in ''
       color normal       #${colors.base05}   default
       color error        #${colors.base0F}   default
       color tilde        #${colors.base0D}   default
@@ -228,24 +229,24 @@ in
       color status       #${colors.base09}   default
       color indicator    #${colors.base09}   black
       color tree         #${colors.base05}   default
-  
+
 
       color hdrdefault   #${colors.base0F}   default
-  
+
 
       color index        #${colors.base0F}   default    "~D"
       color index        #${colors.base0A}   default    "~F"
       color index        #${colors.base0B}   default    "~N"
-      
+
 
       color quoted       #${colors.base09}   default
       color signature    #${colors.base0A}   default
-      
+
 
       color body         #${colors.base05}   default    "[:;][-o]?[)/(|]"
 
       color body         #${colors.base0D}   default    "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
-      
+
       color body         #${colors.base0D}   default    "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
     '';
 

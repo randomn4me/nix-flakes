@@ -1,9 +1,7 @@
 {
   programs.zathura = {
     enable = true;
-    options = {
-      selection-clipboard = "clipboard";
-    };
+    options = { selection-clipboard = "clipboard"; };
   };
 
   xdg.mimeApps.defaultApplications = {

@@ -1,5 +1,1 @@
-{
-  imports = [
-    ./peasec-mail.nix
-  ];
-}
+{ imports = [ ./peasec-mail.nix ]; }

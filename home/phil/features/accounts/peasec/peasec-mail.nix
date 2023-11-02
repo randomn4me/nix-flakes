@@ -2,8 +2,7 @@
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
-in
-{
+in {
   accounts.email = rec {
     maildirBasePath = "${home}/var/mail";
 
@@ -16,7 +15,8 @@ in
 
         imap = {
           host = "mail.tu-darmstadt.de";
-          tls.certificatesFile = "${home}/usr/misc/t-telesec_globalroot_class_2.pem";
+          tls.certificatesFile =
+            "${home}/usr/misc/t-telesec_globalroot_class_2.pem";
         };
 
         smtp = {
@@ -31,18 +31,17 @@ in
           trash = "Gel&APY-schte Elemente";
         };
 
-
         signature = {
           showSignature = "append";
           text = ''
-          --
-          Philipp Kühn, M.Sc., TU Darmstadt, Informatik,
-          Wissenschaft und Technik für Frieden und Sicherheit (PEASEC),
-          Pankratiusstraße 2, 64289 Darmstadt, Raum S220 | 115,
-          kuehn@peasec.tu-darmstadt.de, www.peasec.de
+            --
+            Philipp Kühn, M.Sc., TU Darmstadt, Informatik,
+            Wissenschaft und Technik für Frieden und Sicherheit (PEASEC),
+            Pankratiusstraße 2, 64289 Darmstadt, Raum S220 | 115,
+            kuehn@peasec.tu-darmstadt.de, www.peasec.de
 
-          My working hours may not be your working hours.
-          Please do not feel obligated to reply outside of your normal work schedule.
+            My working hours may not be your working hours.
+            Please do not feel obligated to reply outside of your normal work schedule.
           '';
         };
 
@@ -56,7 +55,6 @@ in
         #  enable = true;
         #  profiles = [ config.home.username ];
         #};
-
 
         #neomutt = {
         #  enable = true;
@@ -84,7 +82,5 @@ in
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;
 
-  services.mbsync = {
-    enable = true;
-  };
+  services.mbsync = { enable = true; };
 }

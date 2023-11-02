@@ -27,7 +27,6 @@
     ../common/optional/pipewire.nix
     ../common/optional/scanning.nix
 
-
     ../common/optional/docker.nix
   ];
 
@@ -44,9 +43,7 @@
   services = {
     printing = {
       enable = true;
-      drivers = [
-        pkgs.cups-kyodialog
-      ];
+      drivers = [ pkgs.cups-kyodialog ];
     };
 
     avahi = {
@@ -63,9 +60,7 @@
     };
   };
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "zotero-6.0.27"
-  ];
+  nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
 
   programs = {
     dconf.enable = true;
@@ -83,9 +78,7 @@
     driSupport = true;
     driSupport32Bit = true;
 
-    extraPackages = with pkgs; [
-      intel-media-driver
-    ];
+    extraPackages = with pkgs; [ intel-media-driver ];
   };
 
   system.stateVersion = "23.05";

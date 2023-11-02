@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, curl
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, curl }:
 
 with lib;
 
@@ -25,13 +20,12 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm 0755 cloudsend.sh $out/bin/cloudsend
     wrapProgram $out/bin/minicava --set PATH \
-      "${makeBinPath [
-        curl
-      ]}"
+      "${makeBinPath [ curl ]}"
   '';
 
   meta = {
-    description = "Bash script that uses curl to send files and folders to a nextcloud/owncloud publicly shared folder.";
+    description =
+      "Bash script that uses curl to send files and folders to a nextcloud/owncloud publicly shared folder.";
     homepage = "https://github.com/tavinus/cloudsend.sh";
     license = licenses.agpl3Only;
     platforms = platforms.all;

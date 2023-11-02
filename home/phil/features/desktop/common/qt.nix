@@ -1,5 +1,4 @@
-{ pkgs, config, ... }:
-{
+{ pkgs, config, ... }: {
   qt = {
     enable = true;
     platformTheme = "gtk";
