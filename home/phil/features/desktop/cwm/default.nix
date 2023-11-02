@@ -3,6 +3,8 @@
   imports = [
     ../common
     ../common/x11-wm
+
+    ./tty-init.nix
   ];
 
   home.file.".cwmrc".text = let 
