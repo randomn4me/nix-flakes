@@ -1,17 +1,9 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 {
   imports = [
     ../common
     ../common/x11-wm
   ];
-
-  home.packages = with pkgs; [
-    cwm
-  ];
-
-  xsession = {
-    enable = true;
-  };
 
   home.file.".cwmrc".text = let 
     alacritty = "${config.programs.alacritty.package}/bin/alacritty";
@@ -19,11 +11,10 @@
 
     inherit (config.colorscheme) colors;
   in ''
-    fontname 'Inconsolata Nerd Font Mono:pixelsize=11:bold'
+    fontname 'Share Tech Mono:pixelsize=11:bold'
 
-    command alacritty ${alacritty}
-    command firefox ${firefox}
-
+    ${if config.programs.alacritty.enable then "command alacritty alacritty" else ""}
+    ${if config.programs.firefox.enable then "command firefox firefox" else ""}
 
     ########################################
     # do not manage these
@@ -32,7 +23,6 @@
     ignore dmenu
 
     unbind-key all
-
 
     ########################################
     # autogroups
@@ -145,14 +135,13 @@
     
     bind-key M-r        "mpc toggle"
     
-    bind-key CM-l       slock
+    bind-key CM-l       i3lock
     bind-key CM-s       screencapture
     
-    bind-key M-space    menu_run
+    bind-key M-space    menu-run
     bind-key MS-q       shutdown-menu
-    bind-key M-u        paperopen
     bind-key M-p        passmenu
-    bind-key CS-space    "bone toggle"
+    bind-key CS-space   "bone toggle"
     
     
     ########################################
