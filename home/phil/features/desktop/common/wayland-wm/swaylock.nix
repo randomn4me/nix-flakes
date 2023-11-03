@@ -6,10 +6,12 @@ in {
     enable = true;
     package = pkgs.swaylock-effects;
     settings = {
-      effect-blur = "20x3";
+      #effect-blur = "4x3";
       fade-in = 0.1;
 
-      #font = config.fontProfiles.regular.family;
+      image = config.wallpaper;
+
+      font = config.fontProfiles.regular.family;
       font-size = 15;
 
       line-uses-inside = true;
@@ -18,7 +20,7 @@ in {
       indicator-caps-lock = true;
       indicator-radius = 40;
       indicator-idle-visible = true;
-      indicator-y-position = 1000;
+      #indicator-y-position = 1200; # TODO make position dependent on monitor config
 
       color = "#${colors.base00}";
       inside-color = "#${colors.base00}";
@@ -42,12 +44,7 @@ in {
       ring-wrong-color = "#${colors.base08}";
       text-wrong-color = "#${colors.base00}";
 
-      #bs-hl-color = "#${colors.base08}";
       text-color = "#${colors.base05}";
-      #text-caps-lock-color = "#${colors.base07}";
-      #inside-caps-lock-color = "#${colors.base09}";
-      #ring-caps-lock-color = "#${colors.base02}";
-      #separator-color = "#${colors.base02}";
     };
   };
 }

@@ -77,13 +77,9 @@
         ];
       };
 
-      exec = [ "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill" ];
-
-      misc = { force_default_wallpaper = 0; };
-
-      #exec = [
-      #  "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
-      #];
+      exec = [
+        "${pkgs.swaybg}/bin/swaybg -o '*' -i ${config.wallpaper} --mode fill"
+      ];
 
       bind = let
         swaylock = "${config.programs.swaylock.package}/bin/swaylock";
@@ -124,7 +120,7 @@
       (lib.optionals config.programs.wofi.enable [
         "ALT,SPACE,exec,${wofi} -S drun"
         "ALT,p,exec,${rofi-rbw}"
-        "ALTSHIFT,q,exec,shutdown-menu" # TODO add as package and use here
+        "ALTSHIFT,q,exec,shutdown-menu"
       ]);
 
       binde = let
