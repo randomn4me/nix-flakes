@@ -2,9 +2,10 @@
   imports = [
     ./alacritty.nix
     ./banking.nix
-    ./imv.nix
     ./firefox.nix
+    ./font.nix
     ./gtk.nix
+    ./imv.nix
     ./mpv.nix
     ./playerctl.nix
     ./qt.nix
