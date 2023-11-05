@@ -9,6 +9,8 @@ let
   ncmpcpp = "${config.programs.ncmpcpp.package}/bin/ncmpcpp";
   neomutt = "${config.programs.neomutt.package}/bin/neomutt";
 
+  hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
+
   wc = "${pkgs.coreutils}/bin/wc";
   printf = "${pkgs.coreutils}/bin/printf";
   pgrep = "${pkgs.procps}/bin/pgrep";
@@ -59,7 +61,7 @@ in {
         #modules-center = [
         #  "mpd"
         #];
-        modules-right = [ "tray" "clock" ];
+        modules-right = [ "tray" "hyprland/language" "clock" ];
 
         "hyprland/workspaces" = {
           active-only = true;
@@ -95,6 +97,11 @@ in {
             on-scroll-up = "shift_up";
             on-scroll-down = "shift_down";
           };
+        };
+
+        "hyprland/language" = {
+          format = "{short} {variant}";
+          #on-click = "${hyprctl} ${switchxkblayout}";
         };
 
         pulseaudio = {
@@ -217,11 +224,11 @@ in {
         background: #${colors.base09};
       }
 
-      #battery, #tray {
+      #battery, #language {
         background: #${colors.base08};
       }
 
-      #custom-mail {
+      #custom-mail, #tray {
         background: #${colors.base0C};
       }
 

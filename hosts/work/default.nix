@@ -33,8 +33,8 @@
   networking.hostName = "work";
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "sg" ]; # for makemkv
+    # kernelPackages = pkgs.linuxPackages_latest;
+    # kernelModules = [ "sg" ]; # for makemkv
 
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -59,8 +59,6 @@
       updater.enable = true;
     };
   };
-
-  nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
 
   programs = {
     dconf.enable = true;

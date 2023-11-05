@@ -36,10 +36,10 @@
       #};
 
       input = {
-        kb_layout = "de";
-        #kb_layout = "de,de";
-        #kb_variant = ",bone";
-        #kb_options = "grp:ctrl_space_toggle";
+        #kb_layout = "de";
+        kb_layout = "de,de";
+        kb_variant = ",bone";
+        kb_options = "grp:ctrl_space_toggle";
 
         follow_mouse = true;
 
@@ -77,9 +77,9 @@
         ];
       };
 
-      exec = [
-        "${pkgs.swaybg}/bin/swaybg -o '*' -i ${config.wallpaper} --mode fill"
-      ];
+      misc = { force_default_wallpaper = 0; };
+
+      exec = [ "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill" ];
 
       bind = let
         swaylock = "${config.programs.swaylock.package}/bin/swaylock";
@@ -138,15 +138,17 @@
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
-      monitor = map (m:
-        let
-          resolution = "${toString m.width}x${toString m.height}@${
-              toString m.refreshRate
-            }";
-          position = "${toString m.x}x${toString m.y}";
-        in "${m.name},${
-          if m.enabled then "${resolution},${position},1" else "disable"
-        }") (config.monitors);
+      #monitor = map (m:
+      #  let
+      #    resolution = "${toString m.width}x${toString m.height}@${
+      #        toString m.refreshRate
+      #      }";
+      #    position = "${toString m.x}x${toString m.y}";
+      #  in "${m.name},${
+      #    if m.enabled then "${resolution},${position},1.5" else "disable"
+      #  }") (config.monitors) ++
+
+      monitor = [ ", preferred, auto, 1.5" ];
     };
   };
 }

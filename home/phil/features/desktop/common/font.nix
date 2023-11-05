@@ -2,12 +2,12 @@
   fontProfiles = {
     enable = true;
     monospace = {
-      family = "FiraCode Nerd Font";
-      package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
+      family = "Inconsolata Regular";
+      package = pkgs.inconsolata-nerdfont;
     };
     regular = {
-      family = "Fira Sans";
-      package = pkgs.fira;
+      family = "Inconsolata Regular";
+      package = pkgs.inconsolata;
     };
   };
 }

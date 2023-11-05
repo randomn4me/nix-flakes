@@ -3,21 +3,19 @@
     ./global
 
     ./features/accounts/private
-    ./features/accounts/peasec
+    #../features/accounts/peasec
 
     ./features/desktop/hyprland
+    #../features/desktop/cwm
     ./features/multimedia
     ./features/backup
     ./features/rbw
-    #./features/desktop/common/nextcloud.nix
+    #../features/desktop/common/nextcloud.nix
 
     ./features/productivity
 
     ./features/cli/udiskie.nix
   ];
-  #++ (lib.optionals config.services.xserver.windowManager.cwm.enable [
-  #  ./features.desktop.cwm
-  #]);
 
   nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
 
@@ -33,15 +31,9 @@
 
     pandoc
     ffmpeg
-  ];
 
-  monitors = [{
-    name = "eDP-1";
-    width = 1920;
-    height = 1080;
-    x = 0;
-    primary = true;
-  }];
+    rustup
+  ];
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
   wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;

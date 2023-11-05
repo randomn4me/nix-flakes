@@ -15,5 +15,4 @@
     arandr
     i3lock-color
   ];
-
 }
