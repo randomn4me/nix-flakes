@@ -13,6 +13,7 @@
     xwayland
     slurp
     grim
+    swaybg
 
     wf-recorder
     wl-clipboard
