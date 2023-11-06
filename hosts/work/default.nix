@@ -17,7 +17,7 @@
 
     ../common/global
     ../common/users/phil
-    #../common/optional/cwm.nix
+    ../common/optional/cwm.nix
     # ../common/optional/greetd.nix
 
     ../common/optional/wireless.nix

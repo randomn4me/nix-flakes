@@ -5,8 +5,8 @@
     ./features/accounts/private
     #../features/accounts/peasec
 
-    ./features/desktop/hyprland
-    #../features/desktop/cwm
+    #./features/desktop/hyprland
+    ./features/desktop/cwm
     ./features/multimedia
     ./features/backup
     ./features/rbw
@@ -34,6 +34,14 @@
 
     rustup
   ];
+
+  monitors = [{
+    name = "eDP-1";
+    width = 2540;
+    height = 1440;
+    x = 0;
+    primary = true;
+  }];
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
   wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;

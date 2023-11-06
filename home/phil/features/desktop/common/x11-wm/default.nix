@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   imports = [
     #./autorandr.nix
-    ./rofi.nix
     ./dmenu.nix
     ./lemonbar.nix
   ];
