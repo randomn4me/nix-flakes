@@ -12,9 +12,9 @@ let
 
   isLocked = "${pgrep} -x ${swaylock}";
 
-  dimStartTime = builtins.floor 3.5 * 60; # 3.5 * 60
+  dimStartTime = builtins.floor 6.5 * 60; # 3.5 * 60
   dimTime = builtins.floor 0.6 * 60; # 0.5 * 60
-  lockTime = 4 * 60;
+  lockTime = 7 * 60;
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
   afterLockTimeout = { timeout, command, resumeCommand ? null }: [
