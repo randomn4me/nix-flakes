@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   imports = [
     ../common
     ../common/x11-wm
@@ -6,9 +6,22 @@
     ./tty-init.nix
   ];
 
+  xsession = {
+    enable = true;
+    initExtra = let
+      hsetroot = "${pkgs.hsetroot}/bin/hsetroot";
+    in ''
+      ${hsetroot} -fill ${config.wallpaper}
+    '';
+  };
+
   home.file.".cwmrc".text = let
-    alacritty = "${config.programs.alacritty.package}/bin/alacritty";
-    firefox = "${config.programs.firefox.package}/bin/firefox";
+    i3lock-color = "${pkgs.i3lock-color}/bin/i3lock-color";
+    maim = "${pkgs.maim}/bin/maim";
+    date = "${pkgs.coreutils}/bin/date";
+
+    playerctl = "${config.services.playerctld.package}/bin/playerctl";
+    rofi = "${config.programs.rofi.package}/bin/rofi";
 
     inherit (config.colorscheme) colors;
   in ''
@@ -137,15 +150,15 @@
     bind-key M-m        "alacritty --class 'mutt,mutt' -e neomutt"
     bind-key M-s        "alacritty --class 'spotify,spotify' -e ncmpcpp"
 
-    bind-key M-r        "mpc toggle"
+    bind-key CM-l       "${i3lock-color} -i ${config.wallpaper} -F --radius 40 --keylayout 0"
+    bind-key CM-s       "${maim} -s ${config.home.homeDirectory}/usr/pics/screencaptures/$(${date} +%F_%Hh%Mm%S).png"
 
-    bind-key CM-l       i3lock
-    bind-key CM-s       screencapture
-
-    bind-key M-space    menu-run
+    bind-key M-space    "${rofi} -show drun"
     bind-key MS-q       shutdown-menu
     bind-key M-p        passmenu
-    bind-key CS-space   "bone toggle"
+    bind-key C-space    "bone toggle"
+
+    bind-key XF86AudioPlay "${playerctl} play-pause"
 
 
     ########################################

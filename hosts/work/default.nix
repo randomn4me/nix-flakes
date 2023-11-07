@@ -1,7 +1,6 @@
 { pkgs, inputs, ... }:
 
 {
-
   imports = [
     inputs.hardware.nixosModules.lenovo-thinkpad-t490
 
@@ -17,7 +16,8 @@
 
     ../common/global
     ../common/users/phil
-    ../common/optional/cwm.nix
+    #../common/optional/wms/cwm.nix
+    #../common/optional/wms/i3.nix
     # ../common/optional/greetd.nix
 
     ../common/optional/wireless.nix

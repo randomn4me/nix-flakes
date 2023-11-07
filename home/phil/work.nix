@@ -1,12 +1,11 @@
-{ pkgs, inputs, outputs, ... }: {
+{ pkgs, inputs, outputs, lib, osConfig, ... }: {
   imports = [
     ./global
 
     ./features/accounts/private
     #../features/accounts/peasec
 
-    #./features/desktop/hyprland
-    ./features/desktop/cwm
+    ./features/desktop/hyprland
     ./features/multimedia
     ./features/backup
     ./features/rbw
@@ -15,7 +14,13 @@
     ./features/productivity
 
     ./features/cli/udiskie.nix
-  ];
+  ] ++
+  (lib.optionals osConfig.services.xserver.windowManager.cwm.enable [
+    ./features/desktop/cwm
+  ]) ++
+  (lib.optionals osConfig.services.xserver.windowManager.i3.enable [
+    ./features/desktop/i3
+  ]);
 
   nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
 
@@ -31,8 +36,6 @@
 
     pandoc
     ffmpeg
-
-    rustup
   ];
 
   monitors = [{

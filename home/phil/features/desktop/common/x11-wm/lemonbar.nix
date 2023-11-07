@@ -50,7 +50,7 @@ let
 
     # left bar
     while :; do
-      ${printf} "%s%3s %3d%s %1s %1s\n" "%{c}" "$(vol)" "$(bat)" "$(batstat)" "$(vpnstatus)" "$(newmails)"
+      ${printf} "%s%3s %3d%s %1s %1s\n" "%{c}" "$(vol)" "$(bat)" "$(batstat)" "$(newmails)" "$(vpnstatus)"
       sleep 1s
     done | ${lemonbar} -g "150x20+0" ${lemonbar-config} &
 

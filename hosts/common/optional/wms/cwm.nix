@@ -11,7 +11,7 @@
 
     libinput.enable = true;
 
-    layout = "us";
+    layout = "de";
     xkbOptions = "ctrl:nocaps";
   };
 }

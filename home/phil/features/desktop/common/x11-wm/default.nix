@@ -1,8 +1,9 @@
 { pkgs, ... }: {
   imports = [
     #./autorandr.nix
-    ./dmenu.nix
+    ./rofi.nix
     ./lemonbar.nix
+    ./screenlocker.nix
   ];
 
   home.packages = with pkgs; [
