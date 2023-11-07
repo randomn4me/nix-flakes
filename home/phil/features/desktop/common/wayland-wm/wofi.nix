@@ -5,7 +5,7 @@ in {
     enable = true;
 
     settings = {
-      width = "20%";
+      width = "400px";
       lines = 8;
       insensitive = true;
       location = "center";
@@ -64,6 +64,18 @@ in {
       esac
 
       exit 0
+    '';
+  };
+  
+  home.file.".local/bin/paper-menu" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+
+      cd ${config.home.homeDirectory}/usr/docs/zotero-paper
+      pdffile=$(fd 'pdf$' | wofi --show dmenu)
+
+      xdg-open "$pdffile" &
     '';
   };
 }

@@ -119,7 +119,8 @@
       # Launcher
       (lib.optionals config.programs.wofi.enable [
         "ALT,SPACE,exec,${wofi} -S drun"
-        "ALT,p,exec,${rofi-rbw}"
+        "ALT,p,exec,paper-menu"
+        "ALTSHIFT,p,exec,${rofi-rbw}"
         "ALTSHIFT,q,exec,shutdown-menu"
       ]);
 
@@ -138,16 +139,20 @@
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
-      monitor = map (m:
-        let
-          resolution = "${toString m.width}x${toString m.height}@${
-              toString m.refreshRate
-            }";
-          position = "${toString m.x}x${toString m.y}";
-        in "${m.name},${
-          if m.enabled then "${resolution},${position},1.5" else "disable"
-        }") (config.monitors) ++
-      [ ", preferred, auto, 1.5" ];
+      monitor = [
+        "eDP-1, preferred, auto, 1.5"
+        ", preferred, auto, 1"
+      ];
+      #monitor = map (m:
+      #  let
+      #    resolution = "${toString m.width}x${toString m.height}@${
+      #        toString m.refreshRate
+      #      }";
+      #    position = "${toString m.x}x${toString m.y}";
+      #  in "${m.name},${
+      #    if m.enabled then "${resolution},${position},1.5" else "disable"
+      #  }") (config.monitors) ++
+      #[ ", preferred, auto, 1.5" ];
     };
   };
 }
