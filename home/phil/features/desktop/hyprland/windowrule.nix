@@ -15,8 +15,13 @@
       "workspace 5, firefox"
 
       "workspace 6, mpv"
+      "workspace 6, zoom"
 
       "workspace 9, ncmpcpp"
+
+
+      "float, zoom"
+      "float, Master-Password"
     ];
   };
 }
