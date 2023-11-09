@@ -1,7 +1,7 @@
 {
   imports = [
     ./khard.nix
-    ./vdirsyncer.nix
+    #./khal.nix
 
     ./taskwarrior.nix
     ./neomutt.nix

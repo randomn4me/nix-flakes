@@ -3,7 +3,7 @@
     ./global
 
     ./features/accounts/private
-    #../features/accounts/peasec
+    ./features/accounts/peasec
 
     ./features/desktop/hyprland
     ./features/multimedia
