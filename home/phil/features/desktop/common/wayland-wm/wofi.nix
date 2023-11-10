@@ -7,6 +7,7 @@ in {
     settings = {
       width = "400px";
       lines = 8;
+      matching = "fuzzy";
       insensitive = true;
       location = "center";
       prompt = "Search..";
