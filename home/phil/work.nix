@@ -9,6 +9,7 @@
     ./features/multimedia
     ./features/backup
     ./features/rbw
+    ./features/scripts
     #../features/desktop/common/nextcloud.nix
 
     ./features/productivity
