@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
-  myName = "scan";
-  myBuildInputs = with pkgs; [ coreutils sane-backends imagemagick ];
+  myName = "vpn";
+  myBuildInputs = with pkgs; [ coreutils openconnect ];
   myScript = (pkgs.writeScriptBin myName (builtins.readFile ./raw/${myName}.sh)).overrideAttrs(old: {
     buildCommand = "${old.buildCommand}\n patchShebangs $out";
   });
