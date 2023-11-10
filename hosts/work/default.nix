@@ -33,7 +33,7 @@
   networking.hostName = "work";
 
   boot = {
-    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     # kernelModules = [ "sg" ]; # for makemkv
 
     loader.systemd-boot.enable = true;
