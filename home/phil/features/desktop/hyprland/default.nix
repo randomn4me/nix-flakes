@@ -153,6 +153,19 @@
       #    if m.enabled then "${resolution},${position},1.5" else "disable"
       #  }") (config.monitors) ++
       #[ ", preferred, auto, 1.5" ];
+
     };
+
+    extraConfig = ''
+    bind=ALT,R,submap,resize
+
+    submap=resize
+      binde=,h,resizeactive,-20 0
+      binde=,j,resizeactive,0 20
+      binde=,k,resizeactive,0 -20
+      binde=,l,resizeactive,20 0
+      bind=,escape,submap,reset 
+    submap=reset
+    '';
   };
 }
