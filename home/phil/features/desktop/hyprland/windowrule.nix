@@ -19,9 +19,9 @@
 
       "workspace 9, ncmpcpp"
 
-
       "float, zoom"
       "float, Master-Password"
+      "float, Extension"
     ];
   };
 }

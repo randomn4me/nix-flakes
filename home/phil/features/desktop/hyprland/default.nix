@@ -139,10 +139,7 @@
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
-      monitor = [
-        "eDP-1, preferred, auto, 1.5"
-        ", preferred, auto, 1"
-      ];
+      monitor = [ "eDP-1, preferred, auto, 1.5" ", preferred, auto, 1" ];
       #monitor = map (m:
       #  let
       #    resolution = "${toString m.width}x${toString m.height}@${
@@ -157,15 +154,15 @@
     };
 
     extraConfig = ''
-    bind=ALT,R,submap,resize
+      bind=ALT,R,submap,resize
 
-    submap=resize
-      binde=,h,resizeactive,-20 0
-      binde=,j,resizeactive,0 20
-      binde=,k,resizeactive,0 -20
-      binde=,l,resizeactive,20 0
-      bind=,escape,submap,reset 
-    submap=reset
+      submap=resize
+        binde=,h,resizeactive,-20 0
+        binde=,j,resizeactive,0 20
+        binde=,k,resizeactive,0 -20
+        binde=,l,resizeactive,20 0
+        bind=,escape,submap,reset 
+      submap=reset
     '';
   };
 }

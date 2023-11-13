@@ -1,5 +1,4 @@
-{ pkgs, config, ... }:
-{
+{ pkgs, config, ... }: {
   home.packages = [ pkgs.khal ];
 
   xdg.configFile."khal/khal.conf".text = ''

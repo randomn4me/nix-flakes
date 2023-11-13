@@ -1,5 +1,4 @@
-{ pkgs, config, ... }:
-{
+{ pkgs, config, ... }: {
   imports = [
     ../common
     ../common/x11-wm
@@ -14,7 +13,7 @@
 
     config = rec {
       modifier = "Alt";
-      bars = [];
+      bars = [ ];
 
       window = {
         border = 2;
@@ -26,7 +25,7 @@
         outer = 5;
       };
 
-      keybindings = let 
+      keybindings = let
         terminal = config.home.sessionVariables.TERMINAL;
 
         pamixer = "${pkgs.pamixer}/bin/pamixer";
@@ -39,7 +38,8 @@
         XF86AudioRaiseVolume = "exec ${pamixer} -i 5";
         XF86AudioLowerVolume = "exec,${pamixer} -d 5";
         XF86AudioMute = "exec ${pamixer} -t";
-        XF86AudioMicMute = "exec ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
+        XF86AudioMicMute =
+          "exec ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
 
         XF86AudioNext = "exec ${playerctl} next";
         XF86AudioPrev = "exec ${playerctl} previous";

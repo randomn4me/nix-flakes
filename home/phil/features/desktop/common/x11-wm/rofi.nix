@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   programs.rofi = {
     enable = true;
 
@@ -8,7 +7,7 @@
 
     terminal = config.home.sessionVariables.TERMINAL;
 
-    theme = let 
+    theme = let
       inherit (config.lib.formats.rasi) mkLiteral;
       inherit (config.colorscheme) colors;
     in {
@@ -24,9 +23,7 @@
         background-color = mkLiteral "#${colors.base01}";
       };
 
-      mainbox = {
-        background-color = mkLiteral "#${colors.base01}";
-      };
+      mainbox = { background-color = mkLiteral "#${colors.base01}"; };
 
       inputbar = {
         background-color = mkLiteral "#${colors.base01}";
@@ -69,24 +66,20 @@
         text-color = mkLiteral "#${colors.base0C}";
       };
 
-      element-icon = {
-        size = "25px";
-      };
+      element-icon = { size = "25px"; };
 
       "element selected" = {
         background-color = mkLiteral "#${colors.base0A}";
         text-color = mkLiteral "#${colors.base0E}";
       };
 
-      mode-switcher = {
-        spacing = "0";
-      };
+      mode-switcher = { spacing = "0"; };
 
       button = {
         padding = "10px";
         background-color = mkLiteral "#${colors.base02}";
         text-color = mkLiteral "#${colors.base03}";
-        vertical-align = "0.5"; 
+        vertical-align = "0.5";
         horizontal-align = "0.5";
       };
 

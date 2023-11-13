@@ -67,7 +67,7 @@ in {
       exit 0
     '';
   };
-  
+
   home.file.".local/bin/paper-menu" = {
     executable = true;
     text = ''

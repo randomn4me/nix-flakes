@@ -29,8 +29,11 @@ in {
       # Move window to workspace
       (map (n: "ALTSHIFT,${n},movetoworkspacesilent,${n}") workspaces) ++
       # Move focus
-      (lib.mapAttrsToList (key: direction: "ALT,${key},movefocus,${direction}") directions) ++
+      (lib.mapAttrsToList (key: direction: "ALT,${key},movefocus,${direction}")
+        directions) ++
       # Move window in direction
-      (lib.mapAttrsToList (key: direction: "ALT SHIFT,${key},movewindow,${direction}") directions);
+      (lib.mapAttrsToList
+        (key: direction: "ALT SHIFT,${key},movewindow,${direction}")
+        directions);
   };
 }

@@ -18,7 +18,8 @@ in {
         userName = "ba01viny";
         passwordCommand = [ "${cat}" "${home}/usr/misc/${userName}" ];
         type = "caldav";
-        url = "https://mail.tu-darmstadt.de:1443/users/kuehn@peasec.tu-darmstadt.de/calendar";
+        url =
+          "https://mail.tu-darmstadt.de:1443/users/kuehn@peasec.tu-darmstadt.de/calendar";
       };
 
       vdirsyncer = {

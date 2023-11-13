@@ -15,13 +15,11 @@
     ./features/productivity
 
     ./features/cli/udiskie.nix
-  ] ++
-  (lib.optionals osConfig.services.xserver.windowManager.cwm.enable [
-    ./features/desktop/cwm
-  ]) ++
-  (lib.optionals osConfig.services.xserver.windowManager.i3.enable [
-    ./features/desktop/i3
-  ]);
+  ]
+  ++ (lib.optionals osConfig.services.xserver.windowManager.cwm.enable
+    [ ./features/desktop/cwm ])
+  ++ (lib.optionals osConfig.services.xserver.windowManager.i3.enable
+    [ ./features/desktop/i3 ]);
 
   nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
 
@@ -48,5 +46,7 @@
   }];
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
-  wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;
+
+  wallpaper = outputs.wallpapers.aenami-15steps;
+  #wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;
 }

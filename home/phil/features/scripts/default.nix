@@ -1,17 +1,21 @@
 { pkgs, lib, ... }:
 let
-  myScriptBuilder = name: myDeps: let
-    myName = builtins.toString name;
-    myBuildInputs = [ pkgs.coreutils ] ++ myDeps;
-    myScript = (pkgs.writeScriptBin myName (builtins.readFile ./raw/${myName}.sh)).overrideAttrs(old: {
-      buildCommand = "${old.buildCommand}\n patchShebangs $out";
-    });
-  in pkgs.symlinkJoin {
-    name = myName;
-    paths = [ myScript ] ++ myBuildInputs;
-    buildInputs = [ pkgs.makeWrapper ];
-    postBuild = "wrapProgram $out/bin/${myName} --prefix PATH : $out/bin";
-  };
+  myScriptBuilder = name: myDeps:
+    let
+      myName = builtins.toString name;
+      myBuildInputs = [ pkgs.coreutils ] ++ myDeps;
+      myScript = (pkgs.writeScriptBin myName
+        (builtins.readFile ./raw/${myName}.sh)).overrideAttrs (old: {
+          buildCommand = ''
+            ${old.buildCommand}
+             patchShebangs $out'';
+        });
+    in pkgs.symlinkJoin {
+      name = myName;
+      paths = [ myScript ] ++ myBuildInputs;
+      buildInputs = [ pkgs.makeWrapper ];
+      postBuild = "wrapProgram $out/bin/${myName} --prefix PATH : $out/bin";
+    };
 in {
   home.packages = lib.mapAttrsToList (name: deps: (myScriptBuilder name deps)) {
     bat = with pkgs; [ gnugrep ];

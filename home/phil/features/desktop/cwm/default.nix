@@ -8,8 +8,7 @@
 
   xsession = {
     enable = true;
-    initExtra = let
-      hsetroot = "${pkgs.hsetroot}/bin/hsetroot";
+    initExtra = let hsetroot = "${pkgs.hsetroot}/bin/hsetroot";
     in ''
       ${hsetroot} -fill ${config.wallpaper}
     '';
