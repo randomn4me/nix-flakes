@@ -59,6 +59,8 @@
       daemon.enable = true;
       updater.enable = true;
     };
+
+    logind.lidSwitch = "lock";
   };
 
   programs = {
