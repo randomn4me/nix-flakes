@@ -22,7 +22,11 @@
               onOpenAndSave = true
             }
           })
-          add_lsp("ltex-ls", lspconfig.ltex, {})
+          add_lsp("ltex-ls", lspconfig.ltex, {
+            settings = {
+              language = "auto",
+            },
+          })
         '';
     }
 
