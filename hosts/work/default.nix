@@ -28,6 +28,7 @@
     ../common/optional/scanning.nix
 
     ../common/optional/docker.nix
+    ../common/optional/virt-manager.nix
   ];
 
   networking.hostName = "work";

@@ -1,9 +1,14 @@
-{ pkgs, inputs, outputs, config, ... }: {
+{ pkgs, inputs, outputs, config, ... }:
+let
+  ifTheyExist = groups:
+    builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+in {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   users.users.phil = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "video" "network" "scanner" "lp" ];
+    extraGroups = [ "wheel" "video" "audio" ]
+      ++ ifTheyExist [ "network" "scanner" "lp" "libvirtd" ];
 
     packages = [ pkgs.home-manager ];
   };
