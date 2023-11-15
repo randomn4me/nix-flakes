@@ -33,6 +33,8 @@ in {
     sessionVariables = { FLAKE = "${config.home.homeDirectory}/etc"; };
   };
 
+  home.file."var/misc/r4ndom".text = builtins.readFile ./r4ndom.txt;
+
   systemd.user.startServices = "sd-switch";
 
   xdg = {

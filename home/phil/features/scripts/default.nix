@@ -22,6 +22,7 @@ in {
     bone = with pkgs; [ libnotify xorg.xkbcomp ];
     bt = with pkgs; [ bluez ];
     checkwriting = with pkgs; [ perl ];
+    intro = with pkgs; [ taskwarrior ];
     latex-cite-count = with pkgs; [ python3 ];
     mkv-to-av1 = with pkgs; [ ffmpeg ];
     mvc = [ ];
