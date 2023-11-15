@@ -15,11 +15,10 @@
     ./features/productivity
 
     ./features/cli/udiskie.nix
-  ]
-  ++ (lib.optionals osConfig.services.xserver.windowManager.cwm.enable
+  ] ++ (lib.optionals osConfig.services.xserver.windowManager.cwm.enable
     [ ./features/desktop/cwm ])
-  ++ (lib.optionals osConfig.services.xserver.windowManager.i3.enable
-    [ ./features/desktop/i3 ]);
+    ++ (lib.optionals osConfig.services.xserver.windowManager.i3.enable
+      [ ./features/desktop/i3 ]);
 
   nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
 
