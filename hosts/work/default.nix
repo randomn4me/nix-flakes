@@ -28,7 +28,7 @@
     ../common/optional/scanning.nix
 
     ../common/optional/docker.nix
-    ../common/optional/virt-manager.nix
+    ../common/optional/virtualbox.nix
   ];
 
   networking.hostName = "work";
@@ -60,7 +60,7 @@
       updater.enable = true;
     };
 
-    logind.lidSwitch = "lock";
+    #logind.lidSwitch = "lock";
   };
 
   programs = {
