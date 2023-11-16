@@ -3,7 +3,7 @@ let inherit (config.colorscheme) colors;
 in {
   services.mako = {
     enable = true;
-    anchor = "top-center";
+    anchor = "top-right";
     defaultTimeout = 8000;
     layer = "overlay";
 
