@@ -19,7 +19,7 @@ let
 in {
   home.packages = lib.mapAttrsToList (name: deps: (myScriptBuilder name deps)) {
     bat = with pkgs; [ gnugrep ];
-    bone = with pkgs; [ libnotify xorg.xkbcomp ];
+    bone = with pkgs; [ libnotify xorg.xkbcomp xdg-utils ];
     bt = with pkgs; [ bluez ];
     checkwriting = with pkgs; [ perl ];
     intro = with pkgs; [ taskwarrior ];

@@ -3,14 +3,14 @@
 BONE_FILE=$HOME/.bone
 
 bone_on() {
-  notify bone on
+  notify-send bone on
   setxkbmap -layout de -variant bone
   touch $BONE_FILE
-  open ~/usr/pics/misc/wallpapers/bone-aufsteller.jpg
+  xdg-open ~/usr/pics/misc/wallpapers/bone-aufsteller.jpg
 }
 
 bone_off() {
-  notify bone off
+  notify-send bone off
   setxkbmap de
   rm -f $BONE_FILE
 }
