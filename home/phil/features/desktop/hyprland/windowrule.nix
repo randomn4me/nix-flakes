@@ -17,6 +17,8 @@
       "workspace 6, mpv"
       "workspace 6, zoom"
 
+      "workspace 8, virtualbox"
+
       "workspace 9, ncmpcpp"
 
       "float, zoom"
