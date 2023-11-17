@@ -58,9 +58,9 @@ in {
           "custom/mail"
           #"hyprland/workspaces"
         ];
-        #modules-center = [
-        #  "mpd"
-        #];
+        modules-center = [
+          "mpd"
+        ];
         modules-right = [ "tray" "hyprland/language" "clock" ];
 
         "hyprland/workspaces" = {
