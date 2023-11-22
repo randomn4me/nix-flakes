@@ -31,6 +31,7 @@
 
     signal-desktop
     nheko
+    fluffychat
 
     gnumake
     watchexec
