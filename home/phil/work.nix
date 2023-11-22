@@ -25,9 +25,13 @@
   home.packages = with pkgs; [
     texlive.combined.scheme-full
     libreoffice
+
     zotero
     obsidian
+
     signal-desktop
+    nheko
+
     gnumake
     watchexec
     openconnect
