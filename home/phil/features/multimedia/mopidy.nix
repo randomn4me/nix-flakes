@@ -8,10 +8,10 @@
       extensionPackages = with pkgs; [
         mopidy-mpd
         mopidy-mpris
-        #mopidy-spotify # TODO mopidy-spotify currently not working
+        mopidy-spotify
       ];
 
-      #extraConfigFiles = [ "${config.home.homeDirectory}/var/extraconfigs/mopidy_spotify.conf" ];
+      extraConfigFiles = [ "${config.home.homeDirectory}/var/extraconfigs/mopidy_spotify.conf" ];
 
       settings = {
         file = {
