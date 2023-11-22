@@ -42,6 +42,8 @@
   };
 
   services = {
+    flatpak.enable = true;
+
     printing = {
       enable = true;
       drivers = [ pkgs.cups-kyodialog ];
