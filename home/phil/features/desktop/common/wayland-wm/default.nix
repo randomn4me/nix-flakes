@@ -17,8 +17,8 @@
 
     wf-recorder
     wl-clipboard
-
-    chayang
+    wlr-randr
+    wdisplays
 
     wl-mirror
     ydotool
