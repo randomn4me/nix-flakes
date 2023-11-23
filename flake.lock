@@ -84,22 +84,6 @@
         "type": "github"
       }
     },
-    "harpoon": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696945578,
-        "narHash": "sha256-pSnFx5fg1llNlpTCV4hoo3Pf1KWnAJDRVSe+88N4HXM=",
-        "owner": "ThePrimeagen",
-        "repo": "harpoon",
-        "rev": "c1aebbad9e3d13f20bedb8f2ce8b3a94e39e424a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ThePrimeagen",
-        "repo": "harpoon",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -107,11 +91,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1700553346,
-        "narHash": "sha256-kW7uWsCv/lxuA824Ng6EYD9hlVYRyjuFn0xBbYltAeQ=",
+        "lastModified": 1700695018,
+        "narHash": "sha256-MAiPLgBF4GLzSOlhnPCDWkWW5CDx4i7ApIYaR+TwTVg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1aabb0a31b25ad83cfaa37c3fe29053417cd9a0f",
+        "rev": "134deb46abd5d0889d913b8509413f6f38b0811e",
         "type": "github"
       },
       "original": {
@@ -131,11 +115,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1700592218,
-        "narHash": "sha256-vHzDbBrZ5EsfVUMLgjuugf6OqB+iOLjKLO9O5n2occ4=",
+        "lastModified": 1700739112,
+        "narHash": "sha256-lsJWWR8JjIWku1AcMrHa7wO4UILytsFRgkFY7T9yRGQ=",
         "owner": "hyprwm",
         "repo": "hyprland",
-        "rev": "472926528428cd714c90f157e639fc0466611c8b",
+        "rev": "e40e486f61f2643578b9977b86f408799dbc75fd",
         "type": "github"
       },
       "original": {
@@ -274,7 +258,6 @@
     "root": {
       "inputs": {
         "hardware": "hardware",
-        "harpoon": "harpoon",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprwm-contrib": "hyprwm-contrib",
@@ -336,11 +319,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1700485432,
-        "narHash": "sha256-LyaYu8f3wbtcDWe0kBZQi7X9V9RKrZXsO7AZv3g0UdI=",
+        "lastModified": 1700729564,
+        "narHash": "sha256-vpW9M/vS35uJXz8bSoR50hM2yX/tVQpTnJJFkLtlEfs=",
         "owner": "Alexays",
         "repo": "Waybar",
-        "rev": "061c68ce923cf069cd2aa6125e5bf19351e49884",
+        "rev": "1fe4a4ee9d2baed6d3c36d46eb6e1c39b67bce05",
         "type": "github"
       },
       "original": {
