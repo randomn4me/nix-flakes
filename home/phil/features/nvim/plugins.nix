@@ -3,7 +3,24 @@
     let
       harpoon = pkgs.vimUtils.buildVimPlugin {
         name = "harpoon";
-        src = inputs.harpoon;
+        src = pkgs.fetchFromGitHub {
+          owner = "ThePrimeagen";
+          repo = "harpoon";
+          rev = "c1aebbad9e3d13f20bedb8f2ce8b3a94e39e424a";
+          sha256 = "sha256-pSnFx5fg1llNlpTCV4hoo3Pf1KWnAJDRVSe+88N4HXM=";
+        };
+
+      };
+
+      resession = pkgs.vimUtils.buildVimPlugin {
+        name = "resession";
+        src = pkgs.fetchFromGitHub {
+          owner = "stevearc";
+          repo = "resession.nvim";
+          rev = "b0107dc2cec1f24cf5a90a794a652eb66178ad8e";
+          sha256 = "sha256-/a36sfzgxDBEcA7zuYto1QmEE+Mhl3wrrL3KZg0aP24=";
+        };
+
       };
     in [
       vim-nix
@@ -94,23 +111,19 @@
           '';
       }
 
-      # {
-      #   plugin = auto-session;
-      #   type = "lua";
-      #   config = /* lua */ ''
-      #     require("auto-session").setup {
-      #       log_level = "error",
+      {
+        plugin = resession;
+        type = "lua";
+        config = # lua
+          ''
+            local resession = require('resession')
+            resession.setup()
+            vim.keymap.set('n', '<leader>ss', resession.save, { desc = "Save session" })
+            vim.keymap.set('n', '<leader>sl', resession.load, { desc = "Load session" })
+            vim.keymap.set('n', '<leader>sd', resession.delete, { desc = "Delete session" })
+          '';
+      }
 
-      #       cwd_change_handling = {
-      #         restore_upcoming_session = true, -- already the default, no need to specify like this, only here as an example
-      #         pre_cwd_changed_hook = nil, -- already the default, no need to specify like this, only here as an example
-      #         post_cwd_changed_hook = function() -- example refreshing the lualine status line _after_ the cwd changes
-      #         require("lualine").refresh() -- refresh lualine so the new session name is displayed in the status bar
-      #         end,
-      #       },
-      #     }
-      #   '';
-      # }
     ];
 }
 
