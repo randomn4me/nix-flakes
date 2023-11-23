@@ -28,6 +28,7 @@
 
     zotero
     obsidian
+    darktable
 
     signal-desktop
 
