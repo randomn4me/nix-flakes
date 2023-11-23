@@ -37,11 +37,13 @@ in {
           tags.coefficient = 0;
           scheduled.coefficient = 0;
           age.coefficient = 0;
+          annotations.coefficient = 0;
 
           user.tag = {
             mail.coefficient = 2;
             call.coefficient = 2;
             unikita.coefficient = -0.5;
+            waiting.coefficient = -2;
           };
         };
 
