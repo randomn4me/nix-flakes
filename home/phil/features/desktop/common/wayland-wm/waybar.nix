@@ -111,7 +111,7 @@ in {
         };
 
         mpd = {
-          interval = 3;
+          interval = 1;
           format = "{artist} - {title}";
           on-click = "${alacritty} --class ncmpcpp -e ${ncmpcpp}";
           format-stopped = "";
@@ -119,7 +119,7 @@ in {
         };
 
         battery = {
-          interval = 10;
+          interval = 60;
           format = "{capacity}";
           format-charging = "{capacity}+";
           on-click = "";
@@ -130,20 +130,8 @@ in {
           spacing = 5;
         };
 
-        "custom/clock" = {
-          format = "{}";
-          exec = "${date} +%H:%M";
-          interval = 1;
-        };
-
-        "custom/date" = {
-          format = "{}";
-          exec = "${date} +%d-%m";
-          interval = 60;
-        };
-
         "custom/mail" = {
-          interval = 1;
+          interval = 60 * 30;
           format = "{}";
           return-type = "json";
           exec = jsonOutput "new-mails" {
