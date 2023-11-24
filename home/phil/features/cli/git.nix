@@ -15,6 +15,8 @@
     extraConfig = { init.defaultBranch = "main"; };
     lfs.enable = true;
     ignores = [ ".direnv" ];
+
+    delta.enable = true;
   };
 }
 
