@@ -1,6 +1,5 @@
 { pkgs, config, ... }:
 let
-  cat = "${pkgs.coreutils}/bin/cat";
   w3m = "${pkgs.w3m}/bin/w3m";
 
   khard = "${pkgs.khard}/bin/khard";
@@ -197,22 +196,12 @@ in {
         map = [ "attach" ];
       }
       {
-        action =
-          "<sync-mailbox><enter-command>source ${home}/.config/neomutt/audacis<enter><change-folder>!<enter>";
-        key = "<f2>";
+        action = let
+          mbsync = "${config.programs.mbsync.package}/bin/mbsync";
+        in "<enter-command>unset wait_key<enter><shell-escape>${mbsync} -a<enter>";
+        key = "<f12>";
         map = [ "index" "pager" ];
       }
-      {
-        action =
-          "<sync-mailbox><enter-command>source ${home}/.config/neomutt/personalvorstand<enter><change-folder>!<enter>";
-        key = "<f3>";
-        map = [ "index" "pager" ];
-      }
-      #{
-      #  action = "<sync-mailbox><enter-command>source ${home}/.config/neomutt/peasec<enter><change-folder>!<enter>";
-      #  key = "<f4>";
-      #  map = [ "index" "pager" ];
-      #}
     ];
 
     changeFolderWhenSourcingAccount = true;
