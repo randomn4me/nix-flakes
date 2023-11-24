@@ -22,7 +22,6 @@ in {
 
   programs.neomutt = {
     enable = true;
-    #vimKeys = true;
     checkStatsInterval = 60;
 
     sidebar = {
