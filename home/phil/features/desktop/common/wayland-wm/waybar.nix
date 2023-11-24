@@ -131,7 +131,7 @@ in {
         };
 
         "custom/mail" = {
-          interval = 60 * 30;
+          interval = 1;
           format = "{}";
           return-type = "json";
           exec = jsonOutput "new-mails" {

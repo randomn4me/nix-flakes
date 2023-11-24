@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   imports = [
     ./hetzner-mail.nix
@@ -15,6 +16,6 @@
 
   services.mbsync = {
     enable = true;
-    frequency = "*-*-* *:*:00/30";
+    frequency = lib.mkDefault "*-*-* *:00/30";
   };
 }

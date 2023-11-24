@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   imports = [
     #./peasec-mail.nix
@@ -12,7 +13,7 @@
 
   services.mbsync = {
     enable = true;
-    frequency = "*-*-* *:*:00/30";
+    frequency = lib.mkDefault "*-*-* *:00/30";
   };
 
   programs.vdirsyncer.enable = true;
