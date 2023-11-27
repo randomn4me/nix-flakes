@@ -18,12 +18,12 @@ let
     };
 in {
   home.packages = lib.mapAttrsToList (name: deps: (myScriptBuilder name deps)) {
+    # shell
     bat = with pkgs; [ gnugrep ];
     bone = with pkgs; [ libnotify xorg.xkbcomp xdg-utils ];
     bt = with pkgs; [ bluez ];
     checkwriting = with pkgs; [ perl ];
     intro = with pkgs; [ taskwarrior ];
-    latex-cite-count = with pkgs; [ python3 ];
     mkv-to-av1 = with pkgs; [ ffmpeg ];
     mvc = [ ];
     pdffirstpage = with pkgs; [ poppler_utils ];
@@ -38,5 +38,20 @@ in {
     vol = with pkgs; [ pamixer ];
     vpn = with pkgs; [ openconnect ];
     weather = with pkgs; [ curl ];
+
+    # python
+    latex-cite-count = with pkgs; [ python3 ];
+
+    # TODO
+    # check-acm-approved = with pkgs; [ (python3.withPackages(ps: with ps; [ requests ])) ];
+
+    # Comment from matrix:
+    # you cannot install two python interpreters into the same environment
+    # that's what creates that collision
+    # the alternative would be to wrap your scripts
+    # or package them using buildPythonApplication
+    # ideally you'd create  a minimal pyproject.toml in that 
+    # - https://setuptools.pypa.io/en/latest/userguide/quickstart.html
+    # - https://nixos.wiki/wiki/Python
   };
 }
