@@ -1,15 +1,12 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 let
   # Dependencies
-  date = "${pkgs.coreutils}/bin/date";
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
 
   alacritty = "${config.programs.alacritty.package}/bin/alacritty";
   ncmpcpp = "${config.programs.ncmpcpp.package}/bin/ncmpcpp";
   neomutt = "${config.programs.neomutt.package}/bin/neomutt";
-
-  hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
 
   wc = "${pkgs.coreutils}/bin/wc";
   printf = "${pkgs.coreutils}/bin/printf";
