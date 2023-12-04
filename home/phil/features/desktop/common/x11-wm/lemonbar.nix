@@ -16,8 +16,8 @@ let
 
   sed = "${pkgs.gnused}/bin/sed";
 
-  bat = "${config.home.homeDirectory}/.local/bin/bat";
-  vpn = "${config.home.homeDirectory}/.local/bin/vpn";
+  bat = "${config.home.homeDirectory}/.nix-profile/bin/bat";
+  vpn = "${config.home.homeDirectory}/.nix-profile/bin/vpn";
 
   inherit (config.colorscheme) colors;
 
