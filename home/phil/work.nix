@@ -29,7 +29,6 @@
     zotero
     obsidian
     darktable
-    gimp
 
     signal-desktop
 

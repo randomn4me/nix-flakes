@@ -5,6 +5,7 @@
     ./firefox.nix
     ./font.nix
     #./gtk.nix
+    ./gimp.nix
     ./imv.nix
     ./ktouch.nix
     ./mpv.nix
