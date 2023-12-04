@@ -20,7 +20,8 @@
     ++ (lib.optionals osConfig.services.xserver.windowManager.i3.enable
       [ ./features/desktop/i3 ]);
 
-  nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
+  accounts.email.accounts.audacis.primary = true;
+  accounts.calendar.accounts.peasec.primary = true;
 
   home.packages = with pkgs; [
     texlive.combined.scheme-full

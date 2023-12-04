@@ -6,7 +6,7 @@ in {
   accounts.calendar = {
     basePath = "${home}/var/calendar";
 
-    accounts.peasec = {
+    accounts.audacis = {
       primary = lib.mkDefault false;
 
       local = {
@@ -15,11 +15,10 @@ in {
       };
 
       remote = rec {
-        userName = "ba01viny";
-        passwordCommand = [ "${cat}" "${home}/usr/misc/${userName}" ];
+        userName = "philippkuehn";
+        passwordCommand = [ "${cat}" "${home}/usr/misc/cloud.audacis.net" ];
         type = "caldav";
-        url =
-          "https://mail.tu-darmstadt.de:1443/users/kuehn@peasec.tu-darmstadt.de/calendar";
+        url = "https://cloud.audacis.net/remote.php/dav";
       };
 
       vdirsyncer = {

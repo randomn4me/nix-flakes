@@ -10,10 +10,14 @@ let
 
   wc = "${pkgs.coreutils}/bin/wc";
   printf = "${pkgs.coreutils}/bin/printf";
+  sort = "${pkgs.coreutils}/bin/sort";
+  head = "${pkgs.coreutils}/bin/head";
   pgrep = "${pkgs.procps}/bin/pgrep";
 
   jq = "${pkgs.jq}/bin/jq";
   find = "${pkgs.findutils}/bin/find";
+
+  khal = "${pkgs.khal}/bin/khal";
 
   # Function to simplify making waybar outputs
   jsonOutput = name:
@@ -58,7 +62,11 @@ in {
         modules-center = [
           "mpd"
         ];
-        modules-right = [ "tray" "hyprland/language" "clock" ];
+        modules-right = [
+          "tray"
+          "hyprland/language"
+          "custom/appointments"
+          "clock" ];
 
         "hyprland/workspaces" = {
           active-only = true;
@@ -163,6 +171,22 @@ in {
           };
           on-click = "${alacritty} --class neomutt -e ${neomutt}";
         };
+
+        "custom/appointments" = {
+          interval = 5;
+          format = "{}";
+          return-type = "json";
+          exec = jsonOutput "appointments" {
+            pre = ''
+              next_time=$(${khal} list now --format '{start-time}' --notstarted | ${sort} | ${head} -n 1)
+              tooltip=$(${khal} list --format "{start} {title}")
+            '';
+
+            text = "$next_time";
+            tooltip = "$tooltip";
+          };
+          on-click = "${alacritty} --class khal -e ${khal} -- interactive";
+        };
       };
     };
 
@@ -183,7 +207,7 @@ in {
         font-size: 12pt;
 
         padding: 0 10px;
-        margin: 0 5px;
+        margin: 0 3px;
 
         color: #${colors.base00};
       }
@@ -209,7 +233,7 @@ in {
         background: #${colors.base09};
       }
 
-      #battery, #language {
+      #battery, #language, #custom-appointments {
         background: #${colors.base08};
       }
 

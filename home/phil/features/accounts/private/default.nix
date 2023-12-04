@@ -4,8 +4,7 @@
     ./hetzner-mail.nix
 
     ./audacis-contacts.nix
-
-    #./audacis-calendar.nix
+    ./audacis-calendar.nix
   ];
 
   programs.msmtp.enable = true;

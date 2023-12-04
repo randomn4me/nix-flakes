@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
@@ -45,7 +45,7 @@ in {
 
     accounts = {
       audacis = rec {
-        primary = true;
+        primary = lib.mkDefault false;
         address = "philipp@audacis.net";
         userName = address;
         passwordCommand = "${cat} ${home}/usr/misc/mail.audacis.net";

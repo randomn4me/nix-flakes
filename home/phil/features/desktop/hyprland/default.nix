@@ -43,7 +43,9 @@
 
         follow_mouse = true;
 
-        touchpad = { natural_scroll = true; };
+        touchpad = {
+          natural_scroll = true;
+        };
 
         sensitivity = 0;
       };
@@ -77,7 +79,9 @@
         ];
       };
 
-      misc = { force_default_wallpaper = 0; };
+      misc = {
+        force_default_wallpaper = 0;
+      };
 
       exec = [ "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill" ];
 
@@ -97,7 +101,7 @@
       in [
         "ALT,Return,exec,${terminal}"
 
-        "ALTSHIFT,s,exec,${grimblast} --notify --freeze copy area"
+        "ALT SHIFT,s,exec,${grimblast} --notify --freeze copy area"
       ] ++
 
       (lib.optionals config.services.playerctld.enable [
@@ -120,8 +124,8 @@
       (lib.optionals config.programs.wofi.enable [
         "ALT,SPACE,exec,${wofi} -S drun"
         "ALT,p,exec,paper-menu"
-        "ALTSHIFT,p,exec,${rofi-rbw}"
-        "ALTSHIFT,q,exec,shutdown-menu"
+        "ALT SHIFT,p,exec,${rofi-rbw}"
+        "ALT SHIFT,q,exec,shutdown-menu"
       ]);
 
       binde = let
@@ -139,17 +143,14 @@
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
-      monitor = [ "eDP-1, preferred, auto, 1.5" ", preferred, auto, 1" ];
-      #monitor = map (m:
-      #  let
-      #    resolution = "${toString m.width}x${toString m.height}@${
-      #        toString m.refreshRate
-      #      }";
-      #    position = "${toString m.x}x${toString m.y}";
-      #  in "${m.name},${
-      #    if m.enabled then "${resolution},${position},1.5" else "disable"
-      #  }") (config.monitors) ++
-      #[ ", preferred, auto, 1.5" ];
+      monitor = [
+        "eDP-1, preferred, auto, 1.5"
+        ", preferred, auto, 1"
+      ];
+
+      workspace = map (m:
+      "${m.name},${m.workspace}"
+      ) (lib.filter (m: m.enabled && m.workspace != null) config.monitors);
 
     };
 

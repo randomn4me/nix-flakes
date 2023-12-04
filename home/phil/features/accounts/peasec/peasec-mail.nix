@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
@@ -8,7 +8,7 @@ in {
 
     accounts = {
       peasec = {
-        primary = true;
+        primary = lib.mkDefault false;
         realName = "Philipp Kühn";
         address = "kuehn@peasec.tu-darmstadt.de";
         userName = "ba01viny";
