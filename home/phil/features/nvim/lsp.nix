@@ -3,44 +3,58 @@
     {
       plugin = nvim-lspconfig;
       type = "lua";
-      config = # lua
-        ''
-          local lspconfig = require('lspconfig')
+      config = /* lua */ ''
+        local lspconfig = require('lspconfig')
 
-          function add_lsp(binary, server, options)
-            options["cmd"] = { binary }
-            if vim.fn.executable(binary) == 1 then server.setup(options) end
+        function add_lsp(server, options)
+          if options["cmd"] ~= nil then
+            binary = options["cmd"][1]
+          else
+            binary = server["document_config"]["default_config"]["cmd"][1]
           end
+          if vim.fn.executable(binary) == 1 then
+            server.setup(options)
+          end
+        end
 
-          add_lsp("bash-language-server", lspconfig.bashls, {})
-          add_lsp("nil", lspconfig.nil_ls, {})
-          add_lsp("pylsp", lspconfig.pylsp, {})
-          add_lsp("lua-lsp", lspconfig.lua_ls, {})
-          add_lsp("texlab", lspconfig.texlab, {
-            chktex = {
-              onEdit = true,
-              onOpenAndSave = true
+        add_lsp(lspconfig.dockerls, {})
+        add_lsp(lspconfig.bashls, {})
+        add_lsp(lspconfig.nil_ls, {})
+        add_lsp(lspconfig.pylsp, {})
+        add_lsp(lspconfig.lua_ls, {})
+
+        add_lsp(lspconfig.texlab, {
+          chktex = { onEdit = true, onOpenAndSave = true }
+        })
+      '';
+    }
+
+    {
+      plugin = ltex_extra-nvim;
+      type = "lua";
+      config = /* lua */ ''
+        local ltex_extra = require('ltex_extra')
+        add_lsp(lspconfig.ltex, {
+          on_attach = function(client, bufnr)
+            ltex_extra.setup{
+              path = vim.fn.expand("~") .. "/.local/state/ltex"
             }
-          })
-          add_lsp("ltex-ls", lspconfig.ltex, {
-            settings = {
-              language = "auto",
-            },
-          })
-        '';
+          end
+        })
+      '';
     }
 
     {
       plugin = rust-tools-nvim;
       type = "lua";
-      config = # lua
-        ''
-          local rust_tools = require('rust-tools')
-          if vim.fn.executable("rust-analyzer") == 1 then
-            rust_tools.setup{ tools = { autoSetHints = true } }
-          end
-          vim.api.nvim_set_hl(0, '@lsp.type.comment.rust', {})
-        '';
+      config = /* lua */ ''
+        local rust_tools = require('rust-tools')
+        add_lsp(rust_tools, {
+          cmd = { "rust-analyzer" },
+          tools = { autoSetHints = true }
+        })
+        vim.api.nvim_set_hl(0, '@lsp.type.comment.rust', {})
+      '';
     }
 
     # Completions
@@ -51,25 +65,22 @@
     {
       plugin = nvim-cmp;
       type = "lua";
-      config = # lua
-        ''
-          local cmp = require('cmp')
+      config = /* lua */ ''
+        local cmp = require('cmp')
 
-          cmp.setup{
-            formatting = { format = require('lspkind').cmp_format() },
-            -- Same keybinds as vim's vanilla completion
-            mapping = {
-              ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-              ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-              ['<C-e>'] = cmp.mapping.close(),
-              ['<C-y>'] = cmp.mapping.confirm(),
-            },
-            sources = {
-              { name='buffer', option = { get_bufnrs = vim.api.nvim_list_bufs } },
-              { name='nvim_lsp' },
-            },
-          }
-        '';
+        cmp.setup{
+          formatting = { format = require('lspkind').cmp_format() },
+
+          -- Same keybinds as vim's vanilla completion
+          mapping = cmp.mapping.preset.insert({
+          }),
+
+          sources = {
+            { name='buffer', option = { get_bufnrs = vim.api.nvim_list_bufs } },
+            { name='nvim_lsp' },
+          },
+        }
+      '';
     }
   ];
 }

@@ -1,5 +1,11 @@
 { pkgs, ... }: {
-  imports = [ ./mappings.nix ./setup.nix ./lsp.nix ./plugins.nix ./ui.nix ];
+  imports = [
+    ./setup.nix
+    ./lsp.nix
+    ./plugins.nix
+    ./mappings.nix
+    ./ui.nix
+  ];
 
   home.packages = with pkgs; [
     nil
@@ -7,6 +13,8 @@
 
     texlab
     ltex-ls
+
+    rust-analyzer
   ];
 
   programs.neovim = {

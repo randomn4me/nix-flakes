@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, config, ... }: {
   programs.neovim.plugins = with pkgs.vimPlugins;
     let
       harpoon = pkgs.vimUtils.buildVimPlugin {
@@ -25,96 +25,103 @@
     in [
       vim-nix
       vim-markdown
+      rust-vim
+      vim-markdown
+      vim-nix
+      vim-toml
+      haskell-vim
+
+      {
+        plugin = vimtex;
+        config = /* vim */ ''
+          let g:vimtex_view_method = '${if config.programs.zathura.enable then "zathura" else "general"}'
+        '';
+      }
+
 
       {
         plugin = telescope-nvim;
         type = "lua";
-        config = # lua
-          ''
-            local builtin = require('telescope.builtin')
-            vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find in all files" })
-            vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find in git files" })
-            vim.keymap.set('n', '<leader>fs', function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
-            end, { desc = "Grep in all files" })
-            vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "View help" })
-          '';
+        config = /* lua */ ''
+          local builtin = require('telescope.builtin')
+          vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find in all files" })
+          vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find in git files" })
+          vim.keymap.set('n', '<leader>fs', function()
+          builtin.grep_string({ search = vim.fn.input("Grep > ") })
+          end, { desc = "Grep in all files" })
+          vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "View help" })
+        '';
       }
 
       {
         plugin = telescope-undo-nvim;
         type = "lua";
-        config = # lua
-          ''
-            require("telescope").setup({
-              extensions = {
-                undo = {
-                  side_by_side = true,
-                  layout_config = {
-                    preview_height = 0.8,
-                  },
+        config = /* lua */ ''
+          require("telescope").setup({
+            extensions = {
+              undo = {
+                side_by_side = true,
+                layout_config = {
+                  preview_height = 0.8,
                 },
               },
-            })
+            },
+          })
 
-            vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
-          '';
+          vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+        '';
       }
 
       {
         plugin = harpoon;
         type = "lua";
-        config = # lua
-          ''
-            local mark = require("harpoon.mark")
-            local ui = require("harpoon.ui")
+        config = /* lua */ ''
+          local mark = require("harpoon.mark")
+          local ui = require("harpoon.ui")
 
-            vim.keymap.set("n", "<leader>a", mark.add_file)
-            vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+          vim.keymap.set("n", "<leader>a", mark.add_file)
+          vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 
-            vim.keymap.set("n", "<C-j>", function() ui.nav_file(1) end)
-            vim.keymap.set("n", "<C-k>", function() ui.nav_file(2) end)
-            vim.keymap.set("n", "<C-l>", function() ui.nav_file(3) end)
-            vim.keymap.set("n", "<C-ö>", function() ui.nav_file(4) end)
-          '';
+          vim.keymap.set("n", "<C-j>", function() ui.nav_file(1) end)
+          vim.keymap.set("n", "<C-k>", function() ui.nav_file(2) end)
+          vim.keymap.set("n", "<C-l>", function() ui.nav_file(3) end)
+          vim.keymap.set("n", "<C-ö>", function() ui.nav_file(4) end)
+        '';
       }
 
       {
         plugin = nvim-treesitter.withAllGrammars;
         type = "lua";
-        config = # lua
-          ''
-            require('nvim-treesitter.configs').setup{
-              highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-              },
-            }
-          '';
+        config = /* lua */ ''
+          require('nvim-treesitter.configs').setup{
+            highlight = {
+              enable = true,
+              additional_vim_regex_highlighting = false,
+            },
+          }
+        '';
       }
 
       {
         plugin = leap-nvim;
         type = "lua";
-        config = # lua
-          ''
-            require('leap').add_default_mappings()
-          '';
+        config = /* lua */ ''
+          require('leap').add_default_mappings()
+        '';
       }
 
       {
         plugin = vim-fugitive;
         type = "lua";
-        config = # lua
-          ''
-            vim.keymap.set("n", "<leader>g", "<cmd>:Git<cr>", { desc = "Open Git interface" })
-          '';
+        config = /* lua */ ''
+          vim.keymap.set("n", "<leader>g", "<cmd>:Git<cr>", { desc = "Open Git interface" })
+        '';
       }
 
       {
         plugin = resession;
         type = "lua";
-        config = # lua
+        config = /* lua */
           ''
             local resession = require('resession')
             resession.setup()
