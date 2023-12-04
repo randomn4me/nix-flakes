@@ -10,7 +10,7 @@ let
   home = "${config.home.homeDirectory}";
 in {
 
-  home.packages = with pkgs; [ mailcap ];
+  home.packages = with pkgs; [ mailcap urlview ];
 
   xdg.configFile."mailcap".text = ''
     text/html; ${w3m} -I %{charset} -T text/html; copiousoutput;
