@@ -16,6 +16,7 @@
 
     mimeApps.defaultApplications = {
       "image/jpeg" = [ "imv.desktop" ];
+      "image/png" = [ "imv.desktop" ];
     };
   };
 
