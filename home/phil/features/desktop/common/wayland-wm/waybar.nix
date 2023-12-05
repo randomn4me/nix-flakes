@@ -177,9 +177,13 @@ in {
           format = "{}";
           return-type = "json";
           exec = jsonOutput "appointments" {
-            pre = ''
-              next_time=$(${khal} list now --format '{start-time}' --notstarted | ${sort} | ${head} -n 1)
-              tooltip=$(${khal} list --format "{start} {title}")
+            pre = let inherit (config.colorscheme) colors;
+            in ''
+              next_time=$(${khal} list now --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
+              today_tooltip=$(${khal} list today eod --format "{start} {title}" --day-format "<span color='#${colors.base0F}'><b>{name}, {date}</b></span>")
+              tomorrow_tooltip=$(${khal} list tomorrow eod --format "{start} {title}" --day-format "<span color='#${colors.base0B}'><b>{name}, {date}</b></span>")
+
+              tooltip="$today_tooltip"
             '';
 
             text = "$next_time";
