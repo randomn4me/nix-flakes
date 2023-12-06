@@ -5,7 +5,7 @@ let
       myName = builtins.toString name;
       myBuildInputs = [ pkgs.coreutils ] ++ myDeps;
       myScript = (pkgs.writeScriptBin myName
-        (builtins.readFile ./raw/${myName}.sh)).overrideAttrs (old: {
+        (builtins.readFile ./shell/${myName}.sh)).overrideAttrs (old: {
           buildCommand = ''
             ${old.buildCommand}
              patchShebangs $out'';
