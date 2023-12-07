@@ -45,7 +45,7 @@
     ########################################
     autogroup 1 "Alacritty"
 
-    autogroup 2 "Zathura"
+    autogroup 2 "obsidian"
 
     autogroup 3 "mpv"
     autogroup 3 "Zotero"
@@ -57,8 +57,6 @@
     autogroup 5 "firefox"
 
     autogroup 6 "zoom"
-
-    autogroup 7 "obsidian"
 
     autogroup 9 "spotify"
 
