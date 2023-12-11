@@ -8,8 +8,28 @@
     path = ${config.home.homeDirectory}/var/calendar/peasec/calendar
     type = calendar
 
-    [[audacis]]
+    [[audacis-philipp]]
     path = ${config.home.homeDirectory}/var/calendar/audacis/personal
+    type = calendar
+
+    [[audacis-camilla]]
+    path = ${config.home.homeDirectory}/var/calendar/audacis/personal_shared_by_camillakuehn
+    type = calendar
+
+    [[audacis-kids]]
+    path = ${config.home.homeDirectory}/var/calendar/audacis/imported-kidsics-1_shared_by_camillakuehn
+    type = calendar
+
+    [[audacis-ferien]]
+    path = ${config.home.homeDirectory}/var/calendar/audacis/ferien-3
+    type = calendar
+
+    [[audacis-unikita]]
+    path = ${config.home.homeDirectory}/var/calendar/audacis/unikita
+    type = calendar
+
+    [[audacis-birthdays]]
+    path = ${config.home.homeDirectory}/var/calendar/audacis/contact_birthdays
     type = calendar
 
     [locale]
