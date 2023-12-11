@@ -18,6 +18,6 @@
   programs.vdirsyncer.enable = true;
   services.vdirsyncer = {
     enable = true;
-    frequency = lib.mkDefault "*-*-* *:00/30";
+    frequency = lib.mkDefault "*-*-* *:00/5";
   };
 }

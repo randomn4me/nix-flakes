@@ -20,6 +20,6 @@
 
   services.vdirsyncer = {
     enable = true;
-    frequency = lib.mkDefault "*-*-* *:00/30";
+    frequency = lib.mkDefault "*-*-* *:00/5";
   };
 }
