@@ -5,6 +5,7 @@
     ./eza.nix
     ./fzf.nix
     ./git.nix
+    ./lyrics.nix
     ./tmux.nix
     ./zoxide.nix
   ];

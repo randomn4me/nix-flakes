@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   home.packages = [ pkgs.sptlrx ];
   xdg.configFile."sptlrx/config.yaml".text = ''
