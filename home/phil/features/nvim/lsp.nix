@@ -33,11 +33,11 @@
       plugin = ltex_extra-nvim;
       type = "lua";
       config = /* lua */ ''
-        local ltex_extra = require('ltex_extra')
+        local ltex_extra = require('ltex_extra'),
         add_lsp(lspconfig.ltex, {
           on_attach = function(client, bufnr)
-            ltex_extra.setup{
-              path = vim.fn.expand("~") .. "/.local/state/ltex"
+            ltex_extra.setup {
+              path = vim.fn.expand("~") .. "/.local/state/ltex",
             }
           end
         })

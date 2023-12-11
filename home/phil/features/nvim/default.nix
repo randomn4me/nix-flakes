@@ -15,7 +15,11 @@
     ltex-ls
 
     rust-analyzer
+
+    neovim-remote
   ];
+
+  home.sessionVariables.NVIM_LISTEN_ADDRESS = /tmp/nvimsocket;
 
   programs.neovim = {
     enable = true;

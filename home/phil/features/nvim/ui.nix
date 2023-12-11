@@ -61,9 +61,9 @@
       type = "lua";
       config = /* lua */ ''
         require('fidget').setup{
-          text = {
-            spinner = "dots",
-          },
+          -- text = {
+          --   spinner = "dots",
+          -- },
         }
       '';
     }

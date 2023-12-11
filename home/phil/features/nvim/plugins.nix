@@ -33,8 +33,13 @@
 
       {
         plugin = vimtex;
-        config = /* vim */ ''
-          let g:vimtex_view_method = '${if config.programs.zathura.enable then "zathura" else "general"}'
+        type = "lua";
+        config = /* lua */ ''
+          vim.g.vimtex_view_method = '${if config.programs.zathura.enable then "zathura" else "general"}'
+          vim.g.vimtex_compiler_latexmk = { out_dir = 'out', aux_dir = 'out' }
+
+          vim.keymap.set('n', "<leader>vv", ":VimtexView<CR>", { desc = "View pdf file with vimtex", silent = true })
+          vim.keymap.set('n', "<leader>vc", ":VimtexCompile<CR>", { desc = "Compile latex project with vimtex", silent = true })
         '';
       }
 
