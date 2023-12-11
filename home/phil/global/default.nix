@@ -30,7 +30,7 @@ in {
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
     sessionPath = [ "$HOME/.local/bin" ];
-    sessionVariables = { FLAKE = "${config.home.homeDirectory}/etc"; };
+    sessionVariables.FLAKE = "${config.home.homeDirectory}/etc";
   };
 
   home.file."var/misc/r4ndom".text = builtins.readFile ./r4ndom.txt;

@@ -26,7 +26,7 @@
           "echo '╓───── m o u n t . p o i n t s'; echo '╙────────────────────────────────────── ─ ─ '; lsblk -a; echo ''; echo '╓───── d i s k . u s a g e'; echo '╙────────────────────────────────────── ─ ─ '; df -h;";
       };
 
-      sessionVariables = { PROMPT_DIRTRIM = 2; };
+      sessionVariables.PROMPT_DIRTRIM = 2;
 
       bashrcExtra = ''
         export PS1="\w >> ";

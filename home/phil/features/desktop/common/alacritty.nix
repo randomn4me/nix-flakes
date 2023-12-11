@@ -8,7 +8,7 @@ let
 in {
   home = {
     packages = [ alacritty-xterm ];
-    sessionVariables = { TERMINAL = "alacritty"; };
+    sessionVariables.TERMINAL = "alacritty";
   };
 
   programs.alacritty = {
