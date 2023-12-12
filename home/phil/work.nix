@@ -10,7 +10,6 @@
     ./features/backup
     ./features/rbw
     ./features/scripts
-    #../features/desktop/common/nextcloud.nix
 
     ./features/productivity
 
@@ -37,8 +36,6 @@
     texlive.combined.scheme-full
     libreoffice
 
-    zotero
-    obsidian
     darktable
 
     signal-desktop
