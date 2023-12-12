@@ -26,6 +26,7 @@
     ../common/optional/bluetooth.nix
     ../common/optional/pipewire.nix
     ../common/optional/scanning.nix
+    ../common/optional/openrgb.nix
 
     ../common/optional/docker.nix
     ../common/optional/virtualbox.nix
