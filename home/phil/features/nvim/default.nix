@@ -7,30 +7,8 @@
     ./ui.nix
   ];
 
-  home.packages = with pkgs; [
-    nil
-    nixfmt
-
-    texlab
-    ltex-ls
-
-    rust-analyzer
-
-    neovim-remote
-  ];
-
+  home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.NVIM_LISTEN_ADDRESS = /tmp/nvimsocket;
-
-  programs.neovim = {
-    enable = true;
-
-    viAlias = true;
-    vimAlias = true;
-
-    defaultEditor = true;
-
-    extraPackages = with pkgs; [ tree-sitter gcc ];
-  };
 
   xdg.desktopEntries = {
     nvim = {
@@ -61,5 +39,101 @@
       type = "Application";
       categories = [ "Utility" "TextEditor" ];
     };
+  };
+
+  programs.neovim = {
+    enable = true;
+
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+
+    extraPackages = with pkgs; [
+      #-- c/c++
+      cmake
+      cmake-language-server
+      gnumake
+      checkmake
+      gcc # c/c++ compiler, required by nvim-treesitter!
+      llvmPackages.clang-unwrapped # c/c++ tools with clang-tools such as clangd
+      gdb
+      lldb
+
+      #-- python
+      nodePackages.pyright # python language server
+      python3Packages.black # python formatter
+      python3Packages.ruff-lsp
+      (python3.withPackages (
+        ps:
+          with ps; [
+            pynvim # Python client and plugin host for Nvim
+
+            ipython
+            pandas
+            requests
+            pyquery
+            pyyaml
+          ]
+      ))
+
+      #-- rust
+      rust-analyzer
+      cargo # rust package manager
+      rustfmt
+
+      #-- nix
+      nil
+      rnix-lsp
+      # nixd
+      statix # Lints and suggestions for the nix programming language
+      deadnix # Find and remove unused code in .nix source files
+      alejandra # Nix Code Formatter
+
+      #-- lua
+      stylua
+      lua-language-server
+
+      #-- bash
+      nodePackages.bash-language-server
+      shellcheck
+      shfmt
+
+      #-- javascript/typescript --#
+      nodePackages.nodejs
+      nodePackages.typescript
+      nodePackages.typescript-language-server
+      # HTML/CSS/JSON/ESLint language servers extracted from vscode
+      nodePackages.vscode-langservers-extracted
+      nodePackages."@tailwindcss/language-server"
+
+      #-- CloudNative
+      nodePackages.dockerfile-language-server-nodejs
+      # terraform  # install via brew on macOS
+      terraform-ls
+      jsonnet
+      jsonnet-language-server
+      hadolint # Dockerfile linter
+
+      #-- Others
+      taplo # TOML language server / formatter / validator
+      nodePackages.yaml-language-server
+      sqlfluff # SQL linter
+      buf # protoc plugin for linting and formatting
+      proselint # English prose linter
+      guile # scheme language
+
+      #-- Misc
+      tree-sitter # common language parser/highlighter
+      nodePackages.prettier # common code formatter
+      marksman # language server for markdown
+      texlab # tex
+      ltex-ls # language-tool + tex
+      glow # markdown previewer
+      fzf
+
+      #-- Optional Requirements:
+      gdu # disk usage analyzer, required by AstroNvim
+      ripgrep # fast search tool, required by AstroNvim's '<leader>fw'(<leader> is space key)
+    ];
   };
 }

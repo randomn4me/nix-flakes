@@ -24,6 +24,11 @@
     };
 
     waybar.url = "github:Alexays/Waybar";
+
+    astronvim = {
+      url = "github:AstroNvim/AstroNvim/v3.40.3";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
