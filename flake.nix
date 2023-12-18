@@ -36,20 +36,24 @@
       inherit (self) outputs;
       lib = nixpkgs.lib // home-manager.lib;
       systems = [
-        #"aarch64-linux"
+        "aarch64-linux"
         #"i686-linux"
         "x86_64-linux"
-        #"aarch64-darwin"
-        #"x86_64-darwin"
       ];
+
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
-      pkgsFor = nixpkgs.legacyPackages;
+      pkgsFor = lib.genAttrs systems (system: import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      });
+
     in {
       inherit lib;
       nixosModules = import ./modules/nixos;
       homeManagerModules = import ./modules/home-manager;
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+      formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
       wallpapers = import ./home/phil/wallpapers;
 
@@ -59,23 +63,18 @@
           modules = [ ./hosts/work ];
           specialArgs = { inherit inputs outputs; };
         };
-
-        # work = lib.nixosSystem {
-        #   modules = [ ./hosts/work ];
-        #   specialArgs = { inherit inputs outputs; };
-        # };
       };
 
       homeConfigurations = {
         "phil@work" = lib.homeManagerConfiguration {
           modules = [ ./home/phil/work.nix ];
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = nixpkgs.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
         };
 
         #"phil@work" = lib.homeManagerConfiguration {
         #  modules = [ ./home/phil/work.nix ];
-        #  pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        #  pkgs = nixpkgs.x86_64-linux;
         #  extraSpecialArgs = {inherit inputs outputs;};
         #};
       };

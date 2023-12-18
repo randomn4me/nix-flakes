@@ -14,10 +14,10 @@
     ./features/productivity
 
     ./features/cli/udiskie.nix
-  ] ++ (lib.optionals osConfig.services.xserver.windowManager.cwm.enable
-    [ ./features/desktop/cwm ])
-    ++ (lib.optionals osConfig.services.xserver.windowManager.i3.enable
-      [ ./features/desktop/i3 ]);
+    ./features/virtualization/virt-manager.nix
+  ]
+  ++ (lib.optionals osConfig.services.xserver.windowManager.cwm.enable [ ./features/desktop/cwm ])
+  ++ (lib.optionals osConfig.services.xserver.windowManager.i3.enable [ ./features/desktop/i3 ]);
 
   accounts.email.accounts.audacis.primary = true;
   accounts.calendar.accounts.peasec.primary = true;
@@ -37,6 +37,7 @@
     libreoffice
 
     darktable
+    xournalpp
 
     signal-desktop
 
