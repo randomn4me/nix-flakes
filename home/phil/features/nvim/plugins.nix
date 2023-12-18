@@ -12,16 +12,6 @@
 
       };
 
-      resession = pkgs.vimUtils.buildVimPlugin {
-        name = "resession";
-        src = pkgs.fetchFromGitHub {
-          owner = "stevearc";
-          repo = "resession.nvim";
-          rev = "b0107dc2cec1f24cf5a90a794a652eb66178ad8e";
-          sha256 = "sha256-/a36sfzgxDBEcA7zuYto1QmEE+Mhl3wrrL3KZg0aP24=";
-        };
-
-      };
     in [
       vim-nix
       vim-markdown
@@ -38,8 +28,16 @@
           vim.g.vimtex_view_method = '${if config.programs.zathura.enable then "zathura" else "general"}'
           vim.g.vimtex_compiler_latexmk = { out_dir = 'out', aux_dir = 'out' }
 
-          vim.keymap.set('n', "<leader>vv", ":VimtexView<CR>", { desc = "View pdf file with vimtex", silent = true })
-          vim.keymap.set('n', "<leader>vc", ":VimtexCompile<CR>", { desc = "Compile latex project with vimtex", silent = true })
+          vim.keymap.set('n', "<leader>vv", ':VimtexView<CR>', { desc = "View pdf file with vimtex", silent = true })
+          vim.keymap.set('n', "<leader>vc", ':VimtexCompile<CR>', { desc = "Compile latex project with vimtex", silent = true })
+          vim.keymap.set('n', "<leader>vd", function()
+            local package_name = vim.fn.input("Documentation of package > ")
+            if package_name ~= "" then
+              vim.cmd("VimtexDocPackage " .. package_name)
+            else
+              print("No package provided")
+            end
+          end, { desc = "Open documentation for package.", silent = true })
         '';
       }
 
@@ -59,21 +57,10 @@
       }
 
       {
-        plugin = telescope-undo-nvim;
+        plugin = undotree;
         type = "lua";
         config = /* lua */ ''
-          require("telescope").setup({
-            extensions = {
-              undo = {
-                side_by_side = true,
-                layout_config = {
-                  preview_height = 0.8,
-                },
-              },
-            },
-          })
-
-          vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+          vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
         '';
       }
 
@@ -102,8 +89,16 @@
             highlight = {
               enable = true,
               additional_vim_regex_highlighting = false,
-            },
+            }
           }
+        '';
+      }
+
+      {
+        plugin = indent-blankline-nvim;
+        type = "lua";
+        config = /* lua */ ''
+          require("ibl").setup()
         '';
       }
 
@@ -121,19 +116,6 @@
         config = /* lua */ ''
           vim.keymap.set("n", "<leader>g", "<cmd>:Git<cr>", { desc = "Open Git interface" })
         '';
-      }
-
-      {
-        plugin = resession;
-        type = "lua";
-        config = /* lua */
-          ''
-            local resession = require('resession')
-            resession.setup()
-            vim.keymap.set('n', '<leader>ss', resession.save, { desc = "Save session" })
-            vim.keymap.set('n', '<leader>sl', resession.load, { desc = "Load session" })
-            vim.keymap.set('n', '<leader>sd', resession.delete, { desc = "Delete session" })
-          '';
       }
 
     ];
