@@ -18,9 +18,6 @@ in {
 
       vim.opt.smartindent = true
 
-      vim.opt.wrap = true
-      vim.opt.linebreak = true
-
       vim.opt.swapfile = false
       vim.opt.backup = false
       vim.opt.undodir = os.getenv("XDG_CACHE_HOME") .. "/vim/undodir"
@@ -28,6 +25,7 @@ in {
 
       vim.opt.hlsearch = false
       vim.opt.incsearch = true
+      vim.opt.ignorecase = true
       vim.opt.smartcase = true
 
       vim.opt.termguicolors = true
