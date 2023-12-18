@@ -4,7 +4,7 @@
     ./banking.nix
     ./firefox.nix
     ./font.nix
-    #./gtk.nix
+    ./gtk.nix
     ./gimp.nix
     ./imv.nix
     ./ktouch.nix
@@ -14,5 +14,12 @@
     ./zathura.nix
   ];
 
-  home.packages = with pkgs; [ flatpak libreoffice ];
+  fonts.fontconfig.enable = true;
+
+  home.packages = with pkgs; [
+    flatpak
+    libreoffice
+
+    (nerdfonts.override { fonts = [ "ShareTechMono" ]; })
+  ];
 }
