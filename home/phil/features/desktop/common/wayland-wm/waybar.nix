@@ -7,12 +7,20 @@ let
   alacritty = "${config.programs.alacritty.package}/bin/alacritty";
   ncmpcpp = "${config.programs.ncmpcpp.package}/bin/ncmpcpp";
   neomutt = "${config.programs.neomutt.package}/bin/neomutt";
+  task = "${config.programs.taskwarrior.package}/bin/task";
+  sptlrx = "${pkgs.sptlrx}/bin/sptlrx";
 
-  wc = "${pkgs.coreutils}/bin/wc";
-  printf = "${pkgs.coreutils}/bin/printf";
-  sort = "${pkgs.coreutils}/bin/sort";
+  #cat = "${pkgs.coreutils}/bin/cat";
+  #echo = "${pkgs.coreutils}/bin/echo";
   head = "${pkgs.coreutils}/bin/head";
+  pkill = "${pkgs.coreutils}/bin/pkill";
+  printf = "${pkgs.coreutils}/bin/printf";
+  wc = "${pkgs.coreutils}/bin/wc";
+
+  grep = "${pkgs.gnugrep}/bin/grep";
+
   pgrep = "${pkgs.procps}/bin/pgrep";
+  ip = "${pkgs.iproute}/bin/ip";
 
   jq = "${pkgs.jq}/bin/jq";
   find = "${pkgs.findutils}/bin/find";
@@ -57,6 +65,8 @@ in {
           "pulseaudio"
           "battery"
           "custom/mail"
+          "custom/task"
+          #"custom/vpn"
           #"hyprland/workspaces"
         ];
         modules-center = [
@@ -66,7 +76,8 @@ in {
           "tray"
           "hyprland/language"
           "custom/appointments"
-          "clock" ];
+          "clock"
+        ];
 
         "hyprland/workspaces" = {
           active-only = true;
@@ -77,7 +88,6 @@ in {
         clock = {
           interval = 1;
           format = "{:%d.%m %H:%M}";
-          format-alt = "{:%F %T %z}";
           tooltip-format = ''
             <tt><small>{calendar}</small></tt>
           '';
@@ -95,6 +105,9 @@ in {
               today = "<span color='#${colors.base0F}'><b>{}</b></span>";
             };
           };
+
+          on-click = "${alacritty} --class khal -e ${khal} -- interactive";
+
           actions = {
             on-click-right = "mode";
             on-click-forward = "tz_up";
@@ -105,33 +118,38 @@ in {
         };
 
         "hyprland/language" = {
-          format = "{short} {variant}";
+          format = "󰌌 {short} {variant}";
           #on-click = "${hyprctl} ${switchxkblayout}";
         };
 
         pulseaudio = {
-          format = "{volume}";
-          format-muted = "M";
+          format = "{icon} {volume}";
+          format-muted = " 0";
           on-click = pavucontrol;
+          format-icons = {
+            default = [ "" "" "" ];
+          };
         };
 
         mpd = {
           interval = 1;
           format = "{artist} - {title}";
-          on-click = "${alacritty} --class ncmpcpp -e ${ncmpcpp}";
+          #on-click = "${alacritty} --class ncmpcpp -e ${ncmpcpp}";
+          on-click = "${alacritty} --class sptlrx -e ${sptlrx}";
           format-stopped = "";
           format-disconnected = "";
         };
 
         battery = {
           interval = 60;
-          format = "{capacity}";
-          format-charging = "{capacity}+";
+          format = "{icon} {capacity}";
+          format-charging = "󰂄 {capacity}";
           on-click = "";
+          format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
         };
 
         tray = {
-          icon-size = 15;
+          icon-size = 12;
           spacing = 5;
         };
 
@@ -166,30 +184,63 @@ in {
                 fi
               fi
             '';
-            text = "$total_count";
+            text = " $total_count";
             tooltip = "$tooltip";
           };
           on-click = "${alacritty} --class neomutt -e ${neomutt}";
         };
 
         "custom/appointments" = {
-          interval = 5;
+          interval = 60;
           format = "{}";
           return-type = "json";
           exec = jsonOutput "appointments" {
-            pre = let inherit (config.colorscheme) colors;
-            in ''
-              next_time=$(${khal} list now --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
-              today_tooltip=$(${khal} list today eod --format "{start} {title}" --day-format "<span color='#${colors.base0F}'><b>{name}, {date}</b></span>")
-              tomorrow_tooltip=$(${khal} list tomorrow eod --format "{start} {title}" --day-format "<span color='#${colors.base0B}'><b>{name}, {date}</b></span>")
+            pre = let inherit (config.colorscheme) colors; in ''
+              formatting() {
+                color=$1
+                echo "--format '{start} {title}' --day-format '<span color="#$color"><b>{name}, {date}</b></span>'"
+              }
+              filter='-a peasec -a audacis-philipp'
 
-              tooltip="$today_tooltip"
+              next_time=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
+              upcoming=$(${khal} list now eod --format "{start-time}" --day-format "" --notstarted)
+              today_tooltip=$(${khal} list today eod --format '{start} {title}' --day-format '<span color="#${colors.base0F}"><b>{name}, {date}</b></span>')
+              tomorrow_tooltip=$(${khal} list tomorrow eod --format '{start} {title}' --day-format '<span color="#${colors.base0B}"><b>{name}, {date}</b></span>')
+
+              if [ -z $upcoming ]; then tooltip=$tomorrow_tooltip; else tooltip=$today_tooltip; fi
+              tooltip=$(${printf} "$today_tooltip\n\n$tomorrow_tooltip")
+
+              if [ -z $next_time ]; then text="None"; else text=$next_time; fi
             '';
 
-            text = "$next_time";
+            text = "󰃭 $text";
             tooltip = "$tooltip";
           };
           on-click = "${alacritty} --class khal -e ${khal} -- interactive";
+        };
+
+        "custom/task" = {
+          interval = 1;
+          format = "{}";
+          return-type = "json";
+          exec = jsonOutput "task" {
+            pre = let
+              inherit (config.colorscheme) colors;
+              inherit (builtins) concatStringsSep;
+            in ''
+              overdue="$(${task} +OVERDUE count)"
+              due="$(${task} +DUE count)"
+
+              tooltip=$(${printf} "${concatStringsSep "\n" [
+                "<span color='#${colors.base0F}'><b>Overdue:</b></span> $overdue"
+                "<span color='#${colors.base0B}'><b>Due:</b></span> $due"
+                "<b>Tasks:</b> $(${task} +PENDING count)"
+              ]}")
+            '';
+            text = " $((overdue + due))";
+            tooltip = "$tooltip";
+          };
+          on-click = "${pkill} -USR2 waybar";
         };
       };
     };
@@ -207,7 +258,7 @@ in {
         border: none;
         border-radius: 5px;
 
-        font-family: Share Tech Mono;
+        font-family: "Share Tech Mono";
         font-size: 12pt;
 
         padding: 0 10px;
@@ -240,18 +291,25 @@ in {
       #battery, #language, #custom-appointments {
         background: #${colors.base08};
       }
+      
+      /* blue */
+      #custom-vpn {
+        background: #${colors.base0A};
+      }
 
-      #custom-mail, #tray {
+      /* green */
+      #custom-task {
+        background: #${colors.base0E};
+      }
+
+      /* green */
+      #custom-mail, #tray, #mpd  {
         background: #${colors.base0C};
       }
 
+      /* red */
       #battery.discharging.critical {
         background: #${colors.base0F};
-      }
-
-
-      #mpd {
-        background: #${colors.base0C};
       }
 
       #mpd.disconnected,
