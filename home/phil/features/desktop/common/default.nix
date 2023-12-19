@@ -20,6 +20,6 @@
     flatpak
     libreoffice
 
-    (nerdfonts.override { fonts = [ "ShareTechMono" ]; })
+    nerdfonts
   ];
 }
