@@ -30,12 +30,14 @@
 
     ../common/optional/docker.nix
     ../common/optional/virtualbox.nix
+    ../common/optional/virt-manager.nix
   ];
 
   networking.hostName = "work";
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
     # kernelModules = [ "sg" ]; # for makemkv
 
     loader.systemd-boot.enable = true;
@@ -47,12 +49,12 @@
 
     printing = {
       enable = true;
-      drivers = [ pkgs.cups-kyodialog ];
+      drivers = with pkgs; [ cups-kyodialog brgenml1lpr brgenml1cupswrapper ];
     };
 
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       openFirewall = true;
     };
 
@@ -64,6 +66,7 @@
     };
 
     #logind.lidSwitch = "lock";
+    ddccontrol.enable = true;
   };
 
   programs = {
@@ -75,6 +78,7 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    config.common.default = "*";
   };
 
   hardware.opengl = {
