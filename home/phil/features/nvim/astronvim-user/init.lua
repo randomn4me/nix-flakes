@@ -54,6 +54,15 @@ return {
 
     { import = "astrocommunity.markdown-and-latex.vimtex" },
 
+    {
+      "lervag/vimtex",
+      init = function ()
+        vim.g.vimtex_view_method = "zathura"
+        vim.g.vimtex_compiler_latexmk = { out_dir = 'out', aux_dir = 'out' }
+      end,
+      event = "BufRead",
+    },
+
     -- markdown preview
     {
       "0x00-ketsu/markdown-preview.nvim",
