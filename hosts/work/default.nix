@@ -16,8 +16,8 @@
 
     ../common/global
     ../common/users/phil
-    #../common/optional/wms/cwm.nix
-    #../common/optional/wms/i3.nix
+    # ../common/optional/wms/cwm.nix
+    # ../common/optional/wms/i3.nix
     # ../common/optional/greetd.nix
 
     ../common/optional/wireless.nix
@@ -26,10 +26,11 @@
     ../common/optional/bluetooth.nix
     ../common/optional/pipewire.nix
     ../common/optional/scanning.nix
-    ../common/optional/openrgb.nix
+
+    ../common/optional/udev.nix
 
     ../common/optional/docker.nix
-    ../common/optional/virtualbox.nix
+    # ../common/optional/virtualbox.nix
     ../common/optional/virt-manager.nix
   ];
 
