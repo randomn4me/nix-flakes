@@ -11,7 +11,11 @@
     ./systemd-fixes.nix
   ];
 
-  home.packages = [ inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast ];
+  home.packages = [
+    inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast
+    inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
+
+  ];
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -143,8 +147,13 @@
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
-      monitor = [
-        "eDP-1, preferred, auto, 1.5"
+      monitor = map (m: let
+        resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+        position = "${toString m.x}x${toString m.y}";
+      in
+        "${m.name},${if m.enabled then "${resolution},${position},1" else "disable"}"
+      ) (config.monitors)
+      ++ [
         ", preferred, auto, 1"
       ];
 
