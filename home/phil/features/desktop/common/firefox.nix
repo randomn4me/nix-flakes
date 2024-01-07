@@ -1,16 +1,15 @@
-{ pkgs, config, ... }: {
+{ config, inputs, ... }: {
   programs.firefox = {
     enable = true;
 
     profiles.${config.home.username} = {
       bookmarks = { };
-      #extensions = with pkgs.inputs.firefox-addons; [
+      #extensions = with inputs.firefox-addons; [
       #  ublock-origin
       #  bitwarden
       #  vimium
       #  cookie-autodelete
       #  simple-tab-groups
-      #  tabliss
       #];
 
       settings = {
