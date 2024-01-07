@@ -10,6 +10,8 @@ let
   task = "${config.programs.taskwarrior.package}/bin/task";
   sptlrx = "${pkgs.sptlrx}/bin/sptlrx";
 
+  playerctl = "${config.services.playerctld.package}/bin/playerctl";
+
   #cat = "${pkgs.coreutils}/bin/cat";
   #echo = "${pkgs.coreutils}/bin/echo";
   head = "${pkgs.coreutils}/bin/head";
@@ -131,6 +133,20 @@ in {
           };
         };
 
+        "custom/player" = {
+          interval = 2;
+          exec-if = ''${playerctl} metadata --format '{"text": "{{title}} - {{artist}}", "alt": "{{status}}", "tooltip": "{{title}} - {{artist}} ({{album}})"}' 2>/dev/null '';
+          return-type = "json";
+          max-lenght = 30;
+          format = "{icon} {}";
+          format-icons = {
+            "Playing" = "󰐊";
+            "Paused" = "󰏤";
+            "Stopped" = "󰓛";
+          };
+          on-click = "${playerctl} play-pause";
+        };
+
         mpd = {
           interval = 1;
           format = "{artist} - {title}";
@@ -196,10 +212,6 @@ in {
           return-type = "json";
           exec = jsonOutput "appointments" {
             pre = let inherit (config.colorscheme) colors; in ''
-              formatting() {
-                color=$1
-                echo "--format '{start} {title}' --day-format '<span color="#$color"><b>{name}, {date}</b></span>'"
-              }
               filter='-a peasec -a audacis-philipp'
 
               next_time=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
@@ -303,7 +315,7 @@ in {
       }
 
       /* green */
-      #custom-mail, #tray, #mpd  {
+      #custom-mail, #tray, #mpd, #custom-player  {
         background: #${colors.base0C};
       }
 
