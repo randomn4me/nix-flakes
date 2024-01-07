@@ -3,11 +3,32 @@ return {
 
   options = {
     opt = {
-      relativenumber = true, -- Show relative numberline
-      signcolumn = "auto", -- Show sign column when used only
-      spell = false,      -- Spell checking
-      swapfile = false,   -- Swapfile
-      smartindent = false, -- fix https://github.com/ryan4yin/nix-config/issues/4
+      number = true,
+      relativenumber = true,
+
+      tabstop = 4,
+      softtabstop = 4,
+      shiftwidth = 4,
+      expandtab = true,
+
+      smartindent = true,
+
+      swapfile = false,
+      backup = false,
+      undodir = os.getenv("XDG_CACHE_HOME") .. "/vim/undodir",
+      undofile = true,
+
+      hlsearch = false,
+      incsearch = true,
+      ignorecase = true,
+      smartcase = true,
+
+      scrolloff = 8,
+      signcolumn = "yes",
+
+      updatetime = 50,
+
+      colorcolumn = "80",
     },
   },
 
@@ -245,6 +266,27 @@ return {
         end
       end,
     },
+
+    {
+      "vigoux/ltex-ls.nvim",
+      opts = function()
+        require('ltex-ls').setup {
+          on_attach = on_attach,
+          filetypes = { "latex", "tex", "bib", "markdown", "gitcommit", "text" },
+          settings = {
+            ltex = {
+              enabled = { "latex", "tex", "bib", "markdown", },
+              logLevel = "info",
+              additionalRules = {
+                enablePickyRules = true,
+                motherTongue = "de",
+              },
+            },
+          },
+        }
+      end
+    },
+
     -- Debugger installation
     {
       "jay-babu/mason-nvim-dap.nvim",
