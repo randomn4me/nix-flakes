@@ -10,7 +10,7 @@ let
   home = "${config.home.homeDirectory}";
 in {
 
-  home.packages = with pkgs; [ mailcap urlview ];
+  home.packages = with pkgs; [ mailcap ];
 
   xdg.configFile."mailcap".text = ''
     text/html; ${w3m} -I %{charset} -T text/html; copiousoutput;
@@ -199,6 +199,13 @@ in {
           mbsync = "${config.programs.mbsync.package}/bin/mbsync";
         in "<enter-command>unset wait_key<enter><shell-escape>${mbsync} -a<enter>";
         key = "<f12>";
+        map = [ "index" "pager" ];
+      }
+      {
+        action = let
+          urlscan = "${pkgs.urlscan}/bin/urlscan";
+        in "<pipe-message> ${urlscan}<enter>";
+        key = "\\Cb";
         map = [ "index" "pager" ];
       }
     ];
