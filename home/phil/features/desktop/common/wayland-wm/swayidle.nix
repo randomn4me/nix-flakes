@@ -4,39 +4,26 @@ let
   swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   pgrep = "${pkgs.procps}/bin/pgrep";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
-
-  #chayang = "${pkgs.chayang}/bin/chayang";
-
   hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
   swaymsg = "${config.wayland.windowManager.sway.package}/bin/swaymsg";
+  #chayang = "${pkgs.chayang}/bin/chayang";
 
   isLocked = "${pgrep} -x ${swaylock}";
-
+  lockTime = 5 * 60;
   #dimStartTime = builtins.floor 6.5 * 60; # 3.5 * 60
   #dimTime = builtins.floor 0.6 * 60; # 0.5 * 60
-  lockTime = 5 * 60;
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
   afterLockTimeout = { timeout, command, resumeCommand ? null }: [
-    {
-      timeout = lockTime + timeout;
-      inherit command resumeCommand;
-    }
-    {
-      command = "${isLocked} && ${command}";
-      inherit resumeCommand timeout;
-    }
+    { timeout = lockTime + timeout; inherit command resumeCommand; }
+    { command = "${isLocked} && ${command}"; inherit resumeCommand timeout; }
   ];
-in {
+in
+{
   services.swayidle = {
     enable = true;
     systemdTarget = "graphical-session.target";
     timeouts =
-      # Start lock sequence by dimming
-      #[{
-      #  timeout = dimStartTime;
-      #  command = "${chayang} -d ${toString dimTime} &";
-      #}] ++
       # Lock screen
       [{
         timeout = lockTime;
@@ -61,6 +48,6 @@ in {
           timeout = 60;
           command = "${swaymsg} 'output * dpms off'";
           resumeCommand = "${swaymsg} 'output * dpms on'";
-        }));
+      }));
   };
 }
