@@ -72,7 +72,7 @@ in {
           #"hyprland/workspaces"
         ];
         modules-center = [
-          "mpd"
+          "custom/player"
         ];
         modules-right = [
           "tray"
@@ -135,9 +135,10 @@ in {
 
         "custom/player" = {
           interval = 2;
-          exec-if = ''${playerctl} metadata --format '{"text": "{{title}} - {{artist}}", "alt": "{{status}}", "tooltip": "{{title}} - {{artist}} ({{album}})"}' 2>/dev/null '';
+          exec-if = "${playerctl} status 2>/dev/null";
+          exec = ''${playerctl} metadata --format '{"text": "{{artist}} - {{title}}", "alt": "{{status}}", "tooltip": "{{artist}} - {{title}} ({{album}})"}' '';
           return-type = "json";
-          max-lenght = 30;
+          max-lenght = 50;
           format = "{icon} {}";
           format-icons = {
             "Playing" = "󰐊";
@@ -145,6 +146,7 @@ in {
             "Stopped" = "󰓛";
           };
           on-click = "${playerctl} play-pause";
+          #on-click = "${alacritty} --class sptlrx -e ${sptlrx}";
         };
 
         mpd = {
@@ -187,7 +189,7 @@ in {
 
               tooltip=$(${printf} "${
                 concatStringsSep "" (map (acc: ''
-                  ${acc.name}: $new_${acc.name}
+                  <b>${acc.name}:</b> $new_${acc.name}
                 '') email_accounts)
               }")
 
@@ -242,14 +244,18 @@ in {
             in ''
               overdue="$(${task} +OVERDUE count)"
               due="$(${task} +DUE count)"
+              today="$(${task} +TODAY count)"
 
               tooltip=$(${printf} "${concatStringsSep "\n" [
+                "<b>Today:</b> $today"
+                ""
+                "<b>Total</b>"
                 "<span color='#${colors.base0F}'><b>Overdue:</b></span> $overdue"
                 "<span color='#${colors.base0B}'><b>Due:</b></span> $due"
                 "<b>Tasks:</b> $(${task} +PENDING count)"
               ]}")
             '';
-            text = " $((overdue + due))";
+            text = " $today";
             tooltip = "$tooltip";
           };
           on-click = "${pkill} -USR2 waybar";
@@ -329,7 +335,6 @@ in {
         color: transparent;
         background: transparent;
       }
-
     '';
   };
 }
