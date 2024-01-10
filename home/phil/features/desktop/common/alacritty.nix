@@ -39,22 +39,27 @@ in {
           background = "0x${colors.base00}";
           foreground = "0x${colors.base05}";
         };
+
         cursor = {
           text = "0x${colors.base05}";
           cursor = "0x${colors.base07}";
         };
+
         vi_mode_cursor = {
           text = "0x${colors.base05}";
           cursor = "0x${colors.base07}";
         };
+
         line_indicator = {
           foreground = "None";
           background = "None";
         };
+
         selection = {
           text = "0x${colors.base05}";
           background = "0x${colors.base07}";
         };
+
         normal = {
           black = "0x${colors.base02}";
           red = "0x${colors.base08}";
@@ -65,6 +70,7 @@ in {
           cyan = "0x${colors.base0A}";
           white = "0x${colors.base05}";
         };
+
         bright = {
           black = "0x${colors.base03}";
           red = "0x${colors.base08}";
@@ -75,15 +81,16 @@ in {
           cyan = "0x${colors.base0A}";
           white = "0x${colors.base06}";
         };
-      };
-      hints = {
-        start = {
-          foreground = "#${colors.base04}";
-          background = "#${colors.base01}";
-        };
-        end = {
-          foreground = "#${colors.base03}";
-          background = "#${colors.base01}";
+
+        hints = {
+          start = {
+            foreground = "#${colors.base04}";
+            background = "#${colors.base01}";
+          };
+          end = {
+            foreground = "#${colors.base03}";
+            background = "#${colors.base01}";
+          };
         };
       };
 
