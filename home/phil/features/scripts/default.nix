@@ -27,7 +27,7 @@ in {
     mkv-to-av1 = with pkgs; [ ffmpeg ];
     mvc = [ ];
     pdffirstpage = with pkgs; [ poppler_utils ];
-    pdfreduce = with pkgs; [ ghostscript ];
+    pdf-compress = with pkgs; [ ghostscript ];
     presents = with pkgs; [ neovim ];
     radio = with pkgs; [ mpv ];
     rfc = with pkgs; [ curl ];
