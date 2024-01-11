@@ -5,7 +5,7 @@ usage() {
     echo "Quality settings are (low to high): screen, ebook, printer, prepress (default), default"
 }
 
-test ! -f $1 && usage && exit
+test $# -lt 1 -o ! -f $1 && usage && exit
 
 filename="${1%.*}"
 extension="${1##*.}"
