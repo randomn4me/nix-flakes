@@ -1,6 +1,8 @@
 { config, ... }:
 
-let home = config.home.homeDirectory;
+let
+  home = config.home.homeDirectory;
+  task = "${config.programs.taskwarrior.package}/bin/task";
 in {
   programs = {
     taskwarrior = {
@@ -40,8 +42,8 @@ in {
           annotations.coefficient = 0;
 
           user.tag = {
-            mail.coefficient = 2;
-            call.coefficient = 2;
+            mail.coefficient = 1;
+            call.coefficient = 1;
             unikita.coefficient = -0.5;
             waiting.coefficient = -2;
           };
@@ -55,6 +57,10 @@ in {
           credentials = "personal/r4ndom/3bc693fb-9fcf-4e20-858d-3785afed332a";
         };
       };
+    };
+
+    bash.shellAliases = {
+      "done-today" = "${task} completed end:today";
     };
   };
 
