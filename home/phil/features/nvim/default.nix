@@ -1,14 +1,14 @@
 { pkgs, inputs, ... }: {
-  #imports = [
-  #  ./setup.nix
-  #  ./lsp.nix
-  #  ./plugins.nix
-  #  ./mappings.nix
-  #  ./ui.nix
-  #];
+  # imports = [
+  #   ./setup.nix
+  #   ./lsp.nix
+  #   ./plugins.nix
+  #   ./mappings.nix
+  #   ./ui.nix
+  # ];
 
-  #home.sessionVariables.EDITOR = "nvim";
-  #home.sessionVariables.NVIM_LISTEN_ADDRESS = /tmp/nvimsocket;
+  home.sessionVariables.EDITOR = "nvim";
+  # home.sessionVariables.NVIM_LISTEN_ADDRESS = /tmp/nvimsocket;
 
   xdg.configFile = {
     "nvim".source = inputs.astronvim;
