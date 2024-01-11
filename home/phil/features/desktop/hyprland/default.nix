@@ -14,7 +14,6 @@
   home.packages = [
     inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast
     inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
-
   ];
 
   wayland.windowManager.hyprland = {
@@ -95,9 +94,7 @@
         makoctl = "${config.services.mako.package}/bin/makoctl";
         wofi = "${config.programs.wofi.package}/bin/wofi";
 
-        grimblast = "${
-            inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast
-          }/bin/grimblast";
+        grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
 
         rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
 
