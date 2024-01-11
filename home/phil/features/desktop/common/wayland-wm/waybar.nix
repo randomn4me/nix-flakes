@@ -244,7 +244,7 @@ in {
             in ''
               overdue="$(${task} +OVERDUE count)"
               due="$(${task} +DUE count)"
-              today="$(${task} +TODAY count)"
+              today="$(${task} +OVERDUE or +TODAY count)"
 
               tooltip=$(${printf} "${concatStringsSep "\n" [
                 "<b>Today:</b> $today"
