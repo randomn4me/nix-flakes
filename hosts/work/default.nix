@@ -26,8 +26,8 @@
     ../common/optional/scanning.nix
 
     ../common/optional/powersaving.nix
-    ../common/optional/tlp.nix
-    ../common/optional/powersaving-ignore-usb.nix
+    # ../common/optional/tlp.nix
+    # ../common/optional/powersaving-ignore-usb.nix
 
     # ../common/optional/docker.nix
     # ../common/optional/virtualbox.nix
@@ -87,7 +87,7 @@
     driSupport = true;
     driSupport32Bit = true;
 
-    extraPackages = with pkgs; [ intel-media-driver ];
+    # extraPackages = with pkgs; [ intel-media-driver ];
   };
 
   system.stateVersion = "23.05";
