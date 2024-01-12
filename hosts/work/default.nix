@@ -29,9 +29,9 @@
     ../common/optional/tlp.nix
     ../common/optional/powersaving-ignore-usb.nix
 
-    ../common/optional/docker.nix
+    # ../common/optional/docker.nix
     # ../common/optional/virtualbox.nix
-    ../common/optional/virt-manager.nix
+    # ../common/optional/virt-manager.nix
   ];
 
   networking.hostName = "work";
@@ -50,7 +50,7 @@
 
     printing = {
       enable = true;
-      drivers = with pkgs; [ cups-kyodialog brgenml1lpr brgenml1cupswrapper ];
+      drivers = with pkgs; [ cups-kyodialog ];
     };
 
     avahi = {
@@ -61,19 +61,19 @@
 
     udisks2.enable = true; # required by udiskie
 
-    clamav = {
-      daemon.enable = true;
-      updater.enable = true;
-    };
+    # clamav = {
+    #   daemon.enable = true;
+    #   updater.enable = true;
+    # };
 
-    #logind.lidSwitch = "lock";
-    ddccontrol.enable = true;
+    # logind.lidSwitch = "lock";
+    # ddccontrol.enable = true;
   };
 
   programs = {
     dconf.enable = true;
     light.enable = true;
-    adb.enable = true;
+    # adb.enable = true;
   };
 
   xdg.portal = {
