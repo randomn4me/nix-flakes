@@ -23,10 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprpicker.url = "github:hyprwm/hyprpicker";
     waybar.url = "github:Alexays/Waybar";
 
     astronvim = {
-      url = "github:AstroNvim/AstroNvim/v3.40.3";
+      url = "github:AstroNvim/AstroNvim/v3.41.0";
       flake = false;
     };
   };
@@ -35,11 +36,7 @@
     let
       inherit (self) outputs;
       lib = nixpkgs.lib // home-manager.lib;
-      systems = [
-        "aarch64-linux"
-        #"i686-linux"
-        "x86_64-linux"
-      ];
+      systems = [ "aarch64-linux" "x86_64-linux" ];
 
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
       pkgsFor = lib.genAttrs systems (system: import nixpkgs {

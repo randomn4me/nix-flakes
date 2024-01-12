@@ -7,9 +7,9 @@
 
         settings = {
             main = {
-                font = "Inconsolata Nerd Font:Regular:size=12";
-                font-bold = "Inconsolata Nerd Font:Bold:size=12";
-                font-italic = "Inconsolata Nerd Font:Regular:size=12";
+                font = "Inconsolata Nerd Font:Regular:size=10";
+                font-bold = "Inconsolata Nerd Font:Bold:size=10";
+                font-italic = "Inconsolata Nerd Font:Regular:size=10";
                 
                 dpi-aware = true;
 
