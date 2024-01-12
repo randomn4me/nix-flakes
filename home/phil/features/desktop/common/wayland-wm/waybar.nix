@@ -5,24 +5,18 @@ let
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
 
   alacritty = "${config.programs.alacritty.package}/bin/alacritty";
-  ncmpcpp = "${config.programs.ncmpcpp.package}/bin/ncmpcpp";
   neomutt = "${config.programs.neomutt.package}/bin/neomutt";
   task = "${config.programs.taskwarrior.package}/bin/task";
   sptlrx = "${pkgs.sptlrx}/bin/sptlrx";
 
   playerctl = "${config.services.playerctld.package}/bin/playerctl";
 
-  #cat = "${pkgs.coreutils}/bin/cat";
-  #echo = "${pkgs.coreutils}/bin/echo";
   head = "${pkgs.coreutils}/bin/head";
   pkill = "${pkgs.coreutils}/bin/pkill";
   printf = "${pkgs.coreutils}/bin/printf";
   wc = "${pkgs.coreutils}/bin/wc";
 
-  grep = "${pkgs.gnugrep}/bin/grep";
-
   pgrep = "${pkgs.procps}/bin/pgrep";
-  ip = "${pkgs.iproute}/bin/ip";
 
   jq = "${pkgs.jq}/bin/jq";
   find = "${pkgs.findutils}/bin/find";
@@ -112,8 +106,6 @@ in {
 
           actions = {
             on-click-right = "mode";
-            on-click-forward = "tz_up";
-            on-click-backward = "tz_down";
             on-scroll-up = "shift_up";
             on-scroll-down = "shift_down";
           };
