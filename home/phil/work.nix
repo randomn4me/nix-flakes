@@ -36,6 +36,8 @@
     texlive.combined.scheme-full
     libreoffice
 
+    comma
+
     darktable
     xournalpp
 
