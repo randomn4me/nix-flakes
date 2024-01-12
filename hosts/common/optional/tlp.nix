@@ -2,13 +2,19 @@
   services.tlp = {
     enable = true;
     settings = {
-      CPU_BOOST_ON_BAT = 0;
-      CPU_SCALING_GOVERNOR_ON_BATTERY = "powersave";
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-      START_CHARGE_THRESH_BAT0 = 90;
-      STOP_CHARGE_THRESH_BAT0 = 97;
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-      RUNTIME_PM_ON_BAT = "auto";
+      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 20;
+
+      START_CHARGE_THRESH_BAT0 = 60;
+      STOP_CHARGE_THRESH_BAT0 = 90;
     };
   };
 }
