@@ -1,12 +1,13 @@
-{
+{ config, ... }: let
+  terminal = config.home.sessionVariables.TERMINAL;
+in {
   wayland.windowManager.hyprland.settings = {
     windowrule = [
-      "workspace 1, Alacritty"
+      "workspace 1, ${terminal}"
 
       "workspace 3, Zotero"
       "workspace 3, libreoffice"
       "workspace 3, obsidian"
-      "workspace 3, title:Quick Format Citation"
 
 
       "workspace 4, neomutt"

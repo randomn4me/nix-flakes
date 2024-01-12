@@ -22,14 +22,13 @@
     playerctl = "${config.services.playerctld.package}/bin/playerctl";
     rofi = "${config.programs.rofi.package}/bin/rofi";
 
+    terminal = config.home.sessionVariables.TERMINAL;
+
     inherit (config.colorscheme) colors;
   in ''
     fontname 'Share Tech Mono:pixelsize=11:bold'
 
-    ${if config.programs.alacritty.enable then
-      "command alacritty alacritty"
-    else
-      ""}
+    command ${terminal} ${terminal}
     ${if config.programs.firefox.enable then "command firefox firefox" else ""}
 
     ########################################
@@ -43,7 +42,7 @@
     ########################################
     # autogroups
     ########################################
-    autogroup 1 "Alacritty"
+    autogroup 1 "${terminal}"
 
     autogroup 2 "obsidian"
 
@@ -143,9 +142,9 @@
     ########################################
     # Custom shortcuts
     ########################################
-    bind-key M-Return   alacritty
-    bind-key M-m        "alacritty --class 'mutt,mutt' -e neomutt"
-    bind-key M-s        "alacritty --class 'spotify,spotify' -e ncmpcpp"
+    bind-key M-Return   ${terminal}
+    bind-key M-m        "${terminal} --app-id neomutt neomutt"
+    bind-key M-s        "${terminal} --app-id ncmpcpp ncmpcpp"
 
     bind-key CM-l       "${i3lock-color} -i ${config.wallpaper} -F --radius 40 --keylayout 0"
     bind-key CM-s       "${maim} -s ${config.home.homeDirectory}/usr/pics/screencaptures/$(${date} +%F_%Hh%Mm%S).png"

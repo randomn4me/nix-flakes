@@ -4,7 +4,7 @@ let
 
   khard = "${pkgs.khard}/bin/khard";
 
-  alacritty = "${pkgs.alacritty}/bin/alacritty";
+  terminal = config.home.sessionVariables.TERMINAL;
   neomutt = "${pkgs.neomutt}/bin/neomutt";
 
   home = "${config.home.homeDirectory}";
@@ -253,7 +253,7 @@ in {
         name = "Neomutt";
         genericName = "Email Client";
         comment = "Read and send emails";
-        exec = "${alacritty} --class neomutt -e ${neomutt} %U";
+        exec = "${terminal} --app-id neomutt ${neomutt} %U";
         icon = "mutt";
         categories = [ "Network" "Email" "ConsoleOnly" ];
         type = "Application";

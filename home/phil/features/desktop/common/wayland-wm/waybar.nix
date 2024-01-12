@@ -1,10 +1,11 @@
 { config, pkgs, ... }:
 
 let
-  # Dependencies
+  terminal-string = config.home.sessionVariables.TERMINAL;
+  terminal = "${config.programs.${terminal-string}.package}/bin/${terminal-string}";
+
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
 
-  alacritty = "${config.programs.alacritty.package}/bin/alacritty";
   neomutt = "${config.programs.neomutt.package}/bin/neomutt";
   task = "${config.programs.taskwarrior.package}/bin/task";
   sptlrx = "${pkgs.sptlrx}/bin/sptlrx";
@@ -102,7 +103,7 @@ in {
             };
           };
 
-          on-click = "${alacritty} --class khal -e ${khal} -- interactive";
+          on-click = "${terminal} --app-id khal ${khal} -- interactive";
 
           actions = {
             on-click-right = "mode";
@@ -137,15 +138,14 @@ in {
             "Paused" = "󰏤";
             "Stopped" = "󰓛";
           };
-          on-click = "${playerctl} play-pause";
-          #on-click = "${alacritty} --class sptlrx -e ${sptlrx}";
+          on-click-left = "${playerctl} play-pause";
+          on-click-right = "${terminal} --app-id sptlrx ${sptlrx}";
         };
 
         mpd = {
           interval = 1;
           format = "{artist} - {title}";
-          #on-click = "${alacritty} --class ncmpcpp -e ${ncmpcpp}";
-          on-click = "${alacritty} --class sptlrx -e ${sptlrx}";
+          on-click = "${terminal} --app-id sptlrx ${sptlrx}";
           format-stopped = "";
           format-disconnected = "";
         };
@@ -197,7 +197,7 @@ in {
             text = " $total_count";
             tooltip = "$tooltip";
           };
-          on-click = "${alacritty} --class neomutt -e ${neomutt}";
+          on-click = "${terminal} --app-id neomutt ${neomutt}";
         };
 
         "custom/appointments" = {
@@ -222,7 +222,7 @@ in {
             text = "󰃭 $text";
             tooltip = "$tooltip";
           };
-          on-click = "${alacritty} --class khal -e ${khal} -- interactive";
+          on-click = "${terminal} --app-id khal ${khal} -- interactive";
         };
 
         "custom/task" = {
