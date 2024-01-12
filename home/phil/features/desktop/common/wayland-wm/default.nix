@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     #./kanshi.nix # TODO understand kanshi more until I can use it
+    ./foot.nix
     ./mako.nix
     ./swayidle.nix
     ./swaylock.nix

@@ -64,7 +64,6 @@ in {
             "Archiv"
             "Entw&APw-rfe"
             "Gesendete Elemente"
-            "Junk-E-Mail"
             "Gel&APY-schte Elemente"
           ];
           extraConfig = let inherit (config.colorscheme) colors;
@@ -78,7 +77,6 @@ in {
             named-mailboxes " archive"  "+Archiv"
             named-mailboxes " sent"     "+Gesendete Elemente"
             named-mailboxes " drafts"   "+Entw&APw-rfe"
-            named-mailboxes " junk"     "+Junk-E-Mail"
             named-mailboxes " trash"    "+Gel&APY-schte Elemente"
 
             macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
@@ -87,9 +85,4 @@ in {
       };
     };
   };
-
-  programs.msmtp.enable = true;
-  programs.mbsync.enable = true;
-
-  services.mbsync = { enable = true; };
 }

@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   imports = [
-    #./peasec-mail.nix
+    # ./peasec-mail.nix
     ./peasec-calendar.nix
   ];
 }

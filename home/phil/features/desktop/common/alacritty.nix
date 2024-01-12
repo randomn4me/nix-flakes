@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (config.colorscheme) colors;
@@ -8,7 +8,7 @@ let
 in {
   home = {
     packages = [ alacritty-xterm ];
-    sessionVariables.TERMINAL = "alacritty";
+    sessionVariables.TERMINAL = lib.mkDefault "alacritty";
   };
 
   programs.alacritty = {
