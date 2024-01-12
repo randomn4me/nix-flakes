@@ -40,6 +40,8 @@ let
     };
   };
 in {
+  imports = [ ../mbsync.nix ];
+
   accounts.email = {
     maildirBasePath = "${home}/var/mail";
 

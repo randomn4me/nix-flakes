@@ -3,7 +3,8 @@ let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
 in {
-  accounts.email = rec {
+  imports = [ ../mbsync.nix ];
+  accounts.email = {
     maildirBasePath = "${home}/var/mail";
 
     accounts = {

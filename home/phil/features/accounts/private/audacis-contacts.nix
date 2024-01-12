@@ -3,6 +3,8 @@ let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
 in {
+  imports = [ ../vdirsyncer.nix ];
+
   accounts.contact = {
     basePath = "${home}/var/contacts";
 

@@ -3,6 +3,7 @@ let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
 in {
+  imports = [ ../vdirsyncer.nix ];
   accounts.calendar = {
     basePath = "${home}/var/calendar";
 
