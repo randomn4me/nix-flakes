@@ -56,4 +56,6 @@ in {
 
   colorscheme = lib.mkDefault colorSchemes.rose-pine;
   home.file.".colorscheme".text = config.colorscheme.slug;
+  home.file.".colorscheme-colors".text = builtins.concatStringsSep "\n"
+    (lib.mapAttrsToList (name: colorcode: "${name} = #${colorcode}") config.colorscheme.colors);
 }
