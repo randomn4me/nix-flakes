@@ -5,5 +5,6 @@
     configureNginx = true;
     smtp.fromAddress = "noreply@social.audacis.net";
     extraConfig.SINGLE_USER_MODE = "true";
+    streamingProcesses = 1;
   };
 }
