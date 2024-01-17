@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 {
     home.sessionVariables.TERMINAL = lib.mkForce "foot";
 
@@ -7,11 +7,9 @@
 
         settings = {
             main = {
-                font = "Inconsolata Nerd Font:Regular:size=10";
-                font-bold = "Inconsolata Nerd Font:Bold:size=10";
-                font-italic = "Inconsolata Nerd Font:Regular:size=10";
-                
-                dpi-aware = true;
+                font = "Inconsolata Nerd Font:Regular:size=11";
+                font-bold = "Inconsolata Nerd Font:Bold:size=11";
+                font-italic = "Inconsolata Nerd Font:Regular:size=11";
 
                 term = "xterm-direct";
             };

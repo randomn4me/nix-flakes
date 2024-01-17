@@ -83,7 +83,7 @@ in {
         };
 
         clock = {
-          interval = 1;
+          interval = 15;
           format = "{:%d.%m %H:%M}";
           tooltip-format = ''
             <tt><small>{calendar}</small></tt>
@@ -164,7 +164,7 @@ in {
         };
 
         "custom/mail" = {
-          interval = 1;
+          interval = 5;
           format = "{}";
           return-type = "json";
           exec = jsonOutput "new-mails" {
@@ -201,7 +201,7 @@ in {
         };
 
         "custom/appointments" = {
-          interval = 60;
+          interval = 120;
           format = "{}";
           return-type = "json";
           exec = jsonOutput "appointments" {
@@ -226,7 +226,7 @@ in {
         };
 
         "custom/task" = {
-          interval = 1;
+          interval = 15;
           format = "{}";
           return-type = "json";
           exec = jsonOutput "task" {
@@ -268,7 +268,7 @@ in {
         border: none;
         border-radius: 5px;
 
-        font-family: "Share Tech Mono";
+        font-family: "ShureTechMono Nerd Font Propo";
         font-size: 12pt;
 
         padding: 0 10px;

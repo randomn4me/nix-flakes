@@ -19,7 +19,5 @@
   home.packages = with pkgs; [
     flatpak
     libreoffice
-
-    nerdfonts
   ];
 }
