@@ -1,8 +1,4 @@
 {
-  imports = [
-    ../ssh/backup.nix
-  ];
-
   programs.ssh = {
     enable = true;
 

@@ -79,12 +79,6 @@
           pkgs = nixpkgs.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
         };
-
-        #"phil@peasec" = lib.homeManagerConfiguration {
-        #  modules = [ ./home/peasec.nix ];
-        #  pkgs = nixpkgs.x86_64-linux;
-        #  extraSpecialArgs = {inherit inputs outputs;};
-        #};
       };
     };
 }

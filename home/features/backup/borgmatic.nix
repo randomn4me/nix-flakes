@@ -3,6 +3,10 @@ let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
 in {
+  imports = [
+    ../ssh/backup.nix
+  ];
+
   services.borgmatic = { enable = true; };
 
   programs.borgmatic = {
