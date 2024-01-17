@@ -33,7 +33,7 @@ in {
 
         storage = {
           encryptionPasscommand = "${cat} ${home}/usr/misc/borg";
-          extraConfig = { ssh_command = "ssh -i /home/phil/.ssh/storagebox"; };
+          extraConfig = { ssh_command = "ssh -i ${home}/.ssh/storagebox"; };
         };
 
         retention = {
