@@ -60,6 +60,11 @@
           modules = [ ./hosts/work ];
           specialArgs = { inherit inputs outputs; };
         };
+
+        hetzner = lib.nixosSystem {
+          modules = [ ./hosts/hetzner ];
+          specialArgs = { inherit inputs outputs; };
+        };
       };
 
       homeConfigurations = {
