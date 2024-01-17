@@ -1,4 +1,4 @@
-{ pkgs, inputs, outputs, config, ... }:
+{ pkgs, inputs, outputs, config, osConfig, ... }:
 let
   ifTheyExist = groups:
     builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
@@ -15,7 +15,7 @@ in {
 
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
-    users.phil = import ../../../../home/r4ndom/${config.networking.hostName}.nix;
+    users.phil = import ../../../../home/r4ndom/${osConfig.networking.hostName}.nix;
   };
 
   security.pam.services = { swaylock = { }; };
