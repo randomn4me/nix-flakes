@@ -2,6 +2,8 @@
   imports = [
     ./global
 
+    ./features/ssh/private.nix
+
     ./features/backup
   ];
 
