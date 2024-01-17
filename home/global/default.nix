@@ -2,7 +2,7 @@
 let inherit (inputs.nix-colors) colorSchemes;
 in {
   imports =
-    [ inputs.nix-colors.homeManagerModule ../features/cli ../features/ssh.nix]
+    [ inputs.nix-colors.homeManagerModule ../features/cli ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
