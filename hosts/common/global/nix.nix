@@ -2,7 +2,6 @@
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
       warn-dirty = false;
 
       substituters = [ "https://hyprland.cachix.org" ];
@@ -14,8 +13,10 @@
     gc = {
       automatic = true;
       dates = "daily";
-      options = "--delete-older-than 7d";
+      options = "--delete-older-than 14d";
     };
+
+    optimise.automatic = true;
 
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
   };

@@ -5,7 +5,7 @@ let
 in {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-  users.users.phil = {
+  users.users.r4ndom = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]
       ++ ifTheyExist [ "network" "scanner" "lp" "libvirtd" "video" "audio" ];

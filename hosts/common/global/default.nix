@@ -15,6 +15,8 @@
     vistafonts
 
     google-fonts
+
+    (pkgs.nerdfonts.override { fonts = [ "ShareTechMono" ]; })
   ];
 
   nixpkgs = { config = { allowUnfree = true; }; };
