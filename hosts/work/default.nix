@@ -27,7 +27,7 @@
 
     ../common/optional/powersaving.nix
     # ../common/optional/tlp.nix
-    # ../common/optional/powersaving-ignore-usb.nix
+    ../common/optional/powersaving-ignore-usb.nix
 
     # ../common/optional/docker.nix
     # ../common/optional/virtualbox.nix

@@ -74,6 +74,12 @@
           extraSpecialArgs = { inherit inputs outputs; };
         };
 
+        "r4ndom@hetzner" = lib.homeManagerConfiguration {
+          modules = [ ./home/r4ndom/hetzner.nix ];
+          pkgs = nixpkgs.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
+
         #"phil@work" = lib.homeManagerConfiguration {
         #  modules = [ ./home/phil/work.nix ];
         #  pkgs = nixpkgs.x86_64-linux;
