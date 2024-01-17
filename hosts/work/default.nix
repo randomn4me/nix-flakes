@@ -20,6 +20,7 @@
     # ../common/optional/wms/i3.nix
     # ../common/optional/greetd.nix
 
+    ../common/optional/fonts.nix
     ../common/optional/wireless.nix
     ../common/optional/bluetooth.nix
     ../common/optional/pipewire.nix

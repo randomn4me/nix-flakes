@@ -2,6 +2,8 @@
   imports = [
     ./global
 
+    ./features/nvim
+
     ./features/accounts/private
     ./features/accounts/peasec
 

@@ -1,3 +1,4 @@
+{ osConfig, ... }:
 {
   programs = {
     bash = {
@@ -28,8 +29,11 @@
 
       sessionVariables.PROMPT_DIRTRIM = 2;
 
-      bashrcExtra = ''
-        export PS1="\w >> ";
+      bashrcExtra = let
+      hostname = osConfig.networking.hostName;
+      ps1_hostname_string = if hostname == "work" then "" else "(${hostname}) ";
+      in ''
+        export PS1="${ps1_hostname_string}\w >> ";
         export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share";
       '';
     };

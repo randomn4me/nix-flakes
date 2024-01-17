@@ -15,7 +15,7 @@ in {
 
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
-    users.r4ndom = import ../../../../home/r4ndom/${osConfig.networking.hostName}.nix;
+    users.r4ndom = import ../../../../home/r4ndom/${config.networking.hostName}.nix;
   };
 
   security.pam.services = { swaylock = { }; };
