@@ -3,7 +3,7 @@ let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
 in {
-  services.borgmatic = { enable = false; };
+  services.borgmatic = { enable = true; };
 
   programs.borgmatic = {
     enable = true;
@@ -24,7 +24,6 @@ in {
 
           extraConfig = {
             exclude_if_present = [ ".nobackup" ];
-            relocated_repo_access_is_ok = true;
           };
         };
 
