@@ -4,6 +4,9 @@
 
     ./features/nvim
 
+    ./features/ssh/private.nix
+    ./features/ssh/peasec.nix
+
     ./features/accounts/private
     ./features/accounts/peasec
 
