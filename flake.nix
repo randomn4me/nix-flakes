@@ -52,7 +52,7 @@
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
-      wallpapers = import ./home/phil/wallpapers;
+      wallpapers = import ./home/wallpapers;
 
       nixosConfigurations = {
 
@@ -69,19 +69,19 @@
 
       homeConfigurations = {
         "phil@work" = lib.homeManagerConfiguration {
-          modules = [ ./home/phil/work.nix ];
+          modules = [ ./home/work.nix ];
           pkgs = nixpkgs.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
         };
 
         "r4ndom@hetzner" = lib.homeManagerConfiguration {
-          modules = [ ./home/r4ndom/hetzner.nix ];
+          modules = [ ./home/hetzner.nix ];
           pkgs = nixpkgs.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
         };
 
         #"phil@work" = lib.homeManagerConfiguration {
-        #  modules = [ ./home/phil/work.nix ];
+        #  modules = [ ./home/work.nix ];
         #  pkgs = nixpkgs.x86_64-linux;
         #  extraSpecialArgs = {inherit inputs outputs;};
         #};

@@ -15,7 +15,7 @@ in {
 
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
-    users.phil = import ../../../../home/phil/${config.networking.hostName}.nix;
+    users.phil = import ../../../../home/${config.networking.hostName}.nix;
   };
 
   security.pam.services = { swaylock = { }; };

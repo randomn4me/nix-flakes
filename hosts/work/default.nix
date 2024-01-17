@@ -16,8 +16,6 @@
 
     ../common/global
     ../common/users/phil
-    # ../common/optional/wms/cwm.nix
-    # ../common/optional/wms/i3.nix
     # ../common/optional/greetd.nix
 
     ../common/optional/fonts.nix

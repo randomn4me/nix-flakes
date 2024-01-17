@@ -1,4 +1,4 @@
-{ pkgs, inputs, outputs, lib, osConfig, ... }: {
+{ pkgs, inputs, outputs, lib, ... }: {
   imports = [
     ./global
 
@@ -17,9 +17,7 @@
 
     ./features/cli/udiskie.nix
     ./features/virtualization/virt-manager.nix
-  ]
-  ++ (lib.optionals osConfig.services.xserver.windowManager.cwm.enable [ ./features/desktop/cwm ])
-  ++ (lib.optionals osConfig.services.xserver.windowManager.i3.enable [ ./features/desktop/i3 ]);
+  ];
 
   accounts.email.accounts.audacis.primary = true;
   accounts.calendar.accounts.peasec.primary = true;

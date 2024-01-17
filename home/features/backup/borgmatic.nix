@@ -18,8 +18,7 @@ in {
             "${home}/usr"
             "${home}/var"
           ];
-          repositories =
-            [ "ssh://u340000@u340000.your-storagebox.de:23/./backups/t490" ];
+          repositories = [ "ssh://u340000@u340000.your-storagebox.de:23/./backups/t490" ];
 
           excludeHomeManagerSymlinks = true;
 
