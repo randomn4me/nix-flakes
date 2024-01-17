@@ -1,15 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, osConfig, ... }:
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
 in {
-  services.borgmatic = { enable = true; };
+  services.borgmatic = { enable = false; };
 
   programs.borgmatic = {
     enable = true;
 
     backups = {
-      work = {
+      peasec = {
         location = {
           sourceDirectories = [
             "${home}/etc"
@@ -18,11 +18,14 @@ in {
             "${home}/usr"
             "${home}/var"
           ];
-          repositories = [ "ssh://u340000@u340000.your-storagebox.de:23/./backups/t490" ];
+          repositories = [ "ssh://u340000@u340000.your-storagebox.de:23/./borg/${osConfig.networking.hostName}" ];
 
           excludeHomeManagerSymlinks = true;
 
-          extraConfig = { exclude_if_present = [ ".nobackup" ]; };
+          extraConfig = {
+            exclude_if_present = [ ".nobackup" ];
+            relocated_repo_access_is_ok = true;
+          };
         };
 
         storage = {

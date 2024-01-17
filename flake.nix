@@ -56,8 +56,8 @@
 
       nixosConfigurations = {
 
-        work = lib.nixosSystem {
-          modules = [ ./hosts/work ];
+        peasec = lib.nixosSystem {
+          modules = [ ./hosts/peasec ];
           specialArgs = { inherit inputs outputs; };
         };
 
@@ -68,8 +68,8 @@
       };
 
       homeConfigurations = {
-        "phil@work" = lib.homeManagerConfiguration {
-          modules = [ ./home/work.nix ];
+        "phil@peasec" = lib.homeManagerConfiguration {
+          modules = [ ./home/peasec.nix ];
           pkgs = nixpkgs.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
         };
@@ -80,8 +80,8 @@
           extraSpecialArgs = { inherit inputs outputs; };
         };
 
-        #"phil@work" = lib.homeManagerConfiguration {
-        #  modules = [ ./home/work.nix ];
+        #"phil@peasec" = lib.homeManagerConfiguration {
+        #  modules = [ ./home/peasec.nix ];
         #  pkgs = nixpkgs.x86_64-linux;
         #  extraSpecialArgs = {inherit inputs outputs;};
         #};

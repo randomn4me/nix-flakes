@@ -33,7 +33,7 @@
     # ../common/optional/virt-manager.nix
   ];
 
-  networking.hostName = "work";
+  networking.hostName = "peasec";
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
