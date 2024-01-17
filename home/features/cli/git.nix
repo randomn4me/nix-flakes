@@ -14,7 +14,7 @@
     };
 
     userName = "Philipp Kühn";
-    userEmail = lib.mkDefault "p.contact@audacis.net";
+    userEmail = lib.mkDefault "git@audacis.net";
 
     extraConfig = { init.defaultBranch = "main"; };
     lfs.enable = true;
