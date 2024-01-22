@@ -57,27 +57,27 @@
       nixosConfigurations = {
 
         peasec = lib.nixosSystem {
-          modules = [ ./hosts/peasec ];
           specialArgs = { inherit inputs outputs; };
+          modules = [ ./hosts/peasec ];
         };
 
         hetzner = lib.nixosSystem {
-          modules = [ ./hosts/hetzner ];
           specialArgs = { inherit inputs outputs; };
+          modules = [ ./hosts/hetzner ];
         };
       };
 
       homeConfigurations = {
         "phil@peasec" = lib.homeManagerConfiguration {
-          modules = [ ./home/peasec.nix ];
           pkgs = nixpkgs.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/peasec.nix ];
         };
 
         "r4ndom@hetzner" = lib.homeManagerConfiguration {
-          modules = [ ./home/hetzner.nix ];
           pkgs = nixpkgs.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/hetzner.nix ];
         };
       };
     };
