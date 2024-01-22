@@ -144,6 +144,17 @@
         ",XF86AudioMicMute,exec,  ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
+      bindl = let
+        hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
+
+        m = builtins.head config.monitors;
+      in if m != [] && m.name == "eDP-1" && m.enabled then
+        [ # TODO: cleanup this mess
+          ",switch:off:Lid Switch,exec,${hyprctl} keyword monitor '${m.name}, ${toString m.width}x${toString m.height}@${toString m.refreshRate}, ${toString m.x}x${toString m.y}, 1'"
+          ",switch:on:Lid Switch,exec,${hyprctl} keyword monitor '${m.name}, disable'"
+        ]
+      else [];
+
       monitor = map (m: let
         resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
         position = "${toString m.x}x${toString m.y}";
