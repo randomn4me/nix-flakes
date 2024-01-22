@@ -16,7 +16,6 @@
 
     ../common/global
     ../common/users/phil
-    # ../common/optional/greetd.nix
 
     ../common/optional/fonts.nix
     ../common/optional/wireless.nix
@@ -25,8 +24,6 @@
     ../common/optional/scanning.nix
 
     ../common/optional/powersaving.nix
-    # ../common/optional/tlp.nix
-    ../common/optional/powersaving-ignore-usb.nix
 
     # ../common/optional/docker.nix
     # ../common/optional/virtualbox.nix

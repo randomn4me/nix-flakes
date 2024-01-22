@@ -1,30 +1,32 @@
 {pkgs, ...}: let
   # source https://askubuntu.com/a/1026527
-  ignoreKeyboardScript = pkgs.writeShellScript "powersaving-ignore-usb" ''
-    #!/bin/sh
+  # with adjustments
+  ignoreUSBInputDevicesScript = pkgs.writeShellScript "powersaving-ignore-usb" ''
+    #!/usr/bin/env sh                  
 
-    TARGET_DEVICE_NAME="SK622 Mechanical Keyboard - White Edition"
-    HIDDEVICES=$(ls /sys/bus/usb/drivers/usbhid | grep -oE '^[0-9]+-[0-9\.]+' | sort -u)
+    TARGET_DEVICE_NAMES=("SK622 Mechanical Keyboard - White Edition")
+    HIDDEVICES=$(ls /sys/bus/usb/drivers/usbhid | grep -oE '^[0-9]+-[0-9\.]+' | sort -u)    
 
     for i in $HIDDEVICES; do
       DEVICE_NAME=$(cat /sys/bus/usb/devices/$i/product)
-      if [ "$DEVICE_NAME" = "$TARGET_DEVICE_NAME" ]; then
-        echo "Enabling $DEVICE_NAME"
-        echo 'on' > /sys/bus/usb/devices/$i/power/control
-      fi
+      for ((j = 0; j < ''${#TARGET_DEVICE_NAMES[@]}; j++)); do 
+        if [[ "$DEVICE_NAME" == "''${TARGET_DEVICE_NAMES[$j]}" ]]; then                  
+          echo "Enabling $DEVICE_NAME"                    
+          echo 'on' > /sys/bus/usb/devices/$i/power/control                                
+        fi                                  
+      done                                                                
     done
   '';
 
-  serviceName = "ignoreKeyboard";
+  serviceName = "ignoreUSBInputDevices";
 in {
   systemd.services.${serviceName} = {
-    description = "Ignore keyboard for powertop autotune";
+    description = "Ignore USB input devices for powertop autotune";
     after = ["powertop.service"];
     requires = ["powertop.service"];
-    wantedBy = ["multi-user.target"];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = ignoreKeyboardScript;
+      ExecStart = ignoreUSBInputDevicesScript;
       RemainAfterExit = true;
     };
   };
