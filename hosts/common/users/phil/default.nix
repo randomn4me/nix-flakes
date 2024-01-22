@@ -8,7 +8,7 @@ in {
   users.users.phil = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]
-      ++ ifTheyExist [ "network" "scanner" "lp" "libvirtd" "video" "audio" ];
+      ++ ifTheyExist [ "networkmanager" "scanner" "lp" "libvirtd" "video" "audio" ];
 
     packages = [ pkgs.home-manager ];
   };
