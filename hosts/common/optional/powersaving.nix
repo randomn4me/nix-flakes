@@ -2,7 +2,7 @@
   powerManagement.enable = true;
 
   powerManagement.powertop.enable = true;
-  environment.systemPackages = with pkgs; [ powertop linuxKernel.packages.linux_6_7.cpupower ];
+  environment.systemPackages = with pkgs; [ powertop ];
 
   services.auto-cpufreq.enable = true;
   services.auto-cpufreq.settings = {
