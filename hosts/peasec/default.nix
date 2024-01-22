@@ -65,7 +65,6 @@
     #   updater.enable = true;
     # };
 
-    # logind.lidSwitch = "lock";
     # ddccontrol.enable = true;
   };
 
