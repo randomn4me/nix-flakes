@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./auto-cpufreq.nix
     ./powersaving-ignore-usb.nix
     ./tlp.nix
   ];
