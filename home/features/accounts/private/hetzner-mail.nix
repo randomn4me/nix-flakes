@@ -57,7 +57,7 @@ in {
           text = ''
             Hi
 
-            --
+            -- 
 
             Philipp Kühn
             ${address}
@@ -98,7 +98,7 @@ in {
             Cheers,
             Philipp
 
-            --
+            -- 
             Philipp Kühn
             Personalvorstand
 

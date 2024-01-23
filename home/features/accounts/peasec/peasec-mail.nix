@@ -36,7 +36,12 @@ in {
         signature = {
           showSignature = "append";
           text = ''
-            --
+            Hi
+
+            Cheers,
+            Philipp
+
+            -- 
             Philipp Kühn, M.Sc., TU Darmstadt, Informatik,
             Wissenschaft und Technik für Frieden und Sicherheit (PEASEC),
             Pankratiusstraße 2, 64289 Darmstadt, Raum S220 | 115,
@@ -44,6 +49,7 @@ in {
 
             My working hours may not be your working hours.
             Please do not feel obligated to reply outside of your normal work schedule.
+
           '';
         };
 
@@ -51,6 +57,9 @@ in {
           enable = true;
           create = "both";
           expunge = "both";
+          extraConfig.account = {
+            PipelineDepth = 1;
+          }; # https://kdecherf.com/blog/2017/05/01/mbsync-and-office-365/
         };
 
         #thunderbird = {
@@ -79,7 +88,7 @@ in {
             named-mailboxes " drafts"   "+Entw&APw-rfe"
             named-mailboxes " trash"    "+Gel&APY-schte Elemente"
 
-            macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
+            macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archiv\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
           '';
         };
       };
