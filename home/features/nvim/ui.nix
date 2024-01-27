@@ -67,5 +67,17 @@
         }
       '';
     }
+
+    {
+      plugin = tokyonight-nvim;
+      type = "lua";
+      config = /* lua */ ''
+        require("tokyonight").setup({
+          style = "night",
+        })
+        
+        vim.cmd[[colorscheme tokyonight-night]]
+      '';
+    }
   ];
 }
