@@ -11,7 +11,7 @@
     };
 
     nix-colors.url = "github:misterio77/nix-colors";
-    inputs.sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.url = "github:Mic92/sops-nix";
     waybar.url = "github:Alexays/Waybar";
 
     hyprland = {
