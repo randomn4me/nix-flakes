@@ -7,6 +7,7 @@
     ./git.nix
     ./lyrics.nix
     ./tmux.nix
+    ./xdg.nix
     ./zoxide.nix
   ];
   home.packages = with pkgs; [
