@@ -14,6 +14,7 @@ in {
 
   xdg.configFile."mailcap".text = ''
     text/html; ${w3m} -I %{charset} -T text/html; copiousoutput;
+    text/calendar; khal import %s;
 
     image/*; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s); rm /tmp/mutt/%s;
 
