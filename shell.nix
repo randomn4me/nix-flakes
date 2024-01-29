@@ -17,10 +17,10 @@
       home-manager
       git
 
-      # sops
-      # ssh-to-age
-      # gnupg
-      # age
+      sops
+      ssh-to-age
+      gnupg
+      age
     ];
   };
 }
