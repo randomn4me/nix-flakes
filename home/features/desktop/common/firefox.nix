@@ -4,6 +4,7 @@
 
     profiles.${config.home.username} = {
       bookmarks = { };
+
       extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
         bitwarden
@@ -14,6 +15,7 @@
       ];
 
       settings = {
+        "ui.systemUsesDarkTheme" = 1;
         "browser.disableResetPrompt" = true;
         "browser.download.useDownloadDir" = false;
         "browser.shell.checkDefaultBrowser" = false;
