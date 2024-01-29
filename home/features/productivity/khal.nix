@@ -39,9 +39,6 @@
     datetimeformat = %Y-%m-%d %H:%M
     longdatetimeformat = %Y-%m-%d %H:%M
 
-    [view]
-    agenda_event_format = {calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{alarm-symbol}{reset}
-
     [default]
     default_calendar = peasec
   '';
