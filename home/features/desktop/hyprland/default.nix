@@ -13,7 +13,6 @@
 
   home.packages = [
     inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast
-    inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
   ];
 
   wayland.windowManager.hyprland = {

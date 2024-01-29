@@ -28,7 +28,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprpicker.url = "github:hyprwm/hyprpicker";
     waybar.url = "github:Alexays/Waybar";
 
     astronvim = {
