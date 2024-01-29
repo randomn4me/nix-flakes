@@ -11,8 +11,9 @@
     };
 
     nix-colors.url = "github:misterio77/nix-colors";
+    inputs.sops-nix.url = "github:Mic92/sops-nix";
+    waybar.url = "github:Alexays/Waybar";
 
-    # Hyprland
     hyprland = {
       url = "github:hyprwm/hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,10 +29,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    waybar.url = "github:Alexays/Waybar";
-
     astronvim = {
-      url = "github:AstroNvim/AstroNvim/v3.41.0";
+      url = "github:AstroNvim/AstroNvim/v3.42.0";
       flake = false;
     };
   };
