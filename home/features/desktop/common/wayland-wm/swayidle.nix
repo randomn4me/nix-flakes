@@ -34,20 +34,21 @@ in
         timeout = 10;
         command = "${pactl} set-source-mute @DEFAULT_SOURCE@ yes";
         resumeCommand = "${pactl} set-source-mute @DEFAULT_SOURCE@ no";
-      }) ++
+      });
+      #++
       # Turn off displays (hyprland)
-      (lib.optionals config.wayland.windowManager.hyprland.enable
-        (afterLockTimeout {
-          timeout = 60;
-          command = "${hyprctl} dispatch dpms off";
-          resumeCommand = "${hyprctl} dispatch dpms on";
-        })) ++
+      #(lib.optionals config.wayland.windowManager.hyprland.enable
+      #  (afterLockTimeout {
+      #    timeout = 60;
+      #    command = "${hyprctl} dispatch dpms off";
+      #    resumeCommand = "${hyprctl} dispatch dpms on";
+      #  })) ++
       # Turn off displays (sway)
-      (lib.optionals config.wayland.windowManager.sway.enable
-        (afterLockTimeout {
-          timeout = 60;
-          command = "${swaymsg} 'output * dpms off'";
-          resumeCommand = "${swaymsg} 'output * dpms on'";
-      }));
+      #(lib.optionals config.wayland.windowManager.sway.enable
+      #  (afterLockTimeout {
+      #    timeout = 60;
+      #    command = "${swaymsg} 'output * dpms off'";
+      #    resumeCommand = "${swaymsg} 'output * dpms on'";
+      #}));
   };
 }
