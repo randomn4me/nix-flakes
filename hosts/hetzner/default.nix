@@ -20,10 +20,10 @@
   };
 
   services = {
-    clamav = {
-      daemon.enable = true;
-      updater.enable = true;
-    };
+    #clamav = {
+    #  daemon.enable = true;
+    #  updater.enable = true;
+    #};
   
     openssh = {
       enable = true;
