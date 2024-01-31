@@ -4,6 +4,7 @@
 
     ./features/ssh/private.nix
 
+    ./features/nvim
     ./features/backup
   ];
 
