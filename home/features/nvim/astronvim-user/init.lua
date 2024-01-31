@@ -75,6 +75,34 @@ return {
 
     { import = "astrocommunity.markdown-and-latex.vimtex" },
 
+    { "Saecki/crates.nvim",
+      init = function ()
+        local crates = require("crates")
+
+        vim.keymap.set("n", "<localleader>ct", crates.toggle, { desc = "Toggle crates", silent = true })
+        vim.keymap.set("n", "<localleader>cr", crates.reload, { desc = "Reload crates", silent = true })
+
+        vim.keymap.set("n", "<localleader>cv", crates.show_versions_popup, { desc = "Show version popup" , silent = true })
+        vim.keymap.set("n", "<localleader>cf", crates.show_features_popup, { desc = "Show features popup" , silent = true })
+        vim.keymap.set("n", "<localleader>cd", crates.show_dependencies_popup, { desc = "Show dependencies popup" , silent = true })
+
+        vim.keymap.set("n", "<localleader>cu", crates.update_crate, { desc = "Update crate" , silent = true })
+        vim.keymap.set("v", "<localleader>cu", crates.update_crates, { desc = "Update crates" , silent = true })
+        vim.keymap.set("n", "<localleader>ca", crates.update_all_crates, { desc = "Update all crates" , silent = true })
+        vim.keymap.set("n", "<localleader>cU", crates.upgrade_crate, { desc = "Upgrade crate" , silent = true })
+        vim.keymap.set("v", "<localleader>cU", crates.upgrade_crates, { desc = "Upgrade crates" , silent = true })
+        vim.keymap.set("n", "<localleader>cA", crates.upgrade_all_crates, { desc = "Upgrade all crates" , silent = true })
+
+        vim.keymap.set("n", "<localleader>cx", crates.expand_plain_crate_to_inline_table, { desc = "Expand plain crate to inline table" , silent = true })
+        vim.keymap.set("n", "<localleader>cX", crates.extract_crate_into_table, { desc = "Extract crate into table" , silent = true })
+
+        vim.keymap.set("n", "<localleader>cH", crates.open_homepage, { desc = "Open crate homepage" , silent = true })
+        vim.keymap.set("n", "<localleader>cR", crates.open_repository, { desc = "Open crate repository" , silent = true })
+        vim.keymap.set("n", "<localleader>cD", crates.open_documentation, { desc = "Open crate documentation" , silent = true })
+        vim.keymap.set("n", "<localleader>cC", crates.open_crates_io,  { desc = "Open crates.io page" , silent = true })
+      end,
+    },
+
     {
       "lervag/vimtex",
       init = function ()

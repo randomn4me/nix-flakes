@@ -29,10 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    astronvim = {
-      url = "github:AstroNvim/AstroNvim/v3.42.0";
-      flake = false;
-    };
+    astronvim = { url = "github:AstroNvim/AstroNvim/v3.42.0"; flake = false; };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
