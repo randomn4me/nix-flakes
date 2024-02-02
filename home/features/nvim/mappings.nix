@@ -2,9 +2,14 @@
   programs.neovim = {
     extraLuaConfig = /* lua */ ''
       vim.g.mapleader = " "
+      vim.g.maplocalleader = ","
+
       vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "Open Explorer" })
+      vim.keymap.set("n", "H", "<cmd>bp<cr>", { desc = "Goto previous buffer" })
+      vim.keymap.set("n", "L", "<cmd>bn<cr>", { desc = "Goto next buffer" })
 
       vim.keymap.set("n", "<leader>w", "<cmd>:w<cr>", { desc = "Save Buffer" })
+      vim.keymap.set("n", "<leader>c", "<cmd>bd<cr>", { desc = "Close Buffer" })
       vim.keymap.set("n", "<leader>q", "<cmd>:q<cr>", { desc = "Quit Buffer" })
 
       vim.keymap.set({"n", "v"}, "<leader>y", [["+y]], { desc = "Copy to system clipboard" })
@@ -15,7 +20,7 @@
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
       vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format code" })
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
-      vim.keymap.set("n", "<leader>c", vim.lsp.buf.code_action, { desc = "Code action" })
+      vim.keymap.set("n", "<leader>lc", vim.lsp.buf.code_action, { desc = "Code action" })
 
       -- Diagnostic
       vim.keymap.set("n", "<space>le", vim.diagnostic.open_float, { desc = "Floating diagnostic" })

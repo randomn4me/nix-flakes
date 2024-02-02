@@ -7,7 +7,20 @@
       vim-markdown
       vim-nix
       vim-toml
-      haskell-vim
+
+      {
+        plugin = trouble-nvim;
+        type = "lua";
+        config = /* lua */ ''
+          require("trouble").setup({
+            icons = false,
+          })
+
+          vim.keymap.set("n", "<leader>tt", function() require("trouble").toggle(); end)
+          vim.keymap.set("n", "[t", function() require("trouble").previous({skip_groups = true, jump = true}); end)
+          vim.keymap.set("n", "]t", function() require("trouble").next({skip_groups = true, jump = true}); end)
+        '';
+      }
 
       {
         plugin = vimtex;
@@ -16,9 +29,10 @@
           vim.g.vimtex_view_method = '${if config.programs.zathura.enable then "zathura" else "general"}'
           vim.g.vimtex_compiler_latexmk = { out_dir = 'out', aux_dir = 'out' }
 
-          vim.keymap.set('n', "<leader>vv", ':VimtexView<CR>', { desc = "View pdf file with vimtex", silent = true })
-          vim.keymap.set('n', "<leader>vc", ':VimtexCompile<CR>', { desc = "Compile latex project with vimtex", silent = true })
-          vim.keymap.set('n', "<leader>vd", function()
+          vim.keymap.set('n', "<localleader>vv", '<cmd>VimtexView<cr>', { desc = "View pdf file with vimtex", silent = true })
+          vim.keymap.set('n', "<localleader>vc", '<cmd>VimtexCompile<cr>', { desc = "Compile latex project with vimtex", silent = true })
+          vim.keymap.set('n', "<localleader>vt", '<cmd>VimtexTocToggle<cr>', { desc = "Toggle table of content", silent = true })
+          vim.keymap.set('n', "<localleader>vd", function()
             local package_name = vim.fn.input("Documentation of package > ")
             if package_name ~= "" then
               vim.cmd("VimtexDocPackage " .. package_name)
@@ -30,17 +44,12 @@
       }
 
       {
-        plugin = bufferline-nvim;
-        type = "lua";
-      }
-
-
-      {
         plugin = telescope-nvim;
         type = "lua";
         config = /* lua */ ''
           local builtin = require('telescope.builtin')
           vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find in all files" })
+          vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = "Find files by word" })
           vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find in git files" })
           vim.keymap.set('n', '<leader>fs', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
@@ -91,7 +100,23 @@
         plugin = indent-blankline-nvim;
         type = "lua";
         config = /* lua */ ''
-          require("ibl").setup()
+          require("ibl").setup{
+            indent = { char = "▏" },
+            scope = { show_start = false, show_end = false },
+            exclude = {
+              buftypes = {
+                "nofile",
+                "terminal",
+              },
+              filetypes = {
+                "help",
+                "dashboard",
+                "lazy",
+                "neogitstatus",
+                "Trouble",
+              },
+            },
+          }
         '';
       }
 
@@ -100,6 +125,14 @@
         type = "lua";
         config = /* lua */ ''
           require('leap').add_default_mappings()
+        '';
+      }
+
+      {
+        plugin = flit-nvim;
+        type = "lua";
+        config = /* lua */ ''
+          require("flit").setup()
         '';
       }
 

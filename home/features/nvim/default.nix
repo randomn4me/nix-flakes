@@ -1,17 +1,12 @@
 { pkgs, inputs, ... }:
 {
-  # imports = [
-  #   ./setup.nix
-  #   ./lsp.nix
-  #   ./plugins.nix
-  #   ./mappings.nix
-  #   ./ui.nix
-  # ];
-
-  xdg.configFile = {
-    "nvim".source = inputs.astronvim;
-    "astronvim/lua/user".source = ./astronvim-user;
-  };
+  imports = [
+    ./setup.nix
+    ./lsp.nix
+    ./plugins.nix
+    ./mappings.nix
+    ./ui.nix
+  ];
 
   xdg.desktopEntries = {
     nvim = {
@@ -46,6 +41,7 @@
 
   programs.neovim = {
     enable = true;
+
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
@@ -104,38 +100,22 @@
       nodePackages.nodejs
       nodePackages.typescript
       nodePackages.typescript-language-server
-      # HTML/CSS/JSON/ESLint language servers extracted from vscode
-      nodePackages.vscode-langservers-extracted
-      nodePackages."@tailwindcss/language-server"
-  
-      #-- CloudNative
-      nodePackages.dockerfile-language-server-nodejs
-      # terraform  # install via brew on macOS
-      terraform-ls
-      jsonnet
-      jsonnet-language-server
-      hadolint # Dockerfile linter
   
       #-- Others
       taplo # TOML language server / formatter / validator
       nodePackages.yaml-language-server
       sqlfluff # SQL linter
-      buf # protoc plugin for linting and formatting
-      proselint # English prose linter
-      guile # scheme language
   
       #-- Misc
       tree-sitter # common language parser/highlighter
-      nodePackages.prettier # common code formatter
       marksman # language server for markdown
-      texlab # tex
       ltex-ls # language-tool + tex
       glow # markdown previewer
       fzf
-  
-      #-- Optional Requirements:
+
       gdu # disk usage analyzer, required by AstroNvim
       ripgrep # fast search tool, required by AstroNvim's '<leader>fw'(<leader> is space key)
+      fd
     ];
   };
 }

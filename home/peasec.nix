@@ -3,6 +3,7 @@
     ./global
 
     ./features/nvim
+    #./features/nixvim
 
     ./features/ssh/private.nix
     ./features/ssh/peasec.nix
@@ -38,6 +39,7 @@
   home.packages = with pkgs; [
     texlive.combined.scheme-full
     libreoffice
+    zotero
 
     comma
 
@@ -52,6 +54,7 @@
 
     pandoc
     ffmpeg
+    anki-bin
   ];
 
   monitors = [{

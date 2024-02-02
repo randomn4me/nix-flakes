@@ -20,15 +20,15 @@
         dashboard.section.header.opts.hl = "Title"
 
         dashboard.section.buttons.val = {
-            dashboard.button( "n", "󰈔 New file" , ":enew<CR>"),
-            dashboard.button( "e", " Explore", ":Explore<CR>"),
-            dashboard.button( "g", " Git summary", ":Git | :only<CR>"),
-            dashboard.button( "c", "  Nix config flake" , ":cd ~/etc | :e flake.nix<CR>"),
+            dashboard.button( "n", "󰈔 New file" , "<cmd>enew<cr>"),
+            dashboard.button( "e", " Explore", ":Explore<cr>"),
+            dashboard.button( "g", " Git summary", ":Git | :only<cr>"),
+            dashboard.button( "c", "  Nix config flake" , ":cd ~/etc | :e flake.nix<cr>"),
             dashboard.button( "q", "󰅙  Quit nvim", ":qa<CR>"),
         }
 
         alpha.setup(dashboard.opts)
-        vim.keymap.set("n", "<space>a", ":Alpha<CR>", { desc = "Open alpha dashboard" })
+        vim.keymap.set("n", "<space>a", "<cmd>Alpha<cr>", { desc = "Open alpha dashboard" })
       '';
     }
 
@@ -77,6 +77,14 @@
         })
         
         vim.cmd[[colorscheme tokyonight-night]]
+      '';
+    }
+
+    {
+      plugin = lualine-nvim;
+      type = "lua";
+      config = /* lua */ ''
+      require('lualine').setup()
       '';
     }
   ];
