@@ -1,12 +1,16 @@
 { pkgs, config, ... }: {
   programs.neovim.plugins = with pkgs.vimPlugins;
     [
-      vim-nix
-      vim-markdown
-      rust-vim
-      vim-markdown
-      vim-nix
-      vim-toml
+      {
+        plugin = neogen;
+        type = "lau";
+        config = /* lua */ ''
+          require('neogen').setup {}
+
+          vim.keymap.set("n", "<localleader>nf", ":lua require('neogen').generate()<cr>", { desc = "Generate function annotations", silent = true })
+          vim.keymap.set("n", "<localleader>nc", ":lua require('neogen').generate({type = 'class'})<cr>", { desc = "Generate class annotations", silent = true })
+        '';
+      }
 
       {
         plugin = trouble-nvim;
@@ -129,10 +133,10 @@
       }
 
       {
-        plugin = flit-nvim;
+        plugin = flash-nvim;
         type = "lua";
         config = /* lua */ ''
-          require("flit").setup()
+          vim.keymap.set("n", "f", function() require("flash").toggle() end)
         '';
       }
 

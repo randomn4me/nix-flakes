@@ -30,6 +30,11 @@
     };
 
     astronvim = { url = "github:AstroNvim/AstroNvim/v3.42.0"; flake = false; };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
