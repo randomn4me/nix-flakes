@@ -147,26 +147,34 @@
         hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
 
         m = builtins.head config.monitors;
-      in if m != [] && m.name == "eDP-1" && m.enabled then
-        [ # TODO: cleanup this mess
-          ",switch:off:Lid Switch,exec,${hyprctl} keyword monitor '${m.name}, ${toString m.width}x${toString m.height}@${toString m.refreshRate}, ${toString m.x}x${toString m.y}, 1'"
-          ",switch:on:Lid Switch,exec,${hyprctl} keyword monitor '${m.name}, disable'"
+      in if m != [] && m.name == "eDP-1" && m.enabled then let
+        res = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+        position = "${toString m.x}x${toString m.y}";
+        command = "${hyprctl} keyword monitor";
+        scaling = "${toString m.scaling}";
+      in
+        [
+          ",switch:off:Lid Switch,exec,${command} '${m.name},${res},${position},${scaling}'"
+          ",switch:on:Lid Switch,exec,${command} '${m.name}, disable'"
         ]
       else [];
 
       monitor = map (m: let
         resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
         position = "${toString m.x}x${toString m.y}";
+        scaling = "${toString m.scaling}";
       in
-        "${m.name},${if m.enabled then "${resolution},${position},1" else "disable"}"
+        "${m.name},${if m.enabled then "${resolution},${position},${scaling}" else "disable"}"
       ) (config.monitors)
       ++ [
         ", preferred, auto, 1"
       ];
 
-      workspace = map (m:
-      "${m.name},${m.workspace}"
-      ) (lib.filter (m: m.enabled && m.workspace != null) config.monitors);
+      workspace = lib.lists.flatten (map (m: 
+        map (w: 
+          "${toString w},monitor:${m.name},default:true")
+        m.workspaces)
+      (lib.filter (m: m.enabled && m.workspaces != null) config.monitors));
 
     };
 
