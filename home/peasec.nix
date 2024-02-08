@@ -57,14 +57,16 @@
     anki-bin
   ];
 
-  monitors = [{
-    name = "eDP-1";
-    width = 1920;
-    height = 1080;
-    refreshRate = 60;
-    x = 0;
-    primary = true;
-  }];
+  monitors = [
+      {
+        name = "eDP-1";
+        width = 1920;
+        height = 1080;
+        refreshRate = 60;
+        scaling = 1.0;
+        primary = true;
+      }
+  ];
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 

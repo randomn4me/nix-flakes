@@ -31,6 +31,11 @@ in {
           type = types.int;
           default = 0;
         };
+        scaling = mkOption {
+            type = types.float;
+            default = 1;
+            example = "1.333333";
+        };
         y = mkOption {
           type = types.int;
           default = 0;
@@ -39,8 +44,8 @@ in {
           type = types.bool;
           default = true;
         };
-        workspace = mkOption {
-          type = types.nullOr types.str;
+        workspaces = mkOption {
+          type = types.nullOr (types.listOf types.int);
           default = null;
         };
       };
