@@ -18,6 +18,7 @@
     ./features/scripts
 
     ./features/productivity
+    ./features/desktop/common/zotero.nix
 
     ./features/cli/udiskie.nix
     ./features/virtualization/virt-manager.nix
@@ -39,7 +40,6 @@
   home.packages = with pkgs; [
     texlive.combined.scheme-full
     libreoffice
-    zotero
 
     comma
 
