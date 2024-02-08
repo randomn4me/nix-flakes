@@ -25,7 +25,7 @@
 
     ../common/optional/powersaving.nix
 
-    # ../common/optional/docker.nix
+    ../common/optional/docker.nix
     # ../common/optional/virtualbox.nix
     # ../common/optional/virt-manager.nix
   ];
@@ -35,7 +35,7 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     binfmt.emulatedSystems = [ "aarch64-linux" ];
-    # kernelModules = [ "sg" ]; # for makemkv
+    kernelModules = [ "sg" ]; # for makemkv
 
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -46,7 +46,7 @@
 
     printing = {
       enable = true;
-      drivers = with pkgs; [ cups-kyodialog ];
+      drivers = with pkgs; [ cups-kyodialog mfcj6510dwlpr ];
     };
 
     avahi = {
@@ -55,20 +55,13 @@
       openFirewall = true;
     };
 
-    udisks2.enable = true; # required by udiskie
-
-    # clamav = {
-    #   daemon.enable = true;
-    #   updater.enable = true;
-    # };
-
-    # ddccontrol.enable = true;
+    udisks2.enable = true;
   };
 
   programs = {
     dconf.enable = true;
     light.enable = true;
-    # adb.enable = true;
+    adb.enable = true;
   };
 
   xdg.portal = {
@@ -81,8 +74,6 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-
-    # extraPackages = with pkgs; [ intel-media-driver ];
   };
 
   system.stateVersion = "23.05";

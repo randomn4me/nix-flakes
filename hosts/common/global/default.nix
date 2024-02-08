@@ -1,9 +1,11 @@
-{ pkgs, ... }:
-
 {
-  imports = [ ./locale.nix ./nix.nix ./pkgs.nix ];
+  imports = [
+    ./locale.nix
+    ./nix.nix
+    ./pkgs.nix
+    ./sops.nix
+  ];
 
-  nixpkgs = { config = { allowUnfree = true; }; };
-
-  console = { keyMap = "de"; };
+  nixpkgs.config.allowUnfree = true; 
+  console.keyMap = "de"; 
 }
