@@ -11,13 +11,14 @@
     ./features/accounts/private
     ./features/accounts/peasec
 
+    ./features/productivity
+
     ./features/desktop/hyprland
     ./features/multimedia
     ./features/backup
     ./features/rbw
     ./features/scripts
 
-    ./features/productivity
     ./features/desktop/common/zotero.nix
 
     ./features/cli/udiskie.nix
