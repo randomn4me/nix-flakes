@@ -69,17 +69,19 @@ in {
         neomutt = {
           enable = true;
           extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
-          extraConfig = ''
+          extraConfig = let
+            inherit (config.colorscheme) colors;
+          in ''
             named-mailboxes "audacis"   "+Inbox"
             named-mailboxes " archive"  "+Archive"
             named-mailboxes " sent"     "+Sent"
             named-mailboxes " drafts"   "+Drafts"
             named-mailboxes " trash"    "+Trash"
 
-            color indicator    #${config.colorscheme.colors.base0A}  black
-            color status       #${config.colorscheme.colors.base0A}  default
+            color indicator    #${colors.base0A}  black
+            color status       #${colors.base0A}  default
 
-            color sidebar_highlight  #${config.colorscheme.colors.base0A}  default
+            color sidebar_highlight  #${colors.base0A}  default
 
             macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
           '';
@@ -124,17 +126,19 @@ in {
         neomutt = {
           enable = true;
           extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
-          extraConfig = ''
+          extraConfig = let
+            inherit (config.colorscheme) colors;
+          in ''
             named-mailboxes "unikita"   "+Inbox"
             named-mailboxes " archive"  "+Archive"
             named-mailboxes " sent"     "+Sent"
             named-mailboxes " drafts"   "+Drafts"
             named-mailboxes " trash"    "+Trash"
 
-            color indicator    #${config.colorscheme.colors.base0B}  black
-            color status       #${config.colorscheme.colors.base0B}  default
+            color indicator    #${colors.base0B}  black
+            color status       #${colors.base0B}  default
 
-            color sidebar_highlight  #${config.colorscheme.colors.base0B}  default
+            color sidebar_highlight  #${colors.base0B}  default
 
             macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
           '';
@@ -149,17 +153,19 @@ in {
         neomutt = {
           enable = true;
           extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
-          extraConfig = ''
+          extraConfig = let
+            inherit (config.colorscheme) colors;
+          in ''
             named-mailboxes "sink"   "+Inbox"
             named-mailboxes " archive"  "+Archive"
             named-mailboxes " sent"     "+Sent"
             named-mailboxes " drafts"   "+Drafts"
             named-mailboxes " trash"    "+Trash"
 
-            color indicator    #${config.colorscheme.colors.base0D}  black
-            color status       #${config.colorscheme.colors.base0D}  default
+            color indicator    #${colors.base0D}  black
+            color status       #${colors.base0D}  default
 
-            color sidebar_highlight  #${config.colorscheme.colors.base0D}  default
+            color sidebar_highlight  #${colors.base0D}  default
 
             macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
           '';

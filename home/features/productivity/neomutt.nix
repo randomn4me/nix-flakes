@@ -70,6 +70,8 @@ in {
       attach_format = ''"%I %t%2n %T%.40d%> [%.15m/%.10M, %?C?%C, ?%s]"'';
       pager_format = ''"-(%C/%m)-%>-(%P)"'';
       forward_format = ''"Fwd: %s"'';
+
+      
     };
 
     binds = [
@@ -213,7 +215,8 @@ in {
 
     changeFolderWhenSourcingAccount = true;
 
-    extraConfig = let inherit (config.colorscheme) colors;
+    extraConfig = let
+      inherit (config.colorscheme) colors;
     in ''
       color normal       #${colors.base05}   default
       color error        #${colors.base0F}   default
