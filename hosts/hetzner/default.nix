@@ -9,7 +9,7 @@
     ../common/optional/services/mastodon.nix
     ../common/optional/services/taskserver.nix
     ../common/optional/services/vaultwarden.nix
-    #../common/optional/services/anki.nix
+    ../common/optional/services/gitea.nix
   ];
 
   networking.hostName = "hetzner";
