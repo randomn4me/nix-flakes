@@ -4,7 +4,7 @@
 
     systemd.user.services.zotero = {
         Unit.Description = "zotero";
-        ServiceExecStart = "${pkgs.zotero}/bin/zotero --headless";
+        Service.ExecStart = "${pkgs.zotero}/bin/zotero --headless";
         Install.WantedBy = [ "default.target" ];
     };
 
