@@ -38,6 +38,8 @@ in {
           text = ''
             Hi
 
+            Falls noch Fragen bestehen, melde dich gerne bei mir.
+
             Cheers,
             Philipp
 
@@ -69,12 +71,8 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [
-            "Archiv"
-            "Entw&APw-rfe"
-            "Gesendete Elemente"
-            "Gel&APY-schte Elemente"
-          ];
+          extraMailboxes = [ "Archiv" "Entw&APw-rfe" "Gesendete Elemente" "Gel&APY-schte Elemente" ];
+          sendMailCommand = "msmtpq -a peasec";
           extraConfig = let inherit (config.colorscheme) colors;
           in ''
             color indicator    #${colors.base0F}  black

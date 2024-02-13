@@ -69,6 +69,7 @@ in {
         neomutt = {
           enable = true;
           extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
+          sendMailCommand = "msmtpq -a audacis";
           extraConfig = let
             inherit (config.colorscheme) colors;
           in ''
@@ -97,6 +98,9 @@ in {
           showSignature = "append";
           text = ''
             Hi
+
+            Falls noch Fragen bestehen, melde dich gerne.
+
             Cheers,
             Philipp
 
@@ -126,6 +130,7 @@ in {
         neomutt = {
           enable = true;
           extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
+          sendMailCommand = "msmtpq -a personalvorstand";
           extraConfig = let
             inherit (config.colorscheme) colors;
           in ''
@@ -153,6 +158,7 @@ in {
         neomutt = {
           enable = true;
           extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
+          sendMailCommand = "msmtpq -a sink";
           extraConfig = let
             inherit (config.colorscheme) colors;
           in ''
