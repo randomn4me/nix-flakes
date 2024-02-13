@@ -29,7 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    astronvim = { url = "github:AstroNvim/AstroNvim/v3.42.0"; flake = false; };
+    astronvim = { url = "github:AstroNvim/AstroNvim/v3.43.2"; flake = false; };
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -74,13 +74,13 @@
 
       homeConfigurations = {
         "phil@peasec" = lib.homeManagerConfiguration {
-          pkgs = nixpkgs.x86_64-linux;
+          pkgs = pkgsFor.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./home/peasec.nix ];
         };
 
         "r4ndom@hetzner" = lib.homeManagerConfiguration {
-          pkgs = nixpkgs.x86_64-linux;
+          pkgs = pkgsFor.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./home/hetzner.nix ];
         };
