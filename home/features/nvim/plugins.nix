@@ -83,7 +83,6 @@
           vim.keymap.set("n", "<C-j>", function() ui.nav_file(1) end)
           vim.keymap.set("n", "<C-k>", function() ui.nav_file(2) end)
           vim.keymap.set("n", "<C-l>", function() ui.nav_file(3) end)
-          vim.keymap.set("n", "<C-ö>", function() ui.nav_file(4) end)
         '';
       }
 
@@ -125,18 +124,12 @@
       }
 
       {
-        plugin = leap-nvim;
-        type = "lua";
-        config = /* lua */ ''
-          require('leap').add_default_mappings()
-        '';
-      }
-
-      {
         plugin = flash-nvim;
         type = "lua";
         config = /* lua */ ''
-          vim.keymap.set("n", "f", function() require("flash").toggle() end)
+          require("flash").setup( {} )
+
+          vim.keymap.set("n", "s", function () require('flash').jump() end, { desc = "Jump to .." })
         '';
       }
 
