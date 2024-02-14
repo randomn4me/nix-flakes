@@ -31,19 +31,8 @@
         type = "lua";
         config = /* lua */ ''
           vim.g.vimtex_view_method = '${if config.programs.zathura.enable then "zathura" else "general"}'
+          vim.g.vimtex_mappings_prefix = '<localleader>v'
           vim.g.vimtex_compiler_latexmk = { out_dir = 'out', aux_dir = 'out' }
-
-          vim.keymap.set('n', "<localleader>vv", '<cmd>VimtexView<cr>', { desc = "View pdf file with vimtex", silent = true })
-          vim.keymap.set('n', "<localleader>vc", '<cmd>VimtexCompile<cr>', { desc = "Compile latex project with vimtex", silent = true })
-          vim.keymap.set('n', "<localleader>vt", '<cmd>VimtexTocToggle<cr>', { desc = "Toggle table of content", silent = true })
-          vim.keymap.set('n', "<localleader>vd", function()
-            local package_name = vim.fn.input("Documentation of package > ")
-            if package_name ~= "" then
-              vim.cmd("VimtexDocPackage " .. package_name)
-            else
-              print("No package provided")
-            end
-          end, { desc = "Open documentation for package.", silent = true })
         '';
       }
 

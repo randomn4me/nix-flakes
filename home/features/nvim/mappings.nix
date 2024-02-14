@@ -2,6 +2,7 @@
   programs.neovim = {
     extraLuaConfig = /* lua */ ''
       vim.g.mapleader = " "
+      vim.g.maplocalleader = ","
 
       vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "Open Explorer" })
       vim.keymap.set("n", "H", "<cmd>bp<cr>", { desc = "Goto previous buffer" })
