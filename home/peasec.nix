@@ -58,6 +58,8 @@
     pandoc
     ffmpeg
     anki-bin
+
+    tesseract
   ];
 
   monitors = [
