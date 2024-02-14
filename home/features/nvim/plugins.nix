@@ -31,7 +31,6 @@
         type = "lua";
         config = /* lua */ ''
           vim.g.vimtex_view_method = '${if config.programs.zathura.enable then "zathura" else "general"}'
-          vim.g.vimtex_mappings_prefix = '<localleader>v'
           vim.g.vimtex_compiler_latexmk = { out_dir = 'out', aux_dir = 'out' }
         '';
       }
@@ -48,6 +47,21 @@
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
             end, { desc = "Grep in all files" })
           vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = "View help" })
+        '';
+      }
+
+      {
+        plugin = todo-comments-nvim;
+        type = "lua";
+        config = /* lua */ ''
+          local todo_comments = require('todo-comments')
+
+          todo_comments.setup()
+
+          vim.keymap.set('n', ']t', function() todo_comments.jump_next() end, { desc = "Next todo comment" })
+          vim.keymap.set('n', '[t', function() todo_comments.jump_prev() end, { desc = "Previous todo comment" })
+
+          vim.keymap.set('n', '<leader>ft', vim.cmd.TodoTelescope, { desc = "Search todos via telescope" })
         '';
       }
 
@@ -82,6 +96,7 @@
           require('nvim-treesitter.configs').setup{
             highlight = {
               enable = true,
+              disable = { "latex" },
               additional_vim_regex_highlighting = false,
             }
           }

@@ -110,6 +110,7 @@
       tree-sitter # common language parser/highlighter
       marksman # language server for markdown
       ltex-ls # language-tool + tex
+      texlab # latex lsp
       glow # markdown previewer
       fzf
 

@@ -23,9 +23,7 @@
         add_lsp(lspconfig.pylsp, {})
         add_lsp(lspconfig.lua_ls, {})
 
-        add_lsp(lspconfig.texlab, {
-          chktex = { onEdit = true, onOpenAndSave = true }
-        })
+        add_lsp(lspconfig.texlab, {})
       '';
     }
 
