@@ -1,7 +1,7 @@
 #!/bin/sh
 
 usage() {
-    echo "Usage: $(basename $0) <file>"
+    echo "Usage: $(basename $0) <file> [level]"
     echo "Quality settings are (low to high): screen, ebook, printer, prepress (default), default"
 }
 
