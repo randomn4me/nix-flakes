@@ -22,7 +22,16 @@ in {
             "${home}/usr"
             "${home}/var"
           ];
-          repositories = [ "ssh://u340000@u340000.your-storagebox.de:23/./borg/${osConfig.networking.hostName}" ];
+          repositories = [
+            {
+              path = "ssh://u340000@u340000.your-storagebox.de:23/./borg/${osConfig.networking.hostName}";
+              label = "remote";
+            }
+            {
+              path = "/run/media/phil/backup/borg-backup";
+              label = "hdd";
+            }
+          ];
 
           excludeHomeManagerSymlinks = true;
 
