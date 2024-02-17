@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./setup.nix
@@ -61,6 +61,9 @@
       nodePackages.pyright # python language server
       python3Packages.black # python formatter
       python3Packages.ruff-lsp
+      python3Packages.python-lsp-server
+      python3Packages.jedi
+      python3Packages.pyflakes
       (python3.withPackages (
         ps:
           with ps; [
