@@ -27,7 +27,7 @@
     inputs.nix-index-database.hmModules.nix-index
   ];
 
-  accounts.email.accounts.audacis.primary = true;
+  accounts.email.accounts.peasec.primary = true;
   accounts.calendar.accounts.peasec.primary = true;
 
   nix = {
@@ -43,6 +43,8 @@
   home.packages = with pkgs; [
     texlive.combined.scheme-full
     libreoffice
+    hunspellDicts.de_DE
+    hunspellDicts.en_US
 
     comma
 
