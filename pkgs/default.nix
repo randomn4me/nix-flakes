@@ -1,3 +1,3 @@
-{ pkgs ? import <nixpkgs> { } }: rec {
-  cloudsend = pkgs.callPackage ./cloudsend { };
+{ pkgs ? import <nixpkgs> { } }: {
+  
 }

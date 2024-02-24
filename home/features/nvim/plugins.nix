@@ -1,17 +1,6 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, inputs, ... }: {
   programs.neovim.plugins = with pkgs.vimPlugins;
     [
-      {
-        plugin = neogen;
-        type = "lau";
-        config = /* lua */ ''
-          require('neogen').setup {}
-
-          vim.keymap.set("n", "<localleader>nf", ":lua require('neogen').generate()<cr>", { desc = "Generate function annotations", silent = true })
-          vim.keymap.set("n", "<localleader>nc", ":lua require('neogen').generate({type = 'class'})<cr>", { desc = "Generate class annotations", silent = true })
-        '';
-      }
-
       {
         plugin = trouble-nvim;
         type = "lua";
@@ -66,14 +55,6 @@
       }
 
       {
-        plugin = undotree;
-        type = "lua";
-        config = /* lua */ ''
-          vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = "Open undotree" })
-        '';
-      }
-
-      {
         plugin = harpoon;
         type = "lua";
         config = /* lua */ ''
@@ -86,6 +67,7 @@
           vim.keymap.set("n", "<C-j>", function() ui.nav_file(1) end)
           vim.keymap.set("n", "<C-k>", function() ui.nav_file(2) end)
           vim.keymap.set("n", "<C-l>", function() ui.nav_file(3) end)
+          vim.keymap.set("n", "<C-ö>", function() ui.nav_file(4) end)
         '';
       }
 
@@ -97,7 +79,7 @@
             highlight = {
               enable = true,
               disable = { "latex" },
-              additional_vim_regex_highlighting = false,
+              additional_vim_regex_highlighting = { "markdown" },
             }
           }
         '';
@@ -128,23 +110,12 @@
       }
 
       {
-        plugin = flash-nvim;
-        type = "lua";
-        config = /* lua */ ''
-          require("flash").setup( {} )
-
-          vim.keymap.set("n", "s", function () require('flash').jump() end, { desc = "Jump to .." })
-        '';
-      }
-
-      {
         plugin = vim-fugitive;
         type = "lua";
         config = /* lua */ ''
           vim.keymap.set("n", "<leader>g", "<cmd>:Git<cr>", { desc = "Open Git interface" })
         '';
       }
-
     ];
 }
 
