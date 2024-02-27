@@ -34,7 +34,7 @@ in {
     sanitize-filename = [ ];
     scan = with pkgs; [ sane-backends imagemagick ];
     syscat = with pkgs; [ gnugrep ];
-    tmx = with pkgs; [ fzf zoxide tmux ];
+    tmx = with pkgs; [ fzf tmux ];
     vol = with pkgs; [ pamixer ];
     vpn = with pkgs; [ openconnect ];
     weather = with pkgs; [ curl ];
