@@ -92,76 +92,74 @@
   in {
     enable = true;
 
+    icons = "awesome6";
+    theme = "space-villain";
+
     bars = {
-      bottom = {
-        blocks = [
-          {
-              block = "taskwarrior";
-              interval = 30;
-              data_location = config.programs.taskwarrior.dataLocation;
-              filters = [
-              {
-                  name = "today";
-                  filter = "+PENDING +OVERDUE or +DUETODAY";
-              }
-              ];
-          }
+      bottom = [
+        {
+          block = "taskwarrior";
+          interval = 30;
+          data_location = config.programs.taskwarrior.dataLocation;
+          filters = [
+            {
+              name = "today";
+              filter = "+PENDING +OVERDUE or +DUETODAY";
+            }
+          ];
+        }
 
-          {
-              block = "maildir";
-              interval = 2;
-              inboxes = [ "${config.accounts.email.maildirBasePath}/*/*" ];
-              threshold_warning = 1;
-              threshold_critical = 10;
-              display_type = "new";
-          }
+        {
+          block = "maildir";
+          interval = 2;
+          inboxes = [ "${config.accounts.email.maildirBasePath}/*/*" ];
+          threshold_warning = 1;
+          threshold_critical = 10;
+          display_type = "new";
+        }
 
-          {
-              block = "custom";
-              interval = 60;
-              command = jsonOutput "appointments" {
-                  pre = ''
-                      filter='-a peasec -a audacis-philipp'
+        {
+          block = "custom";
+          interval = 60;
+          command = jsonOutput "appointments" {
+            pre = ''
+              filter='-a peasec -a audacis-philipp'
 
-                      next_time=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
-                      short_text=$(${khal} list $filter now 1d --format "{start-time} {title}" --day-format "" --notstarted | ${head} -n 1)
-                      '';
-                  icon = "calendar-day";
-                  text = "$text";
-                  short_text = "$short_text";
-              };
-              json = true;
-              hide_when_emtpy = true;
-          }
+              next_time=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
+              short_text=$(${khal} list $filter now 1d --format "{start-time} {title}" --day-format "" --notstarted | ${head} -n 1)
+            '';
+            icon = "calendar-day";
+            text = "$text";
+            short_text = "$short_text";
+          };
+          json = true;
+          hide_when_emtpy = true;
+        }
 
-          {
-              block = "sound";
-              max_vol = 100;
-              click = [
-              {
-                  button = "left";
-                  cmd = let pavu = "${pkgs.pavucontrol}/bin/pavucontrol"; in "${pavu}";
-              }
-              ];
-          }
+        {
+          block = "sound";
+          max_vol = 100;
+          click = [
+            {
+              button = "left";
+              cmd = let pavu = "${pkgs.pavucontrol}/bin/pavucontrol"; in "${pavu}";
+            }
+          ];
+        }
 
-          {
-              block = "battery";
-              device = "BAT0";
-              interval = 30;
-              full_format = " $icon $percentage ";
-          }
+        {
+          block = "battery";
+          device = "BAT0";
+          interval = 30;
+          full_format = " $icon $percentage ";
+        }
 
-          {
-              block = "time";
-              interval = 10;
-              format = " $timestamp.datetime(f:'%d.%m %R') ";
-          }
-        ];
-
-        icons = "awesome6";
-        theme = "space-villain";
-      };
+        {
+          block = "time";
+          interval = 10;
+          format = " $timestamp.datetime(f:'%d.%m %R') ";
+        }
+      ];
     };
   };
 }
