@@ -1,10 +1,10 @@
 { pkgs, ... }: {
   imports = [
     ./bash.nix
-    #./bat.nix
     ./eza.nix
     ./fzf.nix
     ./git.nix
+    ./iamb.nix
     ./lyrics.nix
     ./tmux.nix
     ./xdg.nix
