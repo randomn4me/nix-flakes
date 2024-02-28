@@ -70,8 +70,6 @@ in {
       attach_format = ''"%I %t%2n %T%.40d%> [%.15m/%.10M, %?C?%C, ?%s]"'';
       pager_format = ''"-(%C/%m)-%>-(%P)"'';
       forward_format = ''"Fwd: %s"'';
-
-      
     };
 
     binds = [
@@ -187,6 +185,27 @@ in {
     ];
 
     macros = [
+      {
+        action = "<enter-command>source ~/.config/neomutt/audacis<enter><change-folder>!<enter>";
+        key = "<f2>";
+        map = [ "index" ];
+      }
+      {
+        action = "<enter-command>source ~/.config/neomutt/personalvorstand<enter><change-folder>!<enter>";
+        key = "<f3>";
+        map = [ "index" ];
+      }
+      {
+        action = "<enter-command>source ~/.config/neomutt/peasec<enter><change-folder>!<enter>";
+        key = "<f4>";
+        map = [ "index" ];
+      }
+      {
+        action = "<enter-command>source ~/.config/neomutt/sink<enter><change-folder>!<enter>";
+        key = "<f5>";
+        map = [ "index" ];
+      }
+
       {
         action = "<pipe-message>khard add-email<return>";
         key = "A";
