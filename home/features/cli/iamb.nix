@@ -17,7 +17,7 @@
     "default_profile": "private",
     "layout": { "style": "restore" },
     "settings": {
-      "username_display": "localpart",
+      "username_display": "localpart"
     }
   }
   '';
