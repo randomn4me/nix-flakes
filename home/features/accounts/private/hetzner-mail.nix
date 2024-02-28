@@ -68,7 +68,7 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
+          extraMailboxes = [ "Archive" "Drafts" "Sent" "spambucket" "Trash" ];
           sendMailCommand = "msmtpq -a audacis";
           extraConfig = let
             inherit (config.colorscheme) colors;
@@ -77,6 +77,7 @@ in {
             named-mailboxes " archive"  "+Archive"
             named-mailboxes " sent"     "+Sent"
             named-mailboxes " drafts"   "+Drafts"
+            named-mailboxes " junk"     "+spambucket"
             named-mailboxes " trash"    "+Trash"
 
             color indicator    #${colors.base0A}  black
@@ -129,7 +130,7 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
+          extraMailboxes = [ "Archive" "Drafts" "Sent" "spambucket" "Trash" ];
           sendMailCommand = "msmtpq -a personalvorstand";
           extraConfig = let
             inherit (config.colorscheme) colors;
@@ -138,6 +139,7 @@ in {
             named-mailboxes " archive"  "+Archive"
             named-mailboxes " sent"     "+Sent"
             named-mailboxes " drafts"   "+Drafts"
+            named-mailboxes " junk"     "+spambucket"
             named-mailboxes " trash"    "+Trash"
 
             color indicator    #${colors.base0B}  black
@@ -157,7 +159,7 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [ "Archive" "Drafts" "Sent" "Trash" ];
+          extraMailboxes = [ "Archive" "Drafts" "Sent" "spambucket" "Trash" ];
           sendMailCommand = "msmtpq -a sink";
           extraConfig = let
             inherit (config.colorscheme) colors;
@@ -166,6 +168,7 @@ in {
             named-mailboxes " archive"  "+Archive"
             named-mailboxes " sent"     "+Sent"
             named-mailboxes " drafts"   "+Drafts"
+            named-mailboxes " junk"     "+spambucket"
             named-mailboxes " trash"    "+Trash"
 
             color indicator    #${colors.base0D}  black

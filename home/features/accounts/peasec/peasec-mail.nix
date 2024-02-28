@@ -71,7 +71,7 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [ "Archiv" "Entw&APw-rfe" "Gesendete Elemente" "Gel&APY-schte Elemente" ];
+          extraMailboxes = [ "Archiv" "Entw&APw-rfe" "Gesendete Elemente" "Junk-E-Mail" "Gel&APY-schte Elemente" ];
           sendMailCommand = "msmtpq -a peasec";
           extraConfig = let inherit (config.colorscheme) colors;
           in ''
@@ -84,6 +84,7 @@ in {
             named-mailboxes " archive"  "+Archiv"
             named-mailboxes " sent"     "+Gesendete Elemente"
             named-mailboxes " drafts"   "+Entw&APw-rfe"
+            named-mailboxes " junk"     "+Junk-E-Mail"
             named-mailboxes " trash"    "+Gel&APY-schte Elemente"
 
             macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archiv\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
