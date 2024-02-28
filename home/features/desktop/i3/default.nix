@@ -137,6 +137,11 @@
 
         blocks = [
           {
+            block = "music";
+            format = " $icon $artist - $title ";
+          }
+
+          {
             block = "taskwarrior";
             interval = 30;
             data_location = config.programs.taskwarrior.dataLocation;
