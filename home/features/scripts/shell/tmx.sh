@@ -9,10 +9,9 @@ if [ $# -eq 0 ]; then
         exit 0
     fi
 
-    echo "$selected_dir"
-
     # Get the basename of the selected directory
     session_name=$(basename "$selected_dir")
+    echo "$selected_dir $session_name"
 
     if [ -n "$TMUX" ]; then
         tmux new-session -c "$selected_dir" -s "$session_name" -d
@@ -22,7 +21,7 @@ if [ $# -eq 0 ]; then
     fi
 else
     # predefined sessions: mail, obsidian
-    echo given $1
+    echo "given $1"
     case "$1" in
         mail)
             if tmux has -t "$1"; then
