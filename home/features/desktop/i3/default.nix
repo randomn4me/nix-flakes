@@ -2,9 +2,6 @@
   imports = [
     ../common
     ../common/x11-wm
-
-    #./basic-binds.nix
-    #./windowrules.nix
   ];
 
   xsession.enable = true;
@@ -12,39 +9,35 @@
     enable = true;
 
     config = rec {
-      modifier = "Alt";
+      modifier = "Mod1";
       bars = [
         {
           position = "bottom";
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
+          fonts = [ "ShureTechMono Nerd Font Propo 12" ];
         }
       ];
 
       window = {
-        border = 2;
+        border = 1;
         titlebar = false;
-      };
-
-      gaps = {
-        inner = 5;
-        outer = 5;
       };
 
       keybindings = let
         terminal = config.home.sessionVariables.TERMINAL;
 
         pamixer = "${pkgs.pamixer}/bin/pamixer";
-        pactl = "${pkgs.pulseaudio}/bin/pactl";
+        wpctl = "${pkgs.wireplumber}/bin/wpctl";
+        dunstctl = "${config.services.dunst.package}/bin/dunstctl";
         playerctl = "${config.services.playerctld.package}/bin/playerctl";
 
         light = "${pkgs.light}/bin/light";
         dmenu_run = "${pkgs.dmenu}/bin/dmenu_run";
       in {
-        XF86AudioRaiseVolume = "exec ${pamixer} -i 5";
-        XF86AudioLowerVolume = "exec,${pamixer} -d 5";
-        XF86AudioMute = "exec ${pamixer} -t";
-        XF86AudioMicMute =
-          "exec ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
+        XF86AudioRaiseVolume = "exec ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+";
+        XF86AudioLowerVolume = "exec ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-";
+        XF86AudioMute =        "exec ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        XF86AudioMicMute =     "exec ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
 
         XF86AudioNext = "exec ${playerctl} next";
         XF86AudioPrev = "exec ${playerctl} previous";
@@ -54,8 +47,53 @@
         XF86MonBrightnessUp = "exec ${light} -A 4";
         XF86MonBrightnessDown = "exec ${light} -U 4";
 
-        "${modifier}+Return" = "exec ${terminal}";
-        "${modifier}+Space" = "exec ${dmenu_run}";
+        "${modifier}+Return" = "exec --no-startup-id ${terminal}";
+
+        "${modifier}+q" = "kill";
+        "${modifier}+w" = "${dunstctl} close";
+
+        "${modifier}+space" = "exec --no-startup-id ${dmenu_run}";
+
+        "${modifier}+h" = "focus left";
+        "${modifier}+j" = "focus down";
+        "${modifier}+k" = "focus up";
+        "${modifier}+l" = "focus right";
+
+        "${modifier}+Shift+h" = "move left";
+        "${modifier}+Shift+j" = "move down";
+        "${modifier}+Shift+k" = "move up";
+        "${modifier}+Shift+l" = "move right";
+
+        "${modifier}+Shift+e" = "split toggle";
+        "${modifier}+Shift+f" = "fullscreen toggle";
+        "${modifier}+Shift+space" = "fullscreen toggle";
+
+        "${modifier}+1" = "workspace number 1";
+        "${modifier}+2" = "workspace number 2";
+        "${modifier}+3" = "workspace number 3";
+        "${modifier}+4" = "workspace number 4";
+        "${modifier}+5" = "workspace number 5";
+        "${modifier}+6" = "workspace number 6";
+        "${modifier}+7" = "workspace number 7";
+        "${modifier}+8" = "workspace number 8";
+        "${modifier}+9" = "workspace number 9";
+
+        "${modifier}+Shift+1" = "move container to workspace number 1";
+        "${modifier}+Shift+2" = "move container to workspace number 2";
+        "${modifier}+Shift+3" = "move container to workspace number 3";
+        "${modifier}+Shift+4" = "move container to workspace number 4";
+        "${modifier}+Shift+5" = "move container to workspace number 5";
+        "${modifier}+Shift+6" = "move container to workspace number 6";
+        "${modifier}+Shift+7" = "move container to workspace number 7";
+        "${modifier}+Shift+8" = "move container to workspace number 8";
+        "${modifier}+Shift+9" = "move container to workspace number 9";
+      };
+
+      assigns = {
+          "2" = [ { class = "^firefox$"; } ];
+          "3" = [ { class = "zotero"; } { class = "obsidian"; } { class = "libreoffice"; } ];
+          "4" = [ { class = "Signal"; } ];
+          "6" = [ { class = "zoom"; } ];
       };
 
       startup = let
@@ -78,7 +116,7 @@
     jsonOutput = name:
       { pre ? "", icon ? "", state ? "", text ? "required", short_text ? "" }:
       "${
-        pkgs.writeShellScriptBin "waybar-${name}" ''
+        pkgs.writeShellScriptBin "i3status-rust-${name}" ''
           set -euo pipefail
           ${pre}
           ${jq} -cn \
@@ -92,74 +130,77 @@
   in {
     enable = true;
 
-    icons = "awesome6";
-    theme = "space-villain";
-
     bars = {
-      bottom = [
-        {
-          block = "taskwarrior";
-          interval = 30;
-          data_location = config.programs.taskwarrior.dataLocation;
-          filters = [
+      default = {
+        icons = "awesome6";
+        theme = "space-villain";
+
+        blocks = [
+          {
+            block = "taskwarrior";
+            interval = 30;
+            data_location = config.programs.taskwarrior.dataLocation;
+            filters = [
             {
               name = "today";
               filter = "+PENDING +OVERDUE or +DUETODAY";
             }
-          ];
-        }
+            ];
+          }
 
-        {
-          block = "maildir";
-          interval = 2;
-          inboxes = [ "${config.accounts.email.maildirBasePath}/*/*" ];
-          threshold_warning = 1;
-          threshold_critical = 10;
-          display_type = "new";
-        }
+          {
+            block = "maildir";
+            interval = 2;
+            inboxes = [ "${config.accounts.email.maildirBasePath}/*/*" ];
+            threshold_warning = 1;
+            threshold_critical = 10;
+            display_type = "new";
+          }
 
-        {
-          block = "custom";
-          interval = 60;
-          command = jsonOutput "appointments" {
-            pre = ''
-              filter='-a peasec -a audacis-philipp'
+          {
+            block = "custom";
+            interval = 60;
+            command = jsonOutput "appointments" {
+              pre = ''
+                filter='-a peasec -a audacis-philipp'
 
-              next_time=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
-              short_text=$(${khal} list $filter now 1d --format "{start-time} {title}" --day-format "" --notstarted | ${head} -n 1)
-            '';
-            icon = "calendar-day";
-            text = "$text";
-            short_text = "$short_text";
-          };
-          json = true;
-          hide_when_emtpy = true;
-        }
+                text=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
+                short_text=$(${khal} list $filter now 1d --format "{start-time} {title}" --day-format "" --notstarted | ${head} -n 1)
+                '';
+              icon = "calendar";
+              state = "Good";
+              text = "$text";
+              short_text = "$short_text";
+            };
+            json = true;
+            hide_when_empty = true;
+          }
 
-        {
-          block = "sound";
-          max_vol = 100;
-          click = [
+          {
+            block = "sound";
+            max_vol = 100;
+            click = [
             {
               button = "left";
               cmd = let pavu = "${pkgs.pavucontrol}/bin/pavucontrol"; in "${pavu}";
             }
-          ];
-        }
+            ];
+          }
 
-        {
-          block = "battery";
-          device = "BAT0";
-          interval = 30;
-          full_format = " $icon $percentage ";
-        }
+          {
+            block = "battery";
+            device = "BAT0";
+            interval = 30;
+            full_format = " $icon $percentage ";
+          }
 
-        {
-          block = "time";
-          interval = 10;
-          format = " $timestamp.datetime(f:'%d.%m %R') ";
-        }
-      ];
+          {
+            block = "time";
+            interval = 10;
+            format = " $timestamp.datetime(f:'%d.%m %R') ";
+          }
+        ];
+      };
     };
   };
 }

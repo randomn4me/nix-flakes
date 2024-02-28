@@ -3,6 +3,8 @@
     #./autorandr.nix
     #./rofi.nix
     ./screenlocker.nix
+    ./dunst.nix
+    ./dmenu.nix
   ];
 
   home.packages = with pkgs; [
