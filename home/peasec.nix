@@ -32,14 +32,6 @@
   accounts.email.accounts.peasec.primary = true;
   accounts.calendar.accounts.peasec.primary = true;
 
-  nix = {
-    package = lib.mkDefault pkgs.nix;
-    settings = {
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
-      warn-dirty = false;
-    };
-  };
-
   systemd.user.startServices = "sd-switch";
 
   home.packages = with pkgs; [
