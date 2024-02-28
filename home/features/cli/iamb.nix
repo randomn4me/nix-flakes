@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [ iamb ];
 
-  xdg.configFile."iamb/iamb.conf".text = /* json */ ''
+  xdg.configFile."iamb/config.json".text = /* json */ ''
   {
     "profiles": {
       "private": {

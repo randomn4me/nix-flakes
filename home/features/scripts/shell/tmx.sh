@@ -49,6 +49,20 @@ else
             fi
             exit 1
             ;;
+        iamb|matrix)
+            if tmux has -t "iamb"; then
+                tmux at -t "iamb"
+            else
+                if [ -n "$TMUX" ]; then
+                    tmux new -d -s iamb iamb
+                    tmux switch-client -t iamb
+                else
+                    tmux new -s iamb iamb
+                fi
+            fi
+            exit 1
+            ;;
+
     esac
 
     user_input=$(tmux ls -F '#{session_name}' | grep "$1")
