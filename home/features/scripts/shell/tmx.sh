@@ -38,13 +38,13 @@ else
             ;;
         obs*)
             if tmux has -t "$1"; then
-                tmux at -t "$1"
+                tmux at -t obsidian
             else
                 if [ -n "$TMUX" ]; then
-                    tmux new -d -e "TERM=screen-256color-bce" -c "$HOME/usr/docs/vault" -s obsidian nvim .
+                    tmux new -d -c "$HOME/usr/docs/vault" -s obsidian nvim .
                     tmux switch-client -t obsidian
                 else
-                    tmux new -e "TERM=screen-256color-bce" -c "$HOME/usr/docs/vault" -s obsidian nvim .
+                    tmux new -c "$HOME/usr/docs/vault" -s obsidian nvim .
                 fi
             fi
             exit 1
