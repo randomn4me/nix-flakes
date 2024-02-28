@@ -26,7 +26,7 @@
         gaps_in = 5;
         gaps_out = 10;
         border_size = 2;
-        cursor_inactive_timeout = 4;
+        cursor_inactive_timeout = 2;
         "col.active_border" = "0xff${config.colorscheme.colors.base09}";
         "col.inactive_border" = "0xff${config.colorscheme.colors.base03}";
       };
