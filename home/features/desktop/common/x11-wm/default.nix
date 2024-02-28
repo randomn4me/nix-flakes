@@ -1,13 +1,11 @@
 { pkgs, ... }: {
   imports = [
     #./autorandr.nix
-    ./rofi.nix
-    ./lemonbar.nix
+    #./rofi.nix
     ./screenlocker.nix
   ];
 
   home.packages = with pkgs; [
-    xclip
     xsel
     scrot
     xorg.xbacklight
