@@ -147,9 +147,9 @@
               workspaces = {
                 {
                   name = "vault",
-                  path = "~/usr/docs/vault",
+                  path = "~/usr/docs/obsidian",
                   overrides = {
-                    notes_subdir = "~/usr/docs/vault",
+                    notes_subdir = "~/usr/docs/obsidian",
                   },
                 },
               },

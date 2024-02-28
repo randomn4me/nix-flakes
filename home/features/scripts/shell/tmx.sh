@@ -50,7 +50,7 @@ else
             exit 1
             ;;
         iamb|matrix)
-            if tmux has -t "iamb"; then
+            if tmux has -t iamb; then
                 tmux at -t "iamb"
             else
                 if [ -n "$TMUX" ]; then
