@@ -28,7 +28,7 @@ in {
   home = {
     username = lib.mkDefault "phil";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
-    stateVersion = lib.mkDefault "23.05";
+    stateVersion = lib.mkDefault "23.11";
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables.FLAKE = "${config.home.homeDirectory}/etc";
   };
