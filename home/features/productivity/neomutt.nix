@@ -12,7 +12,7 @@ in {
 
   home.packages = with pkgs; [ mailcap ];
 
-  xdg.configFile."mailcap".text = ''
+  xdg.configFile."neomutt/mailcap".text = ''
     text/html; ${w3m} -I %{charset} -T text/html; copiousoutput;
     text/calendar; khal import %s;
 
