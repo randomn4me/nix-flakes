@@ -26,13 +26,11 @@
       keybindings = let
         terminal = config.home.sessionVariables.TERMINAL;
 
-        pamixer = "${pkgs.pamixer}/bin/pamixer";
         wpctl = "${pkgs.wireplumber}/bin/wpctl";
         dunstctl = "${config.services.dunst.package}/bin/dunstctl";
         playerctl = "${config.services.playerctld.package}/bin/playerctl";
 
         light = "${pkgs.light}/bin/light";
-        dmenu_run = "${pkgs.dmenu}/bin/dmenu_run";
       in {
         XF86AudioRaiseVolume = "exec ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+";
         XF86AudioLowerVolume = "exec ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-";
@@ -52,7 +50,8 @@
         "${modifier}+q" = "kill";
         "${modifier}+w" = "${dunstctl} close";
 
-        "${modifier}+space" = "exec --no-startup-id ${dmenu_run}";
+        "${modifier}+space" = "exec --no-startup-id menu-run";
+        "${modifier}+Shift+q" = "exec --no-startup-id shutdown-menu";
 
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";

@@ -9,11 +9,11 @@ let
 
   printf = "${pkgs.coreutils}/bin/printf";
 
-  menu-config = ''-fn "Share Tech Mono" -i \
-    -nb "#${colors.base01}" \
+  menu-config = '' -fn "Share Tech Mono Proto 12" -i \
+    -nb "#000000" \
     -nf "#${colors.base05}" \
     -sb "#${colors.base05}" \
-    -sf "#${colors.base01}"'';
+    -sf "#000000"'';
 
   menu-run = pkgs.writeShellScriptBin "menu-run" ''
     ${dmenu}_run ${menu-config}
