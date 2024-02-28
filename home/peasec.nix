@@ -13,7 +13,9 @@
 
     ./features/productivity
 
-    ./features/desktop/hyprland
+    #./features/desktop/hyprland
+    #./features/desktop/sway
+    ./features/desktop/i3
     ./features/multimedia
     ./features/backup
     ./features/rbw
