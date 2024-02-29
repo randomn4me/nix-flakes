@@ -4,6 +4,7 @@
     head = "${pkgs.coreutils}/bin/head";
     jq = "${pkgs.jq}/bin/jq";
     khal = "${pkgs.khal}/bin/khal";
+    playerctl = "${config.services.playerctld.package}/bin/playerctl";
 
     jsonOutput = name:
       { pre ? "", icon ? "", state ? "", text ? "required", short_text ? "" }:
@@ -29,14 +30,35 @@
 
         blocks = [
           {
-            block = "music";
-            format = " $icon $artist - $title ";
+            block = "custom";
+            interval = 1;
+            command = jsonOutput "music" {
+              pre = /* sh */ ''
+                status="$(${playerctl} status)"
+
+                if [ $status != "Stopped" ]; then
+                  text="$(${playerctl} metadata --format '{{artist}} - {{title}}')";
+                  short_text="$(${playerctl} metadata --format '{{artist}} - {{title}} ({{album}})')";
+                else
+                  text=""
+                  short_text=""
+                fi
+              '';
+              icon = "music";
+              state = "Info";
+              text = "$text";
+              short_text = "$short_text";
+            };
+            json = true;
+            hide_when_empty = true;
           }
 
           {
             block = "taskwarrior";
             interval = 30;
             data_location = config.programs.taskwarrior.dataLocation;
+            warning_threshold = 5;
+            critical_threshold = 10;
             filters = [
             {
               name = "today";
