@@ -5,6 +5,7 @@
     ./screenlocker.nix
     ./dunst.nix
     ./dmenu.nix
+    ./autorandr.nix
   ];
 
   home.packages = with pkgs; [
