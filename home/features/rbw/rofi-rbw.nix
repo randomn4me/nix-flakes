@@ -4,5 +4,6 @@
   xdg.configFile."rofi-rbw.rc".text = ''
     action = copy
     clear-after = 15
+    selector = bemenu
   '';
 }

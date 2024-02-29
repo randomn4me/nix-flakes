@@ -54,25 +54,25 @@ in {
     settings = {
       primary = {
         layer = "top";
-        height = 15;
-        margin = "5 5 0 5";
-        position = "top";
+        position = "bottom";
 
         modules-left = [
-          "pulseaudio"
-          "battery"
-          "custom/mail"
-          "custom/task"
-          #"custom/vpn"
+          "tray"
           #"hyprland/workspaces"
+          #"custom/vpn"
         ];
+
         modules-center = [
           "custom/player"
         ];
+
         modules-right = [
-          "tray"
           "hyprland/language"
+          "custom/task"
+          "custom/mail"
           "custom/appointments"
+          "pulseaudio"
+          "battery"
           "clock"
         ];
 
@@ -181,7 +181,7 @@ in {
 
               tooltip=$(${printf} "${
                 concatStringsSep "" (map (acc: ''
-                  <b>${acc.name}:</b> $new_${acc.name}
+                  ${acc.name}: $new_${acc.name}
                 '') email_accounts)
               }")
 
@@ -242,9 +242,9 @@ in {
                 "<b>Today:</b> $today"
                 ""
                 "<b>Total</b>"
-                "<span color='#${colors.base0F}'><b>Overdue:</b></span> $overdue"
-                "<span color='#${colors.base0B}'><b>Due:</b></span> $due"
-                "<b>Tasks:</b> $(${task} +PENDING count)"
+                "<span color='#${colors.base0F}'>Overdue:</span> $overdue"
+                "<span color='#${colors.base0B}'>Due:</span> $due"
+                "Tasks: $(${task} +PENDING count)"
               ]}")
             '';
             text = " $today";
@@ -266,66 +266,28 @@ in {
     in ''
       * {
         border: none;
-        border-radius: 5px;
+        margin: 0 10;
 
         font-family: "ShureTechMono Nerd Font Propo";
         font-size: 12pt;
 
-        padding: 0 10px;
-        margin: 0 3px;
-
-        color: #${colors.base00};
+        color: #${colors.base05};
+        background: #000000;
       }
 
       tooltip {
-        background: #${colors.base00};
-        border: 2px solid #${colors.base09};
+        background: #000000;
+        border: 1px solid #${colors.base09};
       }
 
       tooltip label {
         color: #${colors.base05};
       }
 
-      window#waybar {
-        background: transparent;
-      }
-
-      window#waybar.hidden {
-        opacity: 0.2;
-      }
-
-      #pulseaudio, #clock {
-        background: #${colors.base09};
-      }
-
-      #battery, #language, #custom-appointments {
-        background: #${colors.base08};
-      }
-      
-      /* blue */
-      #custom-vpn {
-        background: #${colors.base0A};
-      }
-
-      /* green */
-      #custom-task {
-        background: #${colors.base0E};
-      }
-
-      /* green */
-      #custom-mail, #tray, #mpd, #custom-player  {
-        background: #${colors.base0C};
-      }
-
       /* red */
       #battery.discharging.critical {
         background: #${colors.base0F};
-      }
-
-      #mpd.disconnected,
-      #mpd.stopped {
-        color: transparent;
-        background: transparent;
+        color: #${colors.base00};
       }
     '';
   };

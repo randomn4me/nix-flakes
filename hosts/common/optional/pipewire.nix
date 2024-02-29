@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   services.pipewire = {
     enable = true;
 
@@ -6,7 +6,4 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  environment.systemPackages = with pkgs; [ pamixer ];
-
 }

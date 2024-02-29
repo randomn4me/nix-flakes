@@ -6,7 +6,8 @@
     ./swayidle.nix
     ./swaylock.nix
     ./waybar.nix
-    ./wofi.nix
+    #./wofi.nix
+    ./bemenu.nix
   ];
 
   xdg.mimeApps.enable = true;

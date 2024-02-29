@@ -1,6 +1,8 @@
 { config, ... }:
 let inherit (config.colorscheme) colors;
 in {
+  home.sessionVariables.RUNNER = "wofi --show dmenu";
+
   programs.wofi = {
     enable = true;
 
@@ -47,36 +49,6 @@ in {
       #inner-box {
           margin: 4px;
       }
-    '';
-  };
-
-  home.file.".local/bin/shutdown-menu" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-
-      res=$(printf "logout\nreboot\nsuspend\nshutdown" | wofi --show dmenu)
-
-      case "$res" in
-        "logout")   loginctl terminate-user ${config.home.username} ;;
-        "reboot")   systemctl reboot ;;
-        "suspend")  systemctl suspend ;;
-        "shutdown") systemctl poweroff ;;
-      esac
-
-      exit 0
-    '';
-  };
-
-  home.file.".local/bin/paper-menu" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-
-      cd ${config.home.homeDirectory}/usr/docs/zotero-paper
-      pdffile=$(fd 'pdf$' | wofi --show dmenu)
-
-      xdg-open "$pdffile" &
     '';
   };
 }

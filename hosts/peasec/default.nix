@@ -29,7 +29,7 @@
     # ../common/optional/virtualbox.nix
     # ../common/optional/virt-manager.nix
 
-    ../common/optional/i3.nix
+    # ../common/optional/i3.nix
   ];
 
   networking.hostName = "peasec";

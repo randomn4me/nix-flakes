@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, inputs, ... }: {
   imports = [
     ../common
     ../common/x11-wm
@@ -29,6 +29,8 @@
       };
 
       keybindings = let
+        inherit (inputs.colorscheme) colors;
+
         terminal = config.home.sessionVariables.TERMINAL;
 
         wpctl = "${pkgs.wireplumber}/bin/wpctl";
@@ -36,6 +38,7 @@
         playerctl = "${config.services.playerctld.package}/bin/playerctl";
 
         light = "${pkgs.light}/bin/light";
+        i3lock = "${pkgs.i3lock}/bin/i3lock --no-fork -c ${colors.base00}";
       in {
         XF86AudioRaiseVolume = "exec ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+";
         XF86AudioLowerVolume = "exec ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-";
@@ -57,6 +60,7 @@
 
         "${modifier}+space" = "exec --no-startup-id menu-run";
         "${modifier}+Shift+q" = "exec --no-startup-id shutdown-menu";
+        "${modifier}+ctrl+l" = "exec --no-startup-id ${i3lock}";
       };
     };
   };

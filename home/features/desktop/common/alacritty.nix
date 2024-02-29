@@ -17,16 +17,20 @@ in {
       env = { TERM = "xterm-direct"; };
 
       font = {
+        size = 11;
+
         normal = {
           family =
             "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
           style = "Regular";
         };
+
         italic = {
           family =
             "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
           style = "Regular";
         };
+
         bold = {
           family =
             "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available

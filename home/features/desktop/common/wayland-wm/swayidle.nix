@@ -1,9 +1,9 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, config, ... }:
 
 let
   swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   pgrep = "${pkgs.procps}/bin/pgrep";
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
+  wpctl = "${pkgs.wireplumber}/bin/wpctl";
   hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
   #chayang = "${pkgs.chayang}/bin/chayang";
 
@@ -29,8 +29,8 @@ in
       # Mute mic
       (afterLockTimeout {
         timeout = 10;
-        command = "${pactl} set-source-mute @DEFAULT_SOURCE@ yes";
-        resumeCommand = "${pactl} set-source-mute @DEFAULT_SOURCE@ no";
+        command = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ 1";
+        resumeCommand = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ 0";
       });
       #++
       ## Turn off displays

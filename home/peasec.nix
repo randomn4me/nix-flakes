@@ -1,4 +1,4 @@
-{ pkgs, inputs, outputs, lib, ... }: {
+{ pkgs, inputs, outputs, ... }: {
   imports = [
     ./global
 
@@ -13,9 +13,9 @@
 
     ./features/productivity
 
-    #./features/desktop/hyprland
+    ./features/desktop/hyprland
     #./features/desktop/sway
-    ./features/desktop/i3
+    #./features/desktop/i3
     ./features/multimedia
     ./features/backup
     ./features/rbw
@@ -71,7 +71,8 @@
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 
-  wallpaper = outputs.wallpapers.aenami-bright-planet;
+  wallpaper = outputs.wallpapers.hollow-knight-abyss;
+  #wallpaper = outputs.wallpapers.aenami-bright-planet;
   #wallpaper = outputs.wallpapers.aenami-15steps;
   #wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;
   #wallpaper = outputs.wallpapers.aenami-cold;

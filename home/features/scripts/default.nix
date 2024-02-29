@@ -26,6 +26,7 @@ in {
     intro = with pkgs; [ taskwarrior ];
     mkv-to-av1 = with pkgs; [ ffmpeg ];
     mvc = [ ];
+    paper-menu = with pkgs; [ fd xdg-utils ];
     pdffirstpage = with pkgs; [ poppler_utils ];
     pdf-compress = with pkgs; [ ghostscript ];
     presents = with pkgs; [ neovim ];
@@ -33,9 +34,10 @@ in {
     rfc = with pkgs; [ curl ];
     sanitize-filename = [ ];
     scan = with pkgs; [ sane-backends imagemagick ];
+    shutdown-menu = with pkgs; [ systemd ];
     syscat = with pkgs; [ gnugrep ];
     tmx = with pkgs; [ fzf tmux ];
-    vol = with pkgs; [ pamixer ];
+    vol = with pkgs; [ wireplumber ];
     vpn = with pkgs; [ openconnect ];
     weather = with pkgs; [ curl ];
 
