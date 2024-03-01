@@ -1,11 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   gtk = {
     enable = true;
-    font = {
-      name = config.fontProfiles.regular.family;
-      size = 12;
-    };
     iconTheme = {
       name = "Adwaita Icon Theme";
       package = pkgs.gnome.adwaita-icon-theme;
