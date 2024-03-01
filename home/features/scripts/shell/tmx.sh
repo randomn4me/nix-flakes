@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
 
+attach_start_session() {
+    session_name="$1"
+    shift 1
+
+    if tmux has -t "$session_name"; then
+        tmux at -t "$session_name"
+    else
+        if [ -n "$TMUX" ]; then
+            tmux new -d -s "$session_name" "$@"
+            tmux switchc -t "$@"
+        else
+            tmux new -s "$session_name" "$@"
+        fi
+    fi
+}
+
 if [ $# -eq 0 ]; then
     selected_dir=$(fd -td . "$HOME" | fzf)
 
@@ -14,61 +30,29 @@ if [ $# -eq 0 ]; then
     echo "$selected_dir $session_name"
 
     if [ -n "$TMUX" ]; then
-        tmux new-session -c "$selected_dir" -s "$session_name" -d
-        tmux switch-client -t "$session_name"
+        tmux new -c "$selected_dir" -s "$session_name" -d
+        tmux switchc -t "$session_name"
     else
-        tmux new-session -c "$selected_dir" -s "$session_name"
+        tmux new -c "$selected_dir" -s "$session_name"
     fi
 else
     # predefined sessions: mail, obsidian
     echo "given $1"
     case "$1" in
         mail)
-            if tmux has -t "$1"; then
-                tmux at -t "$1"
-            else
-                if [ -n "$TMUX" ]; then
-                    tmux new -d -e "TERM=screen-256color-bce" -s mail neomutt
-                    tmux switch-client -t mail
-                else
-                    tmux new -e "TERM=screen-256color-bce" -s mail neomutt
-                fi
-            fi
-            exit 1
-            ;;
+            attach_start_session mail -e "TERM=screen-256color-bce" neomutt; exit 1 ;;
         obs*)
-            if tmux has -t "$1"; then
-                tmux at -t obsidian
-            else
-                if [ -n "$TMUX" ]; then
-                    tmux new -d -c "$HOME/usr/docs/vault" -s obsidian nvim .
-                    tmux switch-client -t obsidian
-                else
-                    tmux new -c "$HOME/usr/docs/vault" -s obsidian nvim .
-                fi
-            fi
-            exit 1
-            ;;
-        iamb|matrix)
-            if tmux has -t iamb; then
-                tmux at -t "iamb"
-            else
-                if [ -n "$TMUX" ]; then
-                    tmux new -d -s iamb iamb
-                    tmux switch-client -t iamb
-                else
-                    tmux new -s iamb iamb
-                fi
-            fi
-            exit 1
-            ;;
-
+            attach_start_session obsidian -c "$HOME/usr/docs/obsidian" nvim; exit 1 ;;
+        mat*|iamb)
+            attach_start_session matrix iamb; exit 1 ;;
+        mus*)
+            attach_start_session music ncmpcpp; exit 1 ;;
     esac
 
     user_input=$(tmux ls -F '#{session_name}' | grep "$1")
 
     if [ -z "$user_input" ]; then
-        echo "no fitting session for $1"
+        echo "no session started with name $1"
         exit 1
     fi
 
@@ -78,5 +62,5 @@ else
         session_name=$user_input
     fi
 
-    tmux attach-session -t "$session_name"
+    tmux at -t "$session_name"
 fi
