@@ -8,7 +8,7 @@
     ./tty-init.nix
     ./basic-binds.nix
     ./windowrule.nix
-    ./systemd-fixes.nix
+    #./systemd-fixes.nix
   ];
 
   home.packages = [
