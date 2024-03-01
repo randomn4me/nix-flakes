@@ -1,11 +1,18 @@
 { pkgs, config, ... }:
 let
+  mkdir = "${pkgs.coreutils}/bin/mkdir";
+  cp = "${pkgs.coreutils}/bin/cp";
+  rm = "${pkgs.coreutils}/bin/rm";
+
   w3m = "${pkgs.w3m}/bin/w3m";
 
   khard = "${pkgs.khard}/bin/khard";
+  khal = "${pkgs.khal}/bin/khal";
 
   terminal = config.home.sessionVariables.TERMINAL;
   neomutt = "${pkgs.neomutt}/bin/neomutt";
+
+  xdg-open = "${pkgs.xdg-utils}/bin/xdg-open";
 
   home = "${config.home.homeDirectory}";
 in {
@@ -14,11 +21,11 @@ in {
 
   xdg.configFile."neomutt/mailcap".text = ''
     text/html; ${w3m} -I %{charset} -T text/html; copiousoutput;
-    text/calendar; khal import %s;
+    text/calendar; ${khal} import %s;
 
-    image/*; mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s); rm /tmp/mutt/%s;
+    image/*; ${mkdir} -p /tmp/mutt \; ${cp} %s /tmp/mutt \; ${xdg-open} /tmp/mutt/$(basename %s); ${rm} /tmp/mutt/%s;
 
-    application/*; xdg-open %s &> /dev/null &;
+    application/*; ${xdg-open} %s &> /dev/null &;
   '';
 
   programs.neomutt = {
@@ -60,7 +67,7 @@ in {
       abort_noattach_regex = ''
         "\\<(anhängen|angehängt|anhang|anhänge|hängt an|anbei|attach|attached|attachments|append)\\>"'';
 
-      mailcap_path = "${home}/.config/mailcap";
+      mailcap_path = "${home}/.config/neomutt/mailcap";
       edit_headers = "yes";
 
       date_format = ''"%F, %T"'';
@@ -227,7 +234,7 @@ in {
         action = let
           urlscan = "${pkgs.urlscan}/bin/urlscan";
         in "<pipe-message> ${urlscan}<enter>";
-        key = "\\Cb";
+        key = "b";
         map = [ "index" "pager" ];
       }
     ];

@@ -7,12 +7,8 @@
       size = 12;
     };
     iconTheme = {
-      name = "Nordzy Icons";
-      package = pkgs.nordzy-icon-theme;
-    };
-    cursorTheme = {
-      name = "Nordzy Cursor";
-      package = pkgs.nordzy-cursor-theme;
+      name = "Adwaita Icon Theme";
+      package = pkgs.gnome.adwaita-icon-theme;
     };
   };
 
