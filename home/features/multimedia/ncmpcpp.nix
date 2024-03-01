@@ -53,11 +53,11 @@ in {
 
       bindings = [
         {
-          key = "+";
+          key = "=";
           command = "show_clock";
         }
         {
-          key = "=";
+          key = "+";
           command = "volume_up";
         }
 

@@ -1,10 +1,10 @@
 {pkgs, ...}: let
   # source https://askubuntu.com/a/1026527
   # with adjustments
-  ignoreUSBInputDevicesScript = pkgs.writeShellScript "powersaving-ignore-usb" ''
+  ignoreUSBInputDevicesScript = devices: pkgs.writeShellScript "powersaving-ignore-usb" ''
     #!/usr/bin/env sh                  
 
-    TARGET_DEVICE_NAMES=("SK622 Mechanical Keyboard - White Edition")
+    TARGET_DEVICE_NAMES=(${builtins.concatStringsSep " " devices})
     HIDDEVICES=$(ls /sys/bus/usb/drivers/usbhid | grep -oE '^[0-9]+-[0-9\.]+' | sort -u)    
 
     for i in $HIDDEVICES; do
@@ -26,7 +26,9 @@ in {
     requires = ["powertop.service"];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = ignoreUSBInputDevicesScript;
+      ExecStart = ignoreUSBInputDevicesScript [
+        "SK622 Mechanical Keyboard - White Edition"
+      ];
       RemainAfterExit = true;
     };
   };
