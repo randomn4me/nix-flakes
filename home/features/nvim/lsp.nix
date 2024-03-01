@@ -21,6 +21,7 @@
         add_lsp(lspconfig.bashls, {})
         add_lsp(lspconfig.nil_ls, {})
         add_lsp(lspconfig.pylsp, {})
+        add_lsp(lspconfig.pyright, {})
         add_lsp(lspconfig.lua_ls, {})
 
         add_lsp(lspconfig.texlab, {})
