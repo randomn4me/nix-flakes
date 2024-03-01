@@ -20,20 +20,17 @@ in {
         size = 11;
 
         normal = {
-          family =
-            "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          family = "monospace";
           style = "Regular";
         };
 
         italic = {
-          family =
-            "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          family = "monospace";
           style = "Regular";
         };
 
         bold = {
-          family =
-            "Inconsolata Nerd Font"; # TODO: Enable fontProfiles to make it globally available
+          family = "monospace";
           style = "Bold";
         };
       };
