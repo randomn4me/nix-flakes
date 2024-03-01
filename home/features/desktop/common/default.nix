@@ -3,7 +3,6 @@
     ./alacritty.nix
     ./banking.nix
     ./firefox.nix
-    ./font.nix
     ./gtk.nix
     ./gimp.nix
     ./imv.nix
@@ -13,8 +12,6 @@
     ./qt.nix
     ./zathura.nix
   ];
-
-  fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
     flatpak
