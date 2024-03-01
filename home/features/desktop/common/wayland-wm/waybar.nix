@@ -55,11 +55,11 @@ in {
       primary = {
         layer = "top";
         position = "bottom";
+        reload_style_on_change = true;
 
         modules-left = [
           "tray"
-          #"hyprland/workspaces"
-          #"custom/vpn"
+          "hyprland/workspaces"
         ];
 
         modules-center = [
@@ -71,15 +71,15 @@ in {
           "custom/task"
           "custom/mail"
           "custom/appointments"
-          "pulseaudio"
+          "wireplumber"
           "battery"
           "clock"
         ];
 
         "hyprland/workspaces" = {
-          active-only = true;
           all-outputs = true;
           sort-by = "id";
+          format = "{name}";
         };
 
         clock = {
@@ -117,7 +117,7 @@ in {
           #on-click = "${hyprctl} ${switchxkblayout}";
         };
 
-        pulseaudio = {
+        wireplumber = {
           format = "{icon} {volume}";
           format-muted = " 0";
           on-click = pavucontrol;
@@ -160,7 +160,7 @@ in {
 
         tray = {
           icon-size = 12;
-          spacing = 5;
+          spacing = 2;
         };
 
         "custom/mail" = {
@@ -266,17 +266,19 @@ in {
     in ''
       * {
         border: none;
-        margin: 0 10;
 
         font-family: "ShureTechMono Nerd Font Propo";
         font-size: 12pt;
-
-        color: #${colors.base05};
-        background: #000000;
       }
 
-      tooltip {
+      tooltip,
+      window#waybar {
         background: #000000;
+        color: #${colors.base05};
+      }
+
+
+      tooltip {
         border: 1px solid #${colors.base09};
       }
 
@@ -284,10 +286,35 @@ in {
         color: #${colors.base05};
       }
 
-      /* red */
-      #battery.discharging.critical {
-        background: #${colors.base0F};
-        color: #${colors.base00};
+      #workspaces button {
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+      }
+
+      #workspaces button:hover {
+        box-shadow: inherit;
+        text-shadow: inherit;
+      }
+
+      #workspaces button.visible {
+        color: #${colors.base04};
+      }
+
+      #workspaces button.active {
+        font-weight: bold;
+        color: #B1252E;
+      }
+
+      #tray,
+      #hyprland-language,
+      #custom-task,
+      #custom-mail,
+      #custom-appointments,
+      #wireplumber,
+      #battery,
+      #clock {
+        padding: 0 10px;
       }
     '';
   };

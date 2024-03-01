@@ -14,7 +14,7 @@ in {
     borderRadius = 5;
 
     textColor = "#${colors.base05}";
-    backgroundColor = "#${colors.base02}";
-    borderColor = "#${colors.base0D}";
+    backgroundColor = "#010101";
+    borderColor = "#B1252E";
   };
 }

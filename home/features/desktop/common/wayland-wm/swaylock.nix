@@ -7,36 +7,37 @@ in {
     package = pkgs.swaylock-effects;
     settings = {
       effect-blur = "4x3";
-      fade-in = 0.1;
+      fade-in = 1;
 
       image = config.wallpaper;
 
       font = "Share Tech Mono";
-      font-size = 15;
+      font-size = 14;
 
       line-uses-inside = true;
+      show-failed-attempts = true;
+      ignore-empty-password = true;
       disable-caps-lock-text = false;
       show-keyboard-layout = true;
       indicator-caps-lock = true;
       indicator-radius = 40;
-      indicator-idle-visible = true;
+      indicator-idle-visible = false;
 
-      layout-text-color = "${colors.base05}";
+      layout-text-color = "#${colors.base05}";
 
-      ring-color = "#${colors.base09}";
-      key-hl-color = "#${colors.base0C}";
+      ring-color = "#${colors.base05}";
+      key-hl-color = "#${colors.base04}";
 
-      ring-ver-color = "#${colors.base0C}";
-      text-ver-color = "#${colors.base00}";
-      inside-ver-color = "#${colors.base0C}";
+      ring-ver-color = "#${colors.base04}";
+      text-ver-color = "#000000";
+      inside-ver-color = "#${colors.base04}";
 
-      text-clear-color = "#${colors.base01}";
-      inside-clear-color = "#${colors.base00}";
-      ring-clear-color = "#${colors.base0C}";
+      inside-clear-color = "#000000";
+      ring-clear-color = "#${colors.base04}";
 
-      inside-wrong-color = "#${colors.base08}";
-      ring-wrong-color = "#${colors.base08}";
-      text-wrong-color = "#${colors.base00}";
+      inside-wrong-color = "#${colors.base05}";
+      ring-wrong-color = "#B1252E";
+      text-wrong-color = "#000000";
 
       text-color = "#${colors.base05}";
     };
