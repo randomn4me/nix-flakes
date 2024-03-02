@@ -287,9 +287,9 @@ in {
       }
 
       #workspaces button {
-        margin: 0;
-        padding: 0;
-        border-radius: 0;
+        padding: 0 2px;
+
+        color: #${colors.base04};
       }
 
       #workspaces button:hover {
@@ -297,13 +297,10 @@ in {
         text-shadow: inherit;
       }
 
-      #workspaces button.visible {
-        color: #${colors.base04};
-      }
-
       #workspaces button.active {
         font-weight: bold;
-        color: #B1252E;
+        background: #${colors.base02};
+        color: #${colors.base05};
       }
 
       #tray,
