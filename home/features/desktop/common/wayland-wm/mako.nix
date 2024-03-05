@@ -13,6 +13,7 @@ in {
     borderSize = 2;
     borderRadius = 5;
 
+    font = "monospace 12";
     textColor = "#${colors.base05}";
     backgroundColor = "#010101";
     borderColor = "#B1252E";

@@ -18,6 +18,7 @@ let
   wc = "${pkgs.coreutils}/bin/wc";
 
   pgrep = "${pkgs.procps}/bin/pgrep";
+  sed = "${pkgs.gnused}/bin/sed";
 
   jq = "${pkgs.jq}/bin/jq";
   find = "${pkgs.findutils}/bin/find";
@@ -86,7 +87,7 @@ in {
           interval = 15;
           format = "{:%d.%m %H:%M}";
           tooltip-format = ''
-            <tt><small>{calendar}</small></tt>
+            <tt>{calendar}</tt>
           '';
           calendar = {
             mode = "month";
@@ -160,7 +161,7 @@ in {
 
         tray = {
           icon-size = 12;
-          spacing = 2;
+          spacing = 8;
         };
 
         "custom/mail" = {
@@ -205,15 +206,13 @@ in {
           format = "{}";
           return-type = "json";
           exec = jsonOutput "appointments" {
-            pre = let inherit (config.colorscheme) colors; in ''
+            pre = ''
               filter='-a peasec -a audacis-philipp'
 
-              next_time=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${head} -n 1)
+              next_time=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${sed} '/^$/d' | ${head} -n 1)
               upcoming=$(${khal} list now eod --format "{start-time}" --day-format "" --notstarted)
-              today_tooltip=$(${khal} list today eod --format '{start} {title}' --day-format '<span color="#${colors.base0F}"><b>{name}, {date}</b></span>')
-              tomorrow_tooltip=$(${khal} list tomorrow eod --format '{start} {title}' --day-format '<span color="#${colors.base0B}"><b>{name}, {date}</b></span>')
-
-              if [ -z $upcoming ]; then tooltip=$tomorrow_tooltip; else tooltip=$today_tooltip; fi
+              today_tooltip=$(${khal} list today eod --format '{start} {title}' --day-format '<b>{name}, {date}</b>')
+              tomorrow_tooltip=$(${khal} list tomorrow eod --format '{start} {title}' --day-format '<b>{name}, {date}</b>')
               tooltip=$(${printf} "$today_tooltip\n\n$tomorrow_tooltip")
 
               if [ -z $next_time ]; then text="None"; else text=$next_time; fi
@@ -300,6 +299,12 @@ in {
       #workspaces button.active {
         font-weight: bold;
         background: #${colors.base02};
+        color: #${colors.base05};
+      }
+
+      #workspaces button.urgent {
+        font-weight: bold;
+        background: #B1252E;
         color: #${colors.base05};
       }
 

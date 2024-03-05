@@ -6,53 +6,33 @@
       config = /* lua */ ''
         local lspconfig = require('lspconfig')
 
-        function add_lsp(server, options)
-          if options["cmd"] ~= nil then
-            binary = options["cmd"][1]
-          else
-            binary = server["document_config"]["default_config"]["cmd"][1]
-          end
-          if vim.fn.executable(binary) == 1 then
-            server.setup(options)
-          end
-        end
+        lspconfig.dockerls.setup {}
+        lspconfig.bashls.setup {}
+        lspconfig.nil_ls.setup {}
+        lspconfig.pyright.setup {}
+        lspconfig.pylsp.setup {}
+        lspconfig.lua_ls.setup {}
+        lspconfig.rust_analyzer.setup {}
+        lspconfig.ltex.setup {}
+        lspconfig.texlab.setup {}
 
-        add_lsp(lspconfig.dockerls, {})
-        add_lsp(lspconfig.bashls, {})
-        add_lsp(lspconfig.nil_ls, {})
-        add_lsp(lspconfig.pylsp, {})
-        add_lsp(lspconfig.pyright, {})
-        add_lsp(lspconfig.lua_ls, {})
+        vim.api.nvim_create_autocmd('LspAttach', {
+          group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+          callback = function(ev)
 
-        add_lsp(lspconfig.texlab, {})
-      '';
-    }
+          vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-    {
-      plugin = ltex_extra-nvim;
-      type = "lua";
-      config = /* lua */ ''
-        local ltex_extra = require('ltex_extra'),
-        add_lsp(lspconfig.ltex, {
-          on_attach = function(client, bufnr)
-            ltex_extra.setup {
-              path = vim.fn.expand("~") .. "/.local/state/ltex",
-            }
-          end
-        })
-      '';
-    }
-
-    {
-      plugin = rust-tools-nvim;
-      type = "lua";
-      config = /* lua */ ''
-        local rust_tools = require('rust-tools')
-        add_lsp(rust_tools, {
-          cmd = { "rust-analyzer" },
-          tools = { autoSetHints = true }
-        })
-        vim.api.nvim_set_hl(0, '@lsp.type.comment.rust', {})
+          local opts = { buffer = ev.buf }
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+          vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+          vim.keymap.set("n", "<leader>c", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format code", async = true })
+          vim.keymap.set("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP code action" })
+        end,
+      })
       '';
     }
 

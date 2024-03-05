@@ -1,10 +1,11 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   pgrep = "${pkgs.procps}/bin/pgrep";
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
   hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
+  swaymsg = "${config.wayland.windowManager.sway.package}/bin/swayctl";
   #chayang = "${pkgs.chayang}/bin/chayang";
 
   isLocked = "${pgrep} -x ${swaylock}";
@@ -24,21 +25,25 @@ in
       # Lock screen
       [{
         timeout = lockTime;
-        command = "${swaylock} -k --daemonize";
+        command = "${swaylock} -i ${config.wallpaper} --daemonize --grace 15";
       }] ++
       # Mute mic
       (afterLockTimeout {
         timeout = 10;
-        command = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ 1";
-        resumeCommand = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ 0";
-      });
-      #++
-      ## Turn off displays
-      #(lib.optionals config.wayland.windowManager.hyprland.enable
-      #  (afterLockTimeout {
-      #    timeout = 60;
-      #    command = "${hyprctl} dispatch dpms off";
-      #    resumeCommand = "${hyprctl} dispatch dpms on";
-      #}));
+        command = "${wpctl} set-source-mute @DEFAULT_SOURCE@ yes";
+        resumeCommand = "${wpctl} set-source-mute @DEFAULT_SOURCE@ no";
+      }) ++
+      # Turn off displays (hyprland)
+      (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
+        timeout = 40;
+        command = "${hyprctl} dispatch dpms off";
+        resumeCommand = "${hyprctl} dispatch dpms on";
+      })) ++
+      # Turn off displays (sway)
+      (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
+        timeout = 40;
+        command = "${swaymsg} 'output * dpms off'";
+        resumeCommand = "${swaymsg} 'output * dpms on'";
+      }));
   };
 }

@@ -19,8 +19,6 @@ in {
     bind = [
       "ALT,q,killactive"
 
-      "ALTSHIFT,e,exit"
-
       "ALT,TAB,workspace,previous"
       "ALTSHIFT,space,togglefloating"
     ] ++

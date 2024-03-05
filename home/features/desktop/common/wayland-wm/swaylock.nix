@@ -26,7 +26,7 @@ in {
       layout-text-color = "#${colors.base05}";
 
       ring-color = "#${colors.base05}";
-      key-hl-color = "#${colors.base04}";
+      key-hl-color = "#FFFFFF";
 
       ring-ver-color = "#${colors.base04}";
       text-ver-color = "#000000";

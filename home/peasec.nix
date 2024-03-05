@@ -2,8 +2,8 @@
   imports = [
     ./global
 
-    ./features/nvim
-    #./features/nixvim
+    #./features/nvim
+    ./features/nixvim
 
     ./features/ssh/private.nix
     ./features/ssh/peasec.nix
