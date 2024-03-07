@@ -33,7 +33,7 @@ in {
       inside-ver-color = "#${colors.base04}";
 
       inside-clear-color = "#000000";
-      ring-clear-color = "#${colors.base04}";
+      ring-clear-color = "#B1252E";
 
       inside-wrong-color = "#${colors.base05}";
       ring-wrong-color = "#B1252E";
