@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   programs.nixvim.options = {
     updatetime = 100;
@@ -15,6 +16,7 @@
     swapfile = false;
     backup = false;
     undofile = true;
+    undodir = "${config.home.homeDirectory}/.vim/undo";
 
     hlsearch = false;
     incsearch = true;

@@ -32,7 +32,7 @@
             }
             {
                 key = "<leader>y";
-                action = ''[["+y]]'';
+                action = ''"+y'';
                 mode = [ "n" "v" ];
                 options = {
                     desc = "Copy to system clipboard";
