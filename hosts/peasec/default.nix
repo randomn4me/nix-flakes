@@ -58,6 +58,7 @@
     };
 
     udisks2.enable = true;
+    dbus.implementation = "broker";
   };
 
   programs = {
