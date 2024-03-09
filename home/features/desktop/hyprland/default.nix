@@ -26,7 +26,6 @@
       general = {
         gaps_in = 0;
         gaps_out = 0;
-        border_size = 1;
         cursor_inactive_timeout = 2;
         "col.active_border" = "0xff${config.colorscheme.colors.base09}";
         "col.inactive_border" = "0xff${config.colorscheme.colors.base03}";
@@ -46,6 +45,8 @@
       };
 
       decoration.rounding = 0;
+      decoration.blur.enabled = false;
+      decoration.drop_shadow = false;
       animations.enabled = false;
 
       misc = {
