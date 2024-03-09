@@ -13,7 +13,13 @@
     keymapsSilent = true;
 
     defaults = {
-      file_ignore_patterns = ["^.git/"];
+      file_ignore_patterns = [
+        "^.git/"
+        ".pdf$"
+        ".jpg$"
+        ".jepg$"
+        ".png$"
+      ];
     };
   };
 }
