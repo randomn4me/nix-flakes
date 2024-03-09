@@ -24,7 +24,7 @@
     ./features/desktop/common/zotero.nix
 
     ./features/cli/udiskie.nix
-    ./features/virtualization/virt-manager.nix
+    #./features/virtualization/virt-manager.nix
 
     inputs.nix-index-database.hmModules.nix-index
   ];
