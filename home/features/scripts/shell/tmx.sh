@@ -14,15 +14,16 @@ attach_start_session() {
             tmux new -s "$session_name" "$@"
         fi
     fi
+    exit 0
 }
 
 if [ $# -eq 0 ]; then
-    selected_dir=$(fd -td . "$HOME" | fzf)
+    selected_dir=$(find ~/src ~/etc -maxdepth 3 -type d | fzf)
 
     # Check if the selection is empty (user pressed ESC or didn't select anything)
     if [ -z "$selected_dir" ]; then
         echo "No directory selected. Exiting."
-        exit 0
+        exit 1
     fi
 
     # Get the basename of the selected directory
@@ -40,13 +41,13 @@ else
     echo "given $1"
     case "$1" in
         mail)
-            attach_start_session mail -e "TERM=screen-256color-bce" neomutt; exit 1 ;;
+            attach_start_session mail -e "TERM=screen-256color-bce" neomutt ;;
         obs*)
-            attach_start_session obsidian -c "$HOME/usr/docs/obsidian" nvim; exit 1 ;;
+            attach_start_session obsidian -c "$HOME/usr/docs/obsidian" nvim ;;
         mat*|iamb)
-            attach_start_session matrix iamb; exit 1 ;;
+            attach_start_session matrix iamb ;;
         mus*)
-            attach_start_session music ncmpcpp; exit 1 ;;
+            attach_start_session music ncmpcpp ;;
     esac
 
     user_input=$(tmux ls -F '#{session_name}' | grep "$1")
@@ -62,5 +63,5 @@ else
         session_name=$user_input
     fi
 
-    tmux at -t "$session_name"
+    attach_start_session "$session_name"
 fi
