@@ -12,6 +12,7 @@
         installCargo = true;
         installRustc = true;
       };
+      texlab.enable = true;
     };
 
     keymaps = {
