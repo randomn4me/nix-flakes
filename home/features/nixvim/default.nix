@@ -3,6 +3,7 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
 
+    ./completion.nix
     ./plugins
     ./options.nix
     ./mappings.nix
@@ -21,5 +22,9 @@
       enable = true;
       style = "night";
     };
+
+    # Highlight and remove extra white spaces
+    highlight.ExtraWhitespace.bg = "red";
+    match.ExtraWhitespace = "\\s\\+$";
   };
 }

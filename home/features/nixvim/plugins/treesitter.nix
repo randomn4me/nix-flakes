@@ -5,6 +5,8 @@
           folding = true;
           indent = true;
           nixvimInjections = true;
+
+          disabledLanguages = [ "latex" ];
       };
 
       treesitter-refactor = {
