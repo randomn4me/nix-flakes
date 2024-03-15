@@ -195,22 +195,22 @@ in {
       {
         action = "<enter-command>source ~/.config/neomutt/audacis<enter><change-folder>!<enter>";
         key = "<f2>";
-        map = [ "index" ];
+        map = [ "index" "pager" ];
       }
       {
         action = "<enter-command>source ~/.config/neomutt/personalvorstand<enter><change-folder>!<enter>";
         key = "<f3>";
-        map = [ "index" ];
+        map = [ "index" "pager" ];
       }
       {
         action = "<enter-command>source ~/.config/neomutt/peasec<enter><change-folder>!<enter>";
         key = "<f4>";
-        map = [ "index" ];
+        map = [ "index" "pager" ];
       }
       {
         action = "<enter-command>source ~/.config/neomutt/sink<enter><change-folder>!<enter>";
         key = "<f5>";
-        map = [ "index" ];
+        map = [ "index" "pager" ];
       }
 
       {
@@ -240,6 +240,7 @@ in {
     ];
 
     changeFolderWhenSourcingAccount = true;
+    unmailboxes = true;
 
     extraConfig = let
       inherit (config.colorscheme) colors;
