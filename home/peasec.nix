@@ -34,6 +34,8 @@
 
   systemd.user.startServices = "sd-switch";
 
+  services.gnome-keyring.enable = true;
+
   home.packages = with pkgs; [
     texlive.combined.scheme-full
     libreoffice
@@ -56,6 +58,7 @@
     anki-bin
 
     tesseract
+    nextcloud-client
   ];
 
   monitors = [
