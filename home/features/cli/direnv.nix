@@ -1,5 +1,5 @@
 {
-  programs.eza = {
+  programs.direnv = {
     enable = true;
     enableBashIntegration = true;
   };
