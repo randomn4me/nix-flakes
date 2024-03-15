@@ -14,10 +14,7 @@
             nvim_lsp = "[LSP]";
             nvim_lua = "[api]";
             path = "[path]";
-            luasnip = "[snip]";
             buffer = "[buffer]";
-            neorg = "[neorg]";
-            cmp_tabby = "[Tabby]";
           };
         };
       };
@@ -26,21 +23,16 @@
         enable = true;
 
         settings = {
-          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
-
           mapping = {
-            "<C-n>" = "cmp.mapping.complete()";
-            "<Esc>" = "cmp.mapping.close()";
+            "<C-y>" = "cmp.mapping.confirm({ select = true })";
             "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
             "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<C-CR>" = "cmp.mapping.complete()";
           };
 
           sources = [
             {name = "path";}
             {name = "nvim_lsp";}
-            {name = "cmp_tabby";}
-            {name = "luasnip";}
             {
               name = "buffer";
               # Words from other open buffers can also be suggested.

@@ -1,10 +1,9 @@
 {
   imports = [
-    ./nvim-cmp.nix
     ./fugitive.nix
     ./harpoon.nix
     ./lsp.nix
-    ./obsidian.nix
+    #./obsidian.nix
     ./telescope.nix
     ./todo-comments.nix
     ./treesitter.nix

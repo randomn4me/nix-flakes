@@ -22,6 +22,7 @@
         gd = "definition";
         gi = "implementation";
         gt = "type_definition";
+        "<leader>c" = "code_action";
         "<leader>lf" = "format";
       };
     };
