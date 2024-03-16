@@ -14,6 +14,7 @@
             nvim_lsp = "[LSP]";
             nvim_lua = "[api]";
             path = "[path]";
+            luasnip = "[snip]";
             buffer = "[buffer]";
           };
         };
@@ -23,6 +24,8 @@
         enable = true;
 
         settings = {
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+
           mapping = {
             "<C-y>" = "cmp.mapping.confirm({ select = true })";
             "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
@@ -33,6 +36,7 @@
           sources = [
             {name = "path";}
             {name = "nvim_lsp";}
+            {name = "luasnip";}
             {
               name = "buffer";
               # Words from other open buffers can also be suggested.
