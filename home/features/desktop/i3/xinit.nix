@@ -13,7 +13,8 @@ let
 
     exec ${startx} &> /dev/null
   '';
-in {
+in
+{
   home.file.".xinitrc".text = ''
     exec i3
   '';

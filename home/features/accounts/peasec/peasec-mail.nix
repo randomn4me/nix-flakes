@@ -1,8 +1,14 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
-in {
+in
+{
   imports = [ ../mbsync.nix ];
   accounts.email = {
     maildirBasePath = "${home}/var/mail";
@@ -17,8 +23,7 @@ in {
 
         imap = {
           host = "mail.tu-darmstadt.de";
-          tls.certificatesFile =
-            "${home}/usr/misc/t-telesec_globalroot_class_2.pem";
+          tls.certificatesFile = "${home}/usr/misc/t-telesec_globalroot_class_2.pem";
         };
 
         smtp = {
@@ -71,24 +76,33 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [ "Archiv" "Entw&APw-rfe" "Gesendete Elemente" "Junk-E-Mail" "Gel&APY-schte Elemente" ];
+          extraMailboxes = [
+            "Archiv"
+            "Entw&APw-rfe"
+            "Gesendete Elemente"
+            "Junk-E-Mail"
+            "Gel&APY-schte Elemente"
+          ];
           sendMailCommand = "msmtpq -a peasec";
-          extraConfig = let inherit (config.colorscheme) colors;
-          in ''
-            color indicator    #${colors.base0F}  black
-            color status       #${colors.base0F}  default
+          extraConfig =
+            let
+              inherit (config.colorscheme) colors;
+            in
+            ''
+              color indicator    #${colors.base0F}  black
+              color status       #${colors.base0F}  default
 
-            color sidebar_highlight #${colors.base0F} default
+              color sidebar_highlight #${colors.base0F} default
 
-            named-mailboxes "peasec"    "+Inbox"
-            named-mailboxes " archive"  "+Archiv"
-            named-mailboxes " sent"     "+Gesendete Elemente"
-            named-mailboxes " drafts"   "+Entw&APw-rfe"
-            named-mailboxes " junk"     "+Junk-E-Mail"
-            named-mailboxes " trash"    "+Gel&APY-schte Elemente"
+              named-mailboxes "peasec"    "+Inbox"
+              named-mailboxes " archive"  "+Archiv"
+              named-mailboxes " sent"     "+Gesendete Elemente"
+              named-mailboxes " drafts"   "+Entw&APw-rfe"
+              named-mailboxes " junk"     "+Junk-E-Mail"
+              named-mailboxes " trash"    "+Gel&APY-schte Elemente"
 
-            macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archiv\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
-          '';
+              macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archiv\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
+            '';
         };
       };
     };

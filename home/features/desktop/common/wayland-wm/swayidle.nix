@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   swaylock = "${config.programs.swaylock.package}/bin/swaylock";
@@ -12,10 +17,22 @@ let
   lockTime = 5 * 60;
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
-  afterLockTimeout = { timeout, command, resumeCommand ? null }: [
-    { timeout = lockTime + timeout; inherit command resumeCommand; }
-    { command = "${isLocked} && ${command}"; inherit resumeCommand timeout; }
-  ];
+  afterLockTimeout =
+    {
+      timeout,
+      command,
+      resumeCommand ? null,
+    }:
+    [
+      {
+        timeout = lockTime + timeout;
+        inherit command resumeCommand;
+      }
+      {
+        command = "${isLocked} && ${command}";
+        inherit resumeCommand timeout;
+      }
+    ];
 in
 {
   services.swayidle = {
@@ -23,27 +40,32 @@ in
     systemdTarget = "graphical-session.target";
     timeouts =
       # Lock screen
-      [{
-        timeout = lockTime;
-        command = "${swaylock} -i ${config.wallpaper} --daemonize --grace 15";
-      }] ++
+      [
+        {
+          timeout = lockTime;
+          command = "${swaylock} -i ${config.wallpaper} --daemonize --grace 15";
+        }
+      ]
+      ++
       # Mute mic
       (afterLockTimeout {
         timeout = 10;
         command = "${wpctl} set-source-mute @DEFAULT_SOURCE@ yes";
         resumeCommand = "${wpctl} set-source-mute @DEFAULT_SOURCE@ no";
-      }) ++
-      # Turn off displays (hyprland)
-      (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-        timeout = 40;
-        command = "${hyprctl} dispatch dpms off";
-        resumeCommand = "${hyprctl} dispatch dpms on";
-      })) ++
-      # Turn off displays (sway)
-      (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
-        timeout = 40;
-        command = "${swaymsg} 'output * dpms off'";
-        resumeCommand = "${swaymsg} 'output * dpms on'";
-      }));
+      })
+      ++
+        # Turn off displays (hyprland)
+        (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
+          timeout = 40;
+          command = "${hyprctl} dispatch dpms off";
+          resumeCommand = "${hyprctl} dispatch dpms on";
+        }))
+      ++
+        # Turn off displays (sway)
+        (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
+          timeout = 40;
+          command = "${swaymsg} 'output * dpms off'";
+          resumeCommand = "${swaymsg} 'output * dpms on'";
+        }));
   };
 }

@@ -15,7 +15,8 @@ let
   xdg-open = "${pkgs.xdg-utils}/bin/xdg-open";
 
   home = "${config.home.homeDirectory}";
-in {
+in
+{
 
   home.packages = with pkgs; [ mailcap ];
 
@@ -64,8 +65,7 @@ in {
       sendmail_wait = "-1";
 
       abort_noattach = "ask-yes";
-      abort_noattach_regex = ''
-        "\\<(anhängen|angehängt|anhang|anhänge|hängt an|anbei|attach|attached|attachments|append)\\>"'';
+      abort_noattach_regex = ''"\\<(anhängen|angehängt|anhang|anhänge|hängt an|anbei|attach|attached|attachments|append)\\>"'';
 
       mailcap_path = "${home}/.config/neomutt/mailcap";
       edit_headers = "yes";
@@ -84,17 +84,26 @@ in {
       {
         action = "sidebar-prev";
         key = "K";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
         action = "sidebar-next";
         key = "J";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
         action = "sidebar-open";
         key = "L";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
 
       # index
@@ -165,22 +174,34 @@ in {
       {
         action = "group-reply";
         key = "R";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
         action = "search-opposite";
         key = "N";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
         action = "noop";
         key = "d";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
         action = "delete-message";
         key = "dd";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
 
       # editor
@@ -195,22 +216,34 @@ in {
       {
         action = "<enter-command>source ~/.config/neomutt/audacis<enter><change-folder>!<enter>";
         key = "<f2>";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
         action = "<enter-command>source ~/.config/neomutt/personalvorstand<enter><change-folder>!<enter>";
         key = "<f3>";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
         action = "<enter-command>source ~/.config/neomutt/peasec<enter><change-folder>!<enter>";
         key = "<f4>";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
         action = "<enter-command>source ~/.config/neomutt/sink<enter><change-folder>!<enter>";
         key = "<f5>";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
 
       {
@@ -224,58 +257,69 @@ in {
         map = [ "attach" ];
       }
       {
-        action = let
-          mbsync = "${config.programs.mbsync.package}/bin/mbsync";
-        in "<enter-command>unset wait_key<enter><shell-escape>${mbsync} -a<enter>";
+        action =
+          let
+            mbsync = "${config.programs.mbsync.package}/bin/mbsync";
+          in
+          "<enter-command>unset wait_key<enter><shell-escape>${mbsync} -a<enter>";
         key = "<f12>";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
       {
-        action = let
-          urlscan = "${pkgs.urlscan}/bin/urlscan";
-        in "<pipe-message> ${urlscan}<enter>";
+        action =
+          let
+            urlscan = "${pkgs.urlscan}/bin/urlscan";
+          in
+          "<pipe-message> ${urlscan}<enter>";
         key = "b";
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
       }
     ];
 
     changeFolderWhenSourcingAccount = true;
     unmailboxes = true;
 
-    extraConfig = let
-      inherit (config.colorscheme) colors;
-    in ''
-      color normal       #${colors.base05}   default
-      color error        #${colors.base0F}   default
-      color tilde        #${colors.base0D}   default
-      color message      #${colors.base05}   default
-      color markers      #${colors.base0A}   default
-      color attachment   #${colors.base0A}   default
-      color search       #${colors.base05}   default
-      color status       #${colors.base09}   default
-      color indicator    #${colors.base09}   black
-      color tree         #${colors.base05}   default
+    extraConfig =
+      let
+        inherit (config.colorscheme) colors;
+      in
+      ''
+        color normal       #${colors.base05}   default
+        color error        #${colors.base0F}   default
+        color tilde        #${colors.base0D}   default
+        color message      #${colors.base05}   default
+        color markers      #${colors.base0A}   default
+        color attachment   #${colors.base0A}   default
+        color search       #${colors.base05}   default
+        color status       #${colors.base09}   default
+        color indicator    #${colors.base09}   black
+        color tree         #${colors.base05}   default
 
 
-      color hdrdefault   #${colors.base0F}   default
+        color hdrdefault   #${colors.base0F}   default
 
 
-      color index        #${colors.base0F}   default    "~D"
-      color index        #${colors.base0A}   default    "~F"
-      color index        #${colors.base0B}   default    "~N"
+        color index        #${colors.base0F}   default    "~D"
+        color index        #${colors.base0A}   default    "~F"
+        color index        #${colors.base0B}   default    "~N"
 
 
-      color quoted       #${colors.base09}   default
-      color signature    #${colors.base0A}   default
+        color quoted       #${colors.base09}   default
+        color signature    #${colors.base0A}   default
 
 
-      color body         #${colors.base05}   default    "[:;][-o]?[)/(|]"
+        color body         #${colors.base05}   default    "[:;][-o]?[)/(|]"
 
-      color body         #${colors.base0D}   default    "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+        color body         #${colors.base0D}   default    "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
 
-      color body         #${colors.base0D}   default    "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
-    '';
-
+        color body         #${colors.base0D}   default    "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
+      '';
   };
 
   xdg = {
@@ -286,7 +330,11 @@ in {
         comment = "Read and send emails";
         exec = "${terminal} --app-id neomutt ${neomutt} %U";
         icon = "mutt";
-        categories = [ "Network" "Email" "ConsoleOnly" ];
+        categories = [
+          "Network"
+          "Email"
+          "ConsoleOnly"
+        ];
         type = "Application";
         mimeType = [ "x-scheme-handler/mailto" ];
       };

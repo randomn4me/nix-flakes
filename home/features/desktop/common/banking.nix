@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = with pkgs; [ jameica ]; }
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [ jameica ];
+}

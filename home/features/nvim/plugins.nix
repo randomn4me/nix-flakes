@@ -1,10 +1,11 @@
-{ pkgs, config, ... }: {
-  programs.neovim.plugins = with pkgs.vimPlugins;
-    [
-      {
-        plugin = trouble-nvim;
-        type = "lua";
-        config = /* lua */ ''
+{ pkgs, config, ... }:
+{
+  programs.neovim.plugins = with pkgs.vimPlugins; [
+    {
+      plugin = trouble-nvim;
+      type = "lua";
+      config = # lua
+        ''
           require("trouble").setup({
             icons = false,
           })
@@ -13,21 +14,23 @@
           vim.keymap.set("n", "[t", function() require("trouble").previous({skip_groups = true, jump = true}); end)
           vim.keymap.set("n", "]t", function() require("trouble").next({skip_groups = true, jump = true}); end)
         '';
-      }
+    }
 
-      {
-        plugin = vimtex;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = vimtex;
+      type = "lua";
+      config = # lua
+        ''
           vim.g.vimtex_view_method = '${if config.programs.zathura.enable then "zathura" else "general"}'
           vim.g.vimtex_compiler_latexmk = { out_dir = 'out', aux_dir = 'out' }
         '';
-      }
+    }
 
-      {
-        plugin = telescope-nvim;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = telescope-nvim;
+      type = "lua";
+      config = # lua
+        ''
           require('telescope').setup({
             defaults = {
               layout_strategy = "horizontal",
@@ -50,12 +53,13 @@
           vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = "View help" })
           vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find in git files" })
         '';
-      }
+    }
 
-      {
-        plugin = todo-comments-nvim;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = todo-comments-nvim;
+      type = "lua";
+      config = # lua
+        ''
           local todo_comments = require('todo-comments')
 
           todo_comments.setup()
@@ -65,12 +69,13 @@
 
           vim.keymap.set('n', '<leader>ft', vim.cmd.TodoTelescope, { desc = "Search todos via telescope" })
         '';
-      }
+    }
 
-      {
-        plugin = harpoon;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = harpoon;
+      type = "lua";
+      config = # lua
+        ''
           local mark = require("harpoon.mark")
           local ui = require("harpoon.ui")
 
@@ -82,12 +87,13 @@
           vim.keymap.set("n", "<C-l>", function() ui.nav_file(3) end)
           vim.keymap.set("n", "<C-ö>", function() ui.nav_file(4) end)
         '';
-      }
+    }
 
-      {
-        plugin = nvim-treesitter.withAllGrammars;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = nvim-treesitter.withAllGrammars;
+      type = "lua";
+      config = # lua
+        ''
           require('nvim-treesitter.configs').setup{
               indent = { enable = true, },
             highlight = {
@@ -97,12 +103,13 @@
             },
           }
         '';
-      }
+    }
 
-      {
-        plugin = indent-blankline-nvim;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = indent-blankline-nvim;
+      type = "lua";
+      config = # lua
+        ''
           require("ibl").setup{
             indent = { char = "▏" },
             scope = { show_start = false, show_end = false },
@@ -121,28 +128,31 @@
             },
           }
         '';
-      }
+    }
 
-      {
-        plugin = vim-fugitive;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = vim-fugitive;
+      type = "lua";
+      config = # lua
+        ''
           vim.keymap.set("n", "<leader>g", "<cmd>:Git<cr>", { desc = "Open Git interface" })
         '';
-      }
+    }
 
-      {
-        plugin = leap-nvim;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = leap-nvim;
+      type = "lua";
+      config = # lua
+        ''
           require("leap").create_default_mappings()
         '';
-      }
+    }
 
-      {
-        plugin = obsidian-nvim;
-        type = "lua";
-        config = /* lua */ ''
+    {
+      plugin = obsidian-nvim;
+      type = "lua";
+      config = # lua
+        ''
           require("obsidian").setup {
               workspaces = {
                 {
@@ -206,7 +216,6 @@
               },
             }
         '';
-      }
-    ];
+    }
+  ];
 }
-

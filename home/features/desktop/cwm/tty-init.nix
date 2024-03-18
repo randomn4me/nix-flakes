@@ -1,6 +1,8 @@
 { pkgs, ... }:
-let startx = "${pkgs.xorg.xinit}/bin/startx";
-in {
+let
+  startx = "${pkgs.xorg.xinit}/bin/startx";
+in
+{
   home.file.".xinitrc".text = ''
     exec cwm
   '';

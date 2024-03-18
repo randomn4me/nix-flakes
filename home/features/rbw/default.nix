@@ -1,1 +1,6 @@
-{ imports = [ ./rbw.nix ./rofi-rbw.nix ]; }
+{
+  imports = [
+    ./rbw.nix
+    ./rofi-rbw.nix
+  ];
+}

@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
@@ -12,11 +13,12 @@
     userName = "Philipp Kühn";
     userEmail = lib.mkDefault "git@audacis.net";
 
-    extraConfig = { init.defaultBranch = "main"; };
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
     lfs.enable = true;
     ignores = [ ".direnv" ];
 
     delta.enable = true;
   };
 }
-

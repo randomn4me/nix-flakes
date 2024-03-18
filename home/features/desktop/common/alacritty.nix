@@ -1,11 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (config.colorscheme) colors;
   alacritty-xterm = pkgs.writeShellScriptBin "xterm" ''
     ${config.programs.alacritty.package}/bin/alacritty "$@"
   '';
-in {
+in
+{
   home = {
     packages = [ alacritty-xterm ];
     sessionVariables.TERMINAL = lib.mkDefault "alacritty";
@@ -14,7 +20,9 @@ in {
   programs.alacritty = {
     enable = true;
     settings = {
-      env = { TERM = "xterm-direct"; };
+      env = {
+        TERM = "xterm-direct";
+      };
 
       font = {
         size = 11;
@@ -94,7 +102,6 @@ in {
           };
         };
       };
-
     };
   };
 }

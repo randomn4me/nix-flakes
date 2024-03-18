@@ -48,7 +48,10 @@
 
     printing = {
       enable = true;
-      drivers = with pkgs; [ cups-kyodialog mfcj6510dwlpr ];
+      drivers = with pkgs; [
+        cups-kyodialog
+        mfcj6510dwlpr
+      ];
     };
 
     avahi = {

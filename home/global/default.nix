@@ -1,9 +1,19 @@
-{ inputs, lib, pkgs, config, outputs, ... }:
-let inherit (inputs.nix-colors) colorSchemes;
-in {
-  imports =
-    [ inputs.nix-colors.homeManagerModule ../features/cli ]
-    ++ (builtins.attrValues outputs.homeManagerModules);
+{
+  inputs,
+  lib,
+  pkgs,
+  config,
+  outputs,
+  ...
+}:
+let
+  inherit (inputs.nix-colors) colorSchemes;
+in
+{
+  imports = [
+    inputs.nix-colors.homeManagerModule
+    ../features/cli
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
     config = {
@@ -15,7 +25,11 @@ in {
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "repl-flake"
+      ];
       warn-dirty = false;
     };
   };
@@ -39,6 +53,7 @@ in {
 
   colorscheme = lib.mkDefault colorSchemes.rose-pine;
   home.file.".colorscheme".text = config.colorscheme.slug;
-  home.file.".colorscheme-colors".text = builtins.concatStringsSep "\n"
-    (lib.mapAttrsToList (name: colorcode: "${name} = #${colorcode}") config.colorscheme.colors);
+  home.file.".colorscheme-colors".text = builtins.concatStringsSep "\n" (
+    lib.mapAttrsToList (name: colorcode: "${name} = #${colorcode}") config.colorscheme.colors
+  );
 }

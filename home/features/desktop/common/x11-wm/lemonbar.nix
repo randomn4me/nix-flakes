@@ -60,7 +60,8 @@ let
       sleep 5s
     done | ${lemonbar} -g "150x20+$((MONWIDTH - 150))" ${lemonbar-config} &
   '';
-in {
+in
+{
   home.packages = [
     pkgs.lemonbar-xft
 

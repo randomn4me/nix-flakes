@@ -1,45 +1,54 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
 
-  common = let host = "mail.your-server.de";
-  in {
-    realName = "Philipp Kühn";
+  common =
+    let
+      host = "mail.your-server.de";
+    in
+    {
+      realName = "Philipp Kühn";
 
-    mbsync = {
-      enable = true;
-      create = "both";
-      expunge = "both";
+      mbsync = {
+        enable = true;
+        create = "both";
+        expunge = "both";
+      };
+
+      imap = {
+        host = host;
+        port = 143;
+        tls.useStartTls = true;
+      };
+
+      smtp = {
+        host = host;
+        port = 587;
+        tls.useStartTls = true;
+      };
+
+      msmtp.enable = true;
+
+      folders = {
+        inbox = "Inbox";
+        drafts = "Drafts";
+        sent = "Sent";
+        trash = "Trash";
+      };
+
+      thunderbird = {
+        enable = true;
+        profiles = [ config.home.username ];
+      };
     };
-
-    imap = {
-      host = host;
-      port = 143;
-      tls.useStartTls = true;
-    };
-
-    smtp = {
-      host = host;
-      port = 587;
-      tls.useStartTls = true;
-    };
-
-    msmtp.enable = true;
-
-    folders = {
-      inbox = "Inbox";
-      drafts = "Drafts";
-      sent = "Sent";
-      trash = "Trash";
-    };
-
-    thunderbird = {
-      enable = true;
-      profiles = [ config.home.username ];
-    };
-  };
-in {
+in
+{
   imports = [ ../mbsync.nix ];
 
   accounts.email = {
@@ -68,25 +77,33 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [ "Archive" "Drafts" "Sent" "spambucket" "Trash" ];
+          extraMailboxes = [
+            "Archive"
+            "Drafts"
+            "Sent"
+            "spambucket"
+            "Trash"
+          ];
           sendMailCommand = "msmtpq -a audacis";
-          extraConfig = let
-            inherit (config.colorscheme) colors;
-          in ''
-            named-mailboxes "audacis"   "+Inbox"
-            named-mailboxes " archive"  "+Archive"
-            named-mailboxes " sent"     "+Sent"
-            named-mailboxes " drafts"   "+Drafts"
-            named-mailboxes " junk"     "+spambucket"
-            named-mailboxes " trash"    "+Trash"
+          extraConfig =
+            let
+              inherit (config.colorscheme) colors;
+            in
+            ''
+              named-mailboxes "audacis"   "+Inbox"
+              named-mailboxes " archive"  "+Archive"
+              named-mailboxes " sent"     "+Sent"
+              named-mailboxes " drafts"   "+Drafts"
+              named-mailboxes " junk"     "+spambucket"
+              named-mailboxes " trash"    "+Trash"
 
-            color indicator    #${colors.base0A}  black
-            color status       #${colors.base0A}  default
+              color indicator    #${colors.base0A}  black
+              color status       #${colors.base0A}  default
 
-            color sidebar_highlight  #${colors.base0A}  default
+              color sidebar_highlight  #${colors.base0A}  default
 
-            macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
-          '';
+              macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
+            '';
         };
       } // common;
 
@@ -130,25 +147,33 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [ "Archive" "Drafts" "Sent" "spambucket" "Trash" ];
+          extraMailboxes = [
+            "Archive"
+            "Drafts"
+            "Sent"
+            "spambucket"
+            "Trash"
+          ];
           sendMailCommand = "msmtpq -a personalvorstand";
-          extraConfig = let
-            inherit (config.colorscheme) colors;
-          in ''
-            named-mailboxes "unikita"   "+Inbox"
-            named-mailboxes " archive"  "+Archive"
-            named-mailboxes " sent"     "+Sent"
-            named-mailboxes " drafts"   "+Drafts"
-            named-mailboxes " junk"     "+spambucket"
-            named-mailboxes " trash"    "+Trash"
+          extraConfig =
+            let
+              inherit (config.colorscheme) colors;
+            in
+            ''
+              named-mailboxes "unikita"   "+Inbox"
+              named-mailboxes " archive"  "+Archive"
+              named-mailboxes " sent"     "+Sent"
+              named-mailboxes " drafts"   "+Drafts"
+              named-mailboxes " junk"     "+spambucket"
+              named-mailboxes " trash"    "+Trash"
 
-            color indicator    #${colors.base0B}  black
-            color status       #${colors.base0B}  default
+              color indicator    #${colors.base0B}  black
+              color status       #${colors.base0B}  default
 
-            color sidebar_highlight  #${colors.base0B}  default
+              color sidebar_highlight  #${colors.base0B}  default
 
-            macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
-          '';
+              macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
+            '';
         };
       } // common;
 
@@ -159,25 +184,33 @@ in {
 
         neomutt = {
           enable = true;
-          extraMailboxes = [ "Archive" "Drafts" "Sent" "spambucket" "Trash" ];
+          extraMailboxes = [
+            "Archive"
+            "Drafts"
+            "Sent"
+            "spambucket"
+            "Trash"
+          ];
           sendMailCommand = "msmtpq -a sink";
-          extraConfig = let
-            inherit (config.colorscheme) colors;
-          in ''
-            named-mailboxes "sink"   "+Inbox"
-            named-mailboxes " archive"  "+Archive"
-            named-mailboxes " sent"     "+Sent"
-            named-mailboxes " drafts"   "+Drafts"
-            named-mailboxes " junk"     "+spambucket"
-            named-mailboxes " trash"    "+Trash"
+          extraConfig =
+            let
+              inherit (config.colorscheme) colors;
+            in
+            ''
+              named-mailboxes "sink"   "+Inbox"
+              named-mailboxes " archive"  "+Archive"
+              named-mailboxes " sent"     "+Sent"
+              named-mailboxes " drafts"   "+Drafts"
+              named-mailboxes " junk"     "+spambucket"
+              named-mailboxes " trash"    "+Trash"
 
-            color indicator    #${colors.base0D}  black
-            color status       #${colors.base0D}  default
+              color indicator    #${colors.base0D}  black
+              color status       #${colors.base0D}  default
 
-            color sidebar_highlight  #${colors.base0D}  default
+              color sidebar_highlight  #${colors.base0D}  default
 
-            macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
-          '';
+              macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
+            '';
         };
       } // common;
     };

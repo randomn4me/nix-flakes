@@ -19,5 +19,4 @@
       "image/png" = [ "imv.desktop" ];
     };
   };
-
 }

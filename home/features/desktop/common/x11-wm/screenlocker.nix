@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   services.screen-locker = {
     enable = true;
     lockCmd = "${pkgs.i3lock-color}/bin/i3lock-color -i ${config.wallpaper}";

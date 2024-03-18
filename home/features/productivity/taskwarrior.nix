@@ -3,7 +3,8 @@
 let
   home = config.home.homeDirectory;
   task = "${config.programs.taskwarrior.package}/bin/task";
-in {
+in
+{
   programs = {
     taskwarrior = {
       enable = true;
@@ -18,8 +19,18 @@ in {
 
         report = {
           maybe = {
-            columns = [ "id" "project" "tags" "description" ];
-            labels = [ "ID" "Project" "Tags" "Description" ];
+            columns = [
+              "id"
+              "project"
+              "tags"
+              "description"
+            ];
+            labels = [
+              "ID"
+              "Project"
+              "Tags"
+              "Description"
+            ];
             filter = "status:pending and +maybe";
           };
 
@@ -64,5 +75,7 @@ in {
     };
   };
 
-  services.taskwarrior-sync = { enable = true; };
+  services.taskwarrior-sync = {
+    enable = true;
+  };
 }

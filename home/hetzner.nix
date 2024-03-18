@@ -1,4 +1,10 @@
-{ pkgs, inputs, lib, ... }: {
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
+{
   imports = [
     ./global
 
@@ -17,4 +23,3 @@
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 }
-

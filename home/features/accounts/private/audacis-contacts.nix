@@ -2,7 +2,8 @@
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
-in {
+in
+{
   imports = [ ../vdirsyncer.nix ];
 
   accounts.contact = {
@@ -16,14 +17,20 @@ in {
 
       remote = {
         userName = "philippkuehn";
-        passwordCommand = [ cat "${home}/usr/misc/cloud.audacis.net" ];
+        passwordCommand = [
+          cat
+          "${home}/usr/misc/cloud.audacis.net"
+        ];
         url = "https://cloud.audacis.net/remote.php/dav";
         type = "carddav";
       };
 
       vdirsyncer = {
         enable = true;
-        collections = [ "from b" "from a" ];
+        collections = [
+          "from b"
+          "from a"
+        ];
         conflictResolution = "remote wins";
         metadata = [ "displayname" ];
       };

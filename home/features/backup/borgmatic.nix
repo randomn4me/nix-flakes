@@ -1,13 +1,19 @@
-{ config, pkgs, osConfig, ... }:
+{
+  config,
+  pkgs,
+  osConfig,
+  ...
+}:
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
-in {
-  imports = [
-    ../ssh/backup.nix
-  ];
+in
+{
+  imports = [ ../ssh/backup.nix ];
 
-  services.borgmatic = { enable = true; };
+  services.borgmatic = {
+    enable = true;
+  };
 
   programs.borgmatic = {
     enable = true;
@@ -42,7 +48,9 @@ in {
 
         storage = {
           encryptionPasscommand = "${cat} ${home}/usr/misc/borg";
-          extraConfig = { ssh_command = "ssh -i ${home}/.ssh/storagebox"; };
+          extraConfig = {
+            ssh_command = "ssh -i ${home}/.ssh/storagebox";
+          };
         };
 
         retention = {

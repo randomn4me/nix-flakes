@@ -36,7 +36,11 @@
 
     printing = {
       enable = true;
-      drivers = with pkgs; [ cups-kyodialog brgenml1lpr brgenml1cupswrapper ];
+      drivers = with pkgs; [
+        cups-kyodialog
+        brgenml1lpr
+        brgenml1cupswrapper
+      ];
     };
 
     avahi = {

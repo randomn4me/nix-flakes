@@ -1,22 +1,20 @@
 { pkgs, ... }:
 {
-    services.xserver = {
-        enable = true;
-        displayManager.startx.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager.startx.enable = true;
 
-        videoDrivers = [
-          "intel"
-        ];
+    videoDrivers = [ "intel" ];
 
-        xkb.layout = "de";
+    xkb.layout = "de";
 
-        windowManager.i3 = {
-            enable = true;
-            extraPackages = with pkgs; [
-              dmenu
-              i3status-rust
-              i3lock
-            ];
-        };
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status-rust
+        i3lock
+      ];
     };
+  };
 }

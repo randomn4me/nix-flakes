@@ -2,7 +2,8 @@
 let
   terminal = config.home.sessionVariables.TERMINAL;
   ncmpcpp = "${config.programs.ncmpcpp.package}/bin/ncmpcpp";
-in {
+in
+{
   programs = {
     ncmpcpp = {
       enable = true;
@@ -100,7 +101,6 @@ in {
           key = "d";
           command = "delete_stored_playlist";
         }
-
       ];
     };
   };
@@ -113,7 +113,10 @@ in {
       exec = "${terminal} --app-id ncmpcpp ${ncmpcpp}";
       icon = "ncmpcpp";
       type = "Application";
-      categories = [ "Utility" "Audio" ];
+      categories = [
+        "Utility"
+        "Audio"
+      ];
     };
   };
 }

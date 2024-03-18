@@ -35,7 +35,10 @@
       ];
       terminal = true;
       type = "Application";
-      categories = [ "Utility" "TextEditor" ];
+      categories = [
+        "Utility"
+        "TextEditor"
+      ];
     };
   };
 
@@ -45,7 +48,7 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-  
+
     extraPackages = with pkgs; [
       #-- c/c++
       cmake
@@ -56,7 +59,7 @@
       llvmPackages.clang-unwrapped # c/c++ tools with clang-tools such as clangd
       gdb
       lldb
-  
+
       #-- python
       nodePackages.pyright # python language server
       python3Packages.black # python formatter
@@ -65,23 +68,22 @@
       python3Packages.jedi
       python3Packages.pyflakes
       (python3.withPackages (
-        ps:
-          with ps; [
-            pynvim # Python client and plugin host for Nvim
-  
-            ipython
-            pandas
-            requests
-            pyquery
-            pyyaml
-          ]
+        ps: with ps; [
+          pynvim # Python client and plugin host for Nvim
+
+          ipython
+          pandas
+          requests
+          pyquery
+          pyyaml
+        ]
       ))
-  
+
       #-- rust
       rust-analyzer
       cargo # rust package manager
       rustfmt
-  
+
       #-- nix
       nil
       rnix-lsp
@@ -89,26 +91,26 @@
       statix # Lints and suggestions for the nix programming language
       deadnix # Find and remove unused code in .nix source files
       alejandra # Nix Code Formatter
-  
+
       #-- lua
       stylua
       lua-language-server
-  
+
       #-- bash
       nodePackages.bash-language-server
       shellcheck
       shfmt
-  
+
       #-- javascript/typescript --#
       nodePackages.nodejs
       nodePackages.typescript
       nodePackages.typescript-language-server
-  
+
       #-- Others
       taplo # TOML language server / formatter / validator
       nodePackages.yaml-language-server
       sqlfluff # SQL linter
-  
+
       #-- Misc
       tree-sitter # common language parser/highlighter
       marksman # language server for markdown

@@ -1,4 +1,10 @@
-{ pkgs, inputs, outputs, ... }: {
+{
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
+{
   imports = [
     ./global
 
@@ -62,14 +68,14 @@
   ];
 
   monitors = [
-      {
-        name = "eDP-1";
-        width = 1920;
-        height = 1080;
-        refreshRate = 60;
-        scaling = 1.0;
-        primary = true;
-      }
+    {
+      name = "eDP-1";
+      width = 1920;
+      height = 1080;
+      refreshRate = 60;
+      scaling = 1.0;
+      primary = true;
+    }
   ];
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;

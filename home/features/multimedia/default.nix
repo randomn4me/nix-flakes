@@ -1,1 +1,6 @@
-{ imports = [ ./ncmpcpp.nix ./mopidy.nix ]; }
+{
+  imports = [
+    ./ncmpcpp.nix
+    ./mopidy.nix
+  ];
+}

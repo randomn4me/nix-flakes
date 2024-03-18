@@ -1,4 +1,10 @@
-{ lib, config, pkgs, inputs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -55,94 +61,104 @@
 
       exec = [ "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill" ];
 
-      bind = let
-        swaylock = "${config.programs.swaylock.package}/bin/swaylock";
-        playerctl = "${config.services.playerctld.package}/bin/playerctl";
-        makoctl = "${config.services.mako.package}/bin/makoctl";
-        bemenu-run = "${config.programs.bemenu.package}/bin/bemenu-run";
+      bind =
+        let
+          swaylock = "${config.programs.swaylock.package}/bin/swaylock";
+          playerctl = "${config.services.playerctld.package}/bin/playerctl";
+          makoctl = "${config.services.mako.package}/bin/makoctl";
+          bemenu-run = "${config.programs.bemenu.package}/bin/bemenu-run";
 
-        grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
+          grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
 
-        rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
+          rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
 
-        terminal = config.home.sessionVariables.TERMINAL;
-      in [
-        "ALT,Return,exec,${terminal}"
-
-        "ALT SHIFT,s,exec,${grimblast} --notify --freeze copy area"
-      ] ++
-
-      (lib.optionals config.services.playerctld.enable [
-        # Media control
-        ",XF86AudioNext,exec,${playerctl} next"
-        ",XF86AudioPrev,exec,${playerctl} previous"
-        ",XF86AudioPlay,exec,${playerctl} play-pause"
-        ",XF86AudioStop,exec,${playerctl} stop"
-      ]) ++
-
-      # Screen lock
-      (lib.optionals config.programs.swaylock.enable
-        [ "CTRL ALT,l,exec,${swaylock}" ]) ++
-
-      # Notification manager
-      (lib.optionals config.services.mako.enable
-        [ "ALT,w,exec,${makoctl} dismiss" ]) ++
-
-      # Launcher
-      (lib.optionals config.programs.bemenu.enable [
-        "ALT,SPACE,exec,${bemenu-run}"
-        "ALT,p,exec,paper-menu"
-        "ALT SHIFT,p,exec,${rofi-rbw}"
-        "ALT SHIFT,q,exec,shutdown-menu"
-      ]);
-
-      binde = let
-        light = "${pkgs.light}/bin/light";
-        wpctl = "${pkgs.wireplumber}/bin/wpctl";
-      in [
-        ",XF86MonBrightnessUp,exec,${light} -A 5"
-        ",XF86MonBrightnessDown,exec,${light} -U 5"
-
-        ",XF86AudioRaiseVolume,exec,${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume,exec,${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        "SHIFT,XF86AudioMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86AudioMicMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-      ];
-
-      bindl = let
-        hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
-
-        m = builtins.head config.monitors;
-      in if m != [] && m.name == "eDP-1" && m.enabled then let
-        res = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-        position = "${toString m.x}x${toString m.y}";
-        command = "${hyprctl} keyword monitor";
-        scaling = "${toString m.scaling}";
-      in
+          terminal = config.home.sessionVariables.TERMINAL;
+        in
         [
-          ",switch:off:Lid Switch,exec,${command} '${m.name},${res},${position},${scaling}'"
-          ",switch:on:Lid Switch,exec,${command} '${m.name}, disable'"
+          "ALT,Return,exec,${terminal}"
+
+          "ALT SHIFT,s,exec,${grimblast} --notify --freeze copy area"
         ]
-      else [];
+        ++
 
-      monitor = map (m: let
-        resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-        position = "${toString m.x}x${toString m.y}";
-        scaling = "${toString m.scaling}";
-      in
-        "${m.name},${if m.enabled then "${resolution},${position},${scaling}" else "disable"}"
-      ) (config.monitors)
-      ++ [
-        ", preferred, auto, 1"
-      ];
+          (lib.optionals config.services.playerctld.enable [
+            # Media control
+            ",XF86AudioNext,exec,${playerctl} next"
+            ",XF86AudioPrev,exec,${playerctl} previous"
+            ",XF86AudioPlay,exec,${playerctl} play-pause"
+            ",XF86AudioStop,exec,${playerctl} stop"
+          ])
+        ++
 
-      workspace = lib.lists.flatten (map (m: 
-        map (w: 
-          "${toString w},monitor:${m.name},default:true")
-        m.workspaces)
-      (lib.filter (m: m.enabled && m.workspaces != null) config.monitors));
+          # Screen lock
+          (lib.optionals config.programs.swaylock.enable [ "CTRL ALT,l,exec,${swaylock}" ])
+        ++
 
+          # Notification manager
+          (lib.optionals config.services.mako.enable [ "ALT,w,exec,${makoctl} dismiss" ])
+        ++
+
+          # Launcher
+          (lib.optionals config.programs.bemenu.enable [
+            "ALT,SPACE,exec,${bemenu-run}"
+            "ALT,p,exec,paper-menu"
+            "ALT SHIFT,p,exec,${rofi-rbw}"
+            "ALT SHIFT,q,exec,shutdown-menu"
+          ]);
+
+      binde =
+        let
+          light = "${pkgs.light}/bin/light";
+          wpctl = "${pkgs.wireplumber}/bin/wpctl";
+        in
+        [
+          ",XF86MonBrightnessUp,exec,${light} -A 5"
+          ",XF86MonBrightnessDown,exec,${light} -U 5"
+
+          ",XF86AudioRaiseVolume,exec,${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+          ",XF86AudioLowerVolume,exec,${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+          ",XF86AudioMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          "SHIFT,XF86AudioMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          ",XF86AudioMicMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ];
+
+      bindl =
+        let
+          hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
+
+          m = builtins.head config.monitors;
+        in
+        if m != [ ] && m.name == "eDP-1" && m.enabled then
+          let
+            res = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+            position = "${toString m.x}x${toString m.y}";
+            command = "${hyprctl} keyword monitor";
+            scaling = "${toString m.scaling}";
+          in
+          [
+            ",switch:off:Lid Switch,exec,${command} '${m.name},${res},${position},${scaling}'"
+            ",switch:on:Lid Switch,exec,${command} '${m.name}, disable'"
+          ]
+        else
+          [ ];
+
+      monitor =
+        map (
+          m:
+          let
+            resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+            position = "${toString m.x}x${toString m.y}";
+            scaling = "${toString m.scaling}";
+          in
+          "${m.name},${if m.enabled then "${resolution},${position},${scaling}" else "disable"}"
+        ) (config.monitors)
+        ++ [ ", preferred, auto, 1" ];
+
+      workspace = lib.lists.flatten (
+        map (m: map (w: "${toString w},monitor:${m.name},default:true") m.workspaces) (
+          lib.filter (m: m.enabled && m.workspaces != null) config.monitors
+        )
+      );
     };
 
     extraConfig = ''

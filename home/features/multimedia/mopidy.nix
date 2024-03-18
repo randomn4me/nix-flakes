@@ -1,5 +1,8 @@
-{ pkgs, config, ... }: {
-  home = { packages = with pkgs; [ mpc-cli ]; };
+{ pkgs, config, ... }:
+{
+  home = {
+    packages = with pkgs; [ mpc-cli ];
+  };
 
   services = {
     mopidy = {
@@ -20,7 +23,6 @@
             "${config.home.homeDirectory}/usr/hoerbuecher|audiobooks"
           ];
         };
-
       };
     };
   };

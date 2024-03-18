@@ -1,42 +1,59 @@
 { pkgs, lib, ... }:
 let
-  myScriptBuilder = name: myDeps:
+  myScriptBuilder =
+    name: myDeps:
     let
       myName = builtins.toString name;
       myBuildInputs = [ pkgs.coreutils ] ++ myDeps;
-      myScript = (pkgs.writeScriptBin myName
-        (builtins.readFile ./shell/${myName}.sh)).overrideAttrs (old: {
-          buildCommand = ''
-            ${old.buildCommand}
-             patchShebangs $out'';
-        });
-    in pkgs.symlinkJoin {
+      myScript =
+        (pkgs.writeScriptBin myName (builtins.readFile ./shell/${myName}.sh)).overrideAttrs
+          (old: {
+            buildCommand = ''
+              ${old.buildCommand}
+               patchShebangs $out'';
+          });
+    in
+    pkgs.symlinkJoin {
       name = myName;
       paths = [ myScript ] ++ myBuildInputs;
       buildInputs = [ pkgs.makeWrapper ];
       postBuild = "wrapProgram $out/bin/${myName} --prefix PATH : $out/bin";
     };
-in {
+in
+{
   home.packages = lib.mapAttrsToList (name: deps: (myScriptBuilder name deps)) {
     # shell
     bat = with pkgs; [ gnugrep ];
-    bone = with pkgs; [ libnotify xorg.xkbcomp xdg-utils ];
+    bone = with pkgs; [
+      libnotify
+      xorg.xkbcomp
+      xdg-utils
+    ];
     bt = with pkgs; [ bluez ];
     checkwriting = with pkgs; [ perl ];
     intro = with pkgs; [ taskwarrior ];
     mkv-to-av1 = with pkgs; [ ffmpeg ];
     mvc = [ ];
-    paper-menu = with pkgs; [ fd xdg-utils ];
+    paper-menu = with pkgs; [
+      fd
+      xdg-utils
+    ];
     pdffirstpage = with pkgs; [ poppler_utils ];
     pdf-compress = with pkgs; [ ghostscript ];
     presents = with pkgs; [ neovim ];
     radio = with pkgs; [ mpv ];
     rfc = with pkgs; [ curl ];
     sanitize-filename = [ ];
-    scan = with pkgs; [ sane-backends imagemagick ];
+    scan = with pkgs; [
+      sane-backends
+      imagemagick
+    ];
     shutdown-menu = with pkgs; [ systemd ];
     syscat = with pkgs; [ gnugrep ];
-    tmx = with pkgs; [ fzf tmux ];
+    tmx = with pkgs; [
+      fzf
+      tmux
+    ];
     vol = with pkgs; [ wireplumber ];
     vpn = with pkgs; [ openconnect ];
     weather = with pkgs; [ curl ];

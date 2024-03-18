@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [ rofi-rbw ];
 
   xdg.configFile."rofi-rbw.rc".text = ''

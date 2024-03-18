@@ -8,9 +8,9 @@
       inconsolata-nerdfont
       vistafonts
       noto-fonts-color-emoji
-  
+
       (pkgs.google-fonts.override { fonts = [ "ShareTechMono" ]; })
-  
+
       (pkgs.nerdfonts.override { fonts = [ "ShareTechMono" ]; })
     ];
 
@@ -19,7 +19,10 @@
       defaultFonts = {
         serif = [ "Fira Sans" ];
         sansSerif = [ "Fira Sans" ];
-        monospace = [ "Inconsolata Nerd Font Mono" "Noto Color Emoji" ];
+        monospace = [
+          "Inconsolata Nerd Font Mono"
+          "Noto Color Emoji"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
     };

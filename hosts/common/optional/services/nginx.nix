@@ -4,5 +4,8 @@
     recommendedGzipSettings = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }

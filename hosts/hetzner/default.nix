@@ -24,7 +24,7 @@
     #  daemon.enable = true;
     #  updater.enable = true;
     #};
-  
+
     openssh = {
       enable = true;
       settings = {

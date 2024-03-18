@@ -6,8 +6,8 @@
     ./sops.nix
   ];
 
-  nixpkgs.config.allowUnfree = true; 
-  console.keyMap = "de"; 
+  nixpkgs.config.allowUnfree = true;
+  console.keyMap = "de";
   boot.plymouth = {
     enable = true;
   };
