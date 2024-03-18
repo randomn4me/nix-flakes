@@ -51,6 +51,7 @@
     comma
 
     darktable
+    calibre
     xournalpp
 
     signal-desktop
