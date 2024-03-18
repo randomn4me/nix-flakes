@@ -10,7 +10,7 @@
 
     ./features/ssh/private.nix
 
-    ./features/nvim
+    ./features/nixvim
     ./features/backup
   ];
 
