@@ -67,6 +67,7 @@
           playerctl = "${config.services.playerctld.package}/bin/playerctl";
           makoctl = "${config.services.mako.package}/bin/makoctl";
           bemenu-run = "${config.programs.bemenu.package}/bin/bemenu-run";
+          wofi = "${config.programs.wofi.package}/bin/wofi --show drun";
 
           grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
 
@@ -100,7 +101,7 @@
 
           # Launcher
           (lib.optionals config.programs.bemenu.enable [
-            "ALT,SPACE,exec,${bemenu-run}"
+            "ALT,SPACE,exec,${wofi}"
             "ALT,p,exec,paper-menu"
             "ALT SHIFT,p,exec,${rofi-rbw}"
             "ALT SHIFT,q,exec,shutdown-menu"

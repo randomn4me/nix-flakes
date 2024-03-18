@@ -28,23 +28,23 @@ in
           margin: 2px;
           border: 2px solid;
           border-radius: 8px;
-          border-color: #${colors.base09};
-          background-color: #${colors.base02};
+          border-color: #FFFFFF;
+          background-color: #000000;
       }
 
       #input {
           border: 0px;
-          color: #${colors.base09};
+          color: #FFFFFF;
       }
 
       #entry {
           border-radius: 5px;
-          color: #${colors.base05};
+          color: #FFFFFF;
       }
 
 
       #entry:selected {
-          background-color: #${colors.base09};
+          background-color: #${colors.base0F};
           color: #${colors.base01};
       }
 
