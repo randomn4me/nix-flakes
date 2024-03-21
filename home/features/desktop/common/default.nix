@@ -15,7 +15,5 @@
     ./zathura.nix
   ];
 
-  home.packages = with pkgs; [
-    flatpak
-  ];
+  home.packages = with pkgs; [ flatpak ];
 }

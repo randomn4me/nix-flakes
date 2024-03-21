@@ -2,7 +2,8 @@
 {
   home.packages = [ pkgs.libreoffice ];
 
-  mimeApps.defaultApplications = {
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "libreoffice.desktop";
+  xdg.mimeApps.defaultApplications = {
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
+    "application/vnd.oasis.opendocument.text" = "writer.desktop";
   };
 }
