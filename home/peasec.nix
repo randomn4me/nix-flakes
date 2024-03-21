@@ -44,7 +44,6 @@
 
   home.packages = with pkgs; [
     texlive.combined.scheme-full
-    libreoffice
     hunspellDicts.de_DE
     hunspellDicts.en_US
 

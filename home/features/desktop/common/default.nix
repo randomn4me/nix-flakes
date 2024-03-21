@@ -8,6 +8,7 @@
     ./gimp.nix
     ./imv.nix
     ./ktouch.nix
+    ./libreoffice.nix
     ./mpv.nix
     ./playerctl.nix
     ./qt.nix
@@ -16,6 +17,5 @@
 
   home.packages = with pkgs; [
     flatpak
-    libreoffice
   ];
 }
