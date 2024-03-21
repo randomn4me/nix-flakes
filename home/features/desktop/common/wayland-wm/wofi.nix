@@ -13,14 +13,14 @@ in
       lines = 8;
       matching = "fuzzy";
       insensitive = true;
-      location = "center";
+      location = "top_right";
       prompt = "Search..";
     };
 
     style = ''
       * {
           font: Share Tech Mono;
-          font-size: 18px;
+          font-size: 14px;
       }
 
       #window,
@@ -28,24 +28,24 @@ in
           margin: 2px;
           border: 2px solid;
           border-radius: 8px;
-          border-color: #FFFFFF;
-          background-color: #000000;
+          border-color: #B1252E;
+          background-color: #010101;
       }
 
       #input {
           border: 0px;
-          color: #FFFFFF;
+          color: #${colors.base05};
       }
 
       #entry {
           border-radius: 5px;
-          color: #FFFFFF;
+          color: #${colors.base05};
       }
 
 
       #entry:selected {
-          background-color: #${colors.base0F};
-          color: #${colors.base01};
+          color: #B1252E;
+          background-color: #010101;
       }
 
       #inner-box {

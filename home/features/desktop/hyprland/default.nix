@@ -100,7 +100,7 @@
         ++
 
           # Launcher
-          (lib.optionals config.programs.bemenu.enable [
+          (lib.optionals config.programs.wofi.enable [
             "ALT,SPACE,exec,${wofi}"
             "ALT,p,exec,paper-menu"
             "ALT SHIFT,p,exec,${rofi-rbw}"

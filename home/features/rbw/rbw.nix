@@ -5,7 +5,7 @@
     settings = {
       email = "p.services@audacis.net";
       base_url = "https://vault.audacis.net";
-      pinentry = pkgs.pinentry-bemenu;
+      pinentry = pkgs.pinentry-qt;
     };
   };
 }

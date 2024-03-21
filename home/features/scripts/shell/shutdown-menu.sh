@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-res=$(printf "logout\nreboot\nsuspend\nshutdown" | "$RUNNER")
+res=$(printf "logout\nreboot\nsuspend\nshutdown" | $RUNNER)
 
 case "$res" in
     "logout")   loginctl terminate-user "$USER" ;;
