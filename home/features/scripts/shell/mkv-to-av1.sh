@@ -4,10 +4,17 @@ usager() {
     echo "Usage: $(basename $0) <file>"
 }
 
-test ! -f $1 && usage
-test ! -d av1 && mkdir av1
+file="$1"
 
-extension="${1##*.}"
-filename="${1%.*}"
+if [ ! -f "$file" ]; then
+    usage
+fi
 
-ffmpeg -i $1 -c:v libsvtav1 -preset 6 -crf 27 av1/$filename-av1.$extension
+if [ ! -d av1 ]; then
+    mkdir av1
+fi
+
+extension="${file##*.}"
+filename="${file%.*}"
+
+ffmpeg -i "$file" -c:v libsvtav1 -preset 6 -crf 27 av1/$filename-av1.$extension
