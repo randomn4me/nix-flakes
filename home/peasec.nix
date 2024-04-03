@@ -52,6 +52,7 @@
     darktable
     calibre
     xournalpp
+    makemkv
 
     signal-desktop
 

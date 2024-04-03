@@ -5,7 +5,7 @@ in
 {
   services.mako = {
     enable = true;
-    anchor = "top-right";
+    anchor = "bottom-right";
     defaultTimeout = 8000;
     layer = "overlay";
 

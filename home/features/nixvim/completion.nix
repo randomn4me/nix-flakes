@@ -1,6 +1,6 @@
 {
   programs.nixvim = {
-    options.completeopt = [
+    opts.completeopt = [
       "menu"
       "menuone"
       "noselect"
