@@ -48,11 +48,14 @@
     hunspellDicts.en_US
 
     comma
+    ddcutil
 
     darktable
     calibre
     xournalpp
+
     makemkv
+    mkvtoolnix
 
     signal-desktop
 
