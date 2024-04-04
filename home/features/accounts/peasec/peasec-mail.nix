@@ -69,6 +69,8 @@ in
           }; # https://kdecherf.com/blog/2017/05/01/mbsync-and-office-365/
         };
 
+        msmtp.enable = true;
+
         #thunderbird = {
         #  enable = true;
         #  profiles = [ config.home.username ];
