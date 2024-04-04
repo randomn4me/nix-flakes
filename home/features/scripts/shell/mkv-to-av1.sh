@@ -17,4 +17,4 @@ fi
 extension="${file##*.}"
 filename="${file%.*}"
 
-nice -n 19 ffmpeg -i "$file" -c:v libsvtav1 -preset 6 -crf 27 av1/$filename-av1.$extension
+nice -n 19 ffmpeg -i "$file" -c:v libsvtav1 -preset 6 -crf 31 av1/$filename-av1.$extension
