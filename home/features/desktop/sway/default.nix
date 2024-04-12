@@ -3,7 +3,7 @@
     ../common
     ../common/wayland-wm
 
-    ./tty-init.nix
+    #./tty-init.nix
     #/basic-binds.nix
     #./windowrule.nix
     #./systemd-fixes.nix
