@@ -7,7 +7,4 @@
 
   nixpkgs.config.allowUnfree = true;
   console.keyMap = "de";
-  boot.plymouth = {
-    enable = true;
-  };
 }
