@@ -48,17 +48,17 @@
       colors =
         let
           setBorder = borderColor: {
-            background = "#222222";
+            background = "#000000";
             border = "${borderColor}";
-            childBorder = "#222222";
-            indicator = "#292d2e";
+            childBorder = "${borderColor}";
+            indicator = "#${config.colorscheme.colors.base0E}";
             text = "#888888";
           };
         in
         {
-          focused = setBorder "#${config.colorscheme.colors.base09}";
-          unfocused = setBorder "#${config.colorscheme.colors.base03}";
-          urgent = setBorder "#B1252E";
+          focused = setBorder  "#${config.colorscheme.colors.base09}";
+          unfocused = setBorder  "#${config.colorscheme.colors.base03}";
+          urgent = setBorder  "#B1252E";
         };
 
       defaultWorkspace = "workspace number 1";
