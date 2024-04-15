@@ -14,7 +14,7 @@ let
   #chayang = "${pkgs.chayang}/bin/chayang";
 
   isLocked = "${pgrep} -x ${swaylock}";
-  lockTime = 5 * 60;
+  lockTime = 2 * 60;
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
   afterLockTimeout =
@@ -50,20 +50,20 @@ in
       # Mute mic
       (afterLockTimeout {
         timeout = 10;
-        command = "${wpctl} set-source-mute @DEFAULT_SOURCE@ yes";
-        resumeCommand = "${wpctl} set-source-mute @DEFAULT_SOURCE@ no";
+        command = "${wpctl} set-mute @DEFAULT_SOURCE@ 1";
+        resumeCommand = "${wpctl} set-mute @DEFAULT_SOURCE@ 0";
       })
       ++
         # Turn off displays (hyprland)
         (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-          timeout = 60;
+          timeout = 30;
           command = "${hyprctl} dispatch dpms off";
           resumeCommand = "${hyprctl} dispatch dpms on";
         }))
       ++
         # Turn off displays (sway)
         (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
-          timeout = 60;
+          timeout = 30;
           command = "${swaymsg} 'output * dpms off'";
           resumeCommand = "${swaymsg} 'output * dpms on'";
         }));
