@@ -11,7 +11,7 @@
     ../common
     ../common/wayland-wm
 
-    ./tty-init.nix
+    #./tty-init.nix
     ./basic-binds.nix
     ./windowrule.nix
     #./systemd-fixes.nix
@@ -24,7 +24,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    #package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     systemd.enable = true;
 
@@ -66,7 +66,6 @@
           swaylock = "${config.programs.swaylock.package}/bin/swaylock";
           playerctl = "${config.services.playerctld.package}/bin/playerctl";
           makoctl = "${config.services.mako.package}/bin/makoctl";
-          bemenu-run = "${config.programs.bemenu.package}/bin/bemenu-run";
           wofi = "${config.programs.wofi.package}/bin/wofi --show drun";
 
           grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
@@ -170,7 +169,7 @@
         binde=,j,resizeactive,0 20
         binde=,k,resizeactive,0 -20
         binde=,l,resizeactive,20 0
-        bind=,escape,submap,reset 
+        bind=,escape,submap,reset
       submap=reset
     '';
   };

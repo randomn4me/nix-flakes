@@ -37,7 +37,10 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     binfmt.emulatedSystems = [ "aarch64-linux" ];
-    kernelModules = [ "sg" "i2c-dev" ]; # for makemkv and monitor control
+    kernelModules = [
+      "sg"
+      "i2c-dev"
+    ]; # for makemkv and monitor control
 
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;

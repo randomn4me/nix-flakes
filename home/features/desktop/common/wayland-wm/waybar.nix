@@ -56,11 +56,9 @@ in
 {
   programs.waybar = {
     enable = true;
-    #package = inputs.waybar.packages.${pkgs.system}.waybar;
 
     systemd = {
       enable = true;
-      target = "hyprland-session.target";
     };
 
     settings = {
@@ -71,13 +69,15 @@ in
 
         modules-left = [
           "tray"
-          "hyprland/workspaces"
+          #"hyprland/workspaces"
+          "sway/workspaces"
         ];
 
         modules-center = [ "custom/player" ];
 
         modules-right = [
-          "hyprland/language"
+          #"hyprland/language"
+          "sway/language"
           "custom/task"
           "custom/mail"
           "custom/appointments"
@@ -86,7 +86,8 @@ in
           "clock"
         ];
 
-        "hyprland/workspaces" = {
+        #"hyprland/workspaces" = {
+        "sway/workspaces" = {
           all-outputs = true;
           sort-by = "id";
           format = "{name}";
@@ -125,7 +126,8 @@ in
           };
         };
 
-        "hyprland/language" = {
+        #"hyprland/language" = {
+        "sway/language" = {
           format = "󰌌 {short} {variant}";
           #on-click = "${hyprctl} ${switchxkblayout}";
         };
