@@ -11,6 +11,7 @@
     ../common/wayland-wm
 
     ./tty-init.nix
+    ./basic-binds.nix
     ./windowrules.nix
   ];
 
@@ -31,6 +32,8 @@
         border = 1;
         titlebar = false;
       };
+
+      output.eDP-1.scale = "1.333333";
 
       bars = [ ];
 
@@ -56,9 +59,9 @@
           };
         in
         {
-          focused = setBorder  "#${config.colorscheme.colors.base09}";
-          unfocused = setBorder  "#${config.colorscheme.colors.base03}";
-          urgent = setBorder  "#B1252E";
+          focused = setBorder "#${config.colorscheme.colors.base09}";
+          unfocused = setBorder "#${config.colorscheme.colors.base03}";
+          urgent = setBorder "#B1252E";
         };
 
       defaultWorkspace = "workspace number 1";
@@ -74,7 +77,7 @@
           swaylock = "${config.programs.swaylock.package}/bin/swaylock";
           rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
         in
-        lib.mkOptionDefault {
+        {
           "${modifier}+Shift+s" = "exec ${grimblast} --notify --freeze copy area";
 
           "${modifier}+Tab" = "workspace back_and_forth";
@@ -92,7 +95,6 @@
           "XF86MonBrightnessUp" = "exec ${light} -A 4";
           "XF86MonBrightnessDown" = "exec ${light} -U 4";
 
-          "${modifier}+q" = "kill";
           "${modifier}+w" = "${makoctl} dismiss";
 
           "${modifier}+space" = "exec --no-startup-id wofi --show drun";
