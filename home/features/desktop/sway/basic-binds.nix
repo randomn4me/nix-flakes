@@ -27,7 +27,7 @@
     }
     // lib.genAttrs (map (n: "${modifier}+${n}") workspaces) (n: "workspace number ${remove_mod n}")
     // lib.genAttrs (map (n: "${modifier}+Shift+${n}") workspaces) (
-      n: "move container to workspace number ${remove_mod n}"
+      n: "move container to workspace number ${builtins.replaceStrings [ "${modifier}+Shift+" ] [ "" ] n}"
     )
     // lib.genAttrs (map (k: "${modifier}+${k}") keys) (k: "focus ${directions.${remove_mod k}}")
     // lib.genAttrs (map (k: "${modifier}+Shift+${k}") keys) (
