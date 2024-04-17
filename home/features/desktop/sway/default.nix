@@ -23,8 +23,9 @@
     config = rec {
       modifier = "Mod1";
 
-      input = {
-        "*".xkb_layout = "de";
+      input."*" = {
+        xkb_layout = "de";
+        natural_scroll = "enabled";
       };
 
       window = {
