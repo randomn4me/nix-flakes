@@ -10,7 +10,7 @@ let
   pgrep = "${pkgs.procps}/bin/pgrep";
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
   hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
-  swaymsg = "${config.wayland.windowManager.sway.package}/bin/swayctl";
+  swaymsg = "${config.wayland.windowManager.sway.package}/bin/swaymsg";
   #chayang = "${pkgs.chayang}/bin/chayang";
 
   isLocked = "${pgrep} -x ${swaylock}";
