@@ -1,19 +1,18 @@
 { config, lib, ... }:
-let
-  workspaces = (map toString (lib.range 1 9));
-  # Map keys to hyprland directions
-  directions = {
-    h = "left";
-    l = "right";
-    k = "up";
-    j = "down";
-  };
-  keys = builtins.attrNames directions;
-in
 {
   wayland.windowManager.sway.config.keybindings =
     let
+      workspaces = (map toString (lib.range 1 9));
+      # Map keys to sway directions
+      directions = {
+        h = "left";
+        l = "right";
+        k = "up";
+        j = "down";
+      };
+      keys = builtins.attrNames directions;
       inherit (config.wayland.windowManager.sway.config) modifier;
+      remove_mod = str: builtins.replaceStrings [ "${modifier}+" ] [ "" ] str;
     in
     {
       "${modifier}+q" = "kill";
@@ -26,16 +25,12 @@ in
 
       "${modifier}+r" = "mode resize";
     }
-    //
-
-      # workspaces
-      lib.genAttrs (map (n: "${modifier}+${n}" workspaces) (n: "workspace number ${n}"))
-    // lib.genAttrs (
-      map (n: "${modifier}+Shift+${n}" workspaces) (n: "move container to workspace number ${n}")
+    // lib.genAttrs (map (n: "${modifier}+${n}") workspaces) (n: "workspace number ${remove_mod n}")
+    // lib.genAttrs (map (n: "${modifier}+Shift+${n}") workspaces) (
+      n: "move container to workspace number ${remove_mod n}"
     )
-    //
-
-      # directions
-      lib.genAttrs (map (k: "${modifier}+${k}" keys) (k: "focus ${directions.${k}}"))
-    // lib.genAttrs (map (k: "${modifier}+Shift+${k}" keys) (k: "move ${directions.${k}}"));
+    // lib.genAttrs (map (k: "${modifier}+${k}") keys) (k: "focus ${directions.${remove_mod k}}")
+    // lib.genAttrs (map (k: "${modifier}+Shift+${k}") keys) (
+      k: "move ${directions.${builtins.replaceStrings [ "${modifier}+Shift+" ] [ "" ] k}}"
+    );
 }

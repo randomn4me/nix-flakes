@@ -33,7 +33,7 @@
         titlebar = false;
       };
 
-      output.eDP-1.scale = "1.333333";
+      output.eDP-1.scale = "1.5";
 
       bars = [ ];
 
@@ -78,6 +78,7 @@
           rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
         in
         {
+          "${modifier}+Return" = "exec ${config.wayland.windowManager.sway.config.terminal}";
           "${modifier}+Shift+s" = "exec ${grimblast} --notify --freeze copy area";
 
           "${modifier}+Tab" = "workspace back_and_forth";
