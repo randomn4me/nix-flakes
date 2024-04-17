@@ -20,7 +20,7 @@
 
     colorschemes.tokyonight = {
       enable = true;
-      style = "night";
+      settings.style = "night";
     };
 
     # Highlight and remove extra white spaces
