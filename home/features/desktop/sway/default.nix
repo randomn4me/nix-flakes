@@ -23,9 +23,9 @@
     config = rec {
       modifier = "Mod1";
 
-      input."*" = {
-        xkb_layout = "de";
-        natural_scroll = "enabled";
+      input = {
+        "*".xkb_layout = "de";
+        "2:7:SynPS/2_Synaptics_TouchPad".natural_scroll = "enabled";
       };
 
       window = {
