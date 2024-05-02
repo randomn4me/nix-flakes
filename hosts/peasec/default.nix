@@ -63,7 +63,6 @@
 
     udisks2.enable = true;
     dbus.implementation = "broker";
-    gnome.gnome-keyring.enable = true;
   };
 
   programs = {

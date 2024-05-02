@@ -8,7 +8,7 @@
       ];
       warn-dirty = false;
 
-      trusted-substituters = [
+      substituters = [
         "https://hyprland.cachix.org"
         "https://devenv.cachix.org"
       ];

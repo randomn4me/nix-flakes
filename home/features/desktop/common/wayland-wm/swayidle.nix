@@ -14,7 +14,7 @@ let
   #chayang = "${pkgs.chayang}/bin/chayang";
 
   isLocked = "${pgrep} -x ${swaylock}";
-  lockTime = 2 * 60;
+  lockTime = 1 * 60;
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
   afterLockTimeout =
@@ -43,7 +43,7 @@ in
       [
         {
           timeout = lockTime;
-          command = "${swaylock} -i ${config.wallpaper} --daemonize --grace 15";
+          command = "${swaylock} -i ${config.wallpaper} --daemonize";
         }
       ]
       ++
@@ -56,14 +56,14 @@ in
       ++
         # Turn off displays (hyprland)
         (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-          timeout = 30;
+          timeout = 180;
           command = "${hyprctl} dispatch dpms off";
           resumeCommand = "${hyprctl} dispatch dpms on";
         }))
       ++
         # Turn off displays (sway)
         (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
-          timeout = 30;
+          timeout = 180;
           command = "${swaymsg} 'output * dpms off'";
           resumeCommand = "${swaymsg} 'output * dpms on'";
         }));

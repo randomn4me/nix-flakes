@@ -24,8 +24,14 @@
       modifier = "Mod1";
 
       input = {
-        "*".xkb_layout = "de";
-        "2:7:SynPS/2_Synaptics_TouchPad".natural_scroll = "enabled";
+        "type:keyboard" = {
+          xkb_capslock = "disabled";
+          xkb_layout = "de";
+        };
+        "type:touchpad" = {
+          natural_scroll = "enabled";
+          tap = "enabled";
+        };
       };
 
       window = {
@@ -76,6 +82,7 @@
           light = "${pkgs.light}/bin/light";
           swaylock = "${config.programs.swaylock.package}/bin/swaylock";
           rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
+          wofi-emoji = "${pkgs.wofi-emoji}/bin/wofi-emoji";
         in
         {
           "${modifier}+Return" = "exec ${config.wayland.windowManager.sway.config.terminal}";
@@ -102,6 +109,7 @@
           "${modifier}+Shift+q" = "exec --no-startup-id shutdown-menu";
           "${modifier}+p" = "exec paper-menu";
           "${modifier}+SHIFT+p" = "exec ${rofi-rbw}";
+          "${modifier}+SHIFT+o" = "exec ${wofi-emoji} -t";
 
           "${modifier}+Ctrl+l" = "exec --no-startup-id ${swaylock}";
         };
