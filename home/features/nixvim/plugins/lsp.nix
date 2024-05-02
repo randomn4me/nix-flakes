@@ -1,6 +1,7 @@
+{ lib, ... }:
 {
   programs.nixvim.plugins.lsp = {
-    enable = true;
+    enable = lib.mkDefault true;
 
     servers = {
       nil_ls.enable = true;

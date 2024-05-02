@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -10,6 +11,7 @@
     ../common/optional/services/taskserver.nix
     ../common/optional/services/vaultwarden.nix
     ../common/optional/services/hedgedoc.nix
+    #../common/optional/services/grafana.nix
     #../common/optional/services/gitea.nix
   ];
 
@@ -21,17 +23,14 @@
   };
 
   services = {
-    #clamav = {
-    #  daemon.enable = true;
-    #  updater.enable = true;
-    #};
-
     openssh = {
       enable = true;
       settings = {
         PermitRootLogin = "no";
       };
     };
+
+    journald.extraConfig = "SystemMaxUse=100M";
   };
 
   # hetzner specific network settings

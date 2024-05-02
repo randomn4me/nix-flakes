@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  lib,
-  ...
-}:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./global
@@ -16,10 +11,12 @@
 
   systemd.user.startServices = "sd-switch";
 
-  home.packages = with pkgs; [
-    comma
-    gnumake
-  ];
+  programs.nixvim.plugins = {
+    lsp.enable = false;
+    luasnip.enable = false;
+    lspkind.enable = false;
+    cmp.enable = false;
+  };
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 }
