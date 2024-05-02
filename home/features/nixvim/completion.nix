@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   programs.nixvim = {
     opts.completeopt = [
@@ -7,10 +8,10 @@
     ];
 
     plugins = {
-      luasnip.enable = true;
+      luasnip.enable = lib.mkDefault true;
 
       lspkind = {
-        enable = true;
+        enable = lib.mkDefault true;
 
         cmp = {
           enable = true;
@@ -25,7 +26,7 @@
       };
 
       cmp = {
-        enable = true;
+        enable = lib.mkDefault true;
 
         settings = {
           snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
