@@ -1,8 +1,6 @@
 { config, ... }:
 {
-  imports = [
-    ./postgres.nix
-  ];
+  imports = [ ./postgres.nix ];
 
   services.mastodon = {
     enable = true;
