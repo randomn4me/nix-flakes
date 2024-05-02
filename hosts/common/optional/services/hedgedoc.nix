@@ -1,8 +1,9 @@
-{config, ...}:
+{ config, pkgs, ... }:
 let
   port = 3333;
   domain = "md.audacis.net";
-in {
+in
+{
   imports = [
     ./nginx.nix
     ./acme.nix
@@ -19,19 +20,22 @@ in {
       '';
     };
     locations."/" = {
-      proxyPass = "http://localhost:${port}";
+      proxyPass = "http://localhost:${builtins.toString port}";
       proxyWebsockets = true;
       extraConfig = "proxy_ssl_server_name on;";
     };
   };
 
+  environment.systemPackages = with pkgs; [ hedgedoc ];
+
   services.hedgedoc = {
     enable = true;
     settings = {
+      allowEmailRegistration = false;
       db = {
         username = "hedgedoc";
         database = "hedgedoc";
-        host = "localhost:5432";
+        host = "/run/postgresql";
         dialect = "postgresql";
       };
       domain = domain;
@@ -41,15 +45,17 @@ in {
     };
   };
 
-  services.postgresql = let
-    hgdc = config.services.hedgedoc;
-  in {
-    ensureDatabases = [ hgdc.settings.db.database ];
-    ensureUsers = [
-      {
-        name = hgdc.settings.db.username;
-        ensurePermissions."DATABASE ${hgdc.settings.db.database}" = "ALL PRIVILEGES";
-      }
-    ];
-  };
+  services.postgresql =
+    let
+      hedgedoc_db_settings = config.services.hedgedoc.settings.db;
+    in
+    {
+      ensureDatabases = [ hedgedoc_db_settings.database ];
+      ensureUsers = [
+        {
+          name = hedgedoc_db_settings.username;
+          ensureDBOwnership = true;
+        }
+      ];
+    };
 }
