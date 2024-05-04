@@ -73,6 +73,7 @@ in
         modules-right = [
           #"hyprland/language"
           "sway/language"
+          "disk"
           "custom/task"
           "custom/mail"
           "custom/appointments"
@@ -86,6 +87,10 @@ in
           all-outputs = true;
           sort-by = "id";
           format = "{name}";
+        };
+
+        disk = {
+          format = "  󰋊 {percentage_free}% ";
         };
 
         clock = {
@@ -123,7 +128,7 @@ in
 
         #"hyprland/language" = {
         "sway/language" = {
-          format = "󰌌 {short} {variant}";
+          format = "󰌌 {short} {variant} ";
           #on-click = "${hyprctl} ${switchxkblayout}";
         };
 
@@ -238,13 +243,13 @@ in
             pre = ''
               filter='-a peasec -a audacis-philipp'
 
-              next_time=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${sed} '/^$/d' | ${head} -n 1)
+              next_appointment=$(${khal} list $filter now 1d --format "{start-time}: {title}" --day-format "" --notstarted | ${sed} '/^$/d' | ${head} -n 1)
               upcoming=$(${khal} list now eod --format "{start-time}" --day-format "" --notstarted)
               today_tooltip=$(${khal} list today eod --format '{start} {title}' --day-format '<b>{name}, {date}</b>')
               tomorrow_tooltip=$(${khal} list tomorrow eod --format '{start} {title}' --day-format '<b>{name}, {date}</b>')
               tooltip=$(${printf} "$today_tooltip\n\n$tomorrow_tooltip")
 
-              if [ -z $next_time ]; then text="None"; else text=$next_time; fi
+              if [ -z $next_appointment ]; then text="None"; else text="$next_appointment" ; fi
             '';
 
             text = "󰃭 $text";

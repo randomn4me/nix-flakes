@@ -39,6 +39,8 @@
         titlebar = false;
       };
 
+      gaps.smartBorders = "on";
+
       output.eDP-1.scale = "1.5";
 
       bars = [ ];
@@ -108,8 +110,8 @@
           "${modifier}+space" = "exec --no-startup-id wofi --show drun";
           "${modifier}+Shift+q" = "exec --no-startup-id shutdown-menu";
           "${modifier}+p" = "exec paper-menu";
+          "${modifier}+o" = "exec ${wofi-emoji} -t";
           "${modifier}+SHIFT+p" = "exec ${rofi-rbw}";
-          "${modifier}+SHIFT+o" = "exec ${wofi-emoji} -t";
 
           "${modifier}+Ctrl+l" = "exec --no-startup-id ${swaylock}";
         };
