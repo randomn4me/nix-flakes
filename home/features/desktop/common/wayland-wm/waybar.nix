@@ -72,8 +72,6 @@ in
 
         modules-right = [
           #"hyprland/language"
-          "sway/language"
-          "disk"
           "custom/task"
           "custom/mail"
           "custom/appointments"
@@ -87,10 +85,6 @@ in
           all-outputs = true;
           sort-by = "id";
           format = "{name}";
-        };
-
-        disk = {
-          format = "  󰋊 {percentage_free}% ";
         };
 
         clock = {
@@ -243,7 +237,7 @@ in
             pre = ''
               filter='-a peasec -a audacis-philipp'
 
-              next_appointment=$(${khal} list $filter now 1d --format "{start-time}: {title}" --day-format "" --notstarted | ${sed} '/^$/d' | ${head} -n 1)
+              next_appointment=$(${khal} list $filter now 1d --format "{start-time}" --day-format "" --notstarted | ${sed} '/^$/d' | ${head} -n 1)
               upcoming=$(${khal} list now eod --format "{start-time}" --day-format "" --notstarted)
               today_tooltip=$(${khal} list today eod --format '{start} {title}' --day-format '<b>{name}, {date}</b>')
               tomorrow_tooltip=$(${khal} list tomorrow eod --format '{start} {title}' --day-format '<b>{name}, {date}</b>')
