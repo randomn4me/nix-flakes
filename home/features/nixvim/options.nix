@@ -13,6 +13,9 @@
     expandtab = true;
     autoindent = true;
 
+    wrap = true;
+    linebreak = true;
+
     swapfile = false;
     backup = false;
     undofile = true;
