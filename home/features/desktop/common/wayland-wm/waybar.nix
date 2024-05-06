@@ -152,13 +152,11 @@ in
             "Stopped" = "󰓛";
           };
           on-click-left = "${playerctl} play-pause";
-          on-click-right = "${terminal} --app-id sptlrx ${sptlrx}";
         };
 
         mpd = {
           interval = 1;
           format = "{artist} - {title}";
-          on-click = "${terminal} --app-id sptlrx ${sptlrx}";
           format-stopped = "";
           format-disconnected = "";
         };
