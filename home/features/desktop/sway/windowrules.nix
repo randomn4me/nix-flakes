@@ -1,18 +1,18 @@
 {
   wayland.windowManager.sway.config.assigns = {
-    "2" = [ { class = "firefox"; } ];
+    "2" = [ { app_id = "firefox"; } ];
 
     "3" = [
-      { class = "zotero"; }
+      { class = "Zotero"; }
       { class = "obsidian"; }
-      { class = "libreoffice"; }
+      { app_id = "libreoffice"; }
     ];
 
     "4" = [ { class = "Signal"; } ];
 
     "6" = [
-      { class = "mpv"; }
-      { class = "zoom"; }
+      { app_id = "mpv"; }
+      { app_id = "zoom"; }
     ];
   };
 }
