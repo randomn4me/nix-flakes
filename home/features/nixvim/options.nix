@@ -21,7 +21,7 @@
     undofile = true;
     undodir = "${config.home.homeDirectory}/.vim/undo";
 
-    hlsearch = false;
+    hlsearch = true;
     incsearch = true;
     ignorecase = true;
     smartcase = true;
