@@ -7,6 +7,7 @@
     ./telescope.nix
     ./todo-comments.nix
     ./treesitter.nix
+    ./undotree.nix
     ./vimtex.nix
   ];
 
