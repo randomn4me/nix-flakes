@@ -105,7 +105,7 @@
           "XF86MonBrightnessUp" = "exec ${light} -A 4";
           "XF86MonBrightnessDown" = "exec ${light} -U 4";
 
-          "${modifier}+w" = "${makoctl} dismiss";
+          "${modifier}+w" = "exec ${makoctl} dismiss";
 
           "${modifier}+space" = "exec --no-startup-id wofi --show drun";
           "${modifier}+Shift+q" = "exec --no-startup-id shutdown-menu";
