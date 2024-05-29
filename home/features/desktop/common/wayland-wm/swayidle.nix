@@ -14,7 +14,7 @@ let
   #chayang = "${pkgs.chayang}/bin/chayang";
 
   isLocked = "${pgrep} -x ${swaylock}";
-  lockTime = 2 * 60;
+  lockTime = 3 * 60;
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
   afterLockTimeout =
@@ -43,7 +43,7 @@ in
       [
         {
           timeout = lockTime;
-          command = "${swaylock} -i ${config.wallpaper} --daemonize";
+          command = "${swaylock} -i ${config.wallpaper} --daemonize --grace 30";
         }
       ]
       ++
