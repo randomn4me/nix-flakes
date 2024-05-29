@@ -22,8 +22,7 @@
     ../common/optional/powersaving.nix
 
     ../common/optional/docker.nix
-    # ../common/optional/virtualbox.nix
-    # ../common/optional/virt-manager.nix
+    ../common/optional/virtualization.nix
   ];
 
   networking.hostName = "peasec";
