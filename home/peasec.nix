@@ -8,7 +8,6 @@
   imports = [
     ./global
 
-    #./features/nvim
     ./features/nixvim
 
     ./features/ssh/private.nix
@@ -21,7 +20,6 @@
 
     #./features/desktop/hyprland
     ./features/desktop/sway
-    #./features/desktop/i3
     ./features/multimedia
     ./features/backup
     ./features/rbw
@@ -30,7 +28,6 @@
     ./features/desktop/common/zotero.nix
 
     ./features/cli/udiskie.nix
-    #./features/virtualization/virt-manager.nix
 
     inputs.nix-index-database.hmModules.nix-index
   ];
@@ -41,6 +38,7 @@
   systemd.user.startServices = "sd-switch";
 
   home.packages = with pkgs; [
+    # work
     texlive.combined.scheme-full
     hunspellDicts.de_DE
     hunspellDicts.en_US
@@ -48,14 +46,11 @@
     comma
     ddcutil
 
-    darktable
-    calibre
     xournalpp
 
-    makemkv
-    mkvtoolnix
-
-    signal-desktop
+    rclone
+    obsidian
+    zoom-us
 
     gnumake
     watchexec
@@ -63,11 +58,18 @@
 
     pandoc
     ffmpeg
-    anki-bin
-    gparted
 
-    tesseract
     nextcloud-client
+
+    # home
+    darktable
+    calibre
+    tesseract
+    anki-bin
+    signal-desktop
+    makemkv
+    mkvtoolnix
+    yt-dlp
   ];
 
   monitors = [

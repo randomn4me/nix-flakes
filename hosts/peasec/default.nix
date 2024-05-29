@@ -41,8 +41,6 @@
   };
 
   services = {
-    flatpak.enable = true;
-
     printing = {
       enable = true;
       drivers = with pkgs; [
