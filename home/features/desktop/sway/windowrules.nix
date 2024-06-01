@@ -14,5 +14,7 @@
       { app_id = "mpv"; }
       { app_id = "zoom"; }
     ];
+
+    "8" = [ { app_id = "virt-manager"; } ];
   };
 }
