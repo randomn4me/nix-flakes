@@ -10,8 +10,6 @@
       "<leader>fd" = "diagnostics";
     };
 
-    keymapsSilent = true;
-
     settings.defaults = {
       file_ignore_patterns = [
         "^.git/"

@@ -4,7 +4,7 @@
     enable = lib.mkDefault true;
 
     servers = {
-      nil_ls.enable = true;
+      nil-ls.enable = true;
       ltex.enable = true;
       lua-ls.enable = true;
       pylsp.enable = true;
