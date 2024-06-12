@@ -5,9 +5,14 @@
 
     servers = {
       nil-ls.enable = true;
-      ltex.enable = true;
+      ltex = {
+        enable = true;
+        filetypes = [ "tex" ];
+      };
       lua-ls.enable = true;
       pylsp.enable = true;
+      ruff.enable = true;
+      ruff-lsp.enable = true;
       rust-analyzer = {
         enable = true;
         installCargo = true;
