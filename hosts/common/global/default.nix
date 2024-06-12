@@ -5,6 +5,10 @@
     ./pkgs.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowAliases = false;
+    allowUnfree = true;
+  };
+
   console.keyMap = "de";
 }
