@@ -13,5 +13,6 @@
     ./playerctl.nix
     ./qt.nix
     ./zathura.nix
+    ./signal.nix
   ];
 }

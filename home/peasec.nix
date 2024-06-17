@@ -66,7 +66,6 @@
     calibre
     tesseract
     anki-bin
-    signal-desktop
     makemkv
     mkvtoolnix
     yt-dlp
