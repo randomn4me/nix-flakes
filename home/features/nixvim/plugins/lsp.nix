@@ -7,7 +7,14 @@
       nil-ls.enable = true;
       ltex = {
         enable = true;
-        filetypes = [ "tex" ];
+        filetypes = [
+          "latex"
+          "tex"
+          "bib"
+          "markdown"
+          "gitcommit"
+          "text"
+        ];
       };
       lua-ls.enable = true;
       pylsp.enable = true;
