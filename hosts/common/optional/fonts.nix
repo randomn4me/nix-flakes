@@ -2,6 +2,7 @@
 {
   fonts = {
     packages = with pkgs; [
+      corefonts
       fira
       roboto
       roboto-serif
