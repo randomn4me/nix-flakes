@@ -46,6 +46,8 @@ else
             attach_start_session obsidian -c "$HOME/usr/docs/obsidian" nvim ;;
         mat*|iamb)
             attach_start_session matrix iamb ;;
+        sig*)
+            attach_start_session signal scli ;;
         mus*)
             attach_start_session music ncmpcpp ;;
     esac
