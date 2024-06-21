@@ -275,10 +275,7 @@ in
           in
           "<pipe-message> ${urlscan}<enter>";
         key = "b";
-        map = [
-          "index"
-          "pager"
-        ];
+        map = [ "pager" ];
       }
     ];
 
