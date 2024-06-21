@@ -11,7 +11,6 @@
     };
 
     nix-colors.url = "github:misterio77/nix-colors";
-    waybar.url = "github:Alexays/Waybar";
 
     hyprland = {
       url = "github:hyprwm/hyprland";
