@@ -14,7 +14,7 @@
     ./windowrules.nix
   ];
 
-  home.packages = [ inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast ];
+  home.packages = with pkgs; [ sway-contrib.grimshot ];
 
   wayland.windowManager.sway = {
     enable = true;
@@ -76,7 +76,7 @@
 
       keybindings =
         let
-          grimblast = "${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
+          grimshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot";
           wpctl = "${pkgs.wireplumber}/bin/wpctl";
           makoctl = "${config.services.mako.package}/bin/makoctl";
           playerctl = "${config.services.playerctld.package}/bin/playerctl";
@@ -88,7 +88,7 @@
         in
         {
           "${modifier}+Return" = "exec ${config.wayland.windowManager.sway.config.terminal}";
-          "${modifier}+Shift+s" = "exec ${grimblast} --notify --freeze copy area";
+          "${modifier}+Shift+s" = "exec ${grimshot} --notify copy area";
 
           "${modifier}+Tab" = "workspace back_and_forth";
 
