@@ -49,7 +49,7 @@ let
     };
 in
 {
-  imports = [ ../mbsync.nix ];
+  imports = [ ../mbsync.nix ../signature-strings.nix ];
 
   accounts.email = {
     maildirBasePath = "${home}/var/mail";
