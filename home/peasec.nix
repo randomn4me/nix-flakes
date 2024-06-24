@@ -50,7 +50,6 @@
 
     rclone
     obsidian
-    zoom-us
 
     gnumake
     watchexec
