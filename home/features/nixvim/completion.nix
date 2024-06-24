@@ -9,6 +9,7 @@
 
     plugins = {
       luasnip.enable = lib.mkDefault true;
+      which-key.enable = true;
 
       lspkind = {
         enable = lib.mkDefault true;

@@ -17,6 +17,10 @@
     lualine.enable = true;
     lsp-format.enable = true;
     neogen.enable = true;
+    none-ls = {
+      enable = true;
+      enableLspFormat = true;
+    };
     notify.enable = true;
     trouble.enable = true;
     nvim-colorizer.enable = true;

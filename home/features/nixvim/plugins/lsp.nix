@@ -4,7 +4,10 @@
     enable = lib.mkDefault true;
 
     servers = {
-      nil-ls.enable = true;
+      nil-ls = {
+        enable = true;
+        settings.formatting.command = [ "nixfmt-rfc-style" ];
+      };
       ltex = {
         enable = true;
         filetypes = [
