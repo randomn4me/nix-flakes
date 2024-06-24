@@ -215,7 +215,7 @@ in
     macros = [
       {
         action = "<enter-command>source ~/.config/neomutt/audacis<enter><change-folder>!<enter>";
-        key = "<f2>";
+        key = "2";
         map = [
           "index"
           "pager"
@@ -223,7 +223,7 @@ in
       }
       {
         action = "<enter-command>source ~/.config/neomutt/personalvorstand<enter><change-folder>!<enter>";
-        key = "<f3>";
+        key = "3";
         map = [
           "index"
           "pager"
@@ -231,7 +231,7 @@ in
       }
       {
         action = "<enter-command>source ~/.config/neomutt/peasec<enter><change-folder>!<enter>";
-        key = "<f4>";
+        key = "4";
         map = [
           "index"
           "pager"
@@ -239,7 +239,7 @@ in
       }
       {
         action = "<enter-command>source ~/.config/neomutt/sink<enter><change-folder>!<enter>";
-        key = "<f5>";
+        key = "5";
         map = [
           "index"
           "pager"
