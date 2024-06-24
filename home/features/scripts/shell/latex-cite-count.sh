@@ -50,5 +50,5 @@ if __name__ == '__main__':
         sys.exit()
 
     counter = collections.Counter(citation_keys)
-    for key, value in counter.items():
+    for key, value in sorted(counter.items(), key=lambda item: item[1]):
         print(f'{key},{value}')
