@@ -73,10 +73,7 @@
     config.common.default = "*";
   };
 
-  hardware.graphics = {
-    enable = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
 
   system.stateVersion = "24.05";
 }
