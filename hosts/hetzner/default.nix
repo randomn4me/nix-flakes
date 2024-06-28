@@ -22,6 +22,8 @@
     devices = [ "/dev/sda" ];
   };
 
+  nix.gc.dates = "daily";
+
   services = {
     openssh = {
       enable = true;
