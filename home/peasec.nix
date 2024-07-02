@@ -9,6 +9,7 @@
     ./global
 
     ./features/nixvim
+    ./features/cli/helix.nix
 
     ./features/ssh/private.nix
     ./features/ssh/peasec.nix
