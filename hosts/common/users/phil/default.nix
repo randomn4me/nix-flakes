@@ -28,6 +28,7 @@ in
       ];
 
     packages = [ pkgs.home-manager ];
+    linger = true;
   };
 
   home-manager = {
