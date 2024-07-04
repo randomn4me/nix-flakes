@@ -23,6 +23,7 @@
 
     ../common/optional/docker.nix
     ../common/optional/virtualization.nix
+    ../common/optional/ddcutils.nix
   ];
 
   networking.hostName = "peasec";
@@ -32,8 +33,7 @@
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     kernelModules = [
       "sg"
-      "i2c-dev"
-    ]; # for makemkv and monitor control
+    ]; # for makemkv
 
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;

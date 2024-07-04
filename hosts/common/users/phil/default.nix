@@ -24,6 +24,7 @@ in
         "audio"
         "vboxusers"
         "adbusers"
+        "i2c"
       ];
 
     packages = [ pkgs.home-manager ];

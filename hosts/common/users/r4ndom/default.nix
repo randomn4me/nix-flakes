@@ -22,6 +22,7 @@ in
         "libvirtd"
         "video"
         "audio"
+        "i2c"
       ];
 
     packages = [ pkgs.home-manager ];
