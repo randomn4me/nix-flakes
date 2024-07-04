@@ -13,6 +13,10 @@
         identityFile = "~/.ssh/github";
       };
 
+      "codeberg.org" = {
+        identityFile = "~/.ssh/codeberg";
+      };
+
       pi = {
         hostname = "192.168.178.3";
         user = "r4ndom";
