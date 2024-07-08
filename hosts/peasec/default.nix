@@ -31,9 +31,7 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     binfmt.emulatedSystems = [ "aarch64-linux" ];
-    kernelModules = [
-      "sg"
-    ]; # for makemkv
+    kernelModules = [ "sg" ]; # for makemkv
 
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
