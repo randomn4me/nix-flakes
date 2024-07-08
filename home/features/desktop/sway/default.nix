@@ -1,9 +1,4 @@
-{
-  pkgs,
-  config,
-  inputs,
-  ...
-}:
+{ pkgs, config, ... }:
 {
   imports = [
     ../common
@@ -55,22 +50,6 @@
           always = true;
         }
       ];
-
-      colors =
-        let
-          setBorder = borderColor: {
-            background = "#000000";
-            border = "${borderColor}";
-            childBorder = "${borderColor}";
-            indicator = "#${config.colorscheme.colors.base0E}";
-            text = "#888888";
-          };
-        in
-        {
-          focused = setBorder "#${config.colorscheme.colors.base09}";
-          unfocused = setBorder "#${config.colorscheme.colors.base03}";
-          urgent = setBorder "#B1252E";
-        };
 
       defaultWorkspace = "workspace number 1";
 
