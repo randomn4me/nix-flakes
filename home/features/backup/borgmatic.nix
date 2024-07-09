@@ -71,10 +71,10 @@ in
               name = "archives";
               frequency = "6 weeks";
             }
-            {
-              name = "data";
-              frequency = "12 weeks";
-            }
+            #{
+            #  name = "data";
+            #  frequency = "12 weeks";
+            #}
             {
               name = "extract";
               frequency = "12 weeks";
