@@ -8,9 +8,6 @@
   imports = [
     ./global
 
-    #./features/nixvim
-    #./features/cli/helix.nix
-
     ./features/ssh/private.nix
     ./features/ssh/peasec.nix
 
@@ -19,7 +16,6 @@
 
     ./features/productivity
 
-    #./features/desktop/hyprland
     ./features/desktop/sway
     ./features/multimedia
     ./features/backup
@@ -34,7 +30,6 @@
   ];
 
   editor.nvim.enable = true;
-  editor.nvim.enablePlugins = true;
 
   accounts.email.accounts.peasec.primary = true;
   accounts.calendar.accounts.peasec.primary = true;

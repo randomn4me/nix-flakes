@@ -8,8 +8,6 @@
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.hardware.nixosModules.common-pc-laptop-acpi_call
 
-    inputs.stylix.nixosModules.stylix
-
     ./hardware-configuration.nix
 
     ../common/global
@@ -26,7 +24,6 @@
     ../common/optional/docker.nix
     ../common/optional/virtualization.nix
     ../common/optional/ddcutils.nix
-    ../common/optional/stylix.nix
   ];
 
   networking.hostName = "peasec";

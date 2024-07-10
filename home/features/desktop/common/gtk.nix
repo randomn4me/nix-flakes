@@ -9,8 +9,7 @@
   };
 
   home.packages = with pkgs; [
-    #gtk2
-    gtk3 # For gtk-launch
+    gtk3
     gtk4
   ];
 }

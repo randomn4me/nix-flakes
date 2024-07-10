@@ -2,6 +2,7 @@
   pkgs,
   outputs,
   lib,
+  inputs,
   ...
 }:
 with lib;
@@ -10,7 +11,9 @@ let
   cfg = config.appearance.stylix;
 in
 {
-  options.appearance.stylix = mkEnableOption "Enable stylix";
+  imports = [ inputs.stylix.nixosModules.stylix ];
+
+  options.appearance.stylix.enable = mkEnableOption "Enable stylix";
 
   config = mkIf cfg.enable {
     stylix = {
