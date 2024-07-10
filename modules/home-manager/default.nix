@@ -4,4 +4,8 @@
 {
   monitors = import ./monitors.nix;
   wallpaper = import ./wallpaper.nix;
+
+  editor = import ./editor;
+  appearance = import ./appearance;
+  #desktop = import ./desktop;
 }
