@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  inherit (config.colorscheme) colors;
+in
 {
   programs.swaylock = {
     enable = true;
@@ -21,6 +24,24 @@
       indicator-caps-lock = true;
       indicator-radius = 40;
       indicator-idle-visible = false;
+
+      layout-text-color = "#${colors.base05}";
+
+      ring-color = "#${colors.base05}";
+      key-hl-color = "#FFFFFF";
+
+      ring-ver-color = "#${colors.base04}";
+      text-ver-color = "#000000";
+      inside-ver-color = "#${colors.base04}";
+
+      inside-clear-color = "#000000";
+      ring-clear-color = "#B1252E";
+
+      inside-wrong-color = "#${colors.base05}";
+      ring-wrong-color = "#B1252E";
+      text-wrong-color = "#000000";
+
+      text-color = "#${colors.base05}";
     };
   };
 }

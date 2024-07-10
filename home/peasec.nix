@@ -84,7 +84,6 @@
       primary = true;
     }
   ];
-  stylix.targets.nixvim.enable = false;
 
   #wallpaper = outputs.wallpapers.hollow-knight-abyss;
   #wallpaper = outputs.wallpapers.aenami-bright-planet;
