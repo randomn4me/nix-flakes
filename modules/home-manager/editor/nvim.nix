@@ -15,7 +15,11 @@ in
 
   options.editor.nvim = {
     enable = mkEnableOption "Enable nvim";
-    enablePlugins = mkEnableOption "Enable feature plugins";
+    enablePlugins = mkOption {
+      description = "Enable feature plugins";
+      type = types.bool;
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -259,18 +263,18 @@ in
           };
         };
 
-        gitsigns.enable = true;
+        gitsigns.enable = mkIf cfg.enablePlugins true;
         leap.enable = true;
         lualine.enable = true;
-        lsp-format.enable = true;
+        lsp-format.enable = mkIf cfg.enablePlugins true;
         neogen.enable = true;
         none-ls = {
-          enable = true;
+          enable = mkIf cfg.enablePlugins true;
           enableLspFormat = true;
         };
-        notify.enable = true;
-        trouble.enable = true;
-        nvim-colorizer.enable = true;
+        notify.enable = mkIf cfg.enablePlugins true;
+        trouble.enable = mkIf cfg.enablePlugins true;
+        nvim-colorizer.enable = mkIf cfg.enablePlugins true;
 
       };
     };
