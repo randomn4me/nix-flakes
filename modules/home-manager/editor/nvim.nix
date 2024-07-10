@@ -36,7 +36,6 @@ in
         settings.style = "night";
       };
 
-      # Highlight and remove extra white spaces
       highlight.ExtraWhitespace.bg = "red";
       match.ExtraWhitespace = "\\s\\+$";
 
@@ -275,7 +274,6 @@ in
         notify.enable = mkIf cfg.enablePlugins true;
         trouble.enable = mkIf cfg.enablePlugins true;
         nvim-colorizer.enable = mkIf cfg.enablePlugins true;
-
       };
     };
   };
