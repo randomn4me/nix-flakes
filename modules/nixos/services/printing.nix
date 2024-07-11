@@ -1,0 +1,40 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+with lib;
+let
+  cfg = config.printing;
+in
+{
+  options.printing = {
+    enable = mkEnableOption "Enable printing";
+    drivers = mkOption {
+      description = "Package list of printer drivers";
+      example = [
+        pkgs.cups-kyodialog
+        pkgs.mfcj6510dwlpr
+      ];
+      type = types.listOf types.pkgs;
+      default = [ ];
+    };
+  };
+
+  config = mkIf cfg.enable {
+    services = {
+      printing = {
+        enable = true;
+        drivers = cfg.drivers;
+      };
+
+      avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
+      };
+    };
+  };
+}

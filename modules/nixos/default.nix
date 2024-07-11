@@ -1,1 +1,4 @@
-{ appearance = ./appearance; }
+{
+  appearance = ./appearance;
+  services = ./services;
+}

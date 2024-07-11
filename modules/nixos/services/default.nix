@@ -1,1 +1,6 @@
-{ imports = [ ./audio.nix ]; }
+{
+  imports = [
+    ./audio.nix
+    ./printing.nix
+  ];
+}

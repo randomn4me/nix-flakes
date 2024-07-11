@@ -38,22 +38,16 @@
 
   audio.pipewire.enable = true;
 
+  printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups-kyodialog
+      mfcj6510dwlpr
+    ];
+  };
+
   services = {
-    printing = {
-      enable = true;
-      drivers = with pkgs; [
-        cups-kyodialog
-        mfcj6510dwlpr
-      ];
-    };
-
     fwupd.enable = true;
-
-    avahi = {
-      enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
-    };
 
     udisks2.enable = true;
     dbus.implementation = "broker";

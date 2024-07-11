@@ -211,7 +211,7 @@ in
               ];
             };
             lua-ls.enable = true;
-            pylsp.enable = true;
+            #pylsp.enable = true;
             ruff.enable = true;
             ruff-lsp.enable = true;
             rust-analyzer = {
@@ -262,15 +262,47 @@ in
           };
         };
 
+        obsidian =
+          let
+            vaultPath = "${config.home.homeDirectory}/usr/docs/obsidian";
+          in
+          mkIf cfg.enablePlugins {
+            enable = true;
+            settings = {
+              workspaces = [
+                {
+                  name = "obsidian";
+                  path = "${vaultPath}";
+                }
+              ];
+
+              dailyNotes = {
+                folder = "journal";
+                template = "templates/journaling";
+              };
+
+              noteIdFunc = # lua
+                ''
+                  function(title)
+                  return title
+                  end
+                '';
+
+              templates.subdir = "templates";
+              completion.newNotesLocation = "notes_subdir";
+            };
+          };
+
+        none-ls = {
+          enable = mkIf cfg.enablePlugins true;
+          enableLspFormat = true;
+        };
+
         gitsigns.enable = mkIf cfg.enablePlugins true;
         leap.enable = true;
         lualine.enable = true;
         lsp-format.enable = mkIf cfg.enablePlugins true;
         neogen.enable = true;
-        none-ls = {
-          enable = mkIf cfg.enablePlugins true;
-          enableLspFormat = true;
-        };
         notify.enable = mkIf cfg.enablePlugins true;
         trouble.enable = mkIf cfg.enablePlugins true;
         nvim-colorizer.enable = mkIf cfg.enablePlugins true;
