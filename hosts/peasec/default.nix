@@ -16,7 +16,6 @@
     ../common/optional/fonts.nix
     ../common/optional/wireless.nix
     ../common/optional/bluetooth.nix
-    ../common/optional/pipewire.nix
     ../common/optional/scanning.nix
 
     ../common/optional/powersaving.nix
@@ -36,6 +35,8 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
   };
+
+  audio.pipewire.enable = true;
 
   services = {
     printing = {
