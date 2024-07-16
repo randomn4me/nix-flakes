@@ -20,7 +20,13 @@ in
         "SK622 Mechanical Keyboard - White Edition"
         "Optical Mouse"
       ];
-      tlp.enable = true;
     };
+
+    environment.systemPackages = with pkgs; [ powertop ];
+
+    services.powerManagement.enable = true;
+    services.powerManagement.powertop.enable = true;
+
+    services.thermald.enable = true;
   };
 }
