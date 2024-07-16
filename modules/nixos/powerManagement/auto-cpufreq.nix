@@ -5,10 +5,10 @@ let
   cfg = config.mynixos.powerManagement.auto-cpufreq;
 in
 {
-  options.mynixos.powerManagement.auto-cpufreq = mkEnableOption "Enable auto-cpufreq";
+  options.mynixos.powerManagement.auto-cpufreq.enable = mkEnableOption "Enable auto-cpufreq";
 
   config = mkIf cfg.enable {
-    powerManagement = {
+    services = {
       auto-cpufreq.enable = true;
       auto-cpufreq.settings = {
         battery = {

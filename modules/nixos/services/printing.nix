@@ -18,7 +18,7 @@ in
         pkgs.cups-kyodialog
         pkgs.mfcj6510dwlpr
       ];
-      type = types.listOf types.pkgs;
+      type = types.listOf types.package;
       default = [ ];
     };
   };

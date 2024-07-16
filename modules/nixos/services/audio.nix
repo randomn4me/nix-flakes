@@ -1,10 +1,10 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.audio.pipewire;
+  cfg = config.audio;
 in
 {
-  options.audio.pipewire.enable = mkEnableOption "Enable pipewire with alsa und pulseaudio support";
+  options.audio.enable = mkEnableOption "Enable pipewire with alsa und pulseaudio support";
 
   config = mkIf cfg.enable {
     security.rtkit.enable = true;

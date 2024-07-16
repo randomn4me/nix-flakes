@@ -8,14 +8,14 @@
 with lib;
 
 let
-  cfg = config.editor.nvim;
+  cfg = config.custom.nvim;
 in
 {
   imports = [ inputs.nixvim.homeManagerModules.nixvim ];
 
-  options.editor.nvim = {
+  options.custom.nvim = {
     enable = mkEnableOption "Enable nvim";
-    enablePlugins = mkOption {
+    enableAllPlugins = mkOption {
       description = "Enable feature plugins";
       type = types.bool;
       default = true;
@@ -138,12 +138,12 @@ in
 
       plugins = {
         todo-comments = {
-          enable = mkIf cfg.enablePlugins true;
+          enable = mkIf cfg.enableAllPlugins true;
           keymaps.todoTelescope.key = "<leader>ft";
         };
 
         treesitter = {
-          enable = mkIf cfg.enablePlugins true;
+          enable = mkIf cfg.enableAllPlugins true;
           folding = true;
           settings = {
             languages.disable = [ "latex" ];
@@ -154,7 +154,7 @@ in
         };
 
         treesitter-refactor = {
-          enable = mkIf cfg.enablePlugins true;
+          enable = mkIf cfg.enableAllPlugins true;
           highlightDefinitions = {
             enable = true;
             clearOnCursorMove = false;
@@ -185,14 +185,14 @@ in
         fugitive.enable = true;
 
         cmp = {
-          enable = mkIf cfg.enablePlugins true;
+          enable = mkIf cfg.enableAllPlugins true;
           autoEnableSources = true;
         };
 
         undotree.enable = true;
 
         lsp = {
-          enable = mkIf cfg.enablePlugins true;
+          enable = mkIf cfg.enableAllPlugins true;
 
           servers = {
             nil-ls = {
@@ -266,7 +266,7 @@ in
           let
             vaultPath = "${config.home.homeDirectory}/usr/docs/obsidian";
           in
-          mkIf cfg.enablePlugins {
+          mkIf cfg.enableAllPlugins {
             enable = true;
             settings = {
               workspaces = [
@@ -294,18 +294,18 @@ in
           };
 
         none-ls = {
-          enable = mkIf cfg.enablePlugins true;
+          enable = mkIf cfg.enableAllPlugins true;
           enableLspFormat = true;
         };
 
-        gitsigns.enable = mkIf cfg.enablePlugins true;
+        gitsigns.enable = mkIf cfg.enableAllPlugins true;
         leap.enable = true;
         lualine.enable = true;
-        lsp-format.enable = mkIf cfg.enablePlugins true;
+        lsp-format.enable = mkIf cfg.enableAllPlugins true;
         neogen.enable = true;
-        notify.enable = mkIf cfg.enablePlugins true;
-        trouble.enable = mkIf cfg.enablePlugins true;
-        nvim-colorizer.enable = mkIf cfg.enablePlugins true;
+        notify.enable = mkIf cfg.enableAllPlugins true;
+        trouble.enable = mkIf cfg.enableAllPlugins true;
+        nvim-colorizer.enable = mkIf cfg.enableAllPlugins true;
       };
     };
   };

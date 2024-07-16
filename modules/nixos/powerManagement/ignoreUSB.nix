@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 with lib;
 
 let
@@ -24,54 +29,49 @@ let
     '';
 
   serviceName = "ignoreUSBInputDevices";
-  cfg = config.nixos.powerManagement;
+  cfg = config.mynixos.powerManagement;
 in
 {
-  options = nixos.powerManagement {
+  options.mynixos.powerManagement = {
     devices = mkOption {
       description = "USB devices to ignore";
       type = types.listOf types.str;
-      example = [
-        "SK622 Mechanical Keyboard - White Edition"
-        "Optical Mouse"
-      ];
     };
   };
 
   config = mkIf ((builtins.length cfg.devices) > 0) {
-      systemd.services.${serviceName} = {
-          description = "Ignore USB input devices for powertop autotune";
-          after = [ "powertop.service" ];
-          requires = [ "powertop.service" ];
-          serviceConfig = {
-              Type = "oneshot";
-              ExecStart = ignoreUSBInputDevicesScript [
-                  "SK622 Mechanical Keyboard - White Edition"
-                      "Optical Mouse"
-              ];
-              RemainAfterExit = true;
-          };
+    systemd.services.${serviceName} = {
+      description = "Ignore USB input devices for powertop autotune";
+      after = [ "powertop.service" ];
+      requires = [ "powertop.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = ignoreUSBInputDevicesScript [
+          "SK622 Mechanical Keyboard - White Edition"
+          "Optical Mouse"
+        ];
+        RemainAfterExit = true;
       };
+    };
 
-      services.udev = {
-          enable = true;
+    services.udev = {
+      enable = true;
 
-          extraRules = ''
-              ACTION=="add",\
-              SUBSYSTEM=="usb",\
-              ATTRS{idVendor}=="2516",\
-              ATTRS{idProduct}=="014b",\
-              TAG+="systemd",\
-              ENV{SYSTEMD_WANTS}+="${serviceName}.service"
+      extraRules = ''
+        ACTION=="add",\
+        SUBSYSTEM=="usb",\
+        ATTRS{idVendor}=="2516",\
+        ATTRS{idProduct}=="014b",\
+        TAG+="systemd",\
+        ENV{SYSTEMD_WANTS}+="${serviceName}.service"
 
-              ACTION=="add",\
-              SUBSYSTEM=="usb",\
-              ATTRS{idVendor}=="093a",\
-              ATTRS{idProduct}=="2510",\
-              TAG+="systemd",\
-              ENV{SYSTEMD_WANTS}+="${serviceName}.service"
-              '';
-      };
+        ACTION=="add",\
+        SUBSYSTEM=="usb",\
+        ATTRS{idVendor}=="093a",\
+        ATTRS{idProduct}=="2510",\
+        TAG+="systemd",\
+        ENV{SYSTEMD_WANTS}+="${serviceName}.service"
+      '';
+    };
   };
 }
-
