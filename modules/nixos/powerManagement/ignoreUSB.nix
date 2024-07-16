@@ -29,10 +29,10 @@ let
     '';
 
   serviceName = "ignoreUSBInputDevices";
-  cfg = config.mynixos.powerManagement;
+  cfg = config.custom.powerManagement;
 in
 {
-  options.mynixos.powerManagement = {
+  options.custom.powerManagement = {
     devices = mkOption {
       description = "USB devices to ignore";
       type = types.listOf types.str;

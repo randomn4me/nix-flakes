@@ -18,8 +18,6 @@
     ../common/optional/bluetooth.nix
     ../common/optional/scanning.nix
 
-    ../common/optional/powersaving.nix
-
     ../common/optional/docker.nix
     ../common/optional/virtualization.nix
     ../common/optional/ddcutils.nix
@@ -36,15 +34,15 @@
     loader.efi.canTouchEfiVariables = true;
   };
 
-  audio.pipewire.enable = true;
-
-  printing = {
+  custom.audio.enable = true;
+  custom.printing = {
     enable = true;
     drivers = with pkgs; [
       cups-kyodialog
       mfcj6510dwlpr
     ];
   };
+  custom.powerManagement.enable = true;
 
   services = {
     fwupd.enable = true;

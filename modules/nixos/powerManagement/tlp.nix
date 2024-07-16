@@ -2,10 +2,10 @@
 with lib;
 
 let
-  cfg = config.mynixos.powerManagement.tlp;
+  cfg = config.custom.powerManagement.tlp;
 in
 {
-  options.mynixos.powerManagement.tlp.enable = mkEnableOption "Enable tlp";
+  options.custom.powerManagement.tlp.enable = mkEnableOption "Enable tlp";
 
   config = mkIf cfg.enable {
     services.tlp = {

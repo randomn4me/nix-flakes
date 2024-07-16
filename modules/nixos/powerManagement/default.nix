@@ -2,7 +2,7 @@
 with lib;
 
 let
-  cfg = config.mynixos.powerManagement;
+  cfg = config.custom.powerManagement;
 in
 {
   imports = [
@@ -11,10 +11,10 @@ in
     ./ignoreUSB.nix
   ];
 
-  options.mynixos.powerManagement.enable = mkEnableOption "Enable powermanagement";
+  options.custom.powerManagement.enable = mkEnableOption "Enable powermanagement";
 
   config = mkIf cfg.enable {
-    mynixos.powerManagement = {
+    custom.powerManagement = {
       auto-cpufreq.enable = true;
       devices = [
         "SK622 Mechanical Keyboard - White Edition"

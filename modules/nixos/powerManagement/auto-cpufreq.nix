@@ -2,10 +2,10 @@
 with lib;
 
 let
-  cfg = config.mynixos.powerManagement.auto-cpufreq;
+  cfg = config.custom.powerManagement.auto-cpufreq;
 in
 {
-  options.mynixos.powerManagement.auto-cpufreq.enable = mkEnableOption "Enable auto-cpufreq";
+  options.custom.powerManagement.auto-cpufreq.enable = mkEnableOption "Enable auto-cpufreq";
 
   config = mkIf cfg.enable {
     services = {

@@ -7,10 +7,10 @@
 
 with lib;
 let
-  cfg = config.printing;
+  cfg = config.custom.printing;
 in
 {
-  options.printing = {
+  options.custom.printing = {
     enable = mkEnableOption "Enable printing";
     drivers = mkOption {
       description = "Package list of printer drivers";
