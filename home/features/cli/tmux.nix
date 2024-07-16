@@ -55,16 +55,5 @@
                 set -g @prefix_highlight_output_prefix "#[fg=#e0af68]#[bg=#${colors.base01}]#[fg=#${colors.base01}]#[bg=#e0af68]"
                 set -g @prefix_highlight_output_suffix ""
       '';
-
-    # plugins = with pkgs.tmuxPlugins; [
-    #   yank
-    #   {
-    #     plugin = maildir-counter;
-    #     extraConfig = ''
-    #       set -g @maildir_unread_counter 'yes'
-    #       set -g @maildir_counters '${home}/var/mail/audacis/Inbox/new|${home}/var/mail/personalvorstand//Inbox/new'
-    #     '';
-    #   }
-    # ];
   };
 }
