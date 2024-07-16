@@ -29,7 +29,7 @@
     inputs.nix-index-database.hmModules.nix-index
   ];
 
-  editor.nvim.enable = true;
+  custom.nvim.enable = true;
 
   accounts.email.accounts.peasec.primary = true;
   accounts.calendar.accounts.peasec.primary = true;
@@ -56,8 +56,6 @@
 
     pandoc
     ffmpeg
-
-    nextcloud-client
 
     # home
     darktable
