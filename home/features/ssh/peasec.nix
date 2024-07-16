@@ -9,7 +9,7 @@
       };
 
       lbc = {
-        hostname = "lcluster17.hrz.tu-darmstadt.de";
+        hostname = "lcluster19.hrz.tu-darmstadt.de";
         user = "ba01viny";
         identityFile = "~/.ssh/hochleistungsrechner";
       };
