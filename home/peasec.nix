@@ -80,9 +80,9 @@
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 
-  #wallpaper = outputs.wallpapers.hollow-knight-abyss;
+  wallpaper = outputs.wallpapers.hollow-knight-abyss;
   #wallpaper = outputs.wallpapers.aenami-bright-planet;
   #wallpaper = outputs.wallpapers.aenami-15steps;
-  wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;
+  #wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;
   #wallpaper = outputs.wallpapers.aenami-cold;
 }
