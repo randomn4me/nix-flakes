@@ -33,23 +33,21 @@ let
 in
 {
   options.custom.powerManagement = {
+    ignoreUsbEnable = mkEnableOption "Ignore certain usb devices";
     devices = mkOption {
       description = "USB devices to ignore";
       type = types.listOf types.str;
     };
   };
 
-  config = mkIf ((builtins.length cfg.devices) > 0) {
+  config = mkIf cfg.ignoreUsbEnable {
     systemd.services.${serviceName} = {
       description = "Ignore USB input devices for powertop autotune";
       after = [ "powertop.service" ];
       requires = [ "powertop.service" ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = ignoreUSBInputDevicesScript [
-          "SK622 Mechanical Keyboard - White Edition"
-          "Optical Mouse"
-        ];
+        ExecStart = ignoreUSBInputDevicesScript cfg.devices;
         RemainAfterExit = true;
       };
     };

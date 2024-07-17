@@ -45,6 +45,7 @@
 
   custom.powerManagement = {
     enable = true;
+    ignoreUsbEnable = true;
     devices = [
       "SK622 Mechanical Keyboard - White Edition"
       "Optical Mouse"
