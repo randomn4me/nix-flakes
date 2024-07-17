@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 
 let
@@ -16,16 +21,12 @@ in
   config = mkIf cfg.enable {
     custom.powerManagement = {
       auto-cpufreq.enable = true;
-      devices = [
-        "SK622 Mechanical Keyboard - White Edition"
-        "Optical Mouse"
-      ];
     };
 
     environment.systemPackages = with pkgs; [ powertop ];
 
-    services.powerManagement.enable = true;
-    services.powerManagement.powertop.enable = true;
+    powerManagement.enable = true;
+    powerManagement.powertop.enable = true;
 
     services.thermald.enable = true;
   };

@@ -42,7 +42,14 @@
       mfcj6510dwlpr
     ];
   };
-  custom.powerManagement.enable = true;
+
+  custom.powerManagement = {
+    enable = true;
+    devices = [
+      "SK622 Mechanical Keyboard - White Edition"
+      "Optical Mouse"
+    ];
+  };
 
   services = {
     fwupd.enable = true;
