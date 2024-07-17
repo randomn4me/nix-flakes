@@ -10,8 +10,7 @@
     ../common/optional/services/taskserver.nix
     ../common/optional/services/vaultwarden.nix
     ../common/optional/services/hedgedoc.nix
-    #../common/optional/services/grafana.nix
-    #../common/optional/services/gitea.nix
+    ../common/optional/services/forgejo.nix
   ];
 
   networking.hostName = "hetzner";
