@@ -21,6 +21,7 @@ in
   config = mkIf cfg.enable {
     custom.powerManagement = {
       auto-cpufreq.enable = true;
+      tlp.enable = true;
     };
 
     environment.systemPackages = with pkgs; [ powertop ];
