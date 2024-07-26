@@ -42,7 +42,6 @@ in
       opts = {
         updatetime = 100;
 
-        relativenumber = true;
         number = true;
         hidden = true;
 
@@ -161,6 +160,8 @@ in
           };
         };
 
+        which-key.enable = mkIf cfg.enableAllPlugins true;
+
         telescope = {
           enable = true;
 
@@ -211,7 +212,7 @@ in
               ];
             };
             lua-ls.enable = true;
-            #pylsp.enable = true;
+            pylsp.enable = true;
             ruff.enable = true;
             ruff-lsp.enable = true;
             rust-analyzer = {
