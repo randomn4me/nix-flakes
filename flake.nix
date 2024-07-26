@@ -81,6 +81,13 @@
           modules = [ ./hosts/peasec ];
         };
 
+        work-server = lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ ./hosts/work-server ];
+        };
+
         hetzner = lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs;
