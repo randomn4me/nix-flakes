@@ -27,6 +27,10 @@ in
 
     packages = [ pkgs.home-manager ];
     linger = true;
+
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEN/2C4ROHUhM1yFxK8vJOIvQh7LHs9nVP+NDceb5cex r4nodm@peasec"
+    ];
   };
 
   home-manager = {
