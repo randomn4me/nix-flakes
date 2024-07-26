@@ -11,7 +11,6 @@
     settings = {
       server = {
         DOMAIN = "git.audacis.net";
-        ROOT_URL = "https://${config.services.forgejo.settings.server.DOMAIN}";
         HTTP_PORT = 3000;
       };
 
@@ -24,14 +23,18 @@
     };
   };
 
-  services.nginx = {
-    virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
-      forceSSL = true;
-      enableACME = true;
-      extraConfig = ''
-        client_max_body_size 512M;
-      '';
-      locations."/".proxyPass = "http://localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}";
-    };
+  services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
+    forceSSL = true;
+    enableACME = true;
+    extraConfig = ''
+      client_max_body_size 512M;
+    '';
+
+    locations."/robots.txt".extraConfig = ''
+      rewrite ^/(.*)  $1;
+      return 200 "User-agent: *\nDisallow: /";
+    '';
+
+    locations."/".proxyPass = "http://localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}";
   };
 }
