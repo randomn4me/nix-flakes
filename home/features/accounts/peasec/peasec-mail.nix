@@ -7,6 +7,7 @@
 let
   cat = "${pkgs.coreutils}/bin/cat";
   home = config.home.homeDirectory;
+  msmtp_command = "msmtp";
 in
 {
   imports = [ ../mbsync.nix ];
@@ -85,7 +86,7 @@ in
             "Junk-E-Mail"
             "Gel&APY-schte Elemente"
           ];
-          sendMailCommand = "msmtpq -a peasec";
+          sendMailCommand = "${msmtp_command} -a peasec";
           extraConfig =
             let
               inherit (config.colorscheme) colors;

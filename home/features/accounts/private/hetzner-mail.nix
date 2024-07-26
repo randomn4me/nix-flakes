@@ -47,6 +47,7 @@ let
         profiles = [ config.home.username ];
       };
     };
+  msmtp_command = "msmtp";
 in
 {
   imports = [
@@ -87,7 +88,7 @@ in
             "spambucket"
             "Trash"
           ];
-          sendMailCommand = "msmtpq -a audacis";
+          sendMailCommand = "${msmtp_command} -a audacis";
           extraConfig =
             let
               inherit (config.colorscheme) colors;
@@ -157,7 +158,7 @@ in
             "spambucket"
             "Trash"
           ];
-          sendMailCommand = "msmtpq -a personalvorstand";
+          sendMailCommand = "${msmtp_command} -a personalvorstand";
           extraConfig =
             let
               inherit (config.colorscheme) colors;
@@ -194,7 +195,7 @@ in
             "spambucket"
             "Trash"
           ];
-          sendMailCommand = "msmtpq -a sink";
+          sendMailCommand = "${msmtp_command} -a sink";
           extraConfig =
             let
               inherit (config.colorscheme) colors;
@@ -207,10 +208,10 @@ in
               named-mailboxes " junk"     "+spambucket"
               named-mailboxes " trash"    "+Trash"
 
-              color indicator    #${colors.base0D}  black
-              color status       #${colors.base0D}  default
+              color indicator    #${colors.base0E}  black
+              color status       #${colors.base0E}  default
 
-              color sidebar_highlight  #${colors.base0D}  default
+              color sidebar_highlight  #${colors.base0E}  default
 
               macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
             '';
