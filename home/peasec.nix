@@ -42,29 +42,28 @@
     hunspellDicts.de_DE
     hunspellDicts.en_US
 
-    comma
-    ddcutil
-
     xournalpp
-
     rclone
-    obsidian
-
     gnumake
     watchexec
     openconnect
-
+    glab
     pandoc
     ffmpeg
 
     # home
+    ddcutil
+    comma
+    obsidian
     darktable
     calibre
     tesseract
+    ocrmypdf
     anki-bin
     makemkv
     mkvtoolnix
     yt-dlp
+    devenv
   ];
 
   monitors = [
