@@ -13,6 +13,11 @@
         identityFile = "~/.ssh/github";
       };
 
+      "git.audacis.net" = {
+        identityFile = "~/.ssh/forgejo-audacis";
+        user = "forgejo";
+      };
+
       "codeberg.org" = {
         identityFile = "~/.ssh/codeberg";
       };
