@@ -22,8 +22,6 @@
     ./features/rbw
     ./features/scripts
 
-    ./features/desktop/common/zotero.nix
-
     ./features/cli/udiskie.nix
 
     inputs.nix-index-database.hmModules.nix-index
@@ -50,6 +48,7 @@
     glab
     pandoc
     ffmpeg
+    zotero
 
     # home
     ddcutil
