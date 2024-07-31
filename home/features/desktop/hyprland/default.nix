@@ -24,7 +24,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
     systemd.enable = true;
 
@@ -32,10 +31,11 @@
       general = {
         gaps_in = 0;
         gaps_out = 0;
-        cursor_inactive_timeout = 2;
         "col.active_border" = "0xff${config.colorscheme.colors.base09}";
         "col.inactive_border" = "0xff${config.colorscheme.colors.base03}";
       };
+
+      cursor.inactive_timeout = 2;
 
       binds.allow_workspace_cycles = true;
 
