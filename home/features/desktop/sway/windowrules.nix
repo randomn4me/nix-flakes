@@ -12,7 +12,7 @@
 
     "6" = [
       { app_id = "mpv"; }
-      { app_id = "zoom"; }
+      { class = "zoom"; }
     ];
 
     "8" = [ { app_id = "virt-manager"; } ];
