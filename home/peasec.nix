@@ -63,6 +63,7 @@
     mkvtoolnix
     yt-dlp
     devenv
+    timewarrior
   ];
 
   monitors = [
