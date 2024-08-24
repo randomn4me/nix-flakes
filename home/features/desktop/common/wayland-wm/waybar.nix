@@ -8,7 +8,6 @@ let
 
   neomutt = "${config.programs.neomutt.package}/bin/neomutt";
   task = "${config.programs.taskwarrior.package}/bin/task";
-  sptlrx = "${pkgs.sptlrx}/bin/sptlrx";
 
   playerctl = "${config.services.playerctld.package}/bin/playerctl";
 
@@ -64,14 +63,12 @@ in
 
         modules-left = [
           "tray"
-          #"hyprland/workspaces"
           "sway/workspaces"
         ];
 
         modules-center = [ "custom/player" ];
 
         modules-right = [
-          #"hyprland/language"
           "custom/task"
           "custom/mail"
           "custom/appointments"
@@ -80,7 +77,6 @@ in
           "clock"
         ];
 
-        #"hyprland/workspaces" = {
         "sway/workspaces" = {
           all-outputs = true;
           sort-by = "id";
@@ -120,10 +116,8 @@ in
           };
         };
 
-        #"hyprland/language" = {
         "sway/language" = {
           format = "󰌌 {short} {variant} ";
-          #on-click = "${hyprctl} ${switchxkblayout}";
         };
 
         wireplumber = {
@@ -341,7 +335,6 @@ in
         }
 
         #tray,
-        #hyprland-language,
         #custom-task,
         #custom-mail,
         #custom-appointments,

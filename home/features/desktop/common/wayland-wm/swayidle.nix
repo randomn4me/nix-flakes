@@ -9,7 +9,6 @@ let
   swaylock = "${config.programs.swaylock.package}/bin/swaylock";
   pgrep = "${pkgs.procps}/bin/pgrep";
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
-  hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
   swaymsg = "${config.wayland.windowManager.sway.package}/bin/swaymsg";
   #chayang = "${pkgs.chayang}/bin/chayang";
 
@@ -53,13 +52,6 @@ in
         command = "${wpctl} set-mute @DEFAULT_SOURCE@ 1";
         resumeCommand = "${wpctl} set-mute @DEFAULT_SOURCE@ 0";
       })
-      ++
-        # Turn off displays (hyprland)
-        (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-          timeout = 180;
-          command = "${hyprctl} dispatch dpms off";
-          resumeCommand = "${hyprctl} dispatch dpms on";
-        }))
       ++
         # Turn off displays (sway)
         (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
