@@ -15,11 +15,9 @@ in
     ../features/cli
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicat = (_: true);
-    };
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnfreePredicat = (_: true);
   };
 
   nix = {
