@@ -31,7 +31,7 @@ in
     ];
     bt = with pkgs; [ bluez ];
     checkwriting = with pkgs; [ perl ];
-    intro = with pkgs; [ taskwarrior ];
+    intro = with pkgs; [ taskwarrior3 ];
     mkv-to-av1 = with pkgs; [ ffmpeg ];
     mvc = [ ];
     paper-menu = with pkgs; [
@@ -60,17 +60,5 @@ in
 
     # python
     latex-cite-count = with pkgs; [ python3 ];
-
-    # TODO
-    # check-acm-approved = with pkgs; [ (python3.withPackages(ps: with ps; [ requests ])) ];
-
-    # Comment from matrix:
-    # you cannot install two python interpreters into the same environment
-    # that's what creates that collision
-    # the alternative would be to wrap your scripts
-    # or package them using buildPythonApplication
-    # ideally you'd create  a minimal pyproject.toml in that 
-    # - https://setuptools.pypa.io/en/latest/userguide/quickstart.html
-    # - https://nixos.wiki/wiki/Python
   };
 }

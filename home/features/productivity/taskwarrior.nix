@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   home = config.home.homeDirectory;
@@ -8,6 +8,7 @@ in
   programs = {
     taskwarrior = {
       enable = true;
+      package = pkgs.taskwarrior3;
 
       dataLocation = "${home}/var/task";
       colorTheme = "solarized-dark-256";
@@ -59,23 +60,11 @@ in
             waiting.coefficient = -2;
           };
         };
-
-        taskd = {
-          certificate = "${home}/usr/docs/misc/task/r4ndom/public.cert";
-          key = "${home}/usr/docs/misc/task/r4ndom/private.key";
-          ca = "${home}/usr/docs/misc/task/r4ndom/ca.cert";
-          server = "audacis.net:53589";
-          credentials = "personal/r4ndom/3bc693fb-9fcf-4e20-858d-3785afed332a";
-        };
       };
     };
 
     bash.shellAliases = {
       "done-today" = "${task} completed end:today";
     };
-  };
-
-  services.taskwarrior-sync = {
-    enable = true;
   };
 }
