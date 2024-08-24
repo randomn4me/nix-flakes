@@ -136,6 +136,27 @@ in
       ];
 
       plugins = {
+        cloak = {
+          enable = mkIf cfg.enableAllPlugins true;
+          settings = {
+            cloak_character = "*";
+            enabled = true;
+            cloak_telescope = true;
+            cloak_on_leave = false;
+            patterns = {
+              patterns = {
+                file_pattern = [
+                  ".env*"
+                  "wrangler.toml"
+                  ".dev.vars"
+                ];
+                cloak_pattern = "=.+";
+                replace = nil;
+              };
+            };
+          };
+        };
+
         todo-comments = {
           enable = mkIf cfg.enableAllPlugins true;
           keymaps.todoTelescope.key = "<leader>ft";
@@ -214,7 +235,7 @@ in
             lua-ls.enable = true;
             pylsp.enable = true;
             ruff.enable = true;
-            ruff-lsp.enable = true;
+            #ruff-lsp.enable = true;
             rust-analyzer = {
               enable = true;
               installCargo = true;
