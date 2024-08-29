@@ -7,7 +7,6 @@
 
     ../common/optional/services/fail2ban.nix
     ../common/optional/services/mastodon.nix
-    ../common/optional/services/taskserver.nix
     ../common/optional/services/vaultwarden.nix
     ../common/optional/services/hedgedoc.nix
     ../common/optional/services/forgejo.nix
