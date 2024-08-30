@@ -44,8 +44,8 @@ else
             attach_start_session mail -e "TERM=screen-256color-bce" neomutt ;;
         obs*)
             attach_start_session obsidian -c "$HOME/usr/docs/obsidian" nvim ;;
-        mat*|iamb)
-            attach_start_session matrix iamb ;;
+        #mat*|iamb)
+        #    attach_start_session matrix iamb ;;
         sig*)
             attach_start_session signal scli ;;
         mus*)

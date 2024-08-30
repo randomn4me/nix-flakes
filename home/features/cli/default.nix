@@ -3,7 +3,7 @@
   imports = [
     ./bash.nix
     ./git.nix
-    ./iamb.nix
+    #./iamb.nix
     ./lyrics.nix
     ./tmux.nix
   ];
