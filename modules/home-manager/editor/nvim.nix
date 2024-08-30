@@ -143,17 +143,17 @@ in
             enabled = true;
             cloak_telescope = true;
             cloak_on_leave = false;
-            patterns = {
-              patterns = {
+            patterns = [
+              {
                 file_pattern = [
                   ".env*"
                   "wrangler.toml"
                   ".dev.vars"
                 ];
                 cloak_pattern = "=.+";
-                replace = nil;
-              };
-            };
+                replace = null;
+              }
+            ];
           };
         };
 
@@ -328,6 +328,7 @@ in
         notify.enable = mkIf cfg.enableAllPlugins true;
         trouble.enable = mkIf cfg.enableAllPlugins true;
         nvim-colorizer.enable = mkIf cfg.enableAllPlugins true;
+        refactoring.enable = mkIf cfg.enableAllPlugins true;
       };
     };
   };
