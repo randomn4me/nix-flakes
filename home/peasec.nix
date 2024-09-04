@@ -26,7 +26,6 @@
 
     inputs.nix-index-database.hmModules.nix-index
   ];
-
   custom.nvim.enable = true;
 
   accounts.email.accounts.peasec.primary = true;
@@ -34,37 +33,67 @@
 
   systemd.user.startServices = "sd-switch";
 
-  home.packages = with pkgs; [
-    # work
-    texlive.combined.scheme-full
-    hunspellDicts.de_DE
-    hunspellDicts.en_US
+  home.packages =
+    let
+      syncall = pkgs.syncall.overrideAttrs (prev: {
+        version = "1.8.8";
 
-    xournalpp
-    rclone
-    gnumake
-    watchexec
-    openconnect
-    glab
-    pandoc
-    ffmpeg
-    zotero
+        src = prev.src.override {
+          rev = "v1.8.8";
+          hash = "sha256-CTtk7NMmLZ9jZVI1+B/dFEJI2+JVVkV6vwtqmeFjBzk=";
+        };
 
-    # home
-    ddcutil
-    comma
-    obsidian
-    darktable
-    calibre
-    tesseract
-    ocrmypdf
-    anki-bin
-    makemkv
-    mkvtoolnix
-    yt-dlp
-    devenv
-    timewarrior
-  ];
+        postPatch = ''
+          substituteInPlace pyproject.toml \
+          --replace-fail 'loguru = "^0.5.3"' 'loguru = "^0.7"' \
+          --replace-fail 'PyYAML = "~5.3.1"' 'PyYAML = "^6.0"' \
+          --replace-fail 'bidict = "^0.21.4"' 'bidict = "^0.23"'
+        '';
+
+        propagatedBuildInputs = with pkgs.python3.pkgs; prev.propagatedBuildInputs ++ [
+          xdg
+          google-api-python-client
+          google-auth-oauthlib
+          setuptools
+        ];
+
+        meta = prev.meta // {
+          broken = false;
+        };
+      });
+    in
+    with pkgs;
+    [
+      # work
+      texlive.combined.scheme-full
+      hunspellDicts.de_DE
+      hunspellDicts.en_US
+
+      xournalpp
+      rclone
+      gnumake
+      watchexec
+      openconnect
+      glab
+      pandoc
+      ffmpeg
+      zotero
+      syncall
+
+      # home
+      ddcutil
+      comma
+      obsidian
+      darktable
+      calibre
+      tesseract
+      ocrmypdf
+      makemkv
+      mkvtoolnix
+      yt-dlp
+      devenv
+      timewarrior
+    ];
 
   monitors = [
     {
