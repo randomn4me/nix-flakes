@@ -6,10 +6,9 @@ in
 {
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock-effects;
+    package = pkgs.swaylock;
     settings = {
       effect-blur = "4x3";
-      fade-in = 1;
 
       image = config.wallpaper;
 
@@ -26,6 +25,8 @@ in
       indicator-idle-visible = false;
 
       layout-text-color = "#${colors.base05}";
+
+      color = "#${colors.base01}";
 
       ring-color = "#${colors.base05}";
       key-hl-color = "#FFFFFF";
