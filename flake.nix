@@ -12,6 +12,7 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
+    #niri.url = "https://github.com/sodiboo/niri-flake";
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -67,13 +68,6 @@
             inherit inputs outputs;
           };
           modules = [ ./hosts/peasec ];
-        };
-
-        work-server = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./hosts/work-server ];
         };
 
         hetzner = lib.nixosSystem {
