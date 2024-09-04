@@ -1,6 +1,9 @@
 {
   wayland.windowManager.sway.config.assigns = {
-    "2" = [ { app_id = "firefox"; } ];
+    "2" = [
+      { app_id = "firefox"; }
+      { class = "Google-chrome"; }
+    ];
 
     "3" = [
       { class = "Zotero"; }
