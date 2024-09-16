@@ -6,7 +6,7 @@ in
 {
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock;
+    package = pkgs.swaylock-effects;
     settings = {
       effect-blur = "4x3";
 
