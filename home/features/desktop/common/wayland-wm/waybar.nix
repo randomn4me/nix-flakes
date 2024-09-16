@@ -133,26 +133,15 @@ in
           };
         };
 
-        "custom/player" = {
-          interval = 2;
-          exec-if = "${playerctl} status 2>/dev/null";
-          exec = ''${playerctl} metadata --format '{"text": "{{artist}} - {{title}}", "alt": "{{status}}", "tooltip": "{{artist}} - {{title}} ({{album}})"}' '';
-          return-type = "json";
-          max-lenght = 50;
-          format = "{icon} {}";
-          format-icons = {
-            "Playing" = "󰐊";
-            "Paused" = "󰏤";
-            "Stopped" = "󰓛";
-          };
-          on-click-left = "${playerctl} play-pause";
-        };
-
         mpd = {
           interval = 1;
-          format = "{artist} - {title}";
+          format = "{stateIcon} {album} - {title}";
           format-stopped = "";
           format-disconnected = "";
+          state-icons = {
+            playing = "󰐊";
+            paused = "󰏤";
+          };
         };
 
         battery = {
