@@ -173,13 +173,13 @@ in
 
         };
 
-        treesitter-refactor = {
-          enable = mkIf cfg.enableAllPlugins true;
-          highlightDefinitions = {
-            enable = true;
-            clearOnCursorMove = false;
-          };
-        };
+        # treesitter-refactor = {
+        #   enable = mkIf cfg.enableAllPlugins true;
+        #   highlightDefinitions = {
+        #     enable = true;
+        #     clearOnCursorMove = false;
+        #   };
+        # };
 
         which-key.enable = mkIf cfg.enableAllPlugins true;
 
@@ -211,6 +211,8 @@ in
           autoEnableSources = true;
         };
 
+        cmp-nvim-lsp.enable = mkIf cfg.enableAllPlugins true;
+
         undotree.enable = true;
 
         lsp = {
@@ -235,7 +237,7 @@ in
             lua-ls.enable = true;
             pylsp.enable = true;
             ruff.enable = true;
-            #ruff-lsp.enable = true;
+            ruff-lsp.enable = true;
             rust-analyzer = {
               enable = true;
               installCargo = true;
