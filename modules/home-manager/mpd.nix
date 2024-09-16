@@ -2,6 +2,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }:
 
@@ -27,6 +28,8 @@ in
 
       services.mpd-mpris.enable = true;
 
+      home.packages = [ pkgs.mpc-cli ];
+
       programs = {
         ncmpcpp = {
           enable = true;
@@ -36,7 +39,6 @@ in
 
             mpd_host = mpd-config.network.listenAddress;
             mpd_port = mpd-config.network.port;
-            mpd_music_dir = mpd-config.musicDirectory;
 
             visualizer_data_source = "localhost:5555";
             visualizer_output_name = "my_fifo";

@@ -5,6 +5,7 @@
   monitors = import ./monitors.nix;
   wallpaper = import ./wallpaper.nix;
 
+  mpd = import ./mpd.nix;
   editor = import ./editor;
   #desktop = import ./desktop;
 }
