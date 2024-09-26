@@ -7,5 +7,6 @@
 
   mpd = import ./mpd.nix;
   editor = import ./editor;
+  rbw = import ./rbw.nix;
   #desktop = import ./desktop;
 }

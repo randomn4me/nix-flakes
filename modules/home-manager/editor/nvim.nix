@@ -173,14 +173,6 @@ in
 
         };
 
-        # treesitter-refactor = {
-        #   enable = mkIf cfg.enableAllPlugins true;
-        #   highlightDefinitions = {
-        #     enable = true;
-        #     clearOnCursorMove = false;
-        #   };
-        # };
-
         which-key.enable = mkIf cfg.enableAllPlugins true;
 
         telescope = {
@@ -326,7 +318,10 @@ in
         leap.enable = true;
         lualine.enable = true;
         lsp-format.enable = mkIf cfg.enableAllPlugins true;
-        neogen.enable = true;
+        neogen = {
+          enable = mkIf cfg.enableAllPlugins true;
+          keymaps.generate = "<leader>n";
+        };
         notify.enable = mkIf cfg.enableAllPlugins true;
         trouble.enable = mkIf cfg.enableAllPlugins true;
         nvim-colorizer.enable = mkIf cfg.enableAllPlugins true;
