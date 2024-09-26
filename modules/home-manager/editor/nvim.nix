@@ -326,6 +326,7 @@ in
         trouble.enable = mkIf cfg.enableAllPlugins true;
         nvim-colorizer.enable = mkIf cfg.enableAllPlugins true;
         refactoring.enable = mkIf cfg.enableAllPlugins true;
+        web-devicons.enable = true;
       };
     };
   };
