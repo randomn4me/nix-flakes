@@ -5,7 +5,5 @@
 
     ./taskwarrior.nix
     ./neomutt.nix
-
-    #../rbw
   ];
 }

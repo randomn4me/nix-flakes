@@ -14,17 +14,10 @@
   xdg.mimeApps.enable = true;
   home.packages = with pkgs; [
     xwayland
-    slurp
-    grim
     swaybg
 
-    wf-recorder
     wl-clipboard
-    wlr-randr
     wdisplays
-
-    wl-mirror
-    ydotool
   ];
 
   home.sessionVariables = {

@@ -30,8 +30,6 @@ in
       xdg-utils
     ];
     bt = with pkgs; [ bluez ];
-    checkwriting = with pkgs; [ perl ];
-    intro = with pkgs; [ taskwarrior3 ];
     mkv-to-av1 = with pkgs; [ ffmpeg ];
     mvc = [ ];
     paper-menu = with pkgs; [

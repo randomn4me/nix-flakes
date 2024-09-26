@@ -20,8 +20,6 @@
     ./features/backup
     ./features/scripts
 
-    ./features/cli/udiskie.nix
-
     inputs.nix-index-database.hmModules.nix-index
   ];
   custom.nvim.enable = true;
@@ -54,6 +52,7 @@
     comma
     obsidian
     darktable
+    gimp
     calibre
     tesseract
     makemkv
@@ -61,7 +60,14 @@
     yt-dlp
     devenv
     timewarrior
+    signal-desktop
+    jameica
+    udiskie
   ];
+
+  services.udiskie = {
+    enable = true;
+  };
 
   monitors = [
     {

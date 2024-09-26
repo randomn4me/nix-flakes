@@ -9,14 +9,10 @@ let
   neomutt = "${config.programs.neomutt.package}/bin/neomutt";
   task = "${config.programs.taskwarrior.package}/bin/task";
 
-  playerctl = "${config.services.playerctld.package}/bin/playerctl";
-
   head = "${pkgs.coreutils}/bin/head";
-  pkill = "${pkgs.coreutils}/bin/pkill";
   printf = "${pkgs.coreutils}/bin/printf";
   wc = "${pkgs.coreutils}/bin/wc";
 
-  pgrep = "${pkgs.procps}/bin/pgrep";
   sed = "${pkgs.gnused}/bin/sed";
 
   jq = "${pkgs.jq}/bin/jq";
@@ -66,7 +62,7 @@ in
           "sway/workspaces"
         ];
 
-        modules-center = [ "custom/player" ];
+        modules-center = [ "mpd" ];
 
         modules-right = [
           "custom/task"
@@ -114,10 +110,6 @@ in
             on-scroll-up = "shift_up";
             on-scroll-down = "shift_down";
           };
-        };
-
-        "sway/language" = {
-          format = "󰌌 {short} {variant} ";
         };
 
         wireplumber = {
@@ -194,15 +186,6 @@ in
                     '') email_accounts
                   )
                 }")
-
-                if ${pgrep} mbsync &>/dev/null; then
-                  status="syncing"
-                else if [ "$total_count" == "0" ]; then
-                    status="read"
-                  else
-                    status="unread"
-                  fi
-                fi
               '';
             text = " $total_count";
             tooltip = "$tooltip";
@@ -262,7 +245,6 @@ in
             text = " $today";
             tooltip = "$tooltip";
           };
-          on-click = "${pkill} -USR2 waybar";
         };
       };
     };
