@@ -30,6 +30,7 @@
         # saveguard
         rm = "rm -i";
         mv = "mv -i";
+        task = "dstask";
 
         # shorter
         cp = "cp -r";

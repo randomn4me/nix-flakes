@@ -7,6 +7,7 @@
 {
   nix = {
     package = pkgs.lix;
+
     settings = {
       experimental-features = [
         "nix-command"
@@ -26,8 +27,8 @@
 
     gc = {
       automatic = true;
-      dates = lib.mkDefault "weekly";
       options = "--delete-older-than 14d";
+      dates = lib.mkDefault "daily";
     };
 
     optimise.automatic = true;
