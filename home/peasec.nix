@@ -63,7 +63,6 @@
     signal-desktop
     jameica
     udiskie
-    dstask
   ];
 
   services.udiskie = {
