@@ -16,7 +16,7 @@ in
           turbo = "auto";
         };
         charger = {
-          governor = "powersave";
+          governor = "default";
           turbo = "auto";
         };
       };
