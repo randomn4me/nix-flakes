@@ -82,7 +82,7 @@
           wofi-emoji = "${pkgs.wofi-emoji}/bin/wofi-emoji";
         in
         {
-          "${modifier}+Return" = "exec ${config.wayland.windowManager.sway.config.terminal}";
+          "${modifier}+Return" = "exec kitty";
           "${modifier}+Shift+s" = "exec ${grimshot} --notify copy area";
 
           "${modifier}+Tab" = "workspace back_and_forth";

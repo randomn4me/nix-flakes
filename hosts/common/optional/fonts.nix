@@ -12,7 +12,7 @@
 
       (pkgs.google-fonts.override { fonts = [ "ShareTechMono" ]; })
 
-      (pkgs.nerdfonts.override { fonts = [ "ShareTechMono" ]; })
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "ShareTechMono" ]; })
     ];
 
     fontconfig = {
@@ -21,7 +21,7 @@
         serif = [ "Fira Sans" ];
         sansSerif = [ "Fira Sans" ];
         monospace = [
-          "Inconsolata Nerd Font Mono"
+          "FiraCode Nerd Font Mono"
           "Noto Color Emoji"
         ];
         emoji = [ "Noto Color Emoji" ];
