@@ -12,7 +12,12 @@
 
       (pkgs.google-fonts.override { fonts = [ "ShareTechMono" ]; })
 
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "ShareTechMono" ]; })
+      (pkgs.nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "ShareTechMono"
+        ];
+      })
     ];
 
     fontconfig = {

@@ -204,6 +204,7 @@ in
         };
 
         cmp-nvim-lsp.enable = mkIf cfg.enableAllPlugins true;
+        cmp-nvim-ultisnips.enable = mkIf cfg.enableAllPlugins true;
 
         undotree.enable = true;
 

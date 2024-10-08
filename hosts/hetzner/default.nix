@@ -7,11 +7,17 @@
 
     ../common/optional/services/fail2ban.nix
     ../common/optional/services/vaultwarden.nix
-    ../common/optional/services/hedgedoc.nix
     ../common/optional/services/forgejo.nix
   ];
 
-  networking.hostName = "hetzner";
+  networking = {
+    hostName = "hetzner";
+
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 22 ];
+    };
+  };
 
   boot.loader.grub = {
     enable = true;
@@ -43,8 +49,6 @@
     };
   };
 
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 ];
 
   system.stateVersion = "23.11";
 }

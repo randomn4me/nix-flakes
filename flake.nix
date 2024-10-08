@@ -26,6 +26,11 @@
 
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    blog-flake = {
+      url = "git+https://git.audacis.net/r4ndom/webpage";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
