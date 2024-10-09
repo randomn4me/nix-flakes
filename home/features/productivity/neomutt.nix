@@ -233,7 +233,7 @@ in
         ];
       }
       {
-        action = "<enter-command>source ~/.config/neomutt/personalvorstand<enter><change-folder>!<enter>";
+        action = "<enter-command>source ~/.config/neomutt/peasec<enter><change-folder>!<enter>";
         key = "3";
         map = [
           "index"
@@ -241,16 +241,8 @@ in
         ];
       }
       {
-        action = "<enter-command>source ~/.config/neomutt/peasec<enter><change-folder>!<enter>";
-        key = "4";
-        map = [
-          "index"
-          "pager"
-        ];
-      }
-      {
         action = "<enter-command>source ~/.config/neomutt/sink<enter><change-folder>!<enter>";
-        key = "5";
+        key = "4";
         map = [
           "index"
           "pager"
