@@ -8,6 +8,7 @@
     ../common/optional/services/fail2ban.nix
     ../common/optional/services/vaultwarden.nix
     ../common/optional/services/forgejo.nix
+    ../common/optional/services/taskserver.nix
   ];
 
   networking = {
@@ -48,7 +49,6 @@
       routes = [ { Gateway = "fe80::1"; } ];
     };
   };
-
 
   system.stateVersion = "23.11";
 }

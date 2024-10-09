@@ -8,7 +8,7 @@ in
   programs = {
     taskwarrior = {
       enable = true;
-      package = pkgs.taskwarrior3;
+      package = pkgs.taskwarrior2;
 
       dataLocation = "${home}/var/task";
       colorTheme = "solarized-dark-256";
@@ -56,6 +56,7 @@ in
           user.tag = {
             mail.coefficient = 1;
             call.coefficient = 1;
+            dl.coefficient = 1;
             unikita.coefficient = -0.5;
             waiting.coefficient = -2;
           };
