@@ -1,6 +1,7 @@
 {
   imports = [
     # ./alacritty.nix
+    ./chrome.nix
     ./firefox.nix
     ./gtk.nix
     ./imv.nix
