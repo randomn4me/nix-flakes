@@ -212,7 +212,7 @@ in
           enable = mkIf cfg.enableAllPlugins true;
 
           servers = {
-            nil-ls = {
+            nil_ls = {
               enable = true;
               settings.formatting.command = [ "nixfmt-rfc-style" ];
             };
@@ -227,11 +227,11 @@ in
                 "text"
               ];
             };
-            lua-ls.enable = true;
+            lua_ls.enable = true;
             pylsp.enable = true;
             ruff.enable = true;
-            ruff-lsp.enable = true;
-            rust-analyzer = {
+            ruff_lsp.enable = true;
+            rust_analyzer = {
               enable = true;
               installCargo = true;
               installRustc = true;
