@@ -11,10 +11,11 @@ in
     settings = {
       width = "400px";
       lines = 8;
-      matching = "fuzzy";
+      matching = "contains";
       insensitive = true;
       location = "top_right";
       prompt = "Search..";
+      sort_order = "alphabetical";
     };
 
     style = ''
