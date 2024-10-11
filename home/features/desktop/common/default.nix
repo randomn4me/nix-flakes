@@ -2,7 +2,7 @@
   imports = [
     # ./alacritty.nix
     ./chrome.nix
-    ./firefox.nix
+    # ./firefox.nix
     ./gtk.nix
     ./imv.nix
     ./libreoffice.nix
