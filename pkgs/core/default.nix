@@ -10,6 +10,8 @@ pkgs.python3Packages.buildPythonApplication {
     tabulate
     pandas
     lxml
+    html5lib
+    beautifulsoup4
   ];
 
   installPhase = ''

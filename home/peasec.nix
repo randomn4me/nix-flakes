@@ -46,6 +46,7 @@
     pandoc
     ffmpeg
     zotero
+    outputs.packages.x86_64-linux.python-icore
 
     # home
     ddcutil
@@ -53,16 +54,16 @@
     obsidian
     darktable
     gimp
-    calibre
     tesseract
-    makemkv
-    mkvtoolnix
     yt-dlp
     devenv
-    timewarrior
     signal-desktop
     jameica
     udiskie
+    # calibre
+    # makemkv
+    # mkvtoolnix
+    # timewarrior
   ];
 
   services.udiskie = {
