@@ -56,7 +56,7 @@ in
           user.tag = {
             mail.coefficient = 1;
             call.coefficient = 1;
-            dl.coefficient = 1;
+            dl.coefficient = 0;
             unikita.coefficient = -0.5;
             waiting.coefficient = -2;
           };
@@ -68,4 +68,6 @@ in
       "done-today" = "${task} completed end:today";
     };
   };
+
+  services.taskwarrior-sync.enable = true;
 }
