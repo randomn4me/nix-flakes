@@ -4,7 +4,7 @@
 
     matchBlocks = {
       hetzner = {
-        hostname = "audacis.net";
+        hostname = "168.119.169.96";
         user = "r4ndom";
         identityFile = "~/.ssh/hetzner-privat";
       };
