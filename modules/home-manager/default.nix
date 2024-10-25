@@ -6,7 +6,7 @@
   wallpaper = import ./wallpaper.nix;
 
   mpd = import ./mpd.nix;
-  editor = import ./editor;
+  nvim = import ./nvim;
   rbw = import ./rbw.nix;
   gc = import ./gc.nix;
   #desktop = import ./desktop;
