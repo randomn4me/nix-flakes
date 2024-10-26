@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   inputs,
   ...
 }:
@@ -60,6 +61,18 @@ in
         which-key.enable = true;
         fugitive.enable = true;
         undotree.enable = true;
+
+        chatgpt = {
+          enable = true;
+          settings = {
+            api_key_cmd =
+              let
+                cat = "${pkgs.coreutils}/bin/cat";
+              in
+              "${cat} ${config.home.homeDirectory}/usr/misc/chatgpt-apikey";
+            openapi_params.model = "gpt-4o-mini";
+          };
+        };
 
         vimtex = {
           enable = true;
