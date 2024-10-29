@@ -18,7 +18,21 @@ in
           enable = true;
           folding = true;
           settings = {
-            languages.disable = [ "latex" ];
+              auto_install = true;
+
+              languages.disable = [ "latex" ];
+
+              incremental_selection = {
+                  enable = true;
+                  keymaps = {
+                      init_selection = "<C-space>";
+                      node_decremental = "<bs>";
+                      node_incremental = "<C-space>";
+                      scope_incremental = false;
+                  };
+              };
+              indent.enable = true;
+
           };
           nixvimInjections = true;
         };
