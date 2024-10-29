@@ -37,6 +37,7 @@ in
               gi = "implementation";
               K = "hover";
               "<F2>" = "rename";
+              "<leader>lf" = "format";
             };
           };
 

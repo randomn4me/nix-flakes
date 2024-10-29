@@ -22,7 +22,14 @@
 
     inputs.nix-index-database.hmModules.nix-index
   ];
-  custom.nvim.enable = true;
+
+  custom.nvim = {
+    enable = true;
+    lsp = true;
+    completion = true;
+    allPlugins = true;
+  };
+
   custom.mpd-music.enable = true;
   custom.rbw.enable = true;
 

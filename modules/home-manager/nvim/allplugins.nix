@@ -64,13 +64,27 @@ in
 
         chatgpt = {
           enable = true;
-          settings = {
+          settings = let
+            myActions = {
+              expandList = {
+                type = "chat";
+                opts = {
+                  template = "I want you to act as a computer security scientist. Imagine you're working on an academic paper using cutting edge technology. You've been tasked with expanding the following bullet points to at least one paragraph.";
+                  strategy = "edit";
+                  params.model = "gpt-3.5-turbo";
+                };
+              };
+            };
+
+            customActionsFile = builtins.toFile "customActions.json" (builtins.toJSON myActions);
+          in {
             api_key_cmd =
               let
                 cat = "${pkgs.coreutils}/bin/cat";
               in
               "${cat} ${config.home.homeDirectory}/usr/misc/chatgpt-apikey";
             openapi_params.model = "gpt-4o-mini";
+            actions_path = customActionsFile;
           };
         };
 
