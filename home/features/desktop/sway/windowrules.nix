@@ -12,7 +12,10 @@
       { class = "obsidian"; }
     ];
 
-    "4" = [ { class = "Signal"; } ];
+    "4" = [
+      { class = "Signal"; }
+      { app_id = "im.riot.Riot"; }
+    ];
 
     "6" = [
       { app_id = "mpv"; }
