@@ -20,8 +20,10 @@
 
       input = {
         "type:keyboard" = {
+          xkb_layout = "de,us";
+          xkb_variant = "nodeadkeys,colemak_dh_iso";
+          xkb_options = "caps:none,grp:ctrl_space_toggle";
           xkb_capslock = "disabled";
-          xkb_layout = "de";
         };
         "type:touchpad" = {
           natural_scroll = "enabled";
