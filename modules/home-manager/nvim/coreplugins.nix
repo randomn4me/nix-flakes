@@ -18,20 +18,20 @@ in
           enable = true;
           folding = true;
           settings = {
-              auto_install = true;
+            auto_install = true;
 
-              languages.disable = [ "latex" ];
+            languages.disable = [ "latex" ];
 
-              incremental_selection = {
-                  enable = true;
-                  keymaps = {
-                      init_selection = "<C-space>";
-                      node_decremental = "<bs>";
-                      node_incremental = "<C-space>";
-                      scope_incremental = false;
-                  };
+            incremental_selection = {
+              enable = true;
+              keymaps = {
+                init_selection = "<C-space>";
+                node_decremental = "<bs>";
+                node_incremental = "<C-space>";
+                scope_incremental = false;
               };
-              indent.enable = true;
+            };
+            indent.enable = true;
 
           };
           nixvimInjections = true;
