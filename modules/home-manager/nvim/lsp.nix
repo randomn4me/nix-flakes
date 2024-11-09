@@ -14,10 +14,7 @@ in
   config = mkIf cfg.lsp {
     programs.nixvim = {
       plugins = {
-        lsp-format = {
-          enable = true;
-          lspServersToEnable = "all";
-        };
+        lsp-format.enable = true;
 
         lsp = {
           enable = true;
@@ -25,7 +22,6 @@ in
           keymaps = {
             silent = true;
             diagnostic = {
-              # Navigate in diagnostics
               "<leader>k" = "goto_prev";
               "<leader>j" = "goto_next";
             };
@@ -37,15 +33,12 @@ in
               gi = "implementation";
               K = "hover";
               "<F2>" = "rename";
+              "<leader>c" = "code_action";
               "<leader>lf" = "format";
             };
           };
 
           servers = {
-            nil_ls = {
-              enable = true;
-              settings.formatting.command = [ "nixfmt-rfc-style" ];
-            };
             ltex = {
               enable = true;
               filetypes = [
@@ -58,6 +51,10 @@ in
               ];
             };
             lua_ls.enable = true;
+            nixd = {
+              enable = true;
+              settings.formatting.command = [ "nixfmt" ];
+            };
             pylsp.enable = true;
             ruff.enable = true;
             ruff_lsp.enable = true;
