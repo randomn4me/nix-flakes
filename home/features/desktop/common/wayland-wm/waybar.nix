@@ -127,7 +127,7 @@ in
 
         mpd = {
           interval = 1;
-          format = "{stateIcon} {album} - {title}";
+          format = "{stateIcon} {artist} - {title}";
           format-stopped = "";
           format-disconnected = "";
           state-icons = {
