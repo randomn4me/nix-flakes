@@ -53,6 +53,28 @@ in
           };
         };
 
+        conform-nvim = {
+          enable = true;
+          settings = {
+            format_on_save = {
+              lspFallback = true;
+              timeoutMs = 500;
+            };
+
+            notify_on_error = true;
+
+            formatters_by_ft = {
+              nix = [ "nixfmt" ];
+              python = [ "ruff" ];
+              "_" = [ "trim_whitespace" ];
+            };
+            formatters = {
+              ruff.command = lib.getExe pkgs.ruff;
+              nixfmt.command = lib.getExe pkgs.nixfmt-rfc-style;
+            };
+          };
+        };
+
         todo-comments = {
           enable = true;
           keymaps.todoTelescope.key = "<leader>ft";
@@ -64,28 +86,30 @@ in
 
         chatgpt = {
           enable = true;
-          settings = let
-            myActions = {
-              expandList = {
-                type = "chat";
-                opts = {
-                  template = "I want you to act as a computer security scientist. Imagine you're working on an academic paper using cutting edge technology. You've been tasked with expanding the following bullet points to at least one paragraph.";
-                  strategy = "edit";
-                  params.model = "gpt-3.5-turbo";
+          settings =
+            let
+              myActions = {
+                expandList = {
+                  type = "chat";
+                  opts = {
+                    template = "I want you to act as a computer security scientist. Imagine you're working on an academic paper using cutting edge technology. You've been tasked with expanding the following bullet points to at least one paragraph.";
+                    strategy = "edit";
+                    params.model = "gpt-3.5-turbo";
+                  };
                 };
               };
-            };
 
-            customActionsFile = builtins.toFile "customActions.json" (builtins.toJSON myActions);
-          in {
-            api_key_cmd =
-              let
-                cat = "${pkgs.coreutils}/bin/cat";
-              in
-              "${cat} ${config.home.homeDirectory}/usr/misc/chatgpt-apikey";
-            openapi_params.model = "gpt-4o-mini";
-            actions_path = customActionsFile;
-          };
+              customActionsFile = builtins.toFile "customActions.json" (builtins.toJSON myActions);
+            in
+            {
+              api_key_cmd =
+                let
+                  cat = "${pkgs.coreutils}/bin/cat";
+                in
+                "${cat} ${config.home.homeDirectory}/usr/misc/chatgpt-apikey";
+              openapi_params.model = "gpt-4o-mini";
+              actions_path = customActionsFile;
+            };
         };
 
         vimtex = {
