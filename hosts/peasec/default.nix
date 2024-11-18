@@ -42,6 +42,7 @@
       mfcj6510dwlpr
     ];
   };
+  custom.camera-webcam.enable = true;
 
   custom.powerManagement = {
     enable = true;
@@ -52,13 +53,11 @@
     ];
   };
 
-  services = {
-    fwupd.enable = true;
-
-    udisks2.enable = true;
-    dbus.implementation = "broker";
-    flatpak.enable = true;
-  };
+  services.fwupd.enable = true;
+  services.udisks2.enable = true;
+  services.dbus.implementation = "broker";
+  services.flatpak.enable = true;
+  services.ollama.enable = true;
 
   programs = {
     dconf.enable = true;
