@@ -54,7 +54,7 @@ in
         };
 
         retention = {
-          keepHourly = 6;
+          keepHourly = 12;
           keepDaily = 14;
           keepWeekly = 8;
           keepMonthly = 6;
