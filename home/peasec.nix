@@ -54,6 +54,7 @@
     ffmpeg
     zotero
     outputs.packages.x86_64-linux.python-icore
+    zulip
 
     # home
     ddcutil
