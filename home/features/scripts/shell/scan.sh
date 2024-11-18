@@ -23,6 +23,5 @@ fi
 outfile="$outdir/$(date +%F_%Hh%Mm%Ss)${name}.pdf"
 
 ( scanimage -d "$device" -o "$tmpscan.png" > /dev/null && \
-        convert "$tmpscan.png" "$outfile" && \
+        magick "$tmpscan.png" "$outfile" && \
         rm -rf $tmpdir ) > /dev/null & disown
-

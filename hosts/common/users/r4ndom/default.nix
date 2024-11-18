@@ -38,6 +38,7 @@ in
       inherit inputs outputs;
     };
     users.r4ndom = import ../../../../home/${config.networking.hostName}.nix;
+    backupFileExtension = "backup";
   };
 
   security.pam.services = {

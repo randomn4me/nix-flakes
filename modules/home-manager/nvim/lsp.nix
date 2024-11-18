@@ -55,9 +55,7 @@ in
               enable = true;
               settings.formatting.command = [ "nixfmt" ];
             };
-            pylsp.enable = true;
             ruff.enable = true;
-            ruff_lsp.enable = true;
             rust_analyzer = {
               enable = true;
               installCargo = true;

@@ -97,6 +97,12 @@ in
                     params.model = "gpt-3.5-turbo";
                   };
                 };
+                args = {
+                  argument = {
+                    type = "string";
+                    optional = "false";
+                  };
+                };
               };
 
               customActionsFile = builtins.toFile "customActions.json" (builtins.toJSON myActions);
@@ -129,9 +135,28 @@ in
           enable = true;
           keymaps.generate = "<leader>n";
         };
-        notify.enable = true;
+        barbecue.enable = true;
+        notify = {
+          enable = true;
+          render = "compact";
+          stages = "static";
+        };
         trouble.enable = true;
         nvim-colorizer.enable = true;
+
+        obsidian = {
+          enable = true;
+          settings = {
+            completion = {
+              min_chars = 2;
+              nvim_cmp = true;
+            };
+            new_notes_location = "notes_subdir";
+            dir = "~/usr/docs/obsidian";
+            disable_frontmatter = true;
+          };
+
+        };
       };
     };
   };

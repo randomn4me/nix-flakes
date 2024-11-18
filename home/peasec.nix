@@ -73,9 +73,7 @@
     # timewarrior
   ];
 
-  services.udiskie = {
-    enable = true;
-  };
+  services.udiskie.enable = true;
 
   monitors = [
     {

@@ -25,10 +25,6 @@
     path = ${config.home.homeDirectory}/var/calendar/audacis/ferien-3
     type = calendar
 
-    [[audacis-unikita]]
-    path = ${config.home.homeDirectory}/var/calendar/audacis/unikita
-    type = calendar
-
     [[audacis-birthdays]]
     path = ${config.home.homeDirectory}/var/calendar/audacis/contact_birthdays
     type = calendar
