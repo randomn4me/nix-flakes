@@ -52,7 +52,7 @@ else
             attach_start_session music ncmpcpp ;;
     esac
 
-    user_input=$(tmux ls -F '#{session_name}' | grep "$1")
+    user_input=$(tmux ls -F '#{session_name}' | grep -i "$1")
 
     if [ -z "$user_input" ]; then
         echo "no session started with name $1"
