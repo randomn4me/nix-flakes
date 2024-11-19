@@ -56,17 +56,20 @@ in
         conform-nvim = {
           enable = true;
           settings = {
+            default_format_opts.lsp_format = "fallback";
+
             format_on_save = {
               lspFallback = true;
               timeoutMs = 500;
             };
 
-            notify_on_error = true;
-
             formatters_by_ft = {
               nix = [ "nixfmt" ];
               python = [ "ruff" ];
-              "_" = [ "trim_whitespace" ];
+              "_" = [
+                "trim_whitespace"
+                "trim_newlines"
+              ];
             };
             formatters = {
               ruff.command = lib.getExe pkgs.ruff;
