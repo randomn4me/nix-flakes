@@ -54,7 +54,6 @@
     ffmpeg
     zotero
     outputs.packages.x86_64-linux.python-icore
-    zulip
 
     # home
     ddcutil
@@ -75,6 +74,7 @@
   ];
 
   services.udiskie.enable = true;
+  services.syncthing.enable = true;
 
   monitors = [
     {
