@@ -42,7 +42,7 @@
       mfcj6510dwlpr
     ];
   };
-  custom.camera-webcam.enable = true;
+  # custom.camera-webcam.enable = true;
 
   custom.powerManagement = {
     enable = true;
