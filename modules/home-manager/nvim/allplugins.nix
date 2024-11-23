@@ -58,10 +58,7 @@ in
           settings = {
             default_format_opts.lsp_format = "fallback";
 
-            format_on_save = {
-              lspFallback = true;
-              timeoutMs = 500;
-            };
+            format_on_save.lspFallback = true;
 
             formatters_by_ft = {
               nix = [ "nixfmt" ];
