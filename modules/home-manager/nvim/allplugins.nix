@@ -146,6 +146,10 @@ in
         };
         trouble.enable = true;
         nvim-colorizer.enable = true;
+        refactoring = {
+          enable = true;
+          enableTelescope = true;
+        };
 
         obsidian = {
           enable = true;
