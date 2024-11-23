@@ -155,7 +155,14 @@ in
               nvim_cmp = true;
             };
             new_notes_location = "notes_subdir";
+            note_id_func = ''
+              function(title)
+                return title
+              end
+
+            '';
             dir = "~/usr/docs/obsidian";
+            templates.subdir = "templates";
             disable_frontmatter = true;
           };
 
