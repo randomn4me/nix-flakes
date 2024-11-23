@@ -25,9 +25,9 @@ in
             incremental_selection = {
               enable = true;
               keymaps = {
-                init_selection = "<C-space>";
+                init_selection = "<leader>s";
                 node_decremental = "<bs>";
-                node_incremental = "<C-space>";
+                node_incremental = "<leader>s";
                 scope_incremental = false;
               };
             };
@@ -35,15 +35,6 @@ in
 
           };
           nixvimInjections = true;
-        };
-
-        treesitter-refactor = {
-          enable = true;
-          highlightDefinitions = {
-            enable = true;
-            # Set to false if you have an `updatetime` of ~100.
-            clearOnCursorMove = false;
-          };
         };
 
         hmts.enable = true;
@@ -88,7 +79,6 @@ in
 
         leap.enable = true;
         lualine.enable = true;
-        trim.enable = true;
       };
     };
   };

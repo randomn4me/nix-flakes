@@ -32,7 +32,7 @@ in
               gt = "type_definition";
               gi = "implementation";
               K = "hover";
-              "<F2>" = "rename";
+              "<leader>lr" = "rename";
               "<leader>c" = "code_action";
               "<leader>lf" = "format";
             };
@@ -56,6 +56,7 @@ in
               settings.formatting.command = [ "nixfmt" ];
             };
             pylsp.enable = true;
+            ruff.enable = true;
             rust_analyzer = {
               enable = true;
               installCargo = true;
