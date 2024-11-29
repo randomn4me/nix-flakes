@@ -16,8 +16,6 @@ in
       config = {
         weekstart = "Monday";
 
-        default.due = "2h";
-
         report = {
           maybe = {
             columns = [
