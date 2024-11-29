@@ -19,6 +19,7 @@ let
   find = "${pkgs.findutils}/bin/find";
 
   khal = "${pkgs.khal}/bin/khal";
+  playerctl = "${pkgs.playerctl}/bin/playerctl";
 
   # Function to simplify making waybar outputs
   jsonOutput =
@@ -62,7 +63,7 @@ in
           "sway/workspaces"
         ];
 
-        modules-center = [ "mpd" ];
+        modules-center = [ "custom/player" ];
 
         modules-right = [
           "custom/task"
@@ -245,6 +246,21 @@ in
             text = " $today";
             tooltip = "$tooltip";
           };
+        };
+
+        "custom/player" = {
+          interval = 1;
+          return-type = "json";
+          exec-if = "${playerctl} status 2>/dev/null";
+          exec = ''${playerctl} metadata --format '{"text": "{{artist}} - {{title}}", "alt": "{{status}}", "tooltip": "{{artist}} - {{title}} ({{album}})"}' 2>/dev/null '';
+          max-length = 60;
+          format = "{icon} {}";
+          format-icons = {
+            "Playing" = "󰐊";
+            "Paused" = "󰏤";
+            "Stopped" = "󰓛";
+          };
+          on-click = "${playerctl} play-pause";
         };
       };
     };
