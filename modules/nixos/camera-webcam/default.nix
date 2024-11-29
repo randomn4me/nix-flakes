@@ -10,7 +10,7 @@ let
   cfg = config.custom.camera-webcam;
   serviceName = "start-webcam-stream";
   start-webcam-stream = pkgs.writeShellScriptBin "${serviceName}" ''
-    ${pkgs.gphoto2}/bin/gphoto2 --stdout --capture-movie
+    ${pkgs.gphoto2}/bin/gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -af "hqdn3d" -pix_fmt yuv420p -threads 0 -s:v 1920x1080 -f v4l2 /dev/video4
   '';
 in
 {
@@ -22,6 +22,7 @@ in
       ffmpeg
       gphoto2
       mpv
+      start-webcam-stream
     ];
 
     boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
@@ -30,34 +31,34 @@ in
       options v4l2loopback devices=1 video_nr=1 card_label="Camera webcam" exclusive_caps=1
     '';
 
-    systemd.services.${serviceName} = {
-      description = "Start camera webcam stream";
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = start-webcam-stream;
-        RemainAfterExit = true;
-      };
-    };
+    # systemd.services.${serviceName} = {
+    #   description = "Start camera webcam stream";
+    #   wantedBy = [ "multi-user.target" ];
+    #   serviceConfig = {
+    #     Type = "oneshot";
+    #     ExecStart = start-webcam-stream;
+    #     RemainAfterExit = true;
+    #   };
+    # };
 
-    services.udev = {
-      enable = true;
+    # services.udev = {
+    #   enable = true;
 
-      extraRules = ''
-        ACTION=="add",\
-        SUBSYSTEM=="usb",\
-        ATTRS{idVendor}=="2516",\
-        ATTRS{idProduct}=="014b",\
-        TAG+="systemd",\
-        ENV{SYSTEMD_WANTS}+="${serviceName}.service"
+    #   extraRules = ''
+    #     ACTION=="add",\
+    #     SUBSYSTEM=="usb",\
+    #     ATTRS{idVendor}=="2516",\
+    #     ATTRS{idProduct}=="014b",\
+    #     TAG+="systemd",\
+    #     ENV{SYSTEMD_WANTS}+="${serviceName}.service"
 
-        ACTION=="add",\
-        SUBSYSTEM=="usb",\
-        ATTRS{idVendor}=="093a",\
-        ATTRS{idProduct}=="2510",\
-        TAG+="systemd",\
-        ENV{SYSTEMD_WANTS}+="${serviceName}.service"
-      '';
-    };
+    #     ACTION=="add",\
+    #     SUBSYSTEM=="usb",\
+    #     ATTRS{idVendor}=="093a",\
+    #     ATTRS{idProduct}=="2510",\
+    #     TAG+="systemd",\
+    #     ENV{SYSTEMD_WANTS}+="${serviceName}.service"
+    #   '';
+    # };
   };
 }
