@@ -20,7 +20,25 @@
         identityFile = "~/.ssh/hochleistungsrechner";
       };
 
-      lbc-gpu = {
+      lbc-13 = {
+        hostname = "lcluster13.hrz.tu-darmstadt.de";
+        user = "ba01viny";
+        identityFile = "~/.ssh/hochleistungsrechner";
+      };
+
+      lbc-15 = {
+        hostname = "lcluster15.hrz.tu-darmstadt.de";
+        user = "ba01viny";
+        identityFile = "~/.ssh/hochleistungsrechner";
+      };
+
+      lbc-17 = {
+        hostname = "lcluster17.hrz.tu-darmstadt.de";
+        user = "ba01viny";
+        identityFile = "~/.ssh/hochleistungsrechner";
+      };
+
+      lbc-19 = {
         hostname = "lcluster19.hrz.tu-darmstadt.de";
         user = "ba01viny";
         identityFile = "~/.ssh/hochleistungsrechner";
