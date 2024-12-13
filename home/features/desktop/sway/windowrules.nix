@@ -15,6 +15,7 @@
     "4" = [
       { class = "Signal"; }
       { app_id = "im.riot.Riot"; }
+      { class = "Element"; }
     ];
 
     "6" = [
