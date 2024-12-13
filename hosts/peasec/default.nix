@@ -58,6 +58,17 @@
   services.flatpak.enable = true;
   services.ollama.enable = true;
 
+  # for kde connect
+  networking.firewall = rec {
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
+
   programs = {
     dconf.enable = true;
     light.enable = true;
