@@ -63,6 +63,7 @@ in
               installRustc = true;
             };
             texlab.enable = true;
+            zls.enable = true;
           };
         };
       };
