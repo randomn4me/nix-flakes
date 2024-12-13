@@ -6,7 +6,6 @@
     inputs.hardware.nixosModules.common-gpu-nvidia-disable
 
     inputs.hardware.nixosModules.common-pc-ssd
-    inputs.hardware.nixosModules.common-pc-laptop-acpi_call
 
     ./hardware-configuration.nix
 

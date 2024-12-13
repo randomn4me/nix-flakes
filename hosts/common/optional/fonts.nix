@@ -6,18 +6,14 @@
       fira
       roboto
       roboto-serif
-      inconsolata-nerdfont
       vistafonts
       noto-fonts-color-emoji
+      nerd-fonts.inconsolata
+      nerd-fonts.shure-tech-mono
+      nerd-fonts.fira-code
+      nerd-fonts.fira-mono
 
       (pkgs.google-fonts.override { fonts = [ "ShareTechMono" ]; })
-
-      (pkgs.nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "ShareTechMono"
-        ];
-      })
     ];
 
     fontconfig = {
