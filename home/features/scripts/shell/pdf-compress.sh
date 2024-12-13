@@ -2,6 +2,8 @@
 
 usage() {
     echo "Usage: $(basename $0) <file> [level]"
+    echo ""
+    echo "Output as <filename>_compressed.pdf"
     echo "Quality settings are (low to high): screen, ebook, printer, prepress (default), default"
 }
 
