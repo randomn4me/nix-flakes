@@ -53,6 +53,7 @@
     pandoc
     ffmpeg
     zotero
+    zoom-us
     outputs.packages.x86_64-linux.python-icore
 
     # home
@@ -65,9 +66,10 @@
     yt-dlp
     devenv
     signal-desktop
+    element-desktop
     jameica
+    calibre
     udiskie
-    # calibre
     # makemkv
     # mkvtoolnix
     # timewarrior
