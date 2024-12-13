@@ -64,7 +64,6 @@ in
               nix = [ "nixfmt" ];
               python = [ "ruff" ];
               "_" = [
-                "trim_whitespace"
                 "trim_newlines"
               ];
             };
