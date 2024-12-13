@@ -51,7 +51,7 @@
           export PS1="${ps1_hostname_string}\w >> ";
           export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/share:$HOME/.local/share/flatpak/exports/share";
         ''
-        + lib.strings.optionalString config.programs.neovim.enable ''
+        + lib.strings.optionalString config.custom.nvim.enable ''
           export MANPAGER='nvim --cmd ":lua vim.g.noplugins=1" +Man!'
           export MANWIDTH=999
           export VISUAL=nvim
