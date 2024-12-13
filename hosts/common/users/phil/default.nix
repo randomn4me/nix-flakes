@@ -25,6 +25,10 @@ in
         "vboxusers"
         "adbusers"
         "i2c"
+
+        # zmk
+        "uucp"
+        "dialout"
       ];
 
     packages = [ pkgs.home-manager ];
