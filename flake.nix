@@ -71,6 +71,13 @@
           };
           modules = [ ./hosts/hetzner ];
         };
+
+        netcup = lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ ./hosts/netcup ];
+        };
       };
 
       homeConfigurations = {

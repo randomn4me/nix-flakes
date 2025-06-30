@@ -6,25 +6,19 @@
     ../common/users/r4ndom
 
     ../common/optional/services/fail2ban.nix
-    ../common/optional/services/vaultwarden.nix
-    ../common/optional/services/forgejo.nix
   ];
+
+    boot.loader.grub.enable = false;
+    boot.loader.generic-extlinux-compatible.enable = true;
+
 
   networking = {
     hostName = "netcup";
-
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [ 22 ];
-    };
-  };
-
-  boot.loader.grub = {
-    enable = true;
-    devices = [ "/dev/sda" ];
+    firewall.enable = true;
   };
 
   nix.gc.dates = "daily";
+  virtualisation.qemu.guestAgent.enable = true;
 
   services = {
     openssh = {
@@ -33,12 +27,9 @@
         PermitRootLogin = "no";
       };
     };
-    # responsible for a safe shutdown of your system, among other features utilized by the SCP
-    qemuGuest.enable = true;
-
     journald.extraConfig = "SystemMaxUse=100M";
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }
 
