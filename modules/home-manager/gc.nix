@@ -20,7 +20,6 @@ in
   config = mkIf cfg.enable {
     nix.gc = {
       automatic = osConfig.nix.gc.automatic;
-      frequency = osConfig.nix.gc.dates;
       options = osConfig.nix.gc.options;
     };
   };
