@@ -3,7 +3,7 @@
     ./hardware-configuration.nix
 
     ../common/global
-    ../common/users/r4ndom
+    ../common/users/phil
 
     ../common/optional/services/fail2ban.nix
   ];
