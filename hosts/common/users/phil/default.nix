@@ -35,7 +35,8 @@ in
     linger = true;
 
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEN/2C4ROHUhM1yFxK8vJOIvQh7LHs9nVP+NDceb5cex r4nodm@peasec"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEN/2C4ROHUhM1yFxK8vJOIvQh7LHs9nVP+NDceb5cex r4ndom@peasec"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKluBaVeaUkcr8U5ZF5YTlsyjfUCG0lQkfWrzKVbzM6y pkuehn@kuehn-macbookpro.local"
     ];
   };
 
