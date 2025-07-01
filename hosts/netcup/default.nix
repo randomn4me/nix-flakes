@@ -18,9 +18,9 @@
   };
 
   nix.gc.dates = "daily";
-  virtualisation.qemu.guestAgent.enable = true;
 
   services = {
+    qemuGuest.enable = true;
     openssh = {
       enable = true;
       settings = {
