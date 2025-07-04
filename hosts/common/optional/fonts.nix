@@ -6,7 +6,6 @@
       fira
       roboto
       roboto-serif
-      vistafonts
       noto-fonts-color-emoji
       nerd-fonts.inconsolata
       nerd-fonts.shure-tech-mono

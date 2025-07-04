@@ -12,6 +12,6 @@
     git
 
     # chrome usb permissions (eg zmk)
-    uucp
+    # uucp
   ];
 }

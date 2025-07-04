@@ -137,11 +137,13 @@ in
         barbecue.enable = true;
         notify = {
           enable = true;
-          render = "compact";
-          stages = "static";
+          settings = {
+            render = "compact";
+            stages = "static";
+          };
         };
         trouble.enable = true;
-        nvim-colorizer.enable = true;
+        colorizer.enable = true;
         refactoring = {
           enable = true;
           enableTelescope = true;

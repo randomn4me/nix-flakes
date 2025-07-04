@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   ...
 }:
 
@@ -61,22 +60,7 @@ in
           };
         };
         web-devicons.enable = true;
-
-        harpoon = {
-          enable = true;
-          keymaps = {
-            addFile = "<leader>a";
-            toggleQuickMenu = "<C-e>";
-
-            navFile = {
-              "1" = "<C-j>";
-              "2" = "<C-k>";
-              "3" = "<C-l>";
-              "4" = "<C-ö>";
-            };
-          };
-        };
-
+        harpoon.enable = true;
         leap.enable = true;
         lualine.enable = true;
       };

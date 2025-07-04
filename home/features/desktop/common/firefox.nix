@@ -11,7 +11,7 @@
     profiles.${config.home.username} = {
       bookmarks = { };
 
-      extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+      extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
         bitwarden
         simple-tab-groups

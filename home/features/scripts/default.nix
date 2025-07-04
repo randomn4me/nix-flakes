@@ -38,7 +38,7 @@ in
     ];
     pdffirstpage = with pkgs; [ poppler_utils ];
     pdf-compress = with pkgs; [ ghostscript ];
-    presents = with pkgs; [ neovim ];
+    presents = [ ];
     radio = with pkgs; [ mpv ];
     rfc = with pkgs; [ curl ];
     sanitize-filename = [ ];
