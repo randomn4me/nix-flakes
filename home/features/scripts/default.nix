@@ -30,14 +30,15 @@ in
       xdg-utils
     ];
     bt = with pkgs; [ bluez ];
+    ha = with pkgs; [ curl ];
     mkv-to-av1 = with pkgs; [ ffmpeg ];
     mvc = [ ];
     paper-menu = with pkgs; [
       fd
       xdg-utils
     ];
-    pdffirstpage = with pkgs; [ poppler_utils ];
     pdf-compress = with pkgs; [ ghostscript ];
+    pdffirstpage = with pkgs; [ poppler_utils ];
     presents = [ ];
     radio = with pkgs; [ mpv ];
     rfc = with pkgs; [ curl ];
