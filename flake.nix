@@ -21,6 +21,9 @@
 
     audacis-blog.url = "git+https://git.audacis.net/r4ndom/webpage";
     audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
+
+    inputs.disko.url = "github:nix-community/disko/latest";
+    inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -77,6 +80,13 @@
             inherit inputs outputs;
           };
           modules = [ ./hosts/netcup ];
+        };
+
+        lucy = lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ ./hosts/lucy ];
         };
       };
 
