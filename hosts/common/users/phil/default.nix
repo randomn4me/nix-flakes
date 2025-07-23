@@ -44,7 +44,7 @@ in
     extraSpecialArgs = {
       inherit inputs outputs;
     };
-    users.phil = import ../../../../home/${config.networking.hostName}.nix;
+    users.phil = import ../../../../home/peasec.nix;
   };
 
   security.pam.services = {

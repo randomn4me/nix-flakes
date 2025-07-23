@@ -38,7 +38,7 @@ in
     extraSpecialArgs = {
       inherit inputs outputs;
     };
-    users.r4ndom = import ../../../../home/${config.networking.hostName}.nix;
+    users.r4ndom = import ../../../../home/phil.nix;
     backupFileExtension = "backup";
   };
 

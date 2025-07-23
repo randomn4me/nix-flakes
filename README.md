@@ -6,6 +6,11 @@ I also aim to split the different use-cases to different users and eventually su
 
 It uses the experimental nix feature `nix-command`, `flakes`, and `repl-flake` and for dotfiles it uses [home-manager](https://github.com/nix-community/home-manager).
 
+## Disko Setup
+
+Check [this post](https://nixos.asia/en/nixos-install-disko)
+
+
 ### Acknowledgements
 
 This flake is heavily inspired by [this](https://git.sr.ht/~misterio/nix-config) one.

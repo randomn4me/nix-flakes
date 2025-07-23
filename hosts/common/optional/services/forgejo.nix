@@ -35,6 +35,7 @@
       return 200 "User-agent: *\nDisallow: /";
     '';
 
-    locations."/".proxyPass = "http://localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+    locations."/".proxyPass =
+      "http://localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}";
   };
 }

@@ -1,7 +1,5 @@
 {
   pkgs,
-  inputs,
-  outputs,
   config,
   ...
 }:
@@ -9,7 +7,7 @@ let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
-  users.users.phil = {
+  users.users.milla = {
     isNormalUser = true;
     extraGroups =
       [ "wheel" ]
@@ -32,9 +30,6 @@ in
     packages = [ pkgs.home-manager ];
     linger = true;
 
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEN/2C4ROHUhM1yFxK8vJOIvQh7LHs9nVP+NDceb5cex r4ndom@peasec"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKluBaVeaUkcr8U5ZF5YTlsyjfUCG0lQkfWrzKVbzM6y pkuehn@kuehn-macbookpro.local"
-    ];
+    openssh.authorizedKeys.keys = [ ];
   };
 }

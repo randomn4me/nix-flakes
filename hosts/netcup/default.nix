@@ -8,9 +8,8 @@
     ../common/optional/services/fail2ban.nix
   ];
 
-    boot.loader.grub.enable = false;
-    boot.loader.generic-extlinux-compatible.enable = true;
-
+  boot.loader.grub.enable = false;
+  boot.loader.generic-extlinux-compatible.enable = true;
 
   networking = {
     hostName = "netcup";
@@ -32,4 +31,3 @@
 
   system.stateVersion = "25.05";
 }
-

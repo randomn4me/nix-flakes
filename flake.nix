@@ -19,11 +19,14 @@
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     audacis-blog.url = "git+https://git.audacis.net/r4ndom/webpage";
     audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
 
-    inputs.disko.url = "github:nix-community/disko/latest";
-    inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
+    disko.url = "github:nix-community/disko/latest";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -31,14 +34,16 @@
       self,
       nixpkgs,
       home-manager,
+      nix-darwin,
       ...
     }@inputs:
     let
       inherit (self) outputs;
-      lib = nixpkgs.lib // home-manager.lib;
+      lib = nixpkgs.lib // home-manager.lib // nix-darwin.lib;
       systems = [
         "aarch64-linux"
         "x86_64-linux"
+        "aarch64-darwin"
       ];
 
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
@@ -90,6 +95,21 @@
         };
       };
 
+      darwinConfigurations = {
+        macbook-pro-pk = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./hosts/macbook-work
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.pkuehn = import ./home/macbook-pro-work.nix;
+            }
+          ];
+
+        };
+      };
+
       homeConfigurations = {
         "phil@peasec" = lib.homeManagerConfiguration {
           pkgs = pkgsFor.x86_64-linux;
@@ -108,11 +128,19 @@
         };
 
         "phil@netcup" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.x86_64-linux;
+          pkgs = pkgsFor.aarch64-linux;
           extraSpecialArgs = {
             inherit inputs outputs;
           };
           modules = [ ./home/netcup.nix ];
+        };
+
+        "pkuehn@macbook-pro-pk" = lib.homeManagerConfiguration {
+          pkgs = pkgsFor.aarch64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ ./home/macbook-pro-work.nix ];
         };
       };
     };

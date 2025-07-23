@@ -46,12 +46,12 @@ in
         }
       ]
       ++
-      # Mute mic
-      (afterLockTimeout {
-        timeout = 10;
-        command = "${wpctl} set-mute @DEFAULT_SOURCE@ 1";
-        resumeCommand = "${wpctl} set-mute @DEFAULT_SOURCE@ 0";
-      })
+        # Mute mic
+        (afterLockTimeout {
+          timeout = 10;
+          command = "${wpctl} set-mute @DEFAULT_SOURCE@ 1";
+          resumeCommand = "${wpctl} set-mute @DEFAULT_SOURCE@ 0";
+        })
       ++
         # Turn off displays (sway)
         (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {

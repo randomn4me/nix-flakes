@@ -31,7 +31,8 @@
     ];
   };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/1f072e34-ceb6-4e6e-8352-9bbc3c610c36";
+  boot.initrd.luks.devices."cryptroot".device =
+    "/dev/disk/by-uuid/1f072e34-ceb6-4e6e-8352-9bbc3c610c36";
 
   fileSystems."/home" = {
     device = "/dev/mapper/cryptroot";
