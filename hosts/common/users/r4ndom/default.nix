@@ -13,17 +13,18 @@ in
 
   users.users.r4ndom = {
     isNormalUser = true;
-    extraGroups =
-      [ "wheel" ]
-      ++ ifTheyExist [
-        "network"
-        "scanner"
-        "lp"
-        "libvirtd"
-        "video"
-        "audio"
-        "i2c"
-      ];
+    extraGroups = [
+      "wheel"
+    ]
+    ++ ifTheyExist [
+      "network"
+      "scanner"
+      "lp"
+      "libvirtd"
+      "video"
+      "audio"
+      "i2c"
+    ];
 
     packages = [ pkgs.home-manager ];
     linger = true;
@@ -38,7 +39,7 @@ in
     extraSpecialArgs = {
       inherit inputs outputs;
     };
-    users.r4ndom = import ../../../../home/phil.nix;
+        users.r4ndom = import ../../../../home/hetzner.nix;
     backupFileExtension = "backup";
   };
 

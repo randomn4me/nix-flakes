@@ -32,6 +32,8 @@ in
       ];
 
       plugins = {
+        harpoon.enable = true;
+
         cloak = {
           enable = true;
           settings = {

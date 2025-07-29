@@ -13,7 +13,8 @@ in
   imports = [
     inputs.nix-colors.homeManagerModule
     ../features/cli
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+  ]
+  ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs.config = {
     allowUnfree = true;

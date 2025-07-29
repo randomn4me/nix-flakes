@@ -30,9 +30,7 @@
   services = {
     openssh = {
       enable = true;
-      settings = {
-        PermitRootLogin = "no";
-      };
+      settings.PermitRootLogin = "no";
     };
 
     journald.extraConfig = "SystemMaxUse=100M";

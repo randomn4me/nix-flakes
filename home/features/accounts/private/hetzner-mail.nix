@@ -109,7 +109,8 @@ in
               macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
             '';
         };
-      } // common;
+      }
+      // common;
 
       sink = rec {
         address = "sink@audacis.net";
@@ -146,7 +147,8 @@ in
               macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
             '';
         };
-      } // common;
+      }
+      // common;
     };
   };
 }

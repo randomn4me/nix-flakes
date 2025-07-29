@@ -9,23 +9,24 @@ in
 {
   users.users.milla = {
     isNormalUser = true;
-    extraGroups =
-      [ "wheel" ]
-      ++ ifTheyExist [
-        "networkmanager"
-        "scanner"
-        "lp"
-        "libvirtd"
-        "video"
-        "audio"
-        "vboxusers"
-        "adbusers"
-        "i2c"
+    extraGroups = [
+      "wheel"
+    ]
+    ++ ifTheyExist [
+      "networkmanager"
+      "scanner"
+      "lp"
+      "libvirtd"
+      "video"
+      "audio"
+      "vboxusers"
+      "adbusers"
+      "i2c"
 
-        # zmk
-        "uucp"
-        "dialout"
-      ];
+      # zmk
+      "uucp"
+      "dialout"
+    ];
 
     packages = [ pkgs.home-manager ];
     linger = true;

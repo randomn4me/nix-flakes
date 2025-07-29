@@ -14,13 +14,14 @@
 {
   default = pkgs.mkShell {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
+    EDITOR = "vim";
     nativeBuildInputs = with pkgs; [
       lix
       home-manager
       git
       fd
       ripgrep
-      neovim
+      vim
 
       sops
       ssh-to-age

@@ -20,16 +20,6 @@ in
             auto_install = true;
 
             languages.disable = [ "latex" ];
-
-            incremental_selection = {
-              enable = true;
-              keymaps = {
-                init_selection = "<leader>s";
-                node_decremental = "<bs>";
-                node_incremental = "<leader>s";
-                scope_incremental = false;
-              };
-            };
             indent.enable = true;
 
           };
@@ -60,7 +50,6 @@ in
           };
         };
         web-devicons.enable = true;
-        harpoon.enable = true;
         leap.enable = true;
         lualine.enable = true;
       };

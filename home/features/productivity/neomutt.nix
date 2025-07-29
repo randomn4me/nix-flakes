@@ -84,144 +84,143 @@ in
       forward_format = ''"Fwd: %s"'';
     };
 
-    binds =
-      [
-        # sidebar
-        {
-          action = "sidebar-prev";
-          key = "K";
-          map = [
-            "index"
-            "pager"
-          ];
-        }
-        {
-          action = "sidebar-next";
-          key = "J";
-          map = [
-            "index"
-            "pager"
-          ];
-        }
-        {
-          action = "sidebar-open";
-          key = "L";
-          map = [
-            "index"
-            "pager"
-          ];
-        }
+    binds = [
+      # sidebar
+      {
+        action = "sidebar-prev";
+        key = "K";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "sidebar-next";
+        key = "J";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "sidebar-open";
+        key = "L";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
 
-        # index
-        {
-          action = "sync-mailbox";
-          key = "<space>";
-          map = [ "index" ];
-        }
-        {
-          action = "noop";
-          key = "x";
-          map = [ "index" ];
-        }
-        {
-          action = "noop";
-          key = "g";
-          map = [ "index" ];
-        }
-        {
-          action = "first-entry";
-          key = "gg";
-          map = [ "index" ];
-        }
-        {
-          action = "last-entry";
-          key = "G";
-          map = [ "index" ];
-        }
-        {
-          action = "collapse-thread";
-          key = "-";
-          map = [ "index" ];
-        }
-
-        # pager
-        {
-          action = "next-line";
-          key = "j";
-          map = [ "pager" ];
-        }
-        {
-          action = "previous-line";
-          key = "k";
-          map = [ "pager" ];
-        }
-        {
-          action = "noop";
-          key = "g";
-          map = [ "pager" ];
-        }
-        {
-          action = "top";
-          key = "gg";
-          map = [ "pager" ];
-        }
-        {
-          action = "bottom";
-          key = "G";
-          map = [ "pager" ];
-        }
-        {
-          action = "exit";
-          key = "q";
-          map = [ "pager" ];
-        }
-
-        # index and pager
-        {
-          action = "group-reply";
-          key = "R";
-          map = [
-            "index"
-            "pager"
-          ];
-        }
-        {
-          action = "search-opposite";
-          key = "N";
-          map = [
-            "index"
-            "pager"
-          ];
-        }
-        {
-          action = "noop";
-          key = "d";
-          map = [
-            "index"
-            "pager"
-          ];
-        }
-        {
-          action = "delete-message";
-          key = "dd";
-          map = [
-            "index"
-            "pager"
-          ];
-        }
-
-        # editor
-        {
-          action = "complete-query";
-          key = "<Tab>";
-          map = [ "editor" ];
-        }
-      ]
-      ++ map (key: {
-        action = "noop";
-        key = toString key;
+      # index
+      {
+        action = "sync-mailbox";
+        key = "<space>";
         map = [ "index" ];
-      }) (lib.range 0 9);
+      }
+      {
+        action = "noop";
+        key = "x";
+        map = [ "index" ];
+      }
+      {
+        action = "noop";
+        key = "g";
+        map = [ "index" ];
+      }
+      {
+        action = "first-entry";
+        key = "gg";
+        map = [ "index" ];
+      }
+      {
+        action = "last-entry";
+        key = "G";
+        map = [ "index" ];
+      }
+      {
+        action = "collapse-thread";
+        key = "-";
+        map = [ "index" ];
+      }
+
+      # pager
+      {
+        action = "next-line";
+        key = "j";
+        map = [ "pager" ];
+      }
+      {
+        action = "previous-line";
+        key = "k";
+        map = [ "pager" ];
+      }
+      {
+        action = "noop";
+        key = "g";
+        map = [ "pager" ];
+      }
+      {
+        action = "top";
+        key = "gg";
+        map = [ "pager" ];
+      }
+      {
+        action = "bottom";
+        key = "G";
+        map = [ "pager" ];
+      }
+      {
+        action = "exit";
+        key = "q";
+        map = [ "pager" ];
+      }
+
+      # index and pager
+      {
+        action = "group-reply";
+        key = "R";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "search-opposite";
+        key = "N";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "noop";
+        key = "d";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+      {
+        action = "delete-message";
+        key = "dd";
+        map = [
+          "index"
+          "pager"
+        ];
+      }
+
+      # editor
+      {
+        action = "complete-query";
+        key = "<Tab>";
+        map = [ "editor" ];
+      }
+    ]
+    ++ map (key: {
+      action = "noop";
+      key = toString key;
+      map = [ "index" ];
+    }) (lib.range 0 9);
 
     macros = [
       {

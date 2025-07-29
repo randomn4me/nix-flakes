@@ -4,7 +4,8 @@
     ./locale.nix
     ./nix.nix
     ./pkgs.nix
-  ] ++ (builtins.attrValues outputs.nixosModules);
+  ]
+  ++ (builtins.attrValues outputs.nixosModules);
 
   nixpkgs.config = {
     allowAliases = false;
