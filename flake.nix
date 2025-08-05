@@ -22,9 +22,6 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    audacis-blog.url = "git+https://git.audacis.net/r4ndom/webpage";
-    audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
-
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
