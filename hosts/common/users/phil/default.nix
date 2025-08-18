@@ -46,7 +46,7 @@ in
     extraSpecialArgs = {
       inherit inputs outputs;
     };
-    users.phil = lib.mkDefault import ../../../../home/peasec.nix;
+    users.phil = import ../../../../home/${config.networking.hostname}.nix;
   };
 
   security.pam.services = {
