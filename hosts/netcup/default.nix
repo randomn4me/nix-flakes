@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -5,6 +6,7 @@
     ../common/global
     ../common/users/phil
 
+    inputs.disko.nixosModules.disko
     ./disko.nix
     ../common/optional/services/fail2ban.nix
   ];
