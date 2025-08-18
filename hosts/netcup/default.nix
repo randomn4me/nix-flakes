@@ -5,6 +5,7 @@
     ../common/global
     ../common/users/phil
 
+    ./disko.nix
     ../common/optional/services/fail2ban.nix
   ];
 
@@ -12,7 +13,7 @@
   boot.loader.generic-extlinux-compatible.enable = true;
 
   networking = {
-    hostName = "netcup";
+    hostName = "audacis-netcup";
     firewall.enable = true;
   };
 
