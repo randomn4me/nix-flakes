@@ -132,7 +132,7 @@
           extraSpecialArgs = {
             inherit inputs outputs;
           };
-          modules = [ ./home/netcup.nix ];
+          modules = [ ./home/audacis-netcup.nix ];
         };
 
         "pkuehn@macbook-pro-pk" = lib.homeManagerConfiguration {
