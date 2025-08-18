@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, outputs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -30,6 +30,13 @@
       };
     };
     journald.extraConfig = "SystemMaxUse=100M";
+  };
+
+  home-manager = {
+    extraSpecialArgs = {
+      inherit inputs outputs;
+    };
+    users.phil = import ../../../../home/netcup.nix;
   };
 
   system.stateVersion = "25.05";

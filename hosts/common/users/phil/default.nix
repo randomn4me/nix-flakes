@@ -3,6 +3,7 @@
   inputs,
   outputs,
   config,
+  lib,
   ...
 }:
 let
@@ -45,7 +46,7 @@ in
     extraSpecialArgs = {
       inherit inputs outputs;
     };
-    users.phil = import ../../../../home/peasec.nix;
+    users.phil = lib.mkDefault import ../../../../home/peasec.nix;
   };
 
   security.pam.services = {
