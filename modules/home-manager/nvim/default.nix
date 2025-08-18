@@ -16,7 +16,7 @@ in
     ./completion.nix
     ./coreplugins.nix
     ./allplugins.nix
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
   ];
 
   options.custom.nvim = {
