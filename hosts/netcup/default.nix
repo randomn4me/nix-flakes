@@ -6,18 +6,18 @@
     ../common/global
     ../common/users/phil
 
-    inputs.disko.nixosModules.disko
-    ./disko.nix
-
     ../common/optional/services/fail2ban.nix
   ];
 
-  boot.loader.grub.enable = false;
-  boot.loader.generic-extlinux-compatible.enable = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
     hostName = "audacis-netcup";
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 22 ];
+    };
   };
 
   nix.gc.dates = "daily";
@@ -31,7 +31,7 @@
     openssh = {
       enable = true;
       settings = {
-        PasswordAuthentication = "no";
+        PasswordAuthentication = false;
         PermitRootLogin = "yes";
       };
     };

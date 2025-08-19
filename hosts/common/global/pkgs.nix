@@ -10,6 +10,7 @@
     curl
     wget
     git
+    libgcc
 
     # chrome usb permissions (eg zmk)
     # uucp
