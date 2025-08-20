@@ -14,6 +14,11 @@ in
 {
   options.custom.mpd-music = {
     enable = mkEnableOption "Enable mpd and ncmpcpp";
+    musicDirectory = mkOption {
+      type = types.str;
+      default = "${config.home.homeDirectory}/usr/music";
+      description = "Directory where your music is stored.";
+    };
   };
 
   config =
@@ -24,6 +29,7 @@ in
       services.mpd = {
         enable = true;
         network.startWhenNeeded = true;
+        musicDirectory = cfg.musicDirectory;
       };
 
       services.mpd-mpris.enable = true;

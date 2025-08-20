@@ -14,6 +14,9 @@ pkgs.python3Packages.buildPythonApplication {
     beautifulsoup4
   ];
 
+  pyproject = true;
+  build-system = [ "setuptools" ];
+
   installPhase = ''
     mkdir -p $out/bin
     cp core.py $out/bin/core

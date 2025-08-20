@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   outputs,
+  config,
   ...
 }:
 {
@@ -20,7 +21,7 @@
     ./features/backup
     ./features/scripts
 
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
   ];
 
   custom.nvim = {
@@ -30,7 +31,10 @@
     allPlugins = true;
   };
 
-  custom.mpd-music.enable = true;
+  custom.mpd-music = {
+        enable = true;
+        musicDirectory = "${config.home.homeDirectory}/usr/music";
+    };
   custom.rbw.enable = true;
 
   accounts.email.accounts.peasec.primary = true;
