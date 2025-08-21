@@ -1,9 +1,7 @@
 { inputs, ... }:
 {
-  environment.defaultPackages = [ inputs.audacis-blog.x86_64-linux.website ];
-  services.nginx.virtualHosts."/" = {
-    forceSSL = true;
-    enableACME = true;
-    root = inputs.audacis-blog.x86_64-linux.website;
-  };
+    imports = [
+        inputs.audacis-blog.nixosModules.default
+    ];
+    services.audacis-blog.enable = true;
 }

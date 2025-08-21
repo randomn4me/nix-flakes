@@ -7,6 +7,7 @@
     ../common/users/phil
 
     ../common/optional/services/fail2ban.nix
+    ../common/optional/services/blog.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
