@@ -1,6 +1,6 @@
 {
   security.acme = {
     acceptTerms = true;
-    defaults.email = "contact@audacis.net";
+    defaults.email = "admin@audacis.net";
   };
 }
