@@ -27,6 +27,12 @@
         user = "r4ndom";
         identityFile = "~/.ssh/rpi5";
       };
+
+      netcup = {
+        hostname = "89.58.28.80";
+        user = "phil";
+        identityFile = "~/.ssh/netcup";
+      };
     };
   };
 }
