@@ -36,8 +36,9 @@ in
     linger = true;
 
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEN/2C4ROHUhM1yFxK8vJOIvQh7LHs9nVP+NDceb5cex"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFYBykZ07Oy9hAvGoRKxQsofN0zANFENiZ4Cko6FVeGK"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEN/2C4ROHUhM1yFxK8vJOIvQh7LHs9nVP+NDceb5cex nix-laptop"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFYBykZ07Oy9hAvGoRKxQsofN0zANFENiZ4Cko6FVeGK macbook"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIMseHZSkXKLwEFAjno1QZijuzqejlQ6SQ49Ms6ROn1K hetzner"
     ];
   };
 
