@@ -10,13 +10,14 @@
     ../common/optional/services/blog.nix
     ../common/optional/services/postgres.nix
     ../common/optional/services/taskserver.nix
+    ../common/optional/services/forgejo.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
-    hostName = "audacis-netcup";
+    hostName = "netcup";
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];
