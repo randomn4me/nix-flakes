@@ -8,6 +8,8 @@
 
     ../common/optional/services/fail2ban.nix
     ../common/optional/services/blog.nix
+    ../common/optional/services/postgres.nix
+    ../common/optional/services/taskserver.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
