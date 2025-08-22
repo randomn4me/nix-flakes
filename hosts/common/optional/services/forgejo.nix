@@ -5,14 +5,12 @@
   services.forgejo = {
     enable = true;
     database.type = "postgres";
+    dump.enable = true;
 
     lfs.enable = true;
 
     settings = {
-      server = {
-        DOMAIN = "git.audacis.net";
-        HTTP_PORT = 3000;
-      };
+      server.DOMAIN = "git.audacis.net";
 
       service.DISABLE_REGISTRATION = true;
 
