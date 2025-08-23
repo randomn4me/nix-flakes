@@ -2,6 +2,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }:
 
@@ -33,6 +34,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = [ pkgs.gcc ];
+
     programs.nixvim = {
       enable = true;
 

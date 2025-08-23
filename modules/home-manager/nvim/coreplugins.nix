@@ -12,7 +12,26 @@ in
 {
   config = mkIf cfg.corePlugins {
     programs.nixvim = {
+      keymaps = [
+        {
+          key = "<leader>g";
+          action = "<cmd>:Git<cr>";
+          options = {
+            desc = "Open fugitive";
+          };
+        }
+        {
+          key = "<leader>e";
+          action = "<cmd>:Oil<cr>";
+          options = {
+            desc = "Open Oil";
+          };
+        }
+      ];
+
       plugins = {
+        fugitive.enable = true;
+        oil.enable = true;
         treesitter = {
           enable = true;
           folding = true;

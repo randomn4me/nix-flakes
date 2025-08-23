@@ -82,7 +82,6 @@ in
         };
 
         which-key.enable = true;
-        fugitive.enable = true;
         undotree.enable = true;
 
         chatgpt = {
