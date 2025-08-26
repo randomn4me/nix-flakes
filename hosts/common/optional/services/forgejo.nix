@@ -13,7 +13,7 @@
       server.DOMAIN = "git.audacis.net";
       server.ROOT_URL = "https://${config.services.forgejo.settings.server.DOMAIN}";
 
-      service.DISABLE_REGISTRATION = true;
+      service.DISABLE_REGISTRATION = false;
 
       actions = {
         ENABLED = true;
@@ -24,6 +24,7 @@
 
   services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
     forceSSL = true;
+    serverName = config.services.forgejo.settings.server.DOMAIN;
     enableACME = true;
     extraConfig = ''
       client_max_body_size 512M;

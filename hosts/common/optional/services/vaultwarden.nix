@@ -1,4 +1,6 @@
-{
+let
+    domain = "vault.audacis.net";
+in {
   imports = [
     ./nginx.nix
     ./acme.nix
@@ -11,9 +13,10 @@
     };
   };
 
-  services.nginx.virtualHosts."vault.audacis.net" = {
+  services.nginx.virtualHosts.domain = {
     enableACME = true;
     forceSSL = true;
+    serverName = domain;
 
     locations."/robots.txt".extraConfig = ''
       rewrite ^/(.*)  $1;
