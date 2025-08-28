@@ -3,6 +3,7 @@
   imports = [
     ./global
 
+    ./features/ssh/peasec.nix
     ./features/ssh/private.nix
   ];
 

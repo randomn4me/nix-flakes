@@ -43,18 +43,6 @@
         user = "ba01viny";
         identityFile = "~/.ssh/hochleistungsrechner";
       };
-
-      "peasec-experimental" = {
-        hostname = "130.83.156.168";
-        user = "philippkuehn";
-        identityFile = "~/.ssh/peasec-experimental";
-      };
-
-      "peasec-webserver02" = {
-        hostname = "130.83.156.166";
-        user = "philippkuehn";
-        identityFile = "~/.ssh/peasec-webserver02";
-      };
     };
   };
 }
