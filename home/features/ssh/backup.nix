@@ -4,8 +4,8 @@
 
     matchBlocks = {
       storagebox = {
-        hostname = "u340000.your-storagebox.de";
-        user = "u340000";
+        hostname = "u487410.your-storagebox.de";
+        user = "u487410";
         port = 23;
         identityFile = "~/.ssh/storagebox";
       };
