@@ -32,9 +32,9 @@
   };
 
   custom.mpd-music = {
-        enable = true;
-        musicDirectory = "${config.home.homeDirectory}/usr/music";
-    };
+    enable = true;
+    musicDirectory = "${config.home.homeDirectory}/usr/music";
+  };
   custom.rbw.enable = true;
 
   accounts.email.accounts.peasec.primary = true;
@@ -58,7 +58,6 @@
     ffmpeg
     zotero
     zoom-us
-    outputs.packages.x86_64-linux.python-icore
 
     # home
     ddcutil
@@ -81,7 +80,6 @@
 
   services.udiskie.enable = true;
   services.syncthing.enable = true;
-  services.kdeconnect.enable = true;
 
   monitors = [
     {

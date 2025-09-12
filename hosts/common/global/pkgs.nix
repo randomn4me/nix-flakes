@@ -10,7 +10,6 @@
     curl
     wget
     git
-    vim
     sops
   ];
 }
