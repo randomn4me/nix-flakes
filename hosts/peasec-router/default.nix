@@ -6,6 +6,9 @@
     ../common/global/disko/peasec-router.nix
   ];
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   networking = {
     hostName = "peasec-router";
 
