@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     neovim
@@ -10,8 +10,5 @@
     curl
     wget
     git
-
-    # chrome usb permissions (eg zmk)
-    # uucp
   ];
 }

@@ -90,6 +90,13 @@
           modules = [ ./hosts/netcup ];
         };
 
+        peasec-router = lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ ./hosts/peasec-router ];
+        };
+
         lucy = lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs;
@@ -100,15 +107,7 @@
 
       darwinConfigurations = {
         macbook-pro-pk = nix-darwin.lib.darwinSystem {
-          modules = [
-            ./hosts/macbook-work
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.pkuehn = import ./home/macbook-pro-work.nix;
-            }
-          ];
+          modules = [ ./hosts/macbook-work ];
 
         };
       };
@@ -136,14 +135,6 @@
             inherit inputs outputs;
           };
           modules = [ ./home/netcup.nix ];
-        };
-
-        "pkuehn@macbook-pro-pk" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.aarch64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/macbook-pro-work.nix ];
         };
       };
     };
