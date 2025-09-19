@@ -30,6 +30,9 @@
 
     audacis-blog.url = "git+https://git.audacis.net/philippkuehn/blog";
     audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
+
+    audax-page.url = "git+https://git.audacis.net/philippkuehn/audax-page";
+    audax-page.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -76,32 +79,11 @@
           modules = [ ./hosts/peasec ];
         };
 
-        hetzner = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./hosts/hetzner ];
-        };
-
         netcup = lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs;
           };
           modules = [ ./hosts/netcup ];
-        };
-
-        peasec-router = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./hosts/peasec-router ];
-        };
-
-        lucy = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./hosts/lucy ];
         };
       };
 
@@ -119,14 +101,6 @@
             inherit inputs outputs;
           };
           modules = [ ./home/peasec.nix ];
-        };
-
-        "r4ndom@hetzner" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/hetzner.nix ];
         };
 
         "phil@netcup" = lib.homeManagerConfiguration {
