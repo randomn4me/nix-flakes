@@ -46,5 +46,7 @@
     journald.extraConfig = "SystemMaxUse=100M";
   };
 
+  security.acme.defaults.email = "admin@audacis.net";
+
   system.stateVersion = "25.05";
 }
