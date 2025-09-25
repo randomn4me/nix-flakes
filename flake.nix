@@ -31,8 +31,11 @@
     audacis-blog.url = "git+https://git.audacis.net/philippkuehn/blog";
     audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
 
-    audax-page.url = "git+https://git.audacis.net/philippkuehn/audax-page";
+    audax-page.url = "git+ssh://git.audacis.net/philippkuehn/audax-page";
     audax-page.inputs.nixpkgs.follows = "nixpkgs";
+
+    joshua.url = "git+ssh://git@gitlab.dev.peasec.de/philippkuehn/joshua-mock-dashboard.git";
+    joshua.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

@@ -13,6 +13,8 @@
 
     ../common/optional/services/blog.nix
     ../common/optional/services/audax-page.nix
+
+    ../common/optional/services/joshua.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

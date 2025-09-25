@@ -5,7 +5,7 @@
 
     matchBlocks = {
       "gitlab.dev.peasec.de" = {
-        user = "philippkuehn";
+        user = "git";
         identityFile = "~/.ssh/peasec-gitlab";
       };
 
