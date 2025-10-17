@@ -8,7 +8,6 @@
 
     ../common/optional/services/fail2ban.nix
     ../common/optional/services/vaultwarden.nix
-    ../common/optional/services/taskserver.nix
     ../common/optional/services/forgejo.nix
 
     ../common/optional/services/blog.nix
