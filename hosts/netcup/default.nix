@@ -12,10 +12,8 @@
     ../common/optional/services/forgejo.nix
 
     ../common/optional/services/blog.nix
-    # ../common/optional/services/audax-page.nix
     ../common/optional/services/audax-zola.nix
 
-    ../common/optional/services/joshua.nix
     ../common/optional/services/audax-dashboard.nix
   ];
 
