@@ -18,7 +18,7 @@ in
 
   nixpkgs.config = {
     allowUnfree = true;
-    allowUnfreePredicat = (_: true);
+    allowUnfreePredicate = (_: true);
   };
 
   nix = {
