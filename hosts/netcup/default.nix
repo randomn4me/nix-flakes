@@ -6,9 +6,12 @@
     ../common/global
     ../common/users/phil
 
+    ../common/optional/sops.nix
+
     ../common/optional/services/fail2ban.nix
     ../common/optional/services/vaultwarden.nix
     ../common/optional/services/forgejo.nix
+    ../common/optional/services/freshrss.nix
 
     ../common/optional/services/blog.nix
     ../common/optional/services/audax-zola.nix

@@ -1,0 +1,31 @@
+keys:
+  # Add your age public keys here
+  # You can get your age public key by running: age-keygen -y /path/to/key.txt
+  - &peasec age1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklm  # replace with actual key
+  - &netcup age1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklm  # replace with actual key
+  - &macbook age1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklm  # replace with actual key
+
+creation_rules:
+  # Global secrets accessible by all systems
+  - path_regex: hosts/secrets\.yaml$
+    key_groups:
+      - age:
+          - *peasec
+          - *netcup
+          - *macbook
+
+  # Per-host secrets
+  - path_regex: hosts/peasec/secrets\.yaml$
+    key_groups:
+      - age:
+          - *peasec
+
+  - path_regex: hosts/netcup/secrets\.yaml$
+    key_groups:
+      - age:
+          - *netcup
+
+  - path_regex: hosts/macbook-work/secrets\.yaml$
+    key_groups:
+      - age:
+          - *macbook

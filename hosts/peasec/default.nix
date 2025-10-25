@@ -20,6 +20,7 @@
     ../common/optional/docker.nix
     ../common/optional/virtualization.nix
     ../common/optional/ddcutils.nix
+    ../common/optional/sops.nix
   ];
 
   networking.hostName = "peasec";
