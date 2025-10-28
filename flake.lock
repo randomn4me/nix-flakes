@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761689103,
-        "narHash": "sha256-EXoEDXk2GYmWFjVJYRYkAHjq2oA8by1WJBl4vYB5AZM=",
+        "lastModified": 1761689353,
+        "narHash": "sha256-Yzd+Wq2Vv1TuuQ0n9yMNYMJoZyLRjWZVfhQFu2F3uBc=",
         "ref": "refs/heads/main",
-        "rev": "544f1963e1602fdc233ef1c869e10c36c60a2748",
-        "revCount": 117,
+        "rev": "4eb0c932673257376d3ed96ea8b6891f4db85b63",
+        "revCount": 118,
         "type": "git",
         "url": "ssh://git.audacis.net/philippkuehn/audax-demo.git"
       },
