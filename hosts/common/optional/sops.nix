@@ -12,12 +12,23 @@
     # This is using an age key that is expected to be already present on the system
     age.keyFile = "/var/lib/sops-nix/key.txt";
 
-    # Example secret definitions - uncomment and modify as needed
-    # secrets.example-secret = {
-    #   # The secret will be written to /run/secrets/example-secret by default
-    #   # owner = "user";
-    #   # group = "group";
-    #   # mode = "0440";
-    # };
+    # Secret definitions for Audax Dashboard
+    secrets = {
+      "audax-dashboard/nvd-api-key" = {
+        owner = "audax-dashboard";
+        group = "audax-dashboard";
+        mode = "0440";
+      };
+      "audax-dashboard/threatfox-api-key" = {
+        owner = "audax-dashboard";
+        group = "audax-dashboard";
+        mode = "0440";
+      };
+      "audax-dashboard/dashboard-passphrase" = {
+        owner = "audax-dashboard";
+        group = "audax-dashboard";
+        mode = "0440";
+      };
+    };
   };
 }

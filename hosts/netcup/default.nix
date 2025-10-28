@@ -73,5 +73,8 @@
     journald.extraConfig = "SystemMaxUse=100M";
   };
 
+  # Override sops defaultSopsFile to use host-specific secrets
+  sops.defaultSopsFile = lib.mkForce ./secrets.yaml;
+
   system.stateVersion = "25.05";
 }
