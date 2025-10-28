@@ -51,11 +51,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761309154,
-        "narHash": "sha256-7s+tpHCQqgZ/Kyfi0ZoOBM7NkozkHUd1mkuG1DcNZ7A=",
+        "lastModified": 1761691364,
+        "narHash": "sha256-8kEBVNf9pGpWyiqbB3NR4HwC1yRzncS4rVGZQD1F1iA=",
         "ref": "refs/heads/main",
-        "rev": "22ec33c68e1f8441926b0b27b23f2bfda020fa39",
-        "revCount": 45,
+        "rev": "d83c21cb7039b8dcdf7d1071eb43b7dec756e6ee",
+        "revCount": 46,
         "type": "git",
         "url": "ssh://git.audacis.net/philippkuehn/audax-zola"
       },
@@ -109,11 +109,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1761478231,
-        "narHash": "sha256-a6ROM73M0TSrooI+8/UMj5KWKOdaDFTycVeo8XJ3dk4=",
+        "lastModified": 1761624227,
+        "narHash": "sha256-AtfbVuB48QY0Ou3upSFEsYBJNmW1+S84nWQwZSzHQOY=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "ae968708476302f8781fb5e245d53f112ed04111",
+        "rev": "23ad46145f62fcade09f1c609c660c45444f72b5",
         "type": "gitlab"
       },
       "original": {
@@ -218,11 +218,11 @@
     },
     "hardware": {
       "locked": {
-        "lastModified": 1760958188,
-        "narHash": "sha256-2m1S4jl+GEDtlt2QqeHil8Ny456dcGSKJAM7q3j/BFU=",
+        "lastModified": 1761669189,
+        "narHash": "sha256-INBZnPA9JzyDn+Fnni2250PbRzKx7Eafz0T2c7NhXiQ=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "d6645c340ef7d821602fd2cd199e8d1eed10afbc",
+        "rev": "9c0ee5dfa186e10efe9b53505b65d22c81860fde",
         "type": "github"
       },
       "original": {
@@ -238,11 +238,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761468550,
-        "narHash": "sha256-nY4vyN1QdHhC5Gj3545fI2Y7FSr/gs8ID4gPmF8HPww=",
+        "lastModified": 1761666354,
+        "narHash": "sha256-fHr+tIYBJccNF8QWqgowfRmEAtAMSt1deZIRNKL8A7c=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1830716059bfee7cbcfbfcc38d7be98e482a5762",
+        "rev": "ca2ab1d877a24d5a437dad62f56b8b2c02e964e9",
         "type": "github"
       },
       "original": {
@@ -380,11 +380,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1761481354,
-        "narHash": "sha256-yZaR6ac/B6iiLIS9BW5eqpsEyzqIozzW884GhFmQOUk=",
+        "lastModified": 1761657569,
+        "narHash": "sha256-2D4Tw5Vp52RU5amnBvq0/z+zgZqafwl4bhg8dJBBjXI=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "3896bc0e32731fb77b8d73a2300aee78397bd3af",
+        "rev": "03c0dabb9a63f52bc2ebf571f3755720df1ca81e",
         "type": "github"
       },
       "original": {
