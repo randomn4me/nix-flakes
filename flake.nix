@@ -34,7 +34,7 @@
     audax-zola.url = "git+ssh://git.audacis.net/philippkuehn/audax-zola";
     audax-zola.inputs.nixpkgs.follows = "nixpkgs";
 
-    audax-dashboard.url = "git+ssh://forgejo@git.audacis.net/philippkuehn/audax-demo.git";
+    audax-dashboard.url = "git+ssh://git.audacis.net/philippkuehn/audax-demo.git";
     audax-dashboard.inputs.nixpkgs.follows = "nixpkgs";
   };
 

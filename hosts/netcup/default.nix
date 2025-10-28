@@ -8,19 +8,42 @@
 
     ../common/optional/sops.nix
 
-    ../common/optional/services/fail2ban.nix
-    ../common/optional/services/vaultwarden.nix
-    ../common/optional/services/forgejo.nix
-    ../common/optional/services/freshrss.nix
+    # Import external flake modules
+    inputs.audacis-blog.nixosModules.default
+    inputs.audax-zola.nixosModules.default
+    inputs.audax-dashboard.nixosModules.default
 
-    ../common/optional/services/blog.nix
-    ../common/optional/services/audax-zola.nix
-
-    ../common/optional/services/audax-dashboard.nix
+    # OLD IMPORTS - keeping for reference during testing
+    # ../common/optional/services/fail2ban.nix
+    # ../common/optional/services/vaultwarden.nix
+    # ../common/optional/services/forgejo.nix
+    # ../common/optional/services/freshrss.nix
+    # ../common/optional/services/blog.nix
+    # ../common/optional/services/audax-zola.nix
+    # ../common/optional/services/audax-dashboard.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Enable new modular services
+  services.custom = {
+    # Core infrastructure
+    acme.enable = true;
+    nginx.enable = true;
+    postgres.enable = true;
+    fail2ban.enable = true;
+
+    # Application services
+    vaultwarden.enable = true;
+    forgejo.enable = true;
+    freshrss.enable = true;
+
+    # External flake services
+    audacis-blog.enable = true;
+    audax-zola.enable = true;
+    audax-dashboard.enable = true;
+  };
 
   networking = {
     hostName = "netcup";
@@ -49,8 +72,6 @@
     };
     journald.extraConfig = "SystemMaxUse=100M";
   };
-
-  security.acme.defaults.email = "admin@audacis.net";
 
   system.stateVersion = "25.05";
 }

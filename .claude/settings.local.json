@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nix flake show)",
+      "Bash(systemctl status:*)",
+      "Bash(systemctl cat:*)",
+      "Bash(nginx:*)",
+      "Read(//nix/store/**)",
+      "Bash(cat:*)",
+      "Bash(zola build:*)",
+      "Bash(nix develop:*)",
+      "Read(//tmp/**)",
+      "Bash(git check-ignore:*)",
+      "Bash(git checkout:*)",
+      "WebFetch(domain:www.getzola.org)",
+      "WebFetch(domain:github.com)",
+      "Bash(systemctl list-units:*)",
+      "Bash(curl:*)",
+      "Bash(ss:*)",
+      "Bash(journalctl:*)",
+      "Bash(python3:*)",
+      "Bash(nix flake metadata:*)",
+      "Read(//home/phil/src/audax-demo/**)",
+      "Bash(nc:*)",
+      "Bash(nix flake update:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(nixos-rebuild build:*)",
+      "Read(//etc/**)",
+      "Bash(nix flake lock:*)",
+      "Bash(readlink:*)",
+      "Bash(systemctl show:*)",
+      "Bash(/nix/store/2waby6yghzimz36nny9hxckada05d17f-nginx-1.28.0/bin/nginx:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

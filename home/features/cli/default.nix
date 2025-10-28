@@ -41,5 +41,6 @@
 
     zip
     unzip
+    claude-code
   ];
 }
