@@ -42,7 +42,18 @@
     # External flake services
     audacis-blog.enable = true;
     audax-zola.enable = true;
-    audax-dashboard.enable = true;
+  };
+
+  # Configure audax-dashboard with sops secrets
+  services.audax-dashboard = {
+    enable = true;
+    domain = "dashboard.audax-security.com";
+    acmeEmail = "admin@audax-security.com";
+
+    # Use sops-managed secrets for API keys and password
+    nvdApiKeyFile = "/run/secrets/audax-dashboard/nvd-api-key";
+    threatfoxApiKeyFile = "/run/secrets/audax-dashboard/threatfox-api-key";
+    dashboardPasswordFile = "/run/secrets/audax-dashboard/dashboard-passphrase";
   };
 
   networking = {
