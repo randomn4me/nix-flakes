@@ -31,7 +31,8 @@
       "Bash(nix flake lock:*)",
       "Bash(readlink:*)",
       "Bash(systemctl show:*)",
-      "Bash(/nix/store/2waby6yghzimz36nny9hxckada05d17f-nginx-1.28.0/bin/nginx:*)"
+      "Bash(/nix/store/2waby6yghzimz36nny9hxckada05d17f-nginx-1.28.0/bin/nginx:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []
