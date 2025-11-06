@@ -32,7 +32,15 @@
       "Bash(readlink:*)",
       "Bash(systemctl show:*)",
       "Bash(/nix/store/2waby6yghzimz36nny9hxckada05d17f-nginx-1.28.0/bin/nginx:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(sqlite3:*)",
+      "Read(//home/phil/src/joshua-mock-dashboard/**)",
+      "Bash(nix-instantiate:*)",
+      "Bash(nixos-option:*)",
+      "Bash(rm:*)",
+      "Bash(rmdir:*)",
+      "WebFetch(domain:search.nixos.org)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
