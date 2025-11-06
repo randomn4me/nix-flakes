@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, ... }:
+{ inputs, outputs, lib, config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -12,6 +12,7 @@
     inputs.audacis-blog.nixosModules.default
     inputs.audax-zola.nixosModules.default
     inputs.audax-dashboard.nixosModules.default
+    inputs.joshua-dashboard.nixosModules.default
 
     # OLD IMPORTS - keeping for reference during testing
     # ../common/optional/services/fail2ban.nix
@@ -37,7 +38,11 @@
     # Application services
     vaultwarden.enable = true;
     forgejo.enable = true;
-    freshrss.enable = true;
+    freshrss = {
+      enable = true;
+      defaultUser = "admin";
+      passwordFile = config.sops.secrets."freshrss/passphrase".path;
+    };
 
     # External flake services
     audacis-blog.enable = true;
@@ -54,6 +59,14 @@
     nvdApiKeyFile = "/run/secrets/audax-dashboard/nvd-api-key";
     threatfoxApiKeyFile = "/run/secrets/audax-dashboard/threatfox-api-key";
     dashboardPasswordFile = "/run/secrets/audax-dashboard/dashboard-passphrase";
+  };
+
+  # Configure joshua-dashboard (wargame simulation dashboard)
+  services.joshua-dashboard = {
+    enable = true;
+    domain = "joshua.peasec.de";
+    usernameFile = config.sops.secrets."joshua/username".path;
+    passwordFile = config.sops.secrets."joshua/passphrase".path;
   };
 
   networking = {

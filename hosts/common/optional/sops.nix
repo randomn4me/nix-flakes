@@ -29,6 +29,21 @@
         group = "audax-dashboard";
         mode = "0440";
       };
+      "joshua/passphrase" = {
+        owner = "nginx";
+        group = "nginx";
+        mode = "0440";
+      };
+      "joshua/username" = {
+        owner = "nginx";
+        group = "nginx";
+        mode = "0440";
+      };
+      "freshrss/passphrase" = {
+        owner = "freshrss";
+        group = "freshrss";
+        mode = "0440";
+      };
     };
   };
 }
