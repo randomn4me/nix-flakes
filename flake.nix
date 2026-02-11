@@ -34,11 +34,8 @@
     audax-zola.url = "git+ssh://git.audacis.net/philippkuehn/audax-zola";
     audax-zola.inputs.nixpkgs.follows = "nixpkgs";
 
-    audax-dashboard.url = "git+ssh://git.audacis.net/philippkuehn/audax-demo.git?ref=fix-mobile-view";
-    audax-dashboard.inputs.nixpkgs.follows = "nixpkgs";
-
-    joshua-dashboard.url = "git+ssh://gitlab.dev.peasec.de/philippkuehn/joshua-mock-dashboard.git";
-    joshua-dashboard.inputs.nixpkgs.follows = "nixpkgs";
+    code-of-courage.url = "git+ssh://gitlab.dev.peasec.de/praktikum/25ss_LG1_CodeOfCourage.git";
+    code-of-courage.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

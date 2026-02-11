@@ -38,7 +38,7 @@ in
       xdg-utils
     ];
     pdf-compress = with pkgs; [ ghostscript ];
-    pdffirstpage = with pkgs; [ poppler_utils ];
+    pdffirstpage = with pkgs; [ poppler-utils ];
     presents = [ ];
     radio = with pkgs; [ mpv ];
     rfc = with pkgs; [ curl ];

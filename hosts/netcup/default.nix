@@ -8,20 +8,9 @@
 
     ../common/optional/sops.nix
 
-    # Import external flake modules
     inputs.audacis-blog.nixosModules.default
     inputs.audax-zola.nixosModules.default
-    inputs.audax-dashboard.nixosModules.default
-    inputs.joshua-dashboard.nixosModules.default
-
-    # OLD IMPORTS - keeping for reference during testing
-    # ../common/optional/services/fail2ban.nix
-    # ../common/optional/services/vaultwarden.nix
-    # ../common/optional/services/forgejo.nix
-    # ../common/optional/services/freshrss.nix
-    # ../common/optional/services/blog.nix
-    # ../common/optional/services/audax-zola.nix
-    # ../common/optional/services/audax-dashboard.nix
+    inputs.code-of-courage.nixosModules.default
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -37,36 +26,22 @@
 
     # Application services
     vaultwarden.enable = true;
-    forgejo.enable = true;
-    freshrss = {
+    forgejo = {
       enable = true;
-      defaultUser = "admin";
+      runner = {
+        enable = true;
+        tokenFile = config.sops.secrets."forgejo/runner-connection".path;
+      };
+    };
+    freshrss = {
+      enable = false;
       passwordFile = config.sops.secrets."freshrss/passphrase".path;
     };
 
     # External flake services
     audacis-blog.enable = true;
     audax-zola.enable = true;
-  };
-
-  # Configure audax-dashboard with sops secrets
-  services.audax-dashboard = {
-    enable = true;
-    domain = "dashboard.audax-security.com";
-    acmeEmail = "admin@audax-security.com";
-
-    # Use sops-managed secrets for API keys and password
-    nvdApiKeyFile = "/run/secrets/audax-dashboard/nvd-api-key";
-    threatfoxApiKeyFile = "/run/secrets/audax-dashboard/threatfox-api-key";
-    dashboardPasswordFile = "/run/secrets/audax-dashboard/dashboard-passphrase";
-  };
-
-  # Configure joshua-dashboard (wargame simulation dashboard)
-  services.joshua-dashboard = {
-    enable = true;
-    domain = "joshua.peasec.de";
-    usernameFile = config.sops.secrets."joshua/username".path;
-    passwordFile = config.sops.secrets."joshua/passphrase".path;
+    code-of-courage.enable = true;
   };
 
   networking = {
@@ -79,7 +54,7 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [ 22 80 443 ];
     };
   };
 
@@ -90,7 +65,6 @@
     openssh = {
       enable = true;
       settings = {
-        PasswordAuthentication = false;
         PermitRootLogin = "yes";
       };
     };

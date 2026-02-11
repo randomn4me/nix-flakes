@@ -12,23 +12,24 @@
     # This is using an age key that is expected to be already present on the system
     age.keyFile = "/var/lib/sops-nix/key.txt";
 
-    # Secret definitions for Audax Dashboard
+    # Secret definitions
     secrets = {
-      "audax-dashboard/nvd-api-key" = {
-        owner = "audax-dashboard";
-        group = "audax-dashboard";
-        mode = "0440";
-      };
-      "audax-dashboard/threatfox-api-key" = {
-        owner = "audax-dashboard";
-        group = "audax-dashboard";
-        mode = "0440";
-      };
-      "audax-dashboard/dashboard-passphrase" = {
-        owner = "audax-dashboard";
-        group = "audax-dashboard";
-        mode = "0440";
-      };
+      # Audax Dashboard secrets (disabled - service not enabled)
+      # "audax-dashboard/nvd-api-key" = {
+      #   owner = "audax-dashboard";
+      #   group = "audax-dashboard";
+      #   mode = "0440";
+      # };
+      # "audax-dashboard/threatfox-api-key" = {
+      #   owner = "audax-dashboard";
+      #   group = "audax-dashboard";
+      #   mode = "0440";
+      # };
+      # "audax-dashboard/dashboard-passphrase" = {
+      #   owner = "audax-dashboard";
+      #   group = "audax-dashboard";
+      #   mode = "0440";
+      # };
       "joshua/passphrase" = {
         owner = "nginx";
         group = "nginx";
@@ -39,9 +40,22 @@
         group = "nginx";
         mode = "0440";
       };
-      "freshrss/passphrase" = {
-        owner = "freshrss";
-        group = "freshrss";
+      # FreshRSS secret (disabled - service not enabled)
+      # "freshrss/passphrase" = {
+      #   owner = "freshrss";
+      #   group = "freshrss";
+      #   mode = "0440";
+      # };
+      # ntfy secret (disabled - service not enabled)
+      # "ntfy/philippkuehn" = {
+      #   owner = "ntfy-sh";
+      #   group = "ntfy-sh";
+      #   mode = "0440";
+      # };
+      # Forgejo runner token (format: TOKEN=<secret>)
+      "forgejo/runner-connection" = {
+        owner = "gitea-runner";
+        group = "gitea-runner";
         mode = "0440";
       };
     };

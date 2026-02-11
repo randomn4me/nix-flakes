@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -53,6 +53,47 @@ in
       };
     };
 
+    runner = {
+      enable = mkEnableOption "Forgejo Actions runner";
+
+      name = mkOption {
+        type = types.str;
+        default = config.networking.hostName;
+        description = "Name for the runner instance";
+      };
+
+      tokenFile = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        description = "Path to file containing TOKEN=<secret> for runner registration";
+      };
+
+      labels = mkOption {
+        type = types.listOf types.str;
+        default = [
+          "docker:docker://node:20-bookworm"
+          "ubuntu-latest:docker://node:20-bookworm"
+          "ubuntu-22.04:docker://node:20-bookworm"
+        ];
+        description = "Labels for the runner (format: label:docker://image)";
+      };
+
+      hostPackages = mkOption {
+        type = types.listOf types.package;
+        default = with pkgs; [
+          bash
+          coreutils
+          curl
+          gawk
+          git
+          gnused
+          nodejs
+          wget
+        ];
+        description = "Packages available for native host execution";
+      };
+    };
+
     nginx = {
       enableACME = mkOption {
         type = types.bool;
@@ -100,6 +141,25 @@ in
           DEFAULT_ACTIONS_URL = cfg.actions.defaultActionsUrl;
         };
       };
+    };
+
+    # Forgejo Actions Runner configuration
+    services.gitea-actions-runner = mkIf cfg.runner.enable {
+      package = pkgs.forgejo-runner;
+      instances.default = {
+        enable = true;
+        name = cfg.runner.name;
+        url = "https://${cfg.domain}";
+        tokenFile = cfg.runner.tokenFile;
+        labels = cfg.runner.labels;
+        hostPackages = cfg.runner.hostPackages;
+      };
+    };
+
+    # Enable Podman for container-based runners (rootless, daemonless)
+    virtualisation.podman = mkIf cfg.runner.enable {
+      enable = true;
+      dockerCompat = true;  # Creates docker alias for compatibility
     };
 
     services.nginx.virtualHosts.${cfg.domain} = {

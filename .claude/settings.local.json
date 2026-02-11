@@ -40,7 +40,15 @@
       "Bash(rm:*)",
       "Bash(rmdir:*)",
       "WebFetch(domain:search.nixos.org)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:docs.ntfy.sh)",
+      "Bash(claude --version)",
+      "WebFetch(domain:wiki.nixos.org)",
+      "Bash(ssh:*)",
+      "Bash(sshd:*)",
+      "Bash(nix flake show:*)",
+      "Bash(dig:*)",
+      "Bash(ip addr:*)"
     ],
     "deny": [],
     "ask": []

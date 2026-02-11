@@ -18,12 +18,12 @@
     ./forgejo.nix
     ./vaultwarden.nix
     ./freshrss.nix
+    ./ntfy.nix
 
     # External flake-based services
     ./audacis-blog.nix
     ./audax-page.nix
     ./audax-zola.nix
-    ./audax-dashboard.nix
-    ./joshua-dashboard.nix
+    ./code-of-courage.nix
   ];
 }

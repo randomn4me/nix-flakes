@@ -42,5 +42,6 @@
     zip
     unzip
     claude-code
+    rclone
   ];
 }
