@@ -26,7 +26,7 @@ in
     bat = with pkgs; [ gnugrep ];
     bone = with pkgs; [
       libnotify
-      xorg.xkbcomp
+      xkbcomp
       xdg-utils
     ];
     bt = with pkgs; [ bluez ];

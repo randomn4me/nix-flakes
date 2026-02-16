@@ -124,6 +124,7 @@ in
   config = mkIf cfg.enable {
     services.forgejo = {
       enable = true;
+      package = pkgs.forgejo;  # Use latest instead of LTS
       database.type = cfg.databaseType;
       dump.enable = cfg.enableDump;
       lfs.enable = cfg.enableLFS;
@@ -142,6 +143,15 @@ in
         };
       };
     };
+
+    # Create gitea-runner user/group early for sops
+    users.users.gitea-runner = mkIf cfg.runner.enable {
+      isSystemUser = true;
+      group = "gitea-runner";
+      description = "Gitea Actions runner user";
+    };
+
+    users.groups.gitea-runner = mkIf cfg.runner.enable {};
 
     # Forgejo Actions Runner configuration
     services.gitea-actions-runner = mkIf cfg.runner.enable {
