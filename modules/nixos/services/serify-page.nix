@@ -23,5 +23,17 @@ in
       enable = true;
       domain = cfg.domain;
     };
+
+    services.nginx.virtualHosts."serify.de" = {
+      enableACME = true;
+      forceSSL = true;
+      globalRedirect = cfg.domain;
+    };
+
+    services.nginx.virtualHosts."www.serify.de" = {
+      enableACME = true;
+      forceSSL = true;
+      globalRedirect = cfg.domain;
+    };
   };
 }
