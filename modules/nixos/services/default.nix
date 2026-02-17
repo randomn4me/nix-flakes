@@ -22,8 +22,7 @@
 
     # External flake-based services
     ./audacis-blog.nix
-    ./audax-page.nix
-    ./audax-zola.nix
+    ./serify-page.nix
     ./code-of-courage.nix
   ];
 }

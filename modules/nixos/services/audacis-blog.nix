@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, inputs, ... }:
 
 with lib;
 
@@ -6,6 +6,8 @@ let
   cfg = config.services.custom.audacis-blog;
 in
 {
+  imports = [ inputs.audacis-blog.nixosModules.default ];
+
   options.services.custom.audacis-blog = {
     enable = mkEnableOption "Audacis blog service";
 

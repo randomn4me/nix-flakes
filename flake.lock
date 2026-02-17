@@ -22,27 +22,6 @@
         "url": "https://git.audacis.net/philippkuehn/blog"
       }
     },
-    "audax-zola": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770807743,
-        "narHash": "sha256-tNHjf9+4v4npUdlG6mykY+5l1uwQtgHg5oHEDKz8T4o=",
-        "ref": "refs/heads/main",
-        "rev": "b5175bb6bb984c83291a771584a240fce671fdee",
-        "revCount": 59,
-        "type": "git",
-        "url": "ssh://git.audacis.net/philippkuehn/audax-zola"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git.audacis.net/philippkuehn/audax-zola"
-      }
-    },
     "base16-schemes": {
       "flake": false,
       "locked": {
@@ -61,7 +40,7 @@
     },
     "code-of-courage": {
       "inputs": {
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -109,11 +88,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1771214626,
-        "narHash": "sha256-wkkUVOb353lz6XFdSGriESoFcO4L7/w0Xyl9F5xvAoM=",
+        "lastModified": 1771301023,
+        "narHash": "sha256-0XauSmXBLOqn8SYHRWOL7Z9O7m5qtF0Yw6rqXVHkEnw=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "f1b8ff3acc6e2cda5d444de446cde05446de1285",
+        "rev": "1cf8b4f42720573ef35dcd7d2ba0fd80e40954e9",
         "type": "gitlab"
       },
       "original": {
@@ -182,7 +161,7 @@
     },
     "flake-utils_3": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -200,11 +179,11 @@
     },
     "hardware": {
       "locked": {
-        "lastModified": 1771171797,
-        "narHash": "sha256-ngIarpog/Hv5r9M1YyvsaaSUBCqtWqHl6pibq6n2ppo=",
+        "lastModified": 1771257191,
+        "narHash": "sha256-H1l+zHq+ZinWH7F1IidpJ2farmbfHXjaxAm1RKWE1KI=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "531af1dbaee7cfdd7aed1e595ce418b7e2e99a80",
+        "rev": "66e1a090ded57a0f88e2b381a7d4daf4a5722c3f",
         "type": "github"
       },
       "original": {
@@ -220,11 +199,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771188132,
-        "narHash": "sha256-qLXxN/tPrZtnekaLBQuVtxQfvqqs5cT5WbyH4zZaTGI=",
+        "lastModified": 1771269455,
+        "narHash": "sha256-BZ31eN5F99YH6vkc4AhzKGE+tJgJ52kl8f01K7wCs8w=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ae8003d8b61d0d373e7ca3da1a48f9c870d15df9",
+        "rev": "5f1d42a97b19803041434f66681d5c44c9ae62e3",
         "type": "github"
       },
       "original": {
@@ -330,7 +309,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_4"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1771135771,
@@ -349,7 +328,6 @@
     "root": {
       "inputs": {
         "audacis-blog": "audacis-blog",
-        "audax-zola": "audax-zola",
         "code-of-courage": "code-of-courage",
         "disko": "disko",
         "firefox-addons": "firefox-addons",
@@ -360,7 +338,29 @@
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
+        "serify-page": "serify-page",
         "sops-nix": "sops-nix"
+      }
+    },
+    "serify-page": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771338578,
+        "narHash": "sha256-WhJDXWILb8CDI3VFtD6qpHnLxOqlxrTDqUw0bs+UcJ8=",
+        "ref": "refs/heads/main",
+        "rev": "85772d20d60cd9c49a21786cc02675da4894eb60",
+        "revCount": 63,
+        "type": "git",
+        "url": "ssh://git.audacis.net/serify/serify-zola"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git.audacis.net/serify/serify-zola"
       }
     },
     "sops-nix": {

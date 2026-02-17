@@ -31,8 +31,8 @@
     audacis-blog.url = "git+https://git.audacis.net/philippkuehn/blog";
     audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
 
-    audax-zola.url = "git+ssh://git.audacis.net/philippkuehn/audax-zola";
-    audax-zola.inputs.nixpkgs.follows = "nixpkgs";
+    serify-page.url = "git+ssh://git.audacis.net/serify/serify-zola";
+    serify-page.inputs.nixpkgs.follows = "nixpkgs";
 
     code-of-courage.url = "git+ssh://gitlab.dev.peasec.de/praktikum/25ss_LG1_CodeOfCourage.git";
     code-of-courage.inputs.nixpkgs.follows = "nixpkgs";

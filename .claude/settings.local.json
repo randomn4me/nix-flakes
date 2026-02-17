@@ -48,7 +48,12 @@
       "Bash(sshd:*)",
       "Bash(nix flake show:*)",
       "Bash(dig:*)",
-      "Bash(ip addr:*)"
+      "Bash(ip addr:*)",
+      "Bash(git push:*)",
+      "Bash(xargs:*)",
+      "Bash(nslookup:*)",
+      "Bash(host:*)",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []

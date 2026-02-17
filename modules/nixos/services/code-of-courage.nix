@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 
@@ -7,6 +7,8 @@ let
   domain = "code-of-courage.de";
 in
 {
+  imports = [ inputs.code-of-courage.nixosModules.default ];
+
   options.services.custom.code-of-courage = {
     enable = mkEnableOption "Code of Courage - Interactive comic for security education";
   };

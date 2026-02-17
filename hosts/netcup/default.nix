@@ -7,10 +7,6 @@
     ../common/users/phil
 
     ../common/optional/sops.nix
-
-    inputs.audacis-blog.nixosModules.default
-    inputs.audax-zola.nixosModules.default
-    inputs.code-of-courage.nixosModules.default
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -40,7 +36,7 @@
 
     # External flake services
     audacis-blog.enable = true;
-    audax-zola.enable = true;
+    serify-page.enable = true;
     code-of-courage.enable = true;
   };
 
