@@ -3,7 +3,7 @@
     enable = true;
     maxretry = 5; # Observe 5 violations before banning an IP
     bantime = "24h"; # Set bantime to one day
-    ignoreIP = [ "130.83.0.0/16" ];
+    ignoreIP = [ "130.83.0.0/16" "91.99.60.126" ];
     bantime-increment = {
       enable = true;
       formula = "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
