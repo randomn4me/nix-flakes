@@ -6,7 +6,7 @@
     enable = true;
     settings =
       let
-        inherit (config.colorscheme) colors;
+        colors = config.colorscheme.palette;
       in
       {
         ignorecase = true;

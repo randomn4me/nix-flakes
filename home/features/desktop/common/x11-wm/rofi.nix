@@ -11,7 +11,7 @@
     theme =
       let
         inherit (config.lib.formats.rasi) mkLiteral;
-        inherit (config.colorscheme) colors;
+        colors = config.colorscheme.palette;
       in
       {
         "*" = {

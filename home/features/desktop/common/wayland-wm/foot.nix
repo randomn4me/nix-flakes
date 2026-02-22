@@ -18,7 +18,7 @@
 
       colors =
         let
-          inherit (config.colorscheme) colors;
+          colors = config.colorscheme.palette;
         in
         {
           background = "${colors.base00}";

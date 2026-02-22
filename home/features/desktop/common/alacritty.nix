@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (config.colorscheme) colors;
+  colors = config.colorscheme.palette;
   alacritty-xterm = pkgs.writeShellScriptBin "xterm" ''
     ${config.programs.alacritty.package}/bin/alacritty "$@"
   '';

@@ -29,7 +29,7 @@
 
       terminal = config.home.sessionVariables.TERMINAL;
 
-      inherit (config.colorscheme) colors;
+      colors = config.colorscheme.palette;
     in
     ''
       fontname 'Share Tech Mono:pixelsize=11:bold'

@@ -36,7 +36,7 @@
 
       keybindings =
         let
-          inherit (inputs.colorscheme) colors;
+          colors = inputs.colorscheme.palette;
 
           terminal = config.home.sessionVariables.TERMINAL;
 

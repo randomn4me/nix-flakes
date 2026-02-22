@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  inherit (config.colorscheme) colors;
+  colors = config.colorscheme.palette;
 in
 {
   home.sessionVariables.RUNNER = "wofi --show dmenu";

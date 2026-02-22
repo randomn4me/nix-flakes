@@ -4,7 +4,7 @@
     enable = true;
     extraConfig =
       let
-        inherit (config.colorscheme) colors;
+        colors = config.colorscheme.palette;
       in
       ''
               # source https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6

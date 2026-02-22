@@ -19,7 +19,7 @@ let
   bat = "${config.home.homeDirectory}/.nix-profile/bin/bat";
   vpn = "${config.home.homeDirectory}/.nix-profile/bin/vpn";
 
-  inherit (config.colorscheme) colors;
+  colors = config.colorscheme.palette;
 
   lemonbar-config = ''
     -d \

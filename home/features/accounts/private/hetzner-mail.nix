@@ -91,7 +91,7 @@ in
           sendMailCommand = "${msmtp_command} -a audacis";
           extraConfig =
             let
-              inherit (config.colorscheme) colors;
+              colors = config.colorscheme.palette;
             in
             ''
               named-mailboxes "audacis"   "+Inbox"
@@ -129,7 +129,7 @@ in
           sendMailCommand = "${msmtp_command} -a sink";
           extraConfig =
             let
-              inherit (config.colorscheme) colors;
+              colors = config.colorscheme.palette;
             in
             ''
               named-mailboxes "sink"   "+Inbox"

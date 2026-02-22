@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  inherit (config.colorscheme) colors;
+  colors = config.colorscheme.palette;
 
   dmenu = "${pkgs.dmenu}/bin/dmenu";
 

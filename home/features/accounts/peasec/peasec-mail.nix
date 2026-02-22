@@ -89,7 +89,7 @@ in
           sendMailCommand = "${msmtp_command} -a peasec";
           extraConfig =
             let
-              inherit (config.colorscheme) colors;
+              colors = config.colorscheme.palette;
             in
             ''
               color indicator    #${colors.base0F}  black

@@ -93,7 +93,7 @@ in
             on-scroll = 1;
             format =
               let
-                inherit (config.colorscheme) colors;
+                colors = config.colorscheme.palette;
               in
               {
                 months = "<span color='#${colors.base05}'><b>{}</b></span>";
@@ -224,7 +224,7 @@ in
           exec = jsonOutput "task" {
             pre =
               let
-                inherit (config.colorscheme) colors;
+                colors = config.colorscheme.palette;
                 inherit (builtins) concatStringsSep;
               in
               ''
@@ -272,7 +272,7 @@ in
     # w x y z -> top, right, bottom, left
     style =
       let
-        inherit (config.colorscheme) colors;
+        colors = config.colorscheme.palette;
       in
       # css
       ''
