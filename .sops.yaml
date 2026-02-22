@@ -1,5 +1,6 @@
 keys:
   # You can get your age public key by running: age-keygen -y /path/to/key.txt
+  - &admin age1jeqx4ygu3mdzl86neq65dahzjtzsdaa368ka5kdktg5uqnltgdms7dlqwt
   - &netcup age1e2hh3n7fmx3sfgflxgscerfym7eqsn9gc4kq3fqwsq5cx5n7g90s9ld2v2
   - &macbook age1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklm  # replace with actual key
 
@@ -10,14 +11,17 @@ creation_rules:
       - age:
           - *netcup
           - *macbook
+          - *admin
 
   # Per-host secrets
   - path_regex: hosts/netcup/secrets\.yaml$
     key_groups:
       - age:
+          - *admin
           - *netcup
 
   - path_regex: hosts/macbook-work/secrets\.yaml$
     key_groups:
       - age:
+          - *admin
           - *macbook
