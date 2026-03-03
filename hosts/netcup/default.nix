@@ -36,7 +36,10 @@
 
     # External flake services
     audacis-blog.enable = true;
-    serify-page.enable = true;
+    serify-page = {
+      enable = true;
+      redirectDomains = [ "serify.de" "serify.ai" ];
+    };
     code-of-courage.enable = true;
   };
 

@@ -53,7 +53,10 @@
       "Bash(xargs:*)",
       "Bash(nslookup:*)",
       "Bash(host:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(git -C /home/phil/etc status)",
+      "Bash(git -C /home/phil/etc diff --name-only)",
+      "Bash(git -C /home/phil/etc diff)"
     ],
     "deny": [],
     "ask": []
