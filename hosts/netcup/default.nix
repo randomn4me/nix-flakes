@@ -26,6 +26,7 @@
       enable = true;
       runner = {
         enable = true;
+        count = 2;
         tokenFile = config.sops.secrets."forgejo/runner-connection".path;
       };
     };

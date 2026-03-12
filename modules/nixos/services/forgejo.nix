@@ -56,6 +56,12 @@ in
     runner = {
       enable = mkEnableOption "Forgejo Actions runner";
 
+      count = mkOption {
+        type = types.int;
+        default = 1;
+        description = "Number of parallel runner instances";
+      };
+
       name = mkOption {
         type = types.str;
         default = config.networking.hostName;
@@ -156,14 +162,17 @@ in
     # Forgejo Actions Runner configuration
     services.gitea-actions-runner = mkIf cfg.runner.enable {
       package = pkgs.forgejo-runner;
-      instances.default = {
-        enable = true;
-        name = cfg.runner.name;
-        url = "https://${cfg.domain}";
-        tokenFile = cfg.runner.tokenFile;
-        labels = cfg.runner.labels;
-        hostPackages = cfg.runner.hostPackages;
-      };
+      instances = builtins.listToAttrs (builtins.genList (i: {
+        name = "runner-${toString i}";
+        value = {
+          enable = true;
+          name = "${cfg.runner.name}-${toString i}";
+          url = "https://${cfg.domain}";
+          tokenFile = cfg.runner.tokenFile;
+          labels = cfg.runner.labels;
+          hostPackages = cfg.runner.hostPackages;
+        };
+      }) cfg.runner.count);
     };
 
     # Enable Podman for container-based runners (rootless, daemonless)
