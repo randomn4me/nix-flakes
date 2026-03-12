@@ -11,5 +11,6 @@
     wget
     git
     vim
+    sops
   ];
 }
