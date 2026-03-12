@@ -36,6 +36,9 @@
 
     code-of-courage.url = "git+ssh://gitlab.dev.peasec.de/praktikum/25ss_LG1_CodeOfCourage.git";
     code-of-courage.inputs.nixpkgs.follows = "nixpkgs";
+
+    forge-agent.url = "git+ssh://git.audacis.net/philippkuehn/forge-agent";
+    forge-agent.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
