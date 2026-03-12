@@ -53,6 +53,11 @@
         }
       ];
     };
+
+    alerts = {
+      enable = true;
+      ntfyTokenFile = config.sops.secrets."ntfy/token".path;
+    };
   };
 
   networking = {

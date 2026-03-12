@@ -19,6 +19,7 @@
     ./vaultwarden.nix
     ./freshrss.nix
     ./ntfy.nix
+    ./alerts.nix
 
     # External flake-based services
     ./audacis-blog.nix
