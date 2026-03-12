@@ -42,6 +42,17 @@
       redirectDomains = [ "acipra.de" "acipra.com" "serify.de" "serify.ai" ];
     };
     code-of-courage.enable = true;
+
+    ntfy = {
+      enable = true;
+      auth.users = [
+        {
+          username = "philippkuehn";
+          passwordFile = config.sops.secrets."ntfy/philippkuehn".path;
+          role = "admin";
+        }
+      ];
+    };
   };
 
   networking = {

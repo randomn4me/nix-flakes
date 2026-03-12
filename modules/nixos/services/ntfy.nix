@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -142,6 +142,12 @@ in
   };
 
   config = mkIf cfg.enable {
+    systemd.services.ntfy-sh.serviceConfig.DynamicUser = lib.mkForce false;
+    # Wipe auth database on start so it is rebuilt from declared config
+    systemd.services.ntfy-sh.serviceConfig.ExecStartPre = lib.mkBefore [
+      "+${pkgs.coreutils}/bin/rm -f ${cfg.auth.authFile}"
+    ];
+
     services.ntfy-sh = {
       enable = true;
       settings = {
@@ -181,11 +187,6 @@ in
         proxyPass = "http://${cfg.listenAddress}";
         proxyWebsockets = true;
         extraConfig = ''
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-
           # Disable buffering for SSE (Server-Sent Events)
           proxy_buffering off;
         '';
@@ -195,43 +196,43 @@ in
     # User provisioning service
     systemd.services.ntfy-sh-provision-users = mkIf (cfg.auth.enableAuth && cfg.auth.users != []) {
       description = "Provision ntfy users";
+      requires = [ "ntfy-sh.service" ];
       after = [ "ntfy-sh.service" ];
       wantedBy = [ "multi-user.target" ];
+      restartTriggers = [ config.systemd.services.ntfy-sh.serviceConfig.ExecStart ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        User = "ntfy-sh";
-        Group = "ntfy-sh";
       };
 
       script = let
         ntfyPkg = config.services.ntfy-sh.package;
+        authFile = cfg.auth.authFile;
+        ntfy = "${ntfyPkg}/bin/ntfy";
         provisionUser = user: ''
-          # Read password from file
           PASSWORD=$(cat ${user.passwordFile})
-
-          # Check if user exists
-          if ${ntfyPkg}/bin/ntfy user list 2>/dev/null | grep -q "^user ${user.username}"; then
-            echo "User ${user.username} already exists, updating..."
-            # Change password
-            echo "$PASSWORD" | ${ntfyPkg}/bin/ntfy user change-pass ${user.username}
-            # Change role
-            ${ntfyPkg}/bin/ntfy user change-role ${user.username} ${user.role}
-          else
-            echo "Creating user ${user.username}..."
-            echo "$PASSWORD" | ${ntfyPkg}/bin/ntfy user add --role=${user.role} ${user.username}
-          fi
+          echo "Creating user ${user.username}..."
+          NTFY_PASSWORD="$PASSWORD" ${ntfy} user --auth-file=${authFile} add --role=${user.role} ${user.username}
 
           ${lib.concatMapStringsSep "\n" (acl: ''
             echo "Setting access for ${user.username} on topic ${acl.topic}..."
-            ${ntfyPkg}/bin/ntfy access ${user.username} ${acl.topic} ${acl.permission}
+            ${ntfy} access --auth-file=${authFile} ${user.username} ${acl.topic} ${acl.permission}
           '') user.access}
         '';
       in ''
         set -e
 
-        # Wait for ntfy to be ready
-        sleep 2
+        # Wait for ntfy to create the auth database
+        for i in $(seq 1 30); do
+          [ -f ${authFile} ] && break
+          echo "Waiting for auth-file to be created... ($i/30)"
+          sleep 1
+        done
+
+        if [ ! -f ${authFile} ]; then
+          echo "Auth-file ${authFile} not found after 30s, giving up"
+          exit 1
+        fi
 
         ${lib.concatMapStringsSep "\n" provisionUser cfg.auth.users}
 
