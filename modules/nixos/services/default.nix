@@ -25,5 +25,6 @@
     ./audacis-blog.nix
     ./serify-page.nix
     ./code-of-courage.nix
+    ./podman-cleanup.nix
   ];
 }
