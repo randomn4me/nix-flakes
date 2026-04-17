@@ -60,6 +60,8 @@
       enable = true;
       ntfyTokenFile = config.sops.secrets."ntfy/token".path;
     };
+
+    vulnix-scan.enable = true;
   };
 
   networking = {
