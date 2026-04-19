@@ -218,7 +218,9 @@ in
         provisionUser = user: ''
           PASSWORD=$(cat ${user.passwordFile})
           echo "Creating user ${user.username}..."
-          NTFY_PASSWORD="$PASSWORD" ${ntfy} user --auth-file=${authFile} add --role=${user.role} ${user.username}
+          NTFY_PASSWORD="$PASSWORD" ${ntfy} user --auth-file=${authFile} add --role=${user.role} ${user.username} || echo "User ${user.username} already exists, updating password..."
+          NTFY_PASSWORD="$PASSWORD" ${ntfy} user --auth-file=${authFile} change-pass ${user.username} 2>/dev/null || true
+          ${ntfy} user --auth-file=${authFile} change-role ${user.username} ${user.role} 2>/dev/null || true
 
           ${lib.concatMapStringsSep "\n" (acl: ''
             echo "Setting access for ${user.username} on topic ${acl.topic}..."
@@ -228,6 +230,7 @@ in
           ${lib.optionalString (user.tokenFile != null) ''
             echo "Provisioning access token for ${user.username}..."
             TOKEN=$(cat ${user.tokenFile})
+            ${ntfy} token --auth-file=${authFile} remove ${user.username} "$TOKEN" 2>/dev/null || true
             ${ntfy} token --auth-file=${authFile} add --token="$TOKEN" ${user.username}
           ''}
         '';
