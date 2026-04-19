@@ -49,6 +49,7 @@
         {
           username = "philippkuehn";
           passwordFile = config.sops.secrets."ntfy/philippkuehn".path;
+          tokenFile = config.sops.secrets."ntfy/token".path;
           role = "admin";
         }
       ];

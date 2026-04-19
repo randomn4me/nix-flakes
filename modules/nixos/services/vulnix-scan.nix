@@ -16,7 +16,7 @@ let
 
     TOKEN=$(cat ${alertsCfg.ntfyTokenFile})
 
-    ${pkgs.curl}/bin/curl -sf \
+    ${pkgs.curl}/bin/curl -sSf \
       -H "Authorization: Bearer $TOKEN" \
       -H "Title: $TITLE" \
       -H "Priority: $PRIORITY" \

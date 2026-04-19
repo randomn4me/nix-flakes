@@ -101,6 +101,12 @@ in
               description = "User role (user or admin)";
             };
 
+            tokenFile = mkOption {
+              type = types.nullOr types.path;
+              default = null;
+              description = "Path to file containing an access token to provision for this user";
+            };
+
             access = mkOption {
               type = types.listOf (types.submodule {
                 options = {
@@ -218,6 +224,12 @@ in
             echo "Setting access for ${user.username} on topic ${acl.topic}..."
             ${ntfy} access --auth-file=${authFile} ${user.username} ${acl.topic} ${acl.permission}
           '') user.access}
+
+          ${lib.optionalString (user.tokenFile != null) ''
+            echo "Provisioning access token for ${user.username}..."
+            TOKEN=$(cat ${user.tokenFile})
+            ${ntfy} token --auth-file=${authFile} add --token="$TOKEN" ${user.username}
+          ''}
         '';
       in ''
         set -e
