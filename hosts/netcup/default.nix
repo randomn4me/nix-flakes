@@ -49,7 +49,7 @@
         {
           username = "philippkuehn";
           passwordFile = config.sops.secrets."ntfy/philippkuehn".path;
-          tokenFile = config.sops.secrets."ntfy/token".path;
+          tokenFile = "/var/lib/ntfy-sh/access-token";
           role = "admin";
         }
       ];
@@ -59,7 +59,7 @@
 
     alerts = {
       enable = true;
-      ntfyTokenFile = config.sops.secrets."ntfy/token".path;
+      ntfyTokenFile = "/var/lib/ntfy-sh/access-token";
     };
 
     vulnix-scan.enable = true;

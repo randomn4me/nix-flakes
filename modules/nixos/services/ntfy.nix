@@ -104,7 +104,7 @@ in
             tokenFile = mkOption {
               type = types.nullOr types.path;
               default = null;
-              description = "Path to file containing an access token to provision for this user";
+              description = "Path to a file where a generated access token will be written for this user";
             };
 
             access = mkOption {
@@ -229,9 +229,10 @@ in
 
           ${lib.optionalString (user.tokenFile != null) ''
             echo "Provisioning access token for ${user.username}..."
-            TOKEN=$(cat ${user.tokenFile})
-            ${ntfy} token --auth-file=${authFile} remove ${user.username} "$TOKEN" 2>/dev/null || true
-            ${ntfy} token --auth-file=${authFile} add --token="$TOKEN" ${user.username}
+            TOKEN=$(${ntfy} token --auth-file=${authFile} add ${user.username} 2>&1 | ${pkgs.gnugrep}/bin/grep -oP 'tk_\w+')
+            echo "$TOKEN" > ${user.tokenFile}
+            chmod 600 ${user.tokenFile}
+            echo "Token written to ${user.tokenFile}"
           ''}
         '';
       in ''

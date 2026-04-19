@@ -51,11 +51,6 @@
         group = "ntfy-sh";
         mode = "0440";
       };
-      "ntfy/token" = {
-        owner = "root";
-        group = "root";
-        mode = "0400";
-      };
       # Forgejo runner token (format: TOKEN=<secret>)
       "forgejo/runner-connection" = {
         owner = "gitea-runner";
