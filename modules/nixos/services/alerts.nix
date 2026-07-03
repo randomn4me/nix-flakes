@@ -286,11 +286,13 @@ in
     };
 
     # Fail2ban ntfy action
-    environment.etc."fail2ban/action.d/ntfy.local".text = mkIf cfg.fail2ban.enable ''
-      [Definition]
-      actionban = ${ntfySend} ${cfg.topic} "Fail2ban: <name>" "${config.networking.hostName}: banned <ip> in jail <name> (<failures> failures)" ${cfg.fail2ban.priority} lock
-      actionunban =
-    '';
+    environment.etc = mkIf cfg.fail2ban.enable {
+      "fail2ban/action.d/ntfy.local".text = ''
+        [Definition]
+        actionban = ${ntfySend} ${cfg.topic} "Fail2ban: <name>" "${config.networking.hostName}: banned <ip> in jail <name> (<failures> failures)" ${cfg.fail2ban.priority} lock
+        actionunban =
+      '';
+    };
 
     services.fail2ban.jails = mkIf cfg.fail2ban.enable {
       DEFAULT.settings = {
