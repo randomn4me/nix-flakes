@@ -6,6 +6,56 @@ let
   cfg = config.services.custom.backup;
   alertsCfg = config.services.custom.alerts;
   hostName = config.networking.hostName;
+
+  # Prune policy, shared between the borgmatic settings and the daily summary
+  # so the reported retention can't drift from what is actually kept.
+  retention = {
+    hourly = 12;
+    daily = 14;
+    weekly = 8;
+    monthly = 6;
+    yearly = 3;
+  };
+
+  summaryEnable = cfg.dailySummary.enable && alertsCfg.enable;
+
+  # Posts a "backups OK" heartbeat with a per-repository breakdown. Runs
+  # `borgmatic list --json` (one call covers all repos), then formats archive
+  # counts and the age of the newest archive per repo.
+  summaryScript = pkgs.writeShellScript "borgmatic-summary" ''
+    set -euo pipefail
+
+    # Render an ISO timestamp as a rough "Nh ago" / "Nd ago" age.
+    fmt_age() {
+      [ "$1" = "n/a" ] && { echo "n/a"; return; }
+      h=$(( ( $(${pkgs.coreutils}/bin/date +%s) - $(${pkgs.coreutils}/bin/date -d "$1" +%s) ) / 3600 ))
+      if [ "$h" -ge 48 ]; then echo "$(( h / 24 ))d ago"; else echo "''${h}h ago"; fi
+    }
+
+    json=$(borgmatic list --json)
+
+    body="Keeps ${toString retention.hourly}h/${toString retention.daily}d/${toString retention.weekly}w/${toString retention.monthly}m/${toString retention.yearly}y"
+    while IFS=$'\t' read -r repo n newest oldest; do
+      body="$body
+• $repo: $n archives, newest $(fmt_age "$newest"), oldest $(fmt_age "$oldest")"
+    done < <(echo "$json" | ${pkgs.jq}/bin/jq -r '
+      .[]
+      | [ (.repository.label // .repository.location),
+          (.archives | length | tostring),
+          (.archives[-1].time // "n/a"),
+          (.archives[0].time // "n/a") ]
+      | @tsv')
+
+    # Server disk and memory snapshot.
+    read -r disk_used disk_free < <(${pkgs.coreutils}/bin/df -h --output=pcent,avail / | ${pkgs.coreutils}/bin/tail -1)
+    mem_pct=$(${pkgs.gawk}/bin/awk '/MemTotal/{t=$2} /MemAvailable/{a=$2} END{printf "%d",(t-a)*100/t}' /proc/meminfo)
+    body="$body
+
+Disk: $disk_used used, $disk_free free
+Memory: ''${mem_pct}% used"
+
+    ${alertsCfg.ntfySend} ${alertsCfg.topic} "Backups OK (${hostName})" "$body" min white_check_mark
+  '';
 in
 {
   options.services.custom.backup = {
@@ -42,6 +92,25 @@ in
       type = types.path;
       default = config.sops.secrets."borg/${hostName}-passphrase".path;
       description = "File containing the borg repository encryption passphrase.";
+    };
+
+    dailySummary = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Send a once-daily "backups OK" notification listing, per repository,
+          the archive count and how fresh the latest archive is. Doubles as a
+          dead-man's-switch: if the summary stops arriving, the backup pipeline
+          has silently died. Requires services.custom.alerts to be enabled.
+        '';
+      };
+
+      time = mkOption {
+        type = types.str;
+        default = "08:00";
+        description = "OnCalendar expression for when the daily summary is sent.";
+      };
     };
   };
 
@@ -86,11 +155,11 @@ in
           }
         ];
 
-        keep_hourly = 12;
-        keep_daily = 14;
-        keep_weekly = 8;
-        keep_monthly = 6;
-        keep_yearly = 3;
+        keep_hourly = retention.hourly;
+        keep_daily = retention.daily;
+        keep_weekly = retention.weekly;
+        keep_monthly = retention.monthly;
+        keep_yearly = retention.yearly;
 
         checks = [
           {
@@ -119,5 +188,27 @@ in
     # backup failures, like the other monitored units.
     systemd.services.borgmatic.unitConfig.OnFailure =
       mkIf alertsCfg.enable [ "ntfy-alert@borgmatic.service" ];
+
+    # Daily "backups OK" heartbeat with a per-repository breakdown. A failed
+    # run alerts through the same template, so a broken summary is visible too.
+    systemd.services.borgmatic-summary = mkIf summaryEnable {
+      description = "Daily borgmatic backup summary notification";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      path = [ pkgs.borgmatic pkgs.borgbackup pkgs.openssh pkgs.sqlite ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = summaryScript;
+      };
+      unitConfig.OnFailure = [ "ntfy-alert@borgmatic-summary.service" ];
+    };
+
+    systemd.timers.borgmatic-summary = mkIf summaryEnable {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = cfg.dailySummary.time;
+        Persistent = true;
+      };
+    };
   };
 }

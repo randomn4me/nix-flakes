@@ -23,6 +23,51 @@ let
       -d "$MESSAGE" \
       "http://${ntfyCfg.listenAddress}/$TOPIC"
   '';
+
+  # Sample 5-minute load and memory pressure; alert on sustained saturation,
+  # rate-limited by a per-metric stamp file so a persistent condition pages at
+  # most once per cooldown window (and re-arms once it recovers).
+  resourceScript = pkgs.writeShellScript "resource-alert" ''
+    set -euo pipefail
+
+    STATE=/run/resource-alert
+    ${pkgs.coreutils}/bin/mkdir -p "$STATE"
+    now=$(${pkgs.coreutils}/bin/date +%s)
+    cooldown=${toString cfg.resources.cooldown}
+
+    cooled() {
+      f="$STATE/$1"
+      if [ -f "$f" ]; then
+        age=$(( now - $(${pkgs.coreutils}/bin/cat "$f") ))
+        [ "$age" -lt "$cooldown" ] && return 1
+      fi
+      return 0
+    }
+    mark() { echo "$now" > "$STATE/$1"; }
+    rearm() { ${pkgs.coreutils}/bin/rm -f "$STATE/$1"; }
+
+    ncpu=$(${pkgs.coreutils}/bin/nproc)
+    load5=$(${pkgs.coreutils}/bin/cut -d' ' -f2 /proc/loadavg)
+    cpu_pct=$(${pkgs.gawk}/bin/awk -v l="$load5" -v n="$ncpu" 'BEGIN{printf "%d", l*100/n}')
+    if [ "$cpu_pct" -ge ${toString cfg.resources.cpuThreshold} ]; then
+      if cooled cpu; then
+        ${ntfySend} ${cfg.topic} "High CPU (${config.networking.hostName})" "5-min load at ''${cpu_pct}% of $ncpu cores" high warning
+        mark cpu
+      fi
+    else
+      rearm cpu
+    fi
+
+    mem_pct=$(${pkgs.gawk}/bin/awk '/MemTotal/{t=$2} /MemAvailable/{a=$2} END{printf "%d",(t-a)*100/t}' /proc/meminfo)
+    if [ "$mem_pct" -ge ${toString cfg.resources.memThreshold} ]; then
+      if cooled mem; then
+        ${ntfySend} ${cfg.topic} "High Memory (${config.networking.hostName})" "memory at ''${mem_pct}% used" high warning
+        mark mem
+      fi
+    else
+      rearm mem
+    fi
+  '';
 in
 {
   options.services.custom.alerts = {
@@ -39,10 +84,35 @@ in
       description = "Default ntfy topic for alerts";
     };
 
+    ntfySend = mkOption {
+      type = types.path;
+      readOnly = true;
+      default = ntfySend;
+      description = ''
+        Reusable helper script that posts a message to ntfy. Other modules can
+        call it to send notifications through the same token/topic.
+        Usage: ntfySend <topic> <title> <message> [priority] [tags]
+      '';
+    };
+
     fail2ban.enable = mkOption {
       type = types.bool;
-      default = true;
-      description = "Send alerts on fail2ban ban events";
+      default = false;
+      description = ''
+        Send an ntfy notification on every fail2ban ban. Off by default: bans
+        are constant background noise from bots and add little signal. Disabling
+        this only stops the notifications — fail2ban keeps banning either way.
+      '';
+    };
+
+    fail2ban.priority = mkOption {
+      type = types.enum [ "min" "low" "default" "high" "urgent" ];
+      default = "low";
+      description = ''
+        ntfy priority for fail2ban ban notifications. Bans are frequent and
+        routine, so this defaults to "low" (delivered silently, no sound or
+        vibration). Use "min" to only show them in the notification drawer.
+      '';
     };
 
     systemdServices = mkOption {
@@ -68,6 +138,41 @@ in
         type = types.str;
         default = "hourly";
         description = "How often to check disk space";
+      };
+    };
+
+    resources = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Flag sustained high CPU or memory usage";
+      };
+
+      cpuThreshold = mkOption {
+        type = types.int;
+        default = 95;
+        description = ''
+          Flag when the 5-minute load average, as a percentage of available CPU
+          cores, reaches this value (~95% ≈ cores saturated for 5 minutes).
+        '';
+      };
+
+      memThreshold = mkOption {
+        type = types.int;
+        default = 95;
+        description = "Flag when used memory (of total) reaches this percentage";
+      };
+
+      interval = mkOption {
+        type = types.str;
+        default = "*:0/5";
+        description = "How often to sample CPU and memory (OnCalendar expression)";
+      };
+
+      cooldown = mkOption {
+        type = types.int;
+        default = 3600;
+        description = "Minimum seconds between repeat alerts while a metric stays over threshold";
       };
     };
 
@@ -152,6 +257,17 @@ in
           };
         };
       })
+
+      # CPU / memory pressure monitoring
+      (mkIf cfg.resources.enable {
+        resource-alert = {
+          description = "Flag sustained high CPU or memory usage";
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = resourceScript;
+          };
+        };
+      })
     ];
 
     systemd.timers.disk-space-alert = mkIf cfg.diskSpace.enable {
@@ -162,10 +278,17 @@ in
       };
     };
 
+    systemd.timers.resource-alert = mkIf cfg.resources.enable {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = cfg.resources.interval;
+      };
+    };
+
     # Fail2ban ntfy action
     environment.etc."fail2ban/action.d/ntfy.local".text = mkIf cfg.fail2ban.enable ''
       [Definition]
-      actionban = ${ntfySend} ${cfg.topic} "Fail2ban: <name>" "${config.networking.hostName}: banned <ip> in jail <name> (<failures> failures)" default lock
+      actionban = ${ntfySend} ${cfg.topic} "Fail2ban: <name>" "${config.networking.hostName}: banned <ip> in jail <name> (<failures> failures)" ${cfg.fail2ban.priority} lock
       actionunban =
     '';
 
