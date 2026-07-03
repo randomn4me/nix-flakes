@@ -30,8 +30,14 @@ in
           ];
           repositories = [
             {
-              path = "ssh://u340000@u340000.your-storagebox.de:23/./borg/${osConfig.networking.hostName}";
-              label = "remote";
+              # Falkenstein (DE) storage box
+              path = "ssh://u487410@u487410.your-storagebox.de:23/./borg/${osConfig.networking.hostName}";
+              label = "falkenstein";
+            }
+            {
+              # Helsinki (FI) storage box
+              path = "ssh://u489939@u489939.your-storagebox.de:23/./borg/${osConfig.networking.hostName}";
+              label = "helsinki";
             }
             {
               path = "/run/media/phil/backup/borg-backup";
@@ -47,9 +53,11 @@ in
         };
 
         storage = {
-          encryptionPasscommand = "${cat} ${home}/usr/misc/borg";
+          # Passphrase provisioned by sops (owner: phil) on the peasec host.
+          encryptionPasscommand = "${cat} /run/secrets/borg/${osConfig.networking.hostName}-passphrase";
           extraConfig = {
-            ssh_command = "ssh -i ${home}/.ssh/storagebox";
+            # Per-box key selection is handled by ~/.ssh/config (see ssh/backup.nix).
+            ssh_command = "ssh";
           };
         };
 

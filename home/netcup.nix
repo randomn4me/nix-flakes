@@ -2,10 +2,10 @@
 {
   imports = [
     ./global
-    ./features/scripts
 
     ./features/ssh/peasec.nix
     ./features/ssh/private.nix
+    ./features/ssh/backup.nix
   ];
 
   systemd.user.startServices = "sd-switch";
