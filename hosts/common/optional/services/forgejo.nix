@@ -13,7 +13,7 @@
       server.DOMAIN = "git.audacis.net";
       server.ROOT_URL = "https://${config.services.forgejo.settings.server.DOMAIN}";
 
-      service.DISABLE_REGISTRATION = false;
+      service.DISABLE_REGISTRATION = true;
 
       actions = {
         ENABLED = true;

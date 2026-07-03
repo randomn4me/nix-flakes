@@ -27,6 +27,12 @@ in
       description = "Enable automatic backups";
     };
 
+    dumpRetentionCount = mkOption {
+      type = types.int;
+      default = 7;
+      description = "Number of dump archives to retain; older ones are deleted after each dump";
+    };
+
     enableLFS = mkOption {
       type = types.bool;
       default = true;
@@ -37,6 +43,32 @@ in
       type = types.bool;
       default = false;
       description = "Disable user registration";
+    };
+
+    smtp = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Send mail through the local relay (services.custom.mail-relay).";
+      };
+
+      from = mkOption {
+        type = types.str;
+        default = "noreply@audacis.net";
+        description = "From address for Forgejo emails.";
+      };
+
+      host = mkOption {
+        type = types.str;
+        default = "127.0.0.1";
+        description = "SMTP host (the local relay).";
+      };
+
+      port = mkOption {
+        type = types.port;
+        default = 25;
+        description = "SMTP port (the local relay).";
+      };
     };
 
     actions = {
@@ -77,9 +109,9 @@ in
       labels = mkOption {
         type = types.listOf types.str;
         default = [
-          "docker:docker://node:20-bookworm"
-          "ubuntu-latest:docker://node:20-bookworm"
-          "ubuntu-22.04:docker://node:20-bookworm"
+          "docker:docker://catthehacker/ubuntu:act-latest"
+          "ubuntu-latest:docker://catthehacker/ubuntu:act-latest"
+          "ubuntu-22.04:docker://catthehacker/ubuntu:act-latest"
         ];
         description = "Labels for the runner (format: label:docker://image)";
       };
@@ -142,12 +174,30 @@ in
         };
 
         service.DISABLE_REGISTRATION = cfg.disableRegistration;
+        service.REQUIRE_SIGNIN_VIEW = false;
 
         actions = {
           ENABLED = cfg.actions.enable;
           DEFAULT_ACTIONS_URL = cfg.actions.defaultActionsUrl;
         };
+      } // lib.optionalAttrs cfg.smtp.enable {
+        mailer = {
+          ENABLED = true;
+          PROTOCOL = "smtp";
+          SMTP_ADDR = cfg.smtp.host;
+          SMTP_PORT = cfg.smtp.port;
+          FROM = cfg.smtp.from;
+        };
       };
+    };
+
+    systemd.services.forgejo-dump = mkIf cfg.enableDump {
+      serviceConfig.ExecStartPost = let
+        dumpDir = config.services.forgejo.dump.backupDir;
+        keep = toString cfg.dumpRetentionCount;
+      in [
+        "${pkgs.bash}/bin/bash -c 'ls -1t ${dumpDir}/forgejo-dump-*.zip 2>/dev/null | tail -n +$((${keep}+1)) | xargs -r rm -f'"
+      ];
     };
 
     # Create gitea-runner user/group early for sops
@@ -171,6 +221,12 @@ in
           tokenFile = cfg.runner.tokenFile;
           labels = cfg.runner.labels;
           hostPackages = cfg.runner.hostPackages;
+          settings = {
+            container = {
+              options = "-v /run/podman/podman.sock:/var/run/docker.sock --privileged";
+              valid_volumes = [ "/run/podman/podman.sock" "/var/run/docker.sock" ];
+            };
+          };
         };
       }) cfg.runner.count);
     };
@@ -179,6 +235,7 @@ in
     virtualisation.podman = mkIf cfg.runner.enable {
       enable = true;
       dockerCompat = true;  # Creates docker alias for compatibility
+      dockerSocket.enable = true;
     };
 
     services.nginx.virtualHosts.${cfg.domain} = {
