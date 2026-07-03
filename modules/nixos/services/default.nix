@@ -20,6 +20,8 @@
     ./freshrss.nix
     ./ntfy.nix
     ./alerts.nix
+    ./backup.nix
+    ./mail-relay.nix
 
     # External flake-based services
     ./audacis-blog.nix

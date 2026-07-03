@@ -19,11 +19,21 @@
     nginx.enable = true;
     postgres.enable = true;
     fail2ban.enable = true;
+    backup.enable = true;
 
     # Application services
-    vaultwarden.enable = true;
+    mail-relay = {
+      enable = true;
+      rootMailTo = "admin@audacis.net";
+    };
+    vaultwarden = {
+      enable = true;
+      smtp.enable = true;
+      adminTokenFile = config.sops.secrets."vaultwarden/admin-token".path;
+    };
     forgejo = {
       enable = true;
+      smtp.enable = true;
       runner = {
         enable = true;
         count = 2;
@@ -94,6 +104,14 @@
 
   # Override sops defaultSopsFile to use host-specific secrets
   sops.defaultSopsFile = lib.mkForce ./secrets.yaml;
+
+  # Per-box SSH keys for the Hetzner storage boxes (used by ssh/backup.nix).
+  sops.secrets."storagebox/falkenstein-ssh-key".owner = "phil";
+  sops.secrets."storagebox/helsinki-ssh-key".owner = "phil";
+
+  # Vaultwarden /admin panel token (file content: ADMIN_TOKEN=<argon2-hash>).
+  # Read by systemd (root) as an EnvironmentFile, so default root ownership is fine.
+  sops.secrets."vaultwarden/admin-token" = { };
 
   system.stateVersion = "25.05";
 }
