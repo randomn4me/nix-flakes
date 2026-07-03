@@ -3,46 +3,46 @@
     enable = true;
     enableDefaultConfig = false;
 
-    matchBlocks = {
+    settings = {
       "gitlab.dev.peasec.de" = {
-        user = "git";
-        identityFile = "~/.ssh/peasec-gitlab";
+        User = "git";
+        IdentityFile = "~/.ssh/peasec-gitlab";
       };
 
       crawler = {
-        hostname = "130.83.156.164";
-        user = "philippkuehn";
-        identityFile = "~/.ssh/peasec-crawler";
+        HostName = "130.83.156.164";
+        User = "philippkuehn";
+        IdentityFile = "~/.ssh/peasec-crawler";
       };
 
       lbc-cpu = {
-        hostname = "lcluster14.hrz.tu-darmstadt.de";
-        user = "ba01viny";
-        identityFile = "~/.ssh/hochleistungsrechner";
+        HostName = "lcluster14.hrz.tu-darmstadt.de";
+        User = "ba01viny";
+        IdentityFile = "~/.ssh/hochleistungsrechner";
       };
 
       lbc-13 = {
-        hostname = "lcluster13.hrz.tu-darmstadt.de";
-        user = "ba01viny";
-        identityFile = "~/.ssh/hochleistungsrechner";
+        HostName = "lcluster13.hrz.tu-darmstadt.de";
+        User = "ba01viny";
+        IdentityFile = "~/.ssh/hochleistungsrechner";
       };
 
       lbc-15 = {
-        hostname = "lcluster15.hrz.tu-darmstadt.de";
-        user = "ba01viny";
-        identityFile = "~/.ssh/hochleistungsrechner";
+        HostName = "lcluster15.hrz.tu-darmstadt.de";
+        User = "ba01viny";
+        IdentityFile = "~/.ssh/hochleistungsrechner";
       };
 
       lbc-17 = {
-        hostname = "lcluster17.hrz.tu-darmstadt.de";
-        user = "ba01viny";
-        identityFile = "~/.ssh/hochleistungsrechner";
+        HostName = "lcluster17.hrz.tu-darmstadt.de";
+        User = "ba01viny";
+        IdentityFile = "~/.ssh/hochleistungsrechner";
       };
 
       lbc-19 = {
-        hostname = "lcluster19.hrz.tu-darmstadt.de";
-        user = "ba01viny";
-        identityFile = "~/.ssh/hochleistungsrechner";
+        HostName = "lcluster19.hrz.tu-darmstadt.de";
+        User = "ba01viny";
+        IdentityFile = "~/.ssh/hochleistungsrechner";
       };
     };
   };

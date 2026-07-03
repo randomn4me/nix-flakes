@@ -2,41 +2,39 @@
   programs.ssh = {
     enable = true;
 
-    matchBlocks = {
+    settings = {
       "*" = {
-        extraOptions = {
-          KexAlgorithms = "mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
-        };
+        KexAlgorithms = "mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
       };
       hetzner = {
-        hostname = "168.119.169.96";
-        user = "r4ndom";
-        identityFile = "~/.ssh/hetzner-privat";
+        HostName = "168.119.169.96";
+        User = "r4ndom";
+        IdentityFile = "~/.ssh/hetzner-privat";
       };
 
       "github.com" = {
-        identityFile = "~/.ssh/github";
+        IdentityFile = "~/.ssh/github";
       };
 
       "git.audacis.net" = {
-        identityFile = "~/.ssh/forgejo-audacis";
-        user = "forgejo";
+        IdentityFile = "~/.ssh/forgejo-audacis";
+        User = "forgejo";
       };
 
       "codeberg.org" = {
-        identityFile = "~/.ssh/codeberg";
+        IdentityFile = "~/.ssh/codeberg";
       };
 
       pi = {
-        hostname = "192.168.178.3";
-        user = "r4ndom";
-        identityFile = "~/.ssh/rpi5";
+        HostName = "192.168.178.3";
+        User = "r4ndom";
+        IdentityFile = "~/.ssh/rpi5";
       };
 
       netcup = {
-        hostname = "89.58.28.80";
-        user = "phil";
-        identityFile = "~/.ssh/netcup";
+        HostName = "89.58.28.80";
+        User = "phil";
+        IdentityFile = "~/.ssh/netcup";
       };
     };
   };
