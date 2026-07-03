@@ -28,16 +28,16 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    audacis-blog.url = "git+https://git.audacis.net/philippkuehn/blog";
+    audacis-blog.url = "git+ssh://forgejo@git.audacis.net/philippkuehn/blog";
     audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
 
-    serify-page.url = "git+ssh://git.audacis.net/serify/serify-zola";
+    serify-page.url = "git+ssh://forgejo@git.audacis.net/serify/serify-zola";
     serify-page.inputs.nixpkgs.follows = "nixpkgs";
 
     code-of-courage.url = "git+ssh://gitlab.dev.peasec.de/praktikum/25ss_LG1_CodeOfCourage.git";
     code-of-courage.inputs.nixpkgs.follows = "nixpkgs";
 
-    forge-agent.url = "git+ssh://git.audacis.net/philippkuehn/forge-agent";
+    forge-agent.url = "git+ssh://forgejo@git.audacis.net/philippkuehn/forge-agent";
     forge-agent.inputs.nixpkgs.follows = "nixpkgs";
   };
 
