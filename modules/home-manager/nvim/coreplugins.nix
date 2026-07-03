@@ -32,20 +32,6 @@ in
       plugins = {
         fugitive.enable = true;
         oil.enable = true;
-        treesitter = {
-          enable = true;
-          folding = true;
-          settings = {
-            auto_install = true;
-
-            languages.disable = [ "latex" ];
-            indent.enable = true;
-
-          };
-          nixvimInjections = true;
-        };
-
-        hmts.enable = true;
 
         telescope = {
           enable = true;
