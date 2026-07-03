@@ -27,6 +27,18 @@ in
       description = "Duration for which messages are cached";
     };
 
+    upstreamBaseUrl = mkOption {
+      type = types.str;
+      default = "https://ntfy.sh";
+      description = ''
+        Upstream server used to forward poll requests so iOS devices get
+        instant delivery. iOS forbids persistent background connections to
+        self-hosted servers, so only an opaque wake-up (topic + base-url, no
+        message body) is forwarded upstream; the actual message is still
+        fetched directly from this server. Set to "" to disable.
+      '';
+    };
+
     attachmentTotalSizeLimit = mkOption {
       type = types.str;
       default = "1G";
@@ -159,6 +171,9 @@ in
       settings = {
         base-url = "https://${cfg.domain}";
         listen-http = cfg.listenAddress;
+
+        # Forward poll requests upstream so iOS gets instant push delivery
+        upstream-base-url = mkIf (cfg.upstreamBaseUrl != "") cfg.upstreamBaseUrl;
 
         # Cache settings
         cache-file = "/var/lib/ntfy-sh/cache.db";
