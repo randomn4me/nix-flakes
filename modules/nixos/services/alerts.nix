@@ -68,6 +68,24 @@ let
       rearm mem
     fi
   '';
+
+  # Catch-all: alert on any failed unit, but only when the set changes, so a
+  # persistently-failed unit doesn't page on every scan.
+  failedUnitsScript = pkgs.writeShellScript "failed-units-alert" ''
+    set -euo pipefail
+
+    failed=$(${pkgs.systemd}/bin/systemctl --failed --no-legend --plain \
+      | ${pkgs.gawk}/bin/awk '{print $1}' | ${pkgs.coreutils}/bin/paste -sd' ' -)
+
+    STATE=/run/failed-units-alert.last
+    prev=""
+    [ -f "$STATE" ] && prev=$(${pkgs.coreutils}/bin/cat "$STATE")
+
+    if [ -n "$failed" ] && [ "$failed" != "$prev" ]; then
+      ${ntfySend} ${cfg.topic} "Failed units (${config.networking.hostName})" "$failed" high rotating_light
+    fi
+    echo "$failed" > "$STATE"
+  '';
 in
 {
   options.services.custom.alerts = {
@@ -117,7 +135,7 @@ in
 
     systemdServices = mkOption {
       type = types.listOf types.str;
-      default = [ "forgejo" "vaultwarden" "postgresql" "nginx" "ntfy-sh" ];
+      default = [ "forgejo" "vaultwarden" "postgresql" "nginx" "ntfy-sh" "postfix" ];
       description = "Systemd services to monitor for failure";
     };
 
@@ -192,6 +210,31 @@ in
       type = types.bool;
       default = true;
       description = "Send alerts on Nix garbage collection failures";
+    };
+
+    failedUnits = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Periodically alert on any unit in a failed state. A catch-all that
+          covers services without an explicit OnFailure hook (CI runners,
+          containers, oneshots) and units that failed at boot before their
+          hook was armed. Re-alerts only when the set of failed units changes.
+        '';
+      };
+
+      interval = mkOption {
+        type = types.str;
+        default = "*:0/15";
+        description = "How often to scan for failed units (OnCalendar expression)";
+      };
+    };
+
+    bootNotify.enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Send a notification when the host boots";
     };
   };
 
@@ -268,6 +311,32 @@ in
           };
         };
       })
+
+      # Catch-all failed-unit monitoring
+      (mkIf cfg.failedUnits.enable {
+        failed-units-alert = {
+          description = "Alert on any unit in a failed state";
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = failedUnitsScript;
+          };
+        };
+      })
+
+      # Boot notification
+      (mkIf cfg.bootNotify.enable {
+        boot-notify = {
+          description = "Notify on system boot";
+          after = [ "network-online.target" "ntfy-sh.service" ];
+          wants = [ "network-online.target" ];
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = "${ntfySend} ${cfg.topic} 'Booted (${config.networking.hostName})' 'system has booted' default arrows_counterclockwise";
+          };
+        };
+      })
     ];
 
     systemd.timers.disk-space-alert = mkIf cfg.diskSpace.enable {
@@ -282,6 +351,13 @@ in
       wantedBy = [ "timers.target" ];
       timerConfig = {
         OnCalendar = cfg.resources.interval;
+      };
+    };
+
+    systemd.timers.failed-units-alert = mkIf cfg.failedUnits.enable {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = cfg.failedUnits.interval;
       };
     };
 
