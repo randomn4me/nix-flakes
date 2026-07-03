@@ -9,17 +9,17 @@
         "tabi": "tabi"
       },
       "locked": {
-        "lastModified": 1775548712,
-        "narHash": "sha256-XF6CzGz+36q+0Y16yzHDdSNOF50WborTpgBKzI/1aGA=",
+        "lastModified": 1782809764,
+        "narHash": "sha256-Yh5fsPBUQ1NPzHflNDZz/3+YKwgyYx0V2wtp6rL3Nn0=",
         "ref": "refs/heads/main",
-        "rev": "3e76f42ad21ec4fe06740bf607e6dfbcef612b5e",
-        "revCount": 98,
+        "rev": "e87a90c6374dd6aefcd316b0fd70cfe488c85009",
+        "revCount": 129,
         "type": "git",
-        "url": "https://git.audacis.net/philippkuehn/blog"
+        "url": "ssh://forgejo@git.audacis.net/philippkuehn/blog"
       },
       "original": {
         "type": "git",
-        "url": "https://git.audacis.net/philippkuehn/blog"
+        "url": "ssh://forgejo@git.audacis.net/philippkuehn/blog"
       }
     },
     "base16-schemes": {
@@ -61,11 +61,11 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1776396856,
-        "narHash": "sha256-aRJpIJUlZLaf06ekPvqjuU46zvO9K90IxJGpbqodkPs=",
+        "lastModified": 1783030479,
+        "narHash": "sha256-h9URleVAoxoA8cpC09rG6N3/q8XkRqDZ6NMSkOkoRh0=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "28462d6d55c33206ffa5a56c7907ca3125ed788f",
+        "rev": "339845ec5132ef749654058f4dd6c810dd44b6d2",
         "type": "github"
       },
       "original": {
@@ -103,11 +103,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1776398575,
-        "narHash": "sha256-WArU6WOdWxzbzGqYk4w1Mucg+bw/SCl6MoSp+/cZMio=",
+        "lastModified": 1783051357,
+        "narHash": "sha256-/PPRXThQ9aoc/stohHMtfrRr0y5TmZSFvWPgC18HjUk=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "05815686caf4e3678f5aeb5fd36e567886ab0d30",
+        "rev": "b02e5efbe9b68e4de7322362ada265bffe43696a",
         "type": "gitlab"
       },
       "original": {
@@ -125,11 +125,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775087534,
-        "narHash": "sha256-91qqW8lhL7TLwgQWijoGBbiD4t7/q75KTi8NxjVmSmA=",
+        "lastModified": 1782949081,
+        "narHash": "sha256-vp6Y/Grm98ESt6ceOkWiHWyZRDV3J1RID4w+6NWK9yA=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "3107b77cd68437b9a76194f0f7f9c55f2329ca5b",
+        "rev": "17c9d6cdfc60c64f4ee8d306f9bc0b4ccb51481e",
         "type": "github"
       },
       "original": {
@@ -225,20 +225,23 @@
         "rev": "942b707c7c72703512f04f88f96760f3c3283838",
         "revCount": 26,
         "type": "git",
-        "url": "ssh://git.audacis.net/philippkuehn/forge-agent"
+        "url": "ssh://forgejo@git.audacis.net/philippkuehn/forge-agent"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git.audacis.net/philippkuehn/forge-agent"
+        "url": "ssh://forgejo@git.audacis.net/philippkuehn/forge-agent"
       }
     },
     "hardware": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
       "locked": {
-        "lastModified": 1775490113,
-        "narHash": "sha256-2ZBhDNZZwYkRmefK5XLOusCJHnoeKkoN95hoSGgMxWM=",
+        "lastModified": 1782562157,
+        "narHash": "sha256-a7+T6QSeowynwZ1ZJJbP8T8ntAytvrui8kFGJmIZt2c=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "c775c2772ba56e906cbeb4e0b2db19079ef11ff7",
+        "rev": "a9cf7546a938c737b079e738de73934a13de9784",
         "type": "github"
       },
       "original": {
@@ -254,11 +257,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776373306,
-        "narHash": "sha256-iAJIzHngGZeLIkjzuuWI6VBsYJ1n89a/Esq0m8R1vjs=",
+        "lastModified": 1783024095,
+        "narHash": "sha256-oE+TNK98Pl7nHW4VU1oBvUKD5JR45U+py/NJmLoTNHI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "d401492e2acd4fea42f7705a3c266cea739c9c36",
+        "rev": "a4d410db95a6416d1008049330bd86b85b5db45a",
         "type": "github"
       },
       "original": {
@@ -293,11 +296,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775037210,
-        "narHash": "sha256-KM2WYj6EA7M/FVZVCl3rqWY+TFV5QzSyyGE2gQxeODU=",
+        "lastModified": 1781761792,
+        "narHash": "sha256-rCPytmKNjctLloB6UgK5CRrHSwV4b0ygxtJLPPp8R14=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "06648f4902343228ce2de79f291dd5a58ee12146",
+        "rev": "a1fa429e945becaf60468600daf649be4ba0350c",
         "type": "github"
       },
       "original": {
@@ -314,11 +317,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775970782,
-        "narHash": "sha256-7jt9Vpm48Yy5yAWigYpde+HxtYEpEuyzIQJF4VYehhk=",
+        "lastModified": 1783023993,
+        "narHash": "sha256-gaOvvY/lL1eWoSmSRO17pWry8R49AuPMrF4nzu47K5o=",
         "owner": "Mic92",
         "repo": "nix-index-database",
-        "rev": "bedba5989b04614fc598af9633033b95a937933f",
+        "rev": "f8ed6cdcb1fd28a6ab7b61f4467a4f67fe2d9074",
         "type": "github"
       },
       "original": {
@@ -329,18 +332,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1776169885,
-        "narHash": "sha256-l/iNYDZ4bGOAFQY2q8y5OAfBBtrDAaPuRQqWaFHVRXM=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "4bd9165a9165d7b5e33ae57f3eecbcb28fb231c9",
-        "type": "github"
+        "lastModified": 1767892417,
+        "narHash": "sha256-8bW3q88CEg2u4hSP66Vf4lpbLonHz7hqDNBMcCY7E9U=",
+        "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.05pre924538.3497aa5c9457/nixexprs.tar.xz"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
     "nixpkgs-lib": {
@@ -358,6 +358,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1782723713,
+        "narHash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -367,11 +383,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1776350339,
-        "narHash": "sha256-Rl+tnpvdpf66e/3m+LPNzUoebV3jpiJz7oMxas8FB3I=",
+        "lastModified": 1783008629,
+        "narHash": "sha256-09BjomDm95T6kMWbzceSwOvnsyUGYAUJ0kvfx4jcPww=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "4f75992439d3d554a3681880510e4b645ca2d15b",
+        "rev": "e52f93e175e63e4b9bfefd53b051a18f12217bed",
         "type": "github"
       },
       "original": {
@@ -392,7 +408,7 @@
         "nix-colors": "nix-colors",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim",
         "serify-page": "serify-page",
         "sops-nix": "sops-nix"
@@ -406,17 +422,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1776238449,
-        "narHash": "sha256-e1y2U+73oA0tYP3Ud1tKZyUfOZquEPW1HYl1L004IXE=",
+        "lastModified": 1778583992,
+        "narHash": "sha256-bpxWKMQ6HC5/1NEpEgMfVXUcomKBRzg8dYNmhSHwOGs=",
         "ref": "refs/heads/main",
-        "rev": "4aa94d3851378c4c6555e351aada270aec4bb104",
-        "revCount": 113,
+        "rev": "f02b381fdf36f6f70563998529ca160adacf8eed",
+        "revCount": 122,
         "type": "git",
-        "url": "ssh://git.audacis.net/serify/serify-zola"
+        "url": "ssh://forgejo@git.audacis.net/serify/serify-zola"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git.audacis.net/serify/serify-zola"
+        "url": "ssh://forgejo@git.audacis.net/serify/serify-zola"
       }
     },
     "sops-nix": {
@@ -426,11 +442,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776119890,
-        "narHash": "sha256-Zm6bxLNnEOYuS/SzrAGsYuXSwk3cbkRQZY0fJnk8a5M=",
+        "lastModified": 1782165805,
+        "narHash": "sha256-478kKQBvK6SYTOdN2h9jhKJv94nbXRbFMfuL1WshErg=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "d4971dd58c6627bfee52a1ad4237637c0a2fb0cd",
+        "rev": "56b24064fdcaedca53553b1a6d607fd23b613a24",
         "type": "github"
       },
       "original": {
@@ -486,15 +502,16 @@
     },
     "systems_4": {
       "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "lastModified": 1774449309,
+        "narHash": "sha256-brhZ8DmuGtzkCYHJg4HEd602amKm89Y9ytsFZ5uWD1w=",
         "owner": "nix-systems",
         "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "rev": "c29398b59d2048c4ab79345812849c9bd15e9150",
         "type": "github"
       },
       "original": {
         "owner": "nix-systems",
+        "ref": "future-26.11",
         "repo": "default",
         "type": "github"
       }
