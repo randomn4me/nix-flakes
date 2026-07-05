@@ -98,23 +98,5 @@
 
         };
       };
-
-      homeConfigurations = {
-        "phil@peasec" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/peasec.nix ];
-        };
-
-        "phil@netcup" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.aarch64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/netcup.nix ];
-        };
-      };
     };
 }
