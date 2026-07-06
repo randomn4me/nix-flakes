@@ -20,7 +20,6 @@
       flake-registry = "";
 
       use-xdg-base-directories = true;
-      download-buffer-size = 268435456; # 256 MiB
 
       trusted-users = [
         "root"

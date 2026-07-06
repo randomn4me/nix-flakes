@@ -330,10 +330,21 @@ in
           after = [ "network-online.target" "ntfy-sh.service" ];
           wants = [ "network-online.target" ];
           wantedBy = [ "multi-user.target" ];
+          # Don't re-run on nixos-rebuild switch, which would otherwise send a
+          # spurious "booted" push even though the machine never rebooted.
+          restartIfChanged = false;
+          stopIfChanged = false;
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart = "${ntfySend} ${cfg.topic} 'Booted (${config.networking.hostName})' 'system has booted' default arrows_counterclockwise";
+            # Guard against activation restarts: only notify when the system has
+            # actually just booted (low uptime), not on a rebuild.
+            ExecStart = pkgs.writeShellScript "boot-notify" ''
+              UPTIME=$(${pkgs.coreutils}/bin/cut -d. -f1 /proc/uptime)
+              if [ "$UPTIME" -lt 300 ]; then
+                ${ntfySend} ${cfg.topic} 'Booted (${config.networking.hostName})' 'system has booted' default arrows_counterclockwise
+              fi
+            '';
           };
         };
       })
