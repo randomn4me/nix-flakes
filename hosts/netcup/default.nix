@@ -11,6 +11,22 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # The ESP (/boot) is only 255 MB and each generation stores a kernel + initrd
+  # (~85 MB on aarch64 in practice). Nix GC never prunes /boot — only the
+  # bootloader install does, bounded by this limit. Cap it so daily rebuilds
+  # can't overflow the ESP and abort the switch: 3 gens overflowed 255 MB, so
+  # keep 2 (≈ 170 MB, leaving headroom for the systemd-boot binary + fallback).
+  # Raise only if you enlarge /boot (check `du -sh /boot/EFI/nixos/*` for the
+  # real per-gen size).
+  boot.loader.systemd-boot.configurationLimit = 2;
+
+  # 8 GB swap so nixos-rebuild's eval/build has headroom on this 8 GB box.
+  # The file is created out-of-band with `btrfs filesystem mkswapfile` (NoCOW,
+  # hole-free); declaring a `size` here would make NixOS fallocate+mkswap it,
+  # which btrfs rejects ("swapon: Invalid argument"). Device-only just activates
+  # the existing file at boot. zram adds compressed in-RAM swap on top.
+  swapDevices = [ { device = "/swapfile"; } ];
+  zramSwap.enable = true;
 
   # Enable new modular services
   services.custom = {
@@ -19,7 +35,18 @@
     nginx.enable = true;
     postgres.enable = true;
     fail2ban.enable = true;
-    backup.enable = true;
+    backup = {
+      enable = true;
+      # Default set plus Zulip's nightly tarball (DB + config) and its uploaded
+      # files. Kept explicit here since this is host-specific backup policy.
+      sourceDirectories = [
+        "/var/lib/vaultwarden"
+        "/var/lib/forgejo"
+        "/var/lib/ntfy-sh"
+        "/var/lib/zulip/backups"
+        "/var/lib/zulip/app"
+      ];
+    };
 
     # Application services
     mail-relay = {
@@ -43,6 +70,10 @@
     freshrss = {
       enable = false;
       passwordFile = config.sops.secrets."freshrss/passphrase".path;
+    };
+    zulip = {
+      enable = true;
+      domain = "chat.serify.eu";
     };
 
     # External flake services
@@ -80,7 +111,21 @@
 
     dhcpcd = {
       enable = true;
-      IPv6rs = true;
+      # netcup offers no IPv6 RA/SLAAC (switched subnet — static config is
+      # required), so soliciting routers only spams "no IPv6 Routers available".
+      # IPv6 is configured statically below instead.
+      IPv6rs = false;
+    };
+
+    # netcup routes a static /64 to this vServer; take one address from it and
+    # send the default route to the link-local VRRP gateway fe80::1 (reachable
+    # on the switched link, though it never advertises itself via RA).
+    interfaces.enp7s0.ipv6.addresses = [
+      { address = "2a03:4000:63:782::1"; prefixLength = 64; }
+    ];
+    defaultGateway6 = {
+      address = "fe80::1";
+      interface = "enp7s0";
     };
 
     firewall = {
