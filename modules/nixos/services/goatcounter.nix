@@ -78,14 +78,12 @@ in
 
       locations."/" = {
         proxyPass = "http://${cfg.address}:${toString cfg.port}";
-        # No recommendedProxySettings on this host, so forward the client IP
-        # explicitly — GoatCounter derives country stats from X-Forwarded-For.
-        extraConfig = ''
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-        '';
+        # goatcounter's live dashboard streams over a websocket.
+        proxyWebsockets = true;
+        # Do NOT set Host / X-Forwarded-* here: recommendedProxySettings is
+        # on by default and already includes them for every proxy location.
+        # Setting Host again emits a second Host header, which Go's HTTP server
+        # rejects outright ("400 Bad Request") before goatcounter ever sees it.
       };
     };
   };
