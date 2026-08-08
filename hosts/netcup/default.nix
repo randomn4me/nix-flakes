@@ -56,6 +56,7 @@
         "/var/lib/ntfy-sh"
         "/var/lib/zulip/backups"
         "/var/lib/zulip/app"
+        "/var/lib/goatcounter"
       ];
     };
 
@@ -85,6 +86,10 @@
     zulip = {
       enable = true;
       domain = "chat.serify.eu";
+    };
+    goatcounter = {
+      enable = true;
+      domain = "stats.serify.eu";
     };
 
     # External flake services
