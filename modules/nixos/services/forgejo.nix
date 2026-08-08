@@ -156,6 +156,22 @@ in
         default = "512M";
         description = "Maximum size for client uploads";
       };
+
+      proxyTimeout = mkOption {
+        type = types.str;
+        default = "600s";
+        description = ''
+          proxy_read_timeout / proxy_send_timeout for the vhost.
+
+          A git smart-HTTP clone of full history (CI `fetch-depth: 0`) makes the
+          server enumerate and compress the entire object set before it can emit
+          the first byte of the pack. On a large repo that startup easily exceeds
+          nginx's default 60s proxy_read_timeout, so nginx gives up mid-transfer
+          and returns 504 — the client sees `fatal: expected 'packfile'`. Shallow
+          clones respond immediately and are unaffected. Keep this above the
+          worst-case time-to-first-byte of upload-pack.
+        '';
+      };
     };
   };
 
@@ -245,6 +261,17 @@ in
 
       extraConfig = ''
         client_max_body_size ${cfg.nginx.clientMaxBodySize};
+
+        # Git smart-HTTP over the proxy. A full-history clone (CI fetch-depth: 0)
+        # spends a long time counting/compressing objects before the first pack
+        # byte; nginx's default 60s proxy_read_timeout fires in that window and
+        # returns 504 ("fatal: expected 'packfile'" on the client). Raise the
+        # timeouts and stop nginx buffering the (large, streamed) pack so bytes
+        # flow through as the upstream produces them.
+        proxy_read_timeout ${cfg.nginx.proxyTimeout};
+        proxy_send_timeout ${cfg.nginx.proxyTimeout};
+        proxy_buffering off;
+        proxy_request_buffering off;
       '';
 
       locations = mkMerge [
