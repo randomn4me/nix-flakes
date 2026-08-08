@@ -18,6 +18,7 @@
     ./forgejo.nix
     ./vaultwarden.nix
     ./freshrss.nix
+    ./zulip.nix
     ./ntfy.nix
     ./alerts.nix
     ./backup.nix

@@ -38,6 +38,26 @@ let
   serviceNames = [ "zulip-database" "zulip-memcached" "zulip-rabbitmq" "zulip-redis" "zulip" ];
   unitOf = n: "${backend}-${n}.service";
 
+  # The docker-zulip image creates its `zulip` user as uid/gid 1000 (Dockerfile:
+  # `useradd -u 1000 zulip`) and runs its /data setup AS that user — so a
+  # bind-mounted /data must be zulip-owned, or the container can't read its own
+  # secrets and crash-loops with "Error accessing Zulip secrets" (docker-zulip
+  # #151). Unlike the postgres/redis images, the Zulip image never chowns /data
+  # itself. On this host uid 1000 is `phil`, which is harmless — inside the
+  # container it is `zulip`.
+  zulipUid = 1000;
+
+  # In-image uids of the backend service users. Their data dirs are host bind
+  # mounts, so the host paths must be pre-owned by these uids — the postgres and
+  # rabbitmq images run as a non-root user and, unlike redis, do NOT chown their
+  # data dir on startup, so a root-owned mount locks them out (postgres:
+  # "could not open global/pg_filenode.map: Permission denied"; rabbitmq: mnesia
+  # operations time out). These track the pinned image tags below — bump them if
+  # an image ever renumbers its service user.
+  postgresUid = 70;    # `postgres` in zulip/zulip-postgresql:14 (Alpine-based)
+  rabbitmqUid = 999;   # `rabbitmq` in rabbitmq:4.2
+  redisUid = 999;      # `redis`   in redis:alpine
+
   # Entry-point scripts, ported verbatim from upstream compose.yaml (compose's
   # `$$` — a literal `$` — becomes a single `$` here). We override the image
   # entrypoint with `/bin/sh -euc <script>`, which is equivalent to how compose
@@ -251,11 +271,23 @@ in
     # ---- persistent state directories --------------------------------------
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 0750 root root -"
-      "d ${cfg.dataDir}/postgresql 0700 root root -"
-      "d ${cfg.dataDir}/rabbitmq 0750 root root -"
-      "d ${cfg.dataDir}/redis 0750 root root -"
-      "d ${cfg.dataDir}/app 0750 root root -"
-      "d ${cfg.dataDir}/backups 0750 root root -"
+      # Each service's data dir is a host bind mount, pre-created here owned by
+      # that service's in-image uid (NOT root). The original bug was owning these
+      # `root root`: postgres/rabbitmq run as a non-root user and can't chown a
+      # root-owned mount, so they were locked out and the stack crash-looped
+      # (postgres: "could not open global/pg_filenode.map: Permission denied";
+      # rabbitmq: mnesia operations time out). tmpfiles re-asserts these owners on
+      # every activation — harmless now that they match the container, and it
+      # keeps a fresh host (disaster recovery) working before the images start.
+      # Host bind mounts (not named volumes) keep the data borg-visible and safe
+      # from the weekly `podman system prune --volumes`.
+      "d ${cfg.dataDir}/postgresql 0700 ${toString postgresUid} ${toString postgresUid} -"
+      "d ${cfg.dataDir}/rabbitmq 0750 ${toString rabbitmqUid} ${toString rabbitmqUid} -"
+      "d ${cfg.dataDir}/redis 0750 ${toString redisUid} ${toString redisUid} -"
+      # /data (uploads/config) + the backup drop-dir: the Zulip image never
+      # chowns /data, so pre-create them zulip-owned (uid 1000).
+      "d ${cfg.dataDir}/app 0700 ${toString zulipUid} ${toString zulipUid} -"
+      "d ${cfg.dataDir}/backups 0700 ${toString zulipUid} ${toString zulipUid} -"
     ];
 
     # ---- the five containers -----------------------------------------------
@@ -355,6 +387,24 @@ in
             ExecStart = pkgs.writeShellScript "zulip-network-up" ''
               ${pkgs.podman}/bin/podman network exists zulip \
                 || ${pkgs.podman}/bin/podman network create zulip
+            '';
+          };
+        };
+
+        # Ensure /data + backups are owned by the container's zulip uid before
+        # the app starts. Recursive so it also repairs anything the earlier
+        # crash-looping (root) container left behind; idempotent on every start.
+        zulip-data-perms = {
+          description = "Own Zulip's /data + backup bind mounts as the container's zulip uid";
+          before = [ (unitOf "zulip") ];
+          requiredBy = [ (unitOf "zulip") ];
+          after = [ "systemd-tmpfiles-setup.service" ];
+          serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = pkgs.writeShellScript "zulip-data-perms" ''
+              ${pkgs.coreutils}/bin/chown -R ${toString zulipUid}:${toString zulipUid} \
+                ${cfg.dataDir}/app ${cfg.dataDir}/backups
             '';
           };
         };
