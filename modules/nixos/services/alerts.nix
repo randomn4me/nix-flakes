@@ -152,6 +152,17 @@ in
         description = "Disk usage percentage threshold for alerts";
       };
 
+      mountpoints = mkOption {
+        type = types.listOf types.str;
+        default = [ "/" "/boot" ];
+        description = ''
+          Mountpoints to monitor for disk usage. Includes /boot by default: the
+          ESP is small and fills with per-generation kernels, and Nix GC never
+          prunes it — so it needs its own early warning. Mountpoints that don't
+          exist on a given host are silently skipped.
+        '';
+      };
+
       interval = mkOption {
         type = types.str;
         default = "hourly";
@@ -292,10 +303,14 @@ in
           serviceConfig = {
             Type = "oneshot";
             ExecStart = pkgs.writeShellScript "check-disk-space" ''
-              USAGE=$(${pkgs.coreutils}/bin/df / --output=pcent | ${pkgs.coreutils}/bin/tail -1 | ${pkgs.coreutils}/bin/tr -d ' %')
-              if [ "$USAGE" -ge ${toString cfg.diskSpace.threshold} ]; then
-                ${ntfySend} ${cfg.topic} "Disk Space Warning" "${config.networking.hostName}: disk usage at ''${USAGE}%" high warning
-              fi
+              for mp in ${lib.escapeShellArgs cfg.diskSpace.mountpoints}; do
+                # Skip mountpoints absent on this host (e.g. no separate /boot).
+                ${pkgs.util-linux}/bin/mountpoint -q "$mp" || continue
+                USAGE=$(${pkgs.coreutils}/bin/df "$mp" --output=pcent | ${pkgs.coreutils}/bin/tail -1 | ${pkgs.coreutils}/bin/tr -d ' %')
+                if [ "$USAGE" -ge ${toString cfg.diskSpace.threshold} ]; then
+                  ${ntfySend} ${cfg.topic} "Disk Space Warning" "${config.networking.hostName}: $mp at ''${USAGE}%" high warning
+                fi
+              done
             '';
           };
         };
