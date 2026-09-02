@@ -3,7 +3,7 @@ let
   colors = config.colorscheme.palette;
 in
 {
-  # Mirrors ../sway/swaylock.nix: same wallpaper, same blur, same palette.
+  # Same wallpaper, blur and palette as the rest of the desktop.
   programs.hyprlock = {
     enable = true;
 
@@ -40,8 +40,8 @@ in
           font_family = "Share Tech Mono";
           fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
 
-          # swaylock showed the active layout; keep that, the de/us toggle
-          # makes it worth having on the lock screen.
+          # The de/us toggle makes the active layout worth showing on the
+          # lock screen.
           dots_center = true;
         }
       ];

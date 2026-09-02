@@ -8,9 +8,8 @@ let
   };
 in
 {
-  # Translated from ../sway/windowrules.nix. Hyprland matches Wayland app-ids
-  # and XWayland WM_CLASS through the same `class` prop, so the sway
-  # app_id/class split collapses into one rule per application.
+  # Hyprland matches Wayland app-ids and XWayland WM_CLASS through the same
+  # `class` prop, so one rule per application covers both.
   wayland.windowManager.hyprland.settings.window_rule = [
     (toWorkspace 2 "firefox" "^(firefox)$")
     (toWorkspace 2 "chrome" "^([Gg]oogle-chrome)$")

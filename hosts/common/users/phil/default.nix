@@ -49,8 +49,5 @@ in
     users.phil = import ../../../../home/${config.networking.hostName}.nix;
   };
 
-  security.pam.services = {
-    swaylock = { };
-    hyprlock = { };
-  };
+  security.pam.services.hyprlock = { };
 }

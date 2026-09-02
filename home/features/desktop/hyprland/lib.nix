@@ -7,7 +7,7 @@
 # like `hl.dsp.exec_cmd(...)` get past the Nix -> Lua string escaping.
 { lib }:
 rec {
-  # Same modifier as the sway config, so muscle memory carries over.
+  # The modifier every binding hangs off.
   mod = "SUPER";
 
   # A Lua string literal. JSON escaping matches Lua's for the ASCII commands

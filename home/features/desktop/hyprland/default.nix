@@ -113,8 +113,8 @@ in
 
         decoration.rounding = 0;
 
-        # The sway config runs bare (no titlebars, no animation); keep that feel
-        # rather than inheriting Hyprland's showier defaults.
+        # Run bare — no titlebars, no animation — rather than inheriting
+        # Hyprland's showier defaults.
         animations.enabled = false;
 
         misc = {
@@ -153,7 +153,7 @@ in
         (bindLocked "XF86AudioPlay" (exec "${playerctl} play-pause"))
         (bindLocked "XF86AudioStop" (exec "${playerctl} stop"))
 
-        # Mirrors sway's bindswitch: fold the lid, drop the internal panel.
+        # Fold the lid, drop the internal panel.
         # `hyprctl keyword` is legacy-parser only, so the rule is edited from
         # Lua instead; hl.monitor merges into the existing rule, which is what
         # makes `disabled = false` restore the mode and position again.

@@ -14,7 +14,7 @@ let
   onBattery = "! ${grep} -q 1 /sys/class/power_supply/*/online";
 in
 {
-  # Same schedule as ../sway/swayidle.nix: lock, then mute the mic, then blank.
+  # The schedule: lock, then mute the mic, then blank.
   # hypridle fires listeners on absolute idle time, so the staggered timeouts
   # are written out rather than derived from an "after lock" offset.
   services.hypridle = {

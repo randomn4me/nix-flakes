@@ -20,7 +20,6 @@
 
     ./features/productivity
 
-    ./features/desktop/sway
     ./features/desktop/hyprland
     ./features/backup
     ./features/scripts

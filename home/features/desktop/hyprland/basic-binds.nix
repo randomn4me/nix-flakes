@@ -2,7 +2,7 @@
 let
   workspaces = lib.range 1 9;
 
-  # Same vim directions as the sway config.
+  # hjkl as directions.
   directions = {
     h = "l";
     l = "r";
@@ -23,8 +23,8 @@ in
     (bind "${mod} + Q" "hl.dsp.window.close()")
     (bind "${mod} + SHIFT + C" (exec "hyprctl reload"))
 
-    # sway splits the focused container; Hyprland instead sets the direction
-    # the *next* window opens in, which is the closest equivalent.
+    # Hyprland has no "split the focused container"; it sets the direction the
+    # *next* window opens in instead.
     (bind "${mod} + U" ''hl.dsp.layout("preselect d")'')
     (bind "${mod} + I" ''hl.dsp.layout("preselect r")'')
 
@@ -43,7 +43,7 @@ in
     key: dir: bind "${mod} + SHIFT + ${key}" ''hl.dsp.window.move({ direction = "${dir}" })''
   ) directions;
 
-  # `$mod+r` enters a resize mode that hjkl drives, matching sway's "mode resize".
+  # `$mod+r` enters a resize mode that hjkl drives.
   wayland.windowManager.hyprland.submaps.resize.settings.bind = [
     (bindRepeat "h" "hl.dsp.window.resize({ x = -20, y = 0, relative = true })")
     (bindRepeat "l" "hl.dsp.window.resize({ x = 20, y = 0, relative = true })")

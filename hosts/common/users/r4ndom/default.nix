@@ -43,7 +43,4 @@ in
     backupFileExtension = "backup";
   };
 
-  security.pam.services = {
-    swaylock = { };
-  };
 }

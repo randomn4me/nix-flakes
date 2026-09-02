@@ -6,8 +6,7 @@
 }:
 let
   # programs.hyprland.enable feeds services.displayManager.sessionPackages, so
-  # this directory holds hyprland.desktop. Sway is home-manager-only here and
-  # deliberately absent from the menu — start it by hand from a VT if needed.
+  # this directory holds hyprland.desktop.
   sessions = "${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
 in
 {

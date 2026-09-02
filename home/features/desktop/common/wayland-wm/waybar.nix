@@ -9,11 +9,13 @@ let
   neomutt = "${config.programs.neomutt.package}/bin/neomutt";
   task = "${config.programs.taskwarrior.package}/bin/task";
 
+  cat = "${pkgs.coreutils}/bin/cat";
   head = "${pkgs.coreutils}/bin/head";
   printf = "${pkgs.coreutils}/bin/printf";
   wc = "${pkgs.coreutils}/bin/wc";
 
   sed = "${pkgs.gnused}/bin/sed";
+  awk = "${pkgs.gawk}/bin/awk";
 
   jq = "${pkgs.jq}/bin/jq";
   find = "${pkgs.findutils}/bin/find";
@@ -74,12 +76,8 @@ in
         position = "bottom";
         reload_style_on_change = true;
 
-        # Both compositors are configured (sway on tty1, Hyprland on tty2) but
-        # only one runs at a time; waybar disables the module whose compositor
-        # isn't there, so listing both gives one working workspace widget.
         modules-left = [
           "tray"
-          "sway/workspaces"
           "hyprland/workspaces"
         ];
 
@@ -90,15 +88,10 @@ in
           "custom/mail"
           "custom/appointments"
           "wireplumber"
+          "custom/power"
           "battery"
           "clock"
         ];
-
-        "sway/workspaces" = {
-          all-outputs = true;
-          sort-by = "id";
-          format = "{name}";
-        };
 
         "hyprland/workspaces" = {
           all-outputs = true;
@@ -280,6 +273,29 @@ in
           };
         };
 
+        "custom/power" = {
+          interval = 30;
+          format = "{}";
+          return-type = "json";
+          exec = jsonOutput "power" {
+            pre = ''
+              watts=""
+              status=""
+              for bat in /sys/class/power_supply/BAT*; do
+                [ -r "$bat/power_now" ] || continue
+                watts=$(${awk} -v uw="$(${cat} "$bat/power_now")" \
+                  'BEGIN { printf "%.1f", uw / 1000000 }')
+                status=$(${cat} "$bat/status" 2>/dev/null || echo Unknown)
+                break
+              done
+
+              if [ -n "$watts" ]; then text="󱐋 $watts W"; else text=""; fi
+            '';
+            text = "$text";
+            tooltip = "$status: $watts W";
+          };
+        };
+
         "custom/player" = {
           return-type = "json";
           exec = "${playerFollow}";
@@ -357,6 +373,7 @@ in
         #custom-mail,
         #custom-appointments,
         #wireplumber,
+        #custom-power,
         #battery,
         #clock {
           padding: 0 10px;
