@@ -29,4 +29,10 @@
   ];
 
   console.keyMap = "us";
+
+  # NixOS defaults environment.variables.EDITOR to "nano" (programs/environment.nix).
+  # Home Manager's nixvim defaultEditor only writes hm-session-vars.sh, which is
+  # sourced from ~/.profile and therefore misses the graphical session and any
+  # shell started from it, so the system value wins. Set it system-wide instead.
+  environment.variables.EDITOR = "nvim";
 }
