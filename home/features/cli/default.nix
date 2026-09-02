@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./claude-code.nix
     ./git.nix
     ./tmux.nix
   ];
@@ -40,7 +41,6 @@
 
     zip
     unzip
-    claude-code
     rclone
   ];
 }
