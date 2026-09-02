@@ -58,10 +58,13 @@
 
   # setup as server
   services.openssh.enable = true;
-  # An ignored lid means the machine stays fully awake in a bag. On battery it
-  # now suspends and, after HibernateDelaySec below, hands over to disk.
-  # Plugged in or docked it still only locks, so it stays reachable over ssh.
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  # The lid belongs to Hyprland (the switch binds in home/features/desktop/
+  # hyprland), so logind keeps its hands off it on battery. That drops the
+  # immediate suspend-then-hibernate on close: the backstop is hypridle, which
+  # suspends after 15min idle -- a shut lid reaches that on its own, so the
+  # machine no longer stays awake in a bag indefinitely, just for a while.
+  # Docked or on mains it still only locks, so it stays reachable over ssh.
+  services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchExternalPower = "lock";
   services.logind.lidSwitchDocked = "lock";
 
