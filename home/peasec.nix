@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   inputs,
   outputs,
   config,
@@ -90,6 +91,23 @@
       refreshRate = 60;
       scaling = 1.0;
       primary = true;
+      # All nine number keys stay on the laptop panel; the office display
+      # gets whatever workspace is pushed to it (SUPER + SHIFT + Tab) rather
+      # than claiming one on its own the moment it is plugged in.
+      workspaces = lib.range 1 9;
+    }
+    {
+      # Office display. Only takes effect while it is actually connected, so
+      # the rule is harmless on the road.
+      name = "DP-2";
+      width = 2560;
+      height = 1440;
+      refreshRate = 60;
+      scaling = 1.0;
+      x = 1920;
+      # Its own workspace, well clear of the number keys, so connecting it
+      # never pulls one of those nine off the laptop panel.
+      workspaces = [ 10 ];
     }
   ];
 
