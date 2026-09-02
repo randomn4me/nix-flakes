@@ -8,6 +8,7 @@
       font-size = 13;
 
       mouse-hide-while-typing = true;
+      working-directory = "home";
 
       theme = "TokyoNight";
 
