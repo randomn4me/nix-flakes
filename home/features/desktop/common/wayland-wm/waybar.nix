@@ -277,6 +277,12 @@ in
           interval = 30;
           format = "{}";
           return-type = "json";
+          # power_now is an unsigned magnitude; sysfs keeps the direction in
+          # status alone. While charging it is the rate flowing *into* the
+          # battery rather than what the system draws, and it sits at 0 once
+          # the battery is full, so only the discharging number says anything
+          # about consumption. The icon spells out which of the two is on
+          # screen and the module hides itself while the battery idles on AC.
           exec = jsonOutput "power" {
             pre = ''
               watts=""
@@ -289,10 +295,14 @@ in
                 break
               done
 
-              if [ -n "$watts" ]; then text="󱐋 $watts W"; else text=""; fi
+              case "$status" in
+                Discharging) text="󱐋 $watts W"; tooltip="System draw: $watts W" ;;
+                Charging) text="󰂄 $watts W"; tooltip="Charging at $watts W" ;;
+                *) text=""; tooltip="" ;;
+              esac
             '';
             text = "$text";
-            tooltip = "$status: $watts W";
+            tooltip = "$tooltip";
           };
         };
 
