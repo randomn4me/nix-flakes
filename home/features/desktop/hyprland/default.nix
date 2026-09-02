@@ -62,6 +62,21 @@ in
         scale = m.scaling;
       }) config.monitors;
 
+      # Hyprland hands every newly connected monitor the next unclaimed
+      # workspace, so plugging in a screen silently moves workspace 2 onto it
+      # -- `${mod} + 2` then focuses a display that may well be switched off,
+      # which looks like the workspace has vanished. Pinning each declared
+      # workspace to its monitor keeps the number keys on the panel they
+      # belong to; the first one is that monitor's default.
+      workspace_rule = lib.concatMap (
+        m:
+        lib.imap0 (i: ws: {
+          workspace = toString ws;
+          monitor = m.name;
+          default = i == 0;
+        }) (lib.optionals (m.workspaces != null) m.workspaces)
+      ) config.monitors;
+
       config = {
         input = {
           kb_layout = "us,de";
@@ -100,6 +115,12 @@ in
         (bind "${mod} + SHIFT + S" (exec "${grimblast} --notify copy area"))
 
         (bind "${mod} + Tab" ''hl.dsp.focus({ workspace = "previous" })'')
+
+        # With the number keys pinned to one monitor, these are what reach a
+        # second screen: focus it, or drag the current workspace over to it.
+        # "+1" cycles, so both are a no-op on a single monitor.
+        (bind "${mod} + CTRL + Tab" ''hl.dsp.focus({ monitor = "+1" })'')
+        (bind "${mod} + SHIFT + Tab" ''hl.dsp.workspace.move({ monitor = "+1" })'')
 
         (bind "${mod} + W" (exec "${makoctl} dismiss"))
 
