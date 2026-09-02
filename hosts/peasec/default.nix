@@ -22,6 +22,7 @@
     ../common/optional/ddcutils.nix
     ../common/optional/sops.nix
     ../common/optional/greetd.nix
+    ../common/optional/eduroam.nix
   ];
 
   networking.hostName = "peasec";
