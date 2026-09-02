@@ -55,12 +55,25 @@ in
     xwayland.enable = true;
 
     settings = {
-      monitor = map (m: {
-        output = m.name;
-        mode = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-        position = "${toString m.x}x${toString m.y}";
-        scale = m.scaling;
-      }) config.monitors;
+      monitor =
+        map (m: {
+          output = m.name;
+          mode = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+          position = "${toString m.x}x${toString m.y}";
+          scale = m.scaling;
+        }) config.monitors
+        # An empty output is Hyprland's catch-all, used only when no other rule
+        # matches. Spelling it out keeps an undeclared display predictable --
+        # preferred mode, placed to the right -- rather than leaning on whatever
+        # the built-in defaults happen to be.
+        ++ [
+          {
+            output = "";
+            mode = "preferred";
+            position = "auto";
+            scale = 1;
+          }
+        ];
 
       # Hyprland hands every newly connected monitor the next unclaimed
       # workspace, so plugging in a screen silently moves workspace 2 onto it
