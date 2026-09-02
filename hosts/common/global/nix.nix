@@ -40,6 +40,17 @@
     channel.enable = false;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    # Registering an input here forces it, so the private git+ssh inputs are
+    # excluded: they are only ever consumed by netcup's service modules, and
+    # registering them globally makes an unreachable remote (expired key, VPN
+    # off, rotated host key) break rebuilds on every host.
+    registry = lib.mapAttrs (_: value: { flake = value; }) (
+      lib.removeAttrs inputs [
+        "audacis-blog"
+        "serify-page"
+        "code-of-courage"
+        "forge-agent"
+      ]
+    );
   };
 }

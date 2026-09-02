@@ -24,10 +24,10 @@
     ./backup.nix
     ./mail-relay.nix
 
-    # External flake-based services
-    ./audacis-blog.nix
-    ./serify-page.nix
-    ./code-of-courage.nix
+    # External flake-based services live in hosts/netcup, not here: each one
+    # does an unconditional `imports = [ inputs.<x>.nixosModules.default ]`,
+    # so listing them globally forces every host to fetch netcup's private
+    # git+ssh repos — one unreachable repo then blocks every rebuild.
     ./podman-cleanup.nix
     ./vulnix-scan.nix
   ];

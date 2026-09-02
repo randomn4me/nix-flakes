@@ -34,7 +34,7 @@ in
 
       services.mpd-mpris.enable = true;
 
-      home.packages = [ pkgs.mpc-cli ];
+      home.packages = [ pkgs.mpc ];
 
       programs = {
         ncmpcpp = {

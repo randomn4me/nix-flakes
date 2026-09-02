@@ -1,4 +1,9 @@
-{ inputs, outputs, config, ... }:
+{
+  inputs,
+  outputs,
+  config,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
@@ -7,6 +12,12 @@
     ../common/users/phil
 
     ../common/optional/sops.nix
+
+    # External flake-based services — only this host deploys them, and only
+    # this host should have to reach their private git remotes.
+    ../../modules/nixos/services/audacis-blog.nix
+    ../../modules/nixos/services/serify-page.nix
+    ../../modules/nixos/services/code-of-courage.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -80,7 +91,12 @@
     audacis-blog.enable = true;
     serify-page = {
       enable = true;
-      redirectDomains = [ "acipra.de" "acipra.com" "serify.de" "serify.ai" ];
+      redirectDomains = [
+        "acipra.de"
+        "acipra.com"
+        "serify.de"
+        "serify.ai"
+      ];
     };
     code-of-courage.enable = true;
 
@@ -121,7 +137,10 @@
     # send the default route to the link-local VRRP gateway fe80::1 (reachable
     # on the switched link, though it never advertises itself via RA).
     interfaces.enp7s0.ipv6.addresses = [
-      { address = "2a03:4000:63:782::1"; prefixLength = 64; }
+      {
+        address = "2a03:4000:63:782::1";
+        prefixLength = 64;
+      }
     ];
     defaultGateway6 = {
       address = "fe80::1";
@@ -130,7 +149,11 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 80 443 ];
+      allowedTCPPorts = [
+        22
+        80
+        443
+      ];
     };
   };
 
