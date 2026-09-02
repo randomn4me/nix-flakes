@@ -50,6 +50,24 @@
         ''
           export PS1="${ps1_hostname_string}\w >> ";
           export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/share:$HOME/.local/share/flatpak/exports/share";
+
+          # per-core cpu temperature, straight from sysfs
+          cpu-temp() {
+            local name hwmon f
+            for name in coretemp k10temp zenpower; do
+              hwmon=$(grep -lx "$name" /sys/class/hwmon/hwmon*/name 2>/dev/null | head -1)
+              [ -n "$hwmon" ] && break
+            done
+            if [ -z "$hwmon" ]; then
+              echo "no cpu temperature sensor found" >&2
+              return 1
+            fi
+            for f in "$(dirname "$hwmon")"/temp*_input; do
+              printf '%-14s %3d°C\n' \
+                "$(cat "''${f%_input}_label" 2>/dev/null || basename "$f" _input)" \
+                "$(( $(cat "$f") / 1000 ))"
+            done
+          }
         ''
         + lib.strings.optionalString config.custom.nvim.enable ''
           export MANPAGER='nvim --cmd ":lua vim.g.noplugins=1" +Man!'
