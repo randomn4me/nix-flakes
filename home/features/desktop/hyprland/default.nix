@@ -163,8 +163,8 @@ in
         (bindLockedRepeat "XF86AudioRaiseVolume" (exec "${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"))
         (bindLockedRepeat "XF86AudioLowerVolume" (exec "${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"))
 
-        (bindLockedRepeat "XF86MonBrightnessUp" (exec "${brightnessctl} set +10%"))
-        (bindLockedRepeat "XF86MonBrightnessDown" (exec "${brightnessctl} set 10%-"))
+        (bindLockedRepeat "XF86MonBrightnessUp" (exec "${brightnessctl} set +3%"))
+        (bindLockedRepeat "XF86MonBrightnessDown" (exec "${brightnessctl} set 3%-"))
       ];
     };
 

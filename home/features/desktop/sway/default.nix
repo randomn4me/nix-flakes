@@ -101,8 +101,8 @@
           "XF86AudioPlay" = "exec ${playerctl} play-pause";
           "XF86AudioStop" = "exec ${playerctl} stop";
 
-          "XF86MonBrightnessUp" = "exec ${brightnessctl} set +10%";
-          "XF86MonBrightnessDown" = "exec ${brightnessctl} set 10%-";
+          "XF86MonBrightnessUp" = "exec ${brightnessctl} set +3%";
+          "XF86MonBrightnessDown" = "exec ${brightnessctl} set 3%-";
 
           "${modifier}+w" = "exec ${makoctl} dismiss";
 
