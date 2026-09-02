@@ -7,6 +7,7 @@
 {
   imports = [
     inputs.hardware.nixosModules.lenovo-thinkpad-t490
+    inputs.hardware.nixosModules.common-gpu-nvidia-disable
     inputs.hardware.nixosModules.common-pc-ssd
 
     ./hardware-configuration.nix
