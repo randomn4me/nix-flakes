@@ -71,7 +71,7 @@ in
             };
             formatters = {
               ruff.command = lib.getExe pkgs.ruff;
-              nixfmt.command = lib.getExe pkgs.nixfmt-rfc-style;
+              nixfmt.command = lib.getExe pkgs.nixfmt;
             };
           };
         };

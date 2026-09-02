@@ -73,7 +73,7 @@
       homeManagerModules = import ./modules/home-manager;
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
-      formatter = forEachSystem (pkgs: pkgs.nixfmt-rfc-style);
+      formatter = forEachSystem (pkgs: pkgs.nixfmt);
 
       wallpapers = import ./home/wallpapers;
 
