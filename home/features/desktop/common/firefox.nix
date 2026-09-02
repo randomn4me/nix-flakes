@@ -8,6 +8,10 @@
   programs.firefox = {
     enable = true;
 
+    # Legacy location; matches home.stateVersion < 26.05. Switching to
+    # "${config.xdg.configHome}/mozilla/firefox" needs the profile moved by hand.
+    configPath = ".mozilla/firefox";
+
     profiles.${config.home.username} = {
       bookmarks = { };
 

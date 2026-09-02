@@ -65,9 +65,11 @@
   # suspends after 15min idle -- a shut lid reaches that on its own, so the
   # machine no longer stays awake in a bag indefinitely, just for a while.
   # Docked or on mains it still only locks, so it stays reachable over ssh.
-  services.logind.lidSwitch = "ignore";
-  services.logind.lidSwitchExternalPower = "lock";
-  services.logind.lidSwitchDocked = "lock";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchDocked = "lock";
+  };
 
   programs = {
     dconf.enable = true;
