@@ -296,8 +296,8 @@ in
               done
 
               case "$status" in
-                Discharging) text="󱐋 $watts W"; tooltip="System draw: $watts W" ;;
-                Charging) text="󰂄 $watts W"; tooltip="Charging at $watts W" ;;
+                Discharging) text="󱐋 $watts"; tooltip="System draw: $watts W" ;;
+                Charging) text="󰂄 $watts"; tooltip="Charging at $watts W" ;;
                 *) text=""; tooltip="" ;;
               esac
             '';
