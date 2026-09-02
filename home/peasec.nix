@@ -48,7 +48,7 @@
 
   home.packages = with pkgs; [
     # work
-    texlive.combined.scheme-full
+    texliveSmall
     hunspellDicts.de_DE
     hunspellDicts.en_US
 
