@@ -15,9 +15,29 @@ let
   khal = "${pkgs.khal}/bin/khal";
 
   terminal = config.home.sessionVariables.TERMINAL;
-  neomutt = "${pkgs.neomutt}/bin/neomutt";
+  neomutt = "${config.programs.neomutt.package}/bin/neomutt";
 
   xdg-open = "${pkgs.xdg-utils}/bin/xdg-open";
+
+  # NeoMutt only accepts "#RRGGBB" colours when ncurses reports a directcolor
+  # terminal, i.e. when the terminfo entry carries the RGB capability. Neither
+  # xterm-ghostty nor tmux-256color does -- both only claim colors#256 plus
+  # tmux's Tc extension -- so hand NeoMutt a matching *-direct TERM instead.
+  # See the "directcolor" section of neomutt(1).
+  neomutt-directcolor = pkgs.symlinkJoin {
+    name = "neomutt-directcolor";
+    paths = [ pkgs.neomutt ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/neomutt --run '
+        case "$TERM" in
+          *-direct) ;;
+          "" | dumb | linux*) ;;
+          *) if [ -n "$TMUX" ]; then TERM=tmux-direct; else TERM=xterm-direct; fi
+             export TERM ;;
+        esac'
+    '';
+  };
 
   home = "${config.home.homeDirectory}";
 in
@@ -36,6 +56,7 @@ in
 
   programs.neomutt = {
     enable = true;
+    package = neomutt-directcolor;
     checkStatsInterval = 60;
 
     sidebar = {
@@ -45,8 +66,6 @@ in
     };
 
     settings = {
-      color_directcolor = "yes";
-
       sidebar_sort_method = "path";
       sidebar_folder_indent = "yes";
       sidebar_indent_string = " ";
