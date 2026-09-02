@@ -57,13 +57,26 @@ in
         CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
 
-        # Link-state and device runtime power management: TLP defaults to
-        # PCIE_ASPM_ON_BAT=default and only opportunistically touches runtime
-        # PM, which leaves most of the PCI tree pinned at power/control=on.
-        PCIE_ASPM_ON_AC = "default";
-        PCIE_ASPM_ON_BAT = "powersave";
+        # Device runtime power management: TLP only opportunistically touches
+        # runtime PM, which leaves most of the PCI tree pinned at
+        # power/control=on. Setting it to auto is what gets the Thunderbolt
+        # controller and the dGPU into D3cold -- measured >90% of uptime
+        # suspended on peasec.
         RUNTIME_PM_ON_AC = "on";
         RUNTIME_PM_ON_BAT = "auto";
+
+        # PCIe link state. On peasec these two are a no-op: the ACPI FADT sets
+        # NO_ASPM ("FADT indicates ASPM is unsupported, using BIOS
+        # configuration"), so the kernel declines to manage ASPM at all and
+        # /sys/module/pcie_aspm/parameters/policy stays read-only at [default].
+        # Nothing is lost -- the firmware programs the links itself, and as of
+        # 2026-09-02 the NVMe link runs ASPM L1 with both the L1.1 and L1.2
+        # substates enabled, which is the best state available. Kept for hosts
+        # whose firmware does hand ASPM to the OS. Do not reach for
+        # pcie_aspm=force here: it takes over an already-correct configuration
+        # and buys nothing but a risk of NVMe link instability.
+        PCIE_ASPM_ON_AC = "default";
+        PCIE_ASPM_ON_BAT = "powersave";
 
         WIFI_PWR_ON_AC = "off";
         WIFI_PWR_ON_BAT = "on";
