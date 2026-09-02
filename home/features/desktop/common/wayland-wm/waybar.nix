@@ -21,6 +21,22 @@ let
   khal = "${pkgs.khal}/bin/khal";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
 
+  # playerctl --follow blocks until the player state actually changes, so the
+  # module costs nothing while idle instead of forking playerctl once a second.
+  # It emits an empty line when the last player goes away; waybar wants valid
+  # JSON on every line, hence the {} substitution.
+  playerFollow = pkgs.writeShellScript "waybar-player" ''
+    ${playerctl} --follow metadata --format \
+      '{"text": "{{artist}} - {{title}}", "alt": "{{status}}", "tooltip": "{{artist}} - {{title}} ({{album}})"}' \
+      2>/dev/null | while IFS= read -r line; do
+        if [ -z "$line" ]; then echo '{}'; else echo "$line"; fi
+      done
+  '';
+
+  # RTMIN+8: sent by the mbsync unit (home/features/accounts/mbsync.nix) so the
+  # counter updates on sync rather than by re-walking the maildirs on a timer.
+  mailSignal = 8;
+
   # Function to simplify making waybar outputs
   jsonOutput =
     name:
@@ -127,7 +143,9 @@ in
         };
 
         mpd = {
-          interval = 1;
+          # Updates are event-driven over the mpd idle protocol; this interval
+          # only governs how often a lost connection is retried.
+          interval = 10;
           format = "{stateIcon} {artist} - {title}";
           format-stopped = "";
           format-disconnected = "";
@@ -162,7 +180,11 @@ in
         };
 
         "custom/mail" = {
-          interval = 5;
+          # Walking every maildir every 5s was the busiest thing on an
+          # otherwise idle bar. The signal carries the actual updates; the
+          # interval is only a safety net for mail arriving by other means.
+          interval = 300;
+          signal = mailSignal;
           format = "{}";
           return-type = "json";
           exec = jsonOutput "new-mails" {
@@ -249,10 +271,9 @@ in
         };
 
         "custom/player" = {
-          interval = 1;
           return-type = "json";
-          exec-if = "${playerctl} status 2>/dev/null";
-          exec = ''${playerctl} metadata --format '{"text": "{{artist}} - {{title}}", "alt": "{{status}}", "tooltip": "{{artist}} - {{title}} ({{album}})"}' 2>/dev/null '';
+          exec = "${playerFollow}";
+          restart-interval = 5;
           max-length = 60;
           format = "{icon} {}";
           format-icons = {

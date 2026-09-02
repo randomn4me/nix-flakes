@@ -28,6 +28,9 @@ in
       printing = {
         enable = true;
         drivers = cfg.drivers;
+        # Socket-activated: cupsd starts on the first print job instead of
+        # sitting resident for a printer that is used a few times a week.
+        startWhenNeeded = true;
       };
 
       avahi = {
@@ -36,5 +39,10 @@ in
         openFirewall = true;
       };
     };
+
+    # cups-browsed polls for remote print queues and is pulled in
+    # unconditionally by the avahi above. Queues here are configured
+    # explicitly, so it only costs wakeups.
+    systemd.services.cups-browsed.enable = false;
   };
 }
