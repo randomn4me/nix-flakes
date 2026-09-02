@@ -327,7 +327,7 @@ in
         name = "Neomutt";
         genericName = "Email Client";
         comment = "Read and send emails";
-        exec = "${terminal} --app-id neomutt ${neomutt} %U";
+        exec = "${terminal} --class=com.mitchellh.ghostty.neomutt -e ${neomutt} %U";
         icon = "mutt";
         categories = [
           "Network"

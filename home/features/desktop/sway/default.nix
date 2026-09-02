@@ -4,9 +4,10 @@
     ../common
     ../common/wayland-wm
 
-    ./tty-init.nix
     ./basic-binds.nix
     ./windowrules.nix
+    ./swaylock.nix
+    ./swayidle.nix
   ];
 
   home.packages = with pkgs; [ sway-contrib.grimshot ];
@@ -16,12 +17,12 @@
     systemd.enable = true;
 
     config = rec {
-      modifier = "Mod1";
+      modifier = "Mod4";
 
       input = {
         "type:keyboard" = {
-          xkb_layout = "de,us";
-          xkb_variant = "nodeadkeys,colemak_dh_iso";
+          xkb_layout = "us,de";
+          xkb_variant = ",nodeadkeys";
           xkb_options = "caps:none,grp:ctrl_space_toggle";
           xkb_capslock = "disabled";
         };
@@ -78,13 +79,14 @@
           makoctl = "${config.services.mako.package}/bin/makoctl";
           playerctl = "${config.services.playerctld.package}/bin/playerctl";
 
-          light = "${pkgs.light}/bin/light";
+          brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+          ghostty = "${config.programs.ghostty.package}/bin/ghostty";
           swaylock = "${config.programs.swaylock.package}/bin/swaylock";
-          rofi-rbw = "${pkgs.rofi-rbw}/bin/rofi-rbw";
+          rofi-rbw = "${pkgs.rofi-rbw-wayland}/bin/rofi-rbw";
           wofi-emoji = "${pkgs.wofi-emoji}/bin/wofi-emoji";
         in
         {
-          "${modifier}+Return" = "exec kitty";
+          "${modifier}+Return" = "exec ${ghostty}";
           "${modifier}+Shift+s" = "exec ${grimshot} --notify copy area";
 
           "${modifier}+Tab" = "workspace back_and_forth";
@@ -99,8 +101,8 @@
           "XF86AudioPlay" = "exec ${playerctl} play-pause";
           "XF86AudioStop" = "exec ${playerctl} stop";
 
-          "XF86MonBrightnessUp" = "exec ${light} -A 4";
-          "XF86MonBrightnessDown" = "exec ${light} -U 4";
+          "XF86MonBrightnessUp" = "exec ${brightnessctl} set +10%";
+          "XF86MonBrightnessDown" = "exec ${brightnessctl} set 10%-";
 
           "${modifier}+w" = "exec ${makoctl} dismiss";
 

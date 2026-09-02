@@ -28,5 +28,5 @@
     })
   ];
 
-  console.keyMap = "de";
+  console.keyMap = "us";
 }

@@ -24,11 +24,6 @@ in
   home.packages = lib.mapAttrsToList (name: deps: (myScriptBuilder name deps)) {
     # shell
     bat = with pkgs; [ gnugrep ];
-    bone = with pkgs; [
-      libnotify
-      xkbcomp
-      xdg-utils
-    ];
     bt = with pkgs; [ bluez ];
     ha = with pkgs; [ curl ];
     mkv-to-av1 = with pkgs; [ ffmpeg ];

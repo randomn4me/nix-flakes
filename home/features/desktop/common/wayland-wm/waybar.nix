@@ -74,9 +74,13 @@ in
         position = "bottom";
         reload_style_on_change = true;
 
+        # Both compositors are configured (sway on tty1, Hyprland on tty2) but
+        # only one runs at a time; waybar disables the module whose compositor
+        # isn't there, so listing both gives one working workspace widget.
         modules-left = [
           "tray"
           "sway/workspaces"
+          "hyprland/workspaces"
         ];
 
         modules-center = [ "custom/player" ];
@@ -91,6 +95,12 @@ in
         ];
 
         "sway/workspaces" = {
+          all-outputs = true;
+          sort-by = "id";
+          format = "{name}";
+        };
+
+        "hyprland/workspaces" = {
           all-outputs = true;
           sort-by = "id";
           format = "{name}";
@@ -120,7 +130,7 @@ in
               };
           };
 
-          on-click = "${terminal} --app-id khal ${khal} -- interactive";
+          on-click = "${terminal} --class=com.mitchellh.ghostty.khal -e ${khal} -- interactive";
 
           actions = {
             on-click-right = "mode";
@@ -213,7 +223,7 @@ in
             text = " $total_count";
             tooltip = "$tooltip";
           };
-          on-click = "${terminal} --app-id neomutt ${neomutt}";
+          on-click = "${terminal} --class=com.mitchellh.ghostty.neomutt -e ${neomutt}";
         };
 
         "custom/appointments" = {
@@ -236,7 +246,7 @@ in
             text = "󰃭 $text";
             tooltip = "$tooltip";
           };
-          on-click = "${terminal} --app-id khal ${khal} -- interactive";
+          on-click = "${terminal} --class=com.mitchellh.ghostty.khal -e ${khal} -- interactive";
         };
 
         "custom/task" = {
