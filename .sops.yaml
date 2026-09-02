@@ -1,8 +1,12 @@
 keys:
   # You can get your age public key by running: age-keygen -y /path/to/key.txt
-  - &admin age1jeqx4ygu3mdzl86neq65dahzjtzsdaa368ka5kdktg5uqnltgdms7dlqwt
+  # Phil's user key, ~/.config/sops/age/keys.txt (mode 600). Kept out of any
+  # host's /var/lib/sops-nix so `sops <file>` works as an unprivileged user
+  # with no env vars and no sudo. Back it up — it is the only admin recipient.
+  - &admin age1jydqxerp9mx5ax83j27t3z5gcd7cgwscwv84ywylnnh33jh6ea9serp3dp
   - &netcup age1e2hh3n7fmx3sfgflxgscerfym7eqsn9gc4kq3fqwsq5cx5n7g90s9ld2v2
   - &macbook age1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklm  # replace with actual key
+  - &peasec age1zmgj7efa0qnp57n892ctzgc7qyq9ewwdghdql2gkvxjly5hanp5qmwur48
 
 creation_rules:
   # Global secrets accessible by all systems
@@ -25,3 +29,9 @@ creation_rules:
       - age:
           - *admin
           - *macbook
+
+  - path_regex: hosts/peasec/secrets\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *peasec

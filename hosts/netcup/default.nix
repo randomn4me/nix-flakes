@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, ... }:
+{ inputs, outputs, config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -147,8 +147,34 @@
     journald.extraConfig = "SystemMaxUse=100M";
   };
 
-  # Override sops defaultSopsFile to use host-specific secrets
-  sops.defaultSopsFile = lib.mkForce ./secrets.yaml;
+  sops.defaultSopsFile = ./secrets.yaml;
+
+  # Secrets consumed by services on this host. Declared here rather than in
+  # common/optional/sops.nix so other hosts aren't asked to provision keys
+  # their own secrets.yaml doesn't contain.
+  sops.secrets = {
+    "joshua/passphrase" = {
+      owner = "nginx";
+      group = "nginx";
+      mode = "0440";
+    };
+    "joshua/username" = {
+      owner = "nginx";
+      group = "nginx";
+      mode = "0440";
+    };
+    "ntfy/philippkuehn" = {
+      owner = "ntfy-sh";
+      group = "ntfy-sh";
+      mode = "0440";
+    };
+    # Forgejo runner token (format: TOKEN=<secret>)
+    "forgejo/runner-connection" = {
+      owner = "gitea-runner";
+      group = "gitea-runner";
+      mode = "0440";
+    };
+  };
 
   # Per-box SSH keys for the Hetzner storage boxes (used by ssh/backup.nix).
   sops.secrets."storagebox/falkenstein-ssh-key".owner = "phil";

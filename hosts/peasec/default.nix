@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  lib,
   ...
 }:
 
@@ -161,7 +160,11 @@
     ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="058f", ATTR{idProduct}=="9540", ATTR{authorized}="0"
   '';
 
-  sops.defaultSopsFile = lib.mkForce ./secrets.yaml;
+  sops.defaultSopsFile = ./secrets.yaml;
+
+  # Borg repository passphrase, read by the user-level borgmatic service
+  # (home/features/backup/borgmatic.nix) via /run/secrets.
+  sops.secrets."borg/peasec-passphrase".owner = "phil";
 
   system.stateVersion = "24.05";
 
