@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./claude-code.nix
+    ./ai.nix
     ./git.nix
     ./tmux.nix
   ];
