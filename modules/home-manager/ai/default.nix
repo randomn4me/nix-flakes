@@ -36,6 +36,10 @@ let
   ];
 in
 {
+  # herdr gets its own file: it is the one tool here whose full config is
+  # worth modelling option by option rather than passing through.
+  imports = [ ./herdr.nix ];
+
   options.custom.ai = {
     enable = mkEnableOption "AI coding agents";
 
@@ -46,7 +50,10 @@ in
         programs.mistral-vibe, and so on).
       '';
       type = types.listOf (types.enum (attrNames backends));
-      default = [ "claude" ];
+      default = [
+        "claude"
+        "herdr"
+      ];
       example = [
         "claude"
         "codex"
@@ -75,14 +82,6 @@ in
         model = "opus";
         permissions.allow = [ "Bash(git diff:*)" ];
       };
-    };
-
-    herdr.settings = mkOption {
-      description = ''
-        herdr config.toml. See <https://herdr.dev/docs/configuration/>.
-      '';
-      type = (pkgs.formats.toml { }).type;
-      default = { };
     };
 
     mcpServers = mkOption {
@@ -133,15 +132,6 @@ in
       (mkIf (enabled "crush") { crush.enable = true; })
       (mkIf (enabled "aider") { aider-chat.enable = true; })
 
-      # herdr drives the agents above rather than talking to a model itself,
-      # so it is worth having alongside any combination of them.
-      (mkIf (enabled "herdr") {
-        herdr = {
-          enable = true;
-          settings = cfg.herdr.settings;
-        };
-      })
-
       (mkIf (cfg.mcpServers != { }) {
         mcp = {
           enable = true;
@@ -154,9 +144,6 @@ in
       optional (
         cfg.claude.settings != { } && !(enabled "claude")
       ) "custom.ai: claude.settings is set but \"claude\" is not in custom.ai.tools; it will be ignored."
-      ++ optional (
-        cfg.herdr.settings != { } && !(enabled "herdr")
-      ) "custom.ai: herdr.settings is set but \"herdr\" is not in custom.ai.tools; it will be ignored."
       ++ optional (
         cfg.instructions != "" && !(enabled "claude") && !(any enabled agentsMdTools)
       ) "custom.ai: instructions are set but no listed tool reads a global instruction file.";

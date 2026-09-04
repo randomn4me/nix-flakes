@@ -8,7 +8,7 @@
   mpd = import ./mpd.nix;
   nvim = import ./nvim;
   rbw = import ./rbw.nix;
-  ai = import ./ai.nix;
+  ai = import ./ai;
   gc = import ./gc.nix;
   #desktop = import ./desktop;
 }
