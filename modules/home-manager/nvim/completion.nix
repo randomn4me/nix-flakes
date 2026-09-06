@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   ...
 }:
 
@@ -13,58 +12,71 @@ in
 {
   config = mkIf cfg.completion {
     programs.nixvim = {
-      opts.completeopt = [
-        "menu"
-        "menuone"
-        "noselect"
-      ];
-
       plugins = {
-        luasnip = {
+        # Replaces nvim-cmp + luasnip + lspkind + cmp_nvim_lsp. Snippets go
+        # through neovim's own vim.snippet, and blink registers its LSP
+        # capabilities itself on nvim 0.11+, so nothing has to be wired by hand.
+        blink-cmp = {
           enable = true;
-          settings.enable_autosnippets = true;
-        };
-
-        lspkind = {
-          enable = true;
-
-          settings.cmp = {
-            enable = true;
-            menu = {
-              nvim_lsp = "[LSP]";
-              nvim_lua = "[api]";
-              path = "[path]";
-              luasnip = "[snip]";
-              buffer = "[buffer]";
-            };
-          };
-        };
-
-        cmp = {
-          enable = true;
+          setupLspCapabilities = false;
 
           settings = {
-            snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+            # Explicit rather than a preset, to keep the nvim-cmp bindings.
+            keymap = {
+              preset = "none";
 
-            mapping = {
-              "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-              "<C-f>" = "cmp.mapping.scroll_docs(4)";
-              "<C-Space>" = "cmp.mapping.complete()";
-              "<C-e>" = "cmp.mapping.close()";
-              "<CR>" = "cmp.mapping.confirm({ select = true })";
-              "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-              "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+              "<C-space>" = [
+                "show"
+                "show_documentation"
+                "hide_documentation"
+              ];
+              "<C-e>" = [ "hide" ];
+              "<CR>" = [
+                "accept"
+                "fallback"
+              ];
+              "<Tab>" = [
+                "select_next"
+                "snippet_forward"
+                "fallback"
+              ];
+              "<S-Tab>" = [
+                "select_prev"
+                "snippet_backward"
+                "fallback"
+              ];
+              "<C-d>" = [
+                "scroll_documentation_up"
+                "fallback"
+              ];
+              "<C-f>" = [
+                "scroll_documentation_down"
+                "fallback"
+              ];
             };
 
-            sources = [
-              { name = "path"; }
-              { name = "nvim_lsp"; }
-              { name = "luasnip"; }
-            ];
+            completion = {
+              documentation.auto_show = true;
+              # Keeps the [LSP]/[Path]/[Snippets] hints lspkind used to draw.
+              menu.draw.columns = [
+                {
+                  __unkeyed-1 = "label";
+                  __unkeyed-2 = "label_description";
+                  gap = 1;
+                }
+                {
+                  __unkeyed-1 = "kind_icon";
+                  __unkeyed-2 = "source_name";
+                  gap = 1;
+                }
+              ];
+            };
+
+            signature.enabled = true;
+            appearance.nerd_font_variant = "normal";
           };
         };
       };
-
     };
   };
 }

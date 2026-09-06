@@ -56,9 +56,15 @@ in
         };
         combinePlugins = {
           enable = true;
-          # oil and conform both ship a `doc/recipes.md`, which collides in the
-          # merged pack.
-          standalonePlugins = [ "oil.nvim" ];
+          # Kept out of the merged pack because their files collide: oil,
+          # conform and blink all ship `doc/recipes.md`, and snacks ships a
+          # `queries/lua/highlights.scm` that clashes with the treesitter
+          # queries.
+          standalonePlugins = [
+            "conform.nvim"
+            "oil.nvim"
+            "snacks.nvim"
+          ];
         };
       };
 
