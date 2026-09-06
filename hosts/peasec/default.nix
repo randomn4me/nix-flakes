@@ -95,14 +95,17 @@
   # PCIe ASPM, runtime PM).
   custom.powerManagement = {
     enable = true;
-    # Clamps turbo and caps p-states at 60% while discharging. This is the
-    # knob to flip first if the machine feels slow unplugged.
-    tlp.aggressiveOnBattery = true;
+    tlp.aggressiveOnBattery = false;
   };
 
   # nixos-hardware's t490 module enables throttled, whose stock config permits
   # PL1=29W/PL2=44W on battery -- roughly double the part's rated TDP, so a
   # single build can pull 30W+ out of the pack. AC keeps the headroom.
+  #
+  # Battery PL1 was 12W, which is *below* the part's 15W rating and measurably
+  # the binding constraint: under sustained all-core load the cores settled at
+  # exactly 800 MHz at 45-48 C (trip is 80 C), decaying in step with
+  # PL1_Duration_s. Raised to the rated 15W, with PL2 at 25W for bursts.
   services.throttled.extraConfig = ''
     [GENERAL]
     Enabled: True
@@ -111,9 +114,9 @@
 
     [BATTERY]
     Update_Rate_s: 30
-    PL1_Tdp_W: 12
+    PL1_Tdp_W: 15
     PL1_Duration_s: 28
-    PL2_Tdp_W: 20
+    PL2_Tdp_W: 25
     PL2_Duration_S: 0.002
     Trip_Temp_C: 80
     cTDP: 0
