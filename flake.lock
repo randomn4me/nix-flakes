@@ -452,18 +452,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1783940693,
-        "narHash": "sha256-nz92mIdr3CBOvXI+8qiF0o2BS5s/8pukISNVqEU22Zk=",
-        "ref": "feat/astro-migration",
-        "rev": "1f71c83e16f8476f02dd0dd3d3919d3752d1a743",
-        "revCount": 125,
+        "lastModified": 1788503243,
+        "narHash": "sha256-9EkyMT0qkL9i9DvO/q+j37ziXe0ejsmmej/Au0kmwM4=",
+        "ref": "feat/one-pager",
+        "rev": "aa0824cac628b8194a8346a687d296592b95ff3a",
+        "revCount": 150,
         "type": "git",
-        "url": "ssh://forgejo@git.audacis.net/serify/serify-zola"
+        "url": "ssh://forgejo@git.audacis.net/serify/serify-page"
       },
       "original": {
-        "ref": "feat/astro-migration",
+        "ref": "feat/one-pager",
         "type": "git",
-        "url": "ssh://forgejo@git.audacis.net/serify/serify-zola"
+        "url": "ssh://forgejo@git.audacis.net/serify/serify-page"
       }
     },
     "sops-nix": {
