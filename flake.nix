@@ -133,7 +133,7 @@
         };
 
         "pkuehn@macbook-pro-pk" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.aarch64-linux;
+          pkgs = pkgsFor.aarch64-darwin;
           extraSpecialArgs = {
             inherit inputs outputs;
           };

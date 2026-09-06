@@ -3,8 +3,10 @@
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;
 
+  # The periodic sync is a systemd user timer, so it only exists on Linux.
+  # The macbook still gets mbsync and msmtp above, just driven by hand.
   services.mbsync = {
-    enable = true;
+    enable = pkgs.stdenv.hostPlatform.isLinux;
     frequency = lib.mkDefault "*-*-* *:00/5";
 
     # Nudge waybar's custom/mail module (RTMIN+8, see
