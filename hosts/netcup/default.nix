@@ -162,16 +162,6 @@
   # common/optional/sops.nix so other hosts aren't asked to provision keys
   # their own secrets.yaml doesn't contain.
   sops.secrets = {
-    "joshua/passphrase" = {
-      owner = "nginx";
-      group = "nginx";
-      mode = "0440";
-    };
-    "joshua/username" = {
-      owner = "nginx";
-      group = "nginx";
-      mode = "0440";
-    };
     "ntfy/philippkuehn" = {
       owner = "ntfy-sh";
       group = "ntfy-sh";
