@@ -21,7 +21,6 @@
 
     ../common/optional/ddcutils.nix
     ../common/optional/sops.nix
-    ../common/optional/greetd.nix
     ../common/optional/eduroam.nix
   ];
 
@@ -76,7 +75,7 @@
     # System-level Hyprland: pulls in xdg-desktop-portal-hyprland and the
     # polkit/session wiring that the home-manager module alone doesn't provide.
     # It also registers hyprland.desktop, which is what greetd's session menu
-    # (../common/optional/greetd.nix) lists.
+    # lists.
     hyprland.enable = true;
   };
 
@@ -87,6 +86,8 @@
   };
 
   hardware.graphics.enable = true;
+
+  custom.greetd.enable = true;
 
   # --- power -------------------------------------------------------------
   # Whiskey Lake i7-8565U, a 15W part -- which is what the throttled defaults

@@ -2,6 +2,7 @@
   imports = [
     # Existing modules
     ./audio.nix
+    ./greetd.nix
     ./printing.nix
 
     # Core infrastructure services
