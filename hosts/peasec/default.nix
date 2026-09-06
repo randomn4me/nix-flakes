@@ -43,8 +43,8 @@
     kernelParams = [ "resume_offset=533760" ];
   };
 
-  custom.audio.enable = true;
-  custom.printing = {
+  services.custom.audio.enable = true;
+  services.custom.printing = {
     enable = true;
     drivers = with pkgs; [
       mfcj6510dwlpr
@@ -87,7 +87,7 @@
 
   hardware.graphics.enable = true;
 
-  custom.greetd.enable = true;
+  services.custom.greetd.enable = true;
 
   # --- power -------------------------------------------------------------
   # Whiskey Lake i7-8565U, a 15W part -- which is what the throttled defaults

@@ -7,14 +7,14 @@
 
 with lib;
 let
-  cfg = config.custom.greetd;
+  cfg = config.services.custom.greetd;
 
   # programs.hyprland.enable feeds services.displayManager.sessionPackages, so
   # this directory holds hyprland.desktop.
   sessions = "${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
 in
 {
-  options.custom.greetd = {
+  options.services.custom.greetd = {
     enable = mkEnableOption "Enable greetd with a tuigreet greeter";
 
     package = mkPackageOption pkgs "tuigreet" { };

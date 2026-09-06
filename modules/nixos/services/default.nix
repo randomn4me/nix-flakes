@@ -1,3 +1,6 @@
+# Everything in this directory declares its options under `services.custom.*`.
+# Platform modules that are not services -- ../powerManagement, ../camera-webcam
+# -- use plain `custom.*` instead.
 {
   imports = [
     # Existing modules
