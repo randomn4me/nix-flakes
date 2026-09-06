@@ -13,6 +13,7 @@ in
   imports = [
     ./auto-cpufreq.nix
     ./tlp.nix
+    ./throttled.nix
     ./ignoreUSB.nix
   ];
 

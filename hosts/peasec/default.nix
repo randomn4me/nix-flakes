@@ -89,63 +89,15 @@
   hardware.graphics.enable = true;
 
   # --- power -------------------------------------------------------------
-  # Whiskey Lake i7-8565U, a 15W part. nixos-hardware turns tlp on by mkDefault
-  # but ships no settings; this pulls in the tuned config from
-  # modules/nixos/powerManagement (charge thresholds, DYTC platform profile,
-  # PCIe ASPM, runtime PM).
+  # Whiskey Lake i7-8565U, a 15W part -- which is what the throttled defaults
+  # in modules/nixos/powerManagement are tuned for, so the package limits need
+  # no override here. nixos-hardware turns tlp and throttled on by mkDefault
+  # but ships settings for neither; the module supplies both (charge
+  # thresholds, DYTC platform profile, PCIe ASPM, runtime PM, RAPL limits).
   custom.powerManagement = {
     enable = true;
     tlp.aggressiveOnBattery = false;
   };
-
-  # nixos-hardware's t490 module enables throttled, whose stock config permits
-  # PL1=29W/PL2=44W on battery -- roughly double the part's rated TDP, so a
-  # single build can pull 30W+ out of the pack. AC keeps the headroom.
-  #
-  # Battery PL1 was 12W, which is *below* the part's 15W rating and measurably
-  # the binding constraint: under sustained all-core load the cores settled at
-  # exactly 800 MHz at 45-48 C (trip is 80 C), decaying in step with
-  # PL1_Duration_s. Raised to the rated 15W, with PL2 at 25W for bursts.
-  services.throttled.extraConfig = ''
-    [GENERAL]
-    Enabled: True
-    Sysfs_Power_Path: /sys/class/power_supply/AC*/online
-    Autoreload: True
-
-    [BATTERY]
-    Update_Rate_s: 30
-    PL1_Tdp_W: 15
-    PL1_Duration_s: 28
-    PL2_Tdp_W: 25
-    PL2_Duration_S: 0.002
-    Trip_Temp_C: 80
-    cTDP: 0
-    Disable_BDPROCHOT: False
-
-    [AC]
-    Update_Rate_s: 5
-    PL1_Tdp_W: 25
-    PL1_Duration_s: 28
-    PL2_Tdp_W: 44
-    PL2_Duration_S: 0.002
-    Trip_Temp_C: 95
-    cTDP: 0
-    Disable_BDPROCHOT: False
-
-    [UNDERVOLT.BATTERY]
-    CORE: 0
-    GPU: 0
-    CACHE: 0
-    UNCORE: 0
-    ANALOGIO: 0
-
-    [UNDERVOLT.AC]
-    CORE: 0
-    GPU: 0
-    CACHE: 0
-    UNCORE: 0
-    ANALOGIO: 0
-  '';
 
   # S3 alone still drains the pack over a long idle, so hand over to disk.
   systemd.sleep.settings.Sleep.HibernateDelaySec = "45min";
