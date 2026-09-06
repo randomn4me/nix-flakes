@@ -28,6 +28,22 @@ in
       # Remove manual SSL certificate configuration
       sslCertificate = mkForce null;
       sslCertificateKey = mkForce null;
+
+      # Every location below sets its own add_header, and nginx replaces rather
+      # than merges the inherited set — so the http-level HSTS from
+      # services.custom.nginx.hsts never reaches this vhost. Repeat it here.
+      # Keys must match the upstream module's locations exactly; a typo would
+      # create a new (harmless but useless) location instead of extending one.
+      locations = genAttrs [
+        "/"
+        "~ \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp)$"
+        "~ \\.html?$"
+        "~ \\.json$"
+      ] (_: {
+        extraConfig = mkAfter ''
+          add_header Strict-Transport-Security $hsts_header always;
+        '';
+      });
     };
   };
 }
