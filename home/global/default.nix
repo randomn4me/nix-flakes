@@ -14,7 +14,7 @@ in
     inputs.nix-colors.homeManagerModule
     ../features/cli
   ]
-  ++ (builtins.attrValues outputs.homeManagerModules);
+  ++ (builtins.attrValues outputs.homeModules);
 
   nixpkgs.config = {
     allowUnfree = true;

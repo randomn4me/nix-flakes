@@ -52,11 +52,85 @@
     let
       inherit (self) outputs;
       lib = nixpkgs.lib // home-manager.lib // nix-darwin.lib;
-      systems = [
-        "aarch64-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
+
+      # ── machines ────────────────────────────────────────────────────────
+      #
+      # The one place a machine is declared. To add another:
+      #
+      #   1. hosts/<name>/{default,hardware-configuration}.nix
+      #   2. home/<name>.nix -- hosts/common/users/<user> imports the home
+      #      config by hostname, so the file name has to match `<name>`
+      #   3. one entry here
+      #   4. a creation_rule in .sops.yaml, if the host holds secrets
+      #
+      # `system` is declared once and drives both the machine and its
+      # home-manager output, so the two cannot drift apart -- the macbook
+      # spent a while being built as aarch64-linux because they were written
+      # out separately.
+      #
+      # Optional per-machine keys:
+      #   hostPath     path to the host module      (default ./hosts/<name>)
+      #   homeFile     path to the home config      (default ./home/<name>.nix)
+      #   users        standalone home-manager outputs to generate, as
+      #                homeConfigurations."<user>@<name>"
+      #   extraModules extra NixOS/darwin modules
+      machines = {
+        peasec = {
+          system = "x86_64-linux";
+          users = [ "phil" ];
+        };
+
+        netcup = {
+          system = "aarch64-linux";
+          users = [ "phil" ];
+          # Evaluating this needs every private git remote reachable;
+          # nixosConfigurations.netcup-core below is the same box without it.
+          extraModules = [ ./hosts/netcup/external-services.nix ];
+        };
+
+        # Host dir, flake output and home file were each named differently
+        # before this table existed; the mapping is spelled out rather than
+        # renamed, since the output name is what darwin-rebuild is invoked with.
+        macbook-pro-pk = {
+          system = "aarch64-darwin";
+          users = [ "pkuehn" ];
+          hostPath = ./hosts/macbook-work;
+          homeFile = ./home/macbook-pro-work.nix;
+        };
+      };
+
+      # ── plumbing ────────────────────────────────────────────────────────
+      isDarwin = machine: lib.hasSuffix "-darwin" machine.system;
+
+      hostPathOf = name: machine: machine.hostPath or ./hosts/${name};
+      homeFileOf = name: machine: machine.homeFile or ./home/${name}.nix;
+
+      modulesOf = name: machine: [ (hostPathOf name machine) ] ++ machine.extraModules or [ ];
+
+      mkSystem =
+        builder: name: machine:
+        builder {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = modulesOf name machine;
+        };
+
+      mkNixos = mkSystem lib.nixosSystem;
+      mkDarwin = mkSystem lib.darwinSystem;
+
+      mkHome =
+        name: machine:
+        lib.homeManagerConfiguration {
+          pkgs = pkgsFor.${machine.system};
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [ (homeFileOf name machine) ];
+        };
+
+      # Only the systems some machine actually runs on.
+      systems = lib.unique (lib.mapAttrsToList (_: machine: machine.system) machines);
 
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
       pkgsFor = lib.genAttrs systems (
@@ -70,75 +144,30 @@
     {
       inherit lib;
       nixosModules = import ./modules/nixos;
-      homeManagerModules = import ./modules/home-manager;
+      homeModules = import ./modules/home-manager;
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
       formatter = forEachSystem (pkgs: pkgs.nixfmt);
 
       wallpapers = import ./home/wallpapers;
 
-      nixosConfigurations = {
-        peasec = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./hosts/peasec ];
-        };
-
-        # The full server. Evaluating this needs every private git remote in
-        # ./hosts/netcup/external-services.nix to be reachable.
-        netcup = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [
-            ./hosts/netcup
-            ./hosts/netcup/external-services.nix
-          ];
-        };
-
-        # Same box without the services that come from private flake inputs, so
-        # there is always a configuration that builds when one of those remotes
-        # is down. Everything that holds data -- nginx, acme, postgres, forgejo,
-        # vaultwarden, zulip, ntfy, the backups -- is in here.
-        netcup-core = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./hosts/netcup ];
-        };
+      nixosConfigurations = lib.mapAttrs mkNixos (lib.filterAttrs (_: m: !isDarwin m) machines) // {
+        # peasec/netcup without their private-input services. Everything that
+        # holds data -- nginx, acme, postgres, forgejo, vaultwarden, zulip,
+        # ntfy, the backups -- is still in here, so the box stays rebuildable
+        # when one of those remotes is down.
+        netcup-core = mkNixos "netcup" (removeAttrs machines.netcup [ "extraModules" ]);
       };
 
-      darwinConfigurations = {
-        macbook-pro-pk = nix-darwin.lib.darwinSystem {
-          modules = [ ./hosts/macbook-work ];
+      darwinConfigurations = lib.mapAttrs mkDarwin (lib.filterAttrs (_: m: isDarwin m) machines);
 
-        };
-      };
-      homeConfigurations = {
-        "phil@peasec" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/peasec.nix ];
-        };
-
-        "phil@netcup" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.aarch64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/netcup.nix ];
-        };
-
-        "pkuehn@macbook-pro-pk" = lib.homeManagerConfiguration {
-          pkgs = pkgsFor.aarch64-darwin;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/macbook-pro-work.nix ];
-        };
-      };
+      homeConfigurations = lib.listToAttrs (
+        lib.concatLists (
+          lib.mapAttrsToList (
+            name: machine:
+            map (user: lib.nameValuePair "${user}@${name}" (mkHome name machine)) machine.users or [ ]
+          ) machines
+        )
+      );
     };
 }
