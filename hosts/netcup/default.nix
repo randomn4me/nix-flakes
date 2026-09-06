@@ -12,12 +12,6 @@
     ../common/users/phil
 
     ../common/optional/sops.nix
-
-    # External flake-based services — only this host deploys them, and only
-    # this host should have to reach their private git remotes.
-    ../../modules/nixos/services/audacis-blog.nix
-    ../../modules/nixos/services/serify-page.nix
-    ../../modules/nixos/services/code-of-courage.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -91,19 +85,6 @@
       enable = true;
       domain = "stats.serify.eu";
     };
-
-    # External flake services
-    audacis-blog.enable = true;
-    serify-page = {
-      enable = true;
-      redirectDomains = [
-        "acipra.de"
-        "acipra.com"
-        "serify.de"
-        "serify.ai"
-      ];
-    };
-    code-of-courage.enable = true;
 
     ntfy = {
       enable = true;

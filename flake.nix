@@ -85,7 +85,23 @@
           modules = [ ./hosts/peasec ];
         };
 
+        # The full server. Evaluating this needs every private git remote in
+        # ./hosts/netcup/external-services.nix to be reachable.
         netcup = lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [
+            ./hosts/netcup
+            ./hosts/netcup/external-services.nix
+          ];
+        };
+
+        # Same box without the services that come from private flake inputs, so
+        # there is always a configuration that builds when one of those remotes
+        # is down. Everything that holds data -- nginx, acme, postgres, forgejo,
+        # vaultwarden, zulip, ntfy, the backups -- is in here.
+        netcup-core = lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs;
           };
