@@ -44,6 +44,26 @@ in
       viAlias = true;
       vimAlias = true;
 
+      # Startup cost is dominated by rtp scanning and lua parsing; byte-compiling
+      # and merging the plugin pack cuts both. lz-n keeps the rarely-used plugins
+      # out of the startup path (combinePlugins leaves `opt` plugins standalone,
+      # so the two compose).
+      performance = {
+        byteCompileLua = {
+          enable = true;
+          plugins = true;
+          nvimRuntime = true;
+        };
+        combinePlugins = {
+          enable = true;
+          # oil and conform both ship a `doc/recipes.md`, which collides in the
+          # merged pack.
+          standalonePlugins = [ "oil.nvim" ];
+        };
+      };
+
+      plugins.lz-n.enable = true;
+
       colorschemes.tokyonight = {
         enable = true;
         settings.style = "night";
@@ -106,14 +126,6 @@ in
           mode = [ "n" ];
           options = {
             desc = "Save buffer";
-          };
-        }
-        {
-          key = "<leader>e";
-          action = "<cmd>Ex<cr>";
-          mode = [ "n" ];
-          options = {
-            desc = "Open netrw";
           };
         }
         {

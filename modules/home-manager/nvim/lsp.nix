@@ -14,8 +14,6 @@ in
   config = mkIf cfg.lsp {
     programs.nixvim = {
       plugins = {
-        lsp-format.enable = true;
-
         lsp = {
           enable = true;
 

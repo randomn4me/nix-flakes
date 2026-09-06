@@ -8,7 +8,7 @@
   systemd.user.startServices = "sd-switch";
 
   custom.nvim.enable = true;
-  custom.nvim.enableAllPlugins = false;
+  custom.nvim.allPlugins = false;
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 }

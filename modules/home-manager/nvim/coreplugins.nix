@@ -57,6 +57,15 @@ in
         web-devicons.enable = true;
         leap.enable = true;
         lualine.enable = true;
+
+        # Parsers already ship on the runtime path, but nothing started them:
+        # every buffer was falling back to regex `syntax`.
+        treesitter = {
+          enable = true;
+          highlight.enable = true;
+          indent.enable = true;
+          folding.enable = true;
+        };
       };
     };
   };

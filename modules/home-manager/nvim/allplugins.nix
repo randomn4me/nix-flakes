@@ -16,13 +16,6 @@ in
     programs.nixvim = {
       keymaps = [
         {
-          key = "<leader>g";
-          action = "<cmd>:Git<cr>";
-          options = {
-            desc = "Open fugitive";
-          };
-        }
-        {
           key = "<leader>u";
           action = "<cmd>:UndotreeToggle<cr>";
           options = {
@@ -60,17 +53,21 @@ in
           settings = {
             default_format_opts.lsp_format = "fallback";
 
-            format_on_save.lspFallback = true;
+            format_on_save.lsp_format = "fallback";
 
             formatters_by_ft = {
               nix = [ "nixfmt" ];
-              python = [ "ruff" ];
+              python = [
+                "ruff_fix"
+                "ruff_format"
+              ];
               "_" = [
                 "trim_newlines"
               ];
             };
             formatters = {
-              ruff.command = lib.getExe pkgs.ruff;
+              ruff_fix.command = lib.getExe pkgs.ruff;
+              ruff_format.command = lib.getExe pkgs.ruff;
               nixfmt.command = lib.getExe pkgs.nixfmt;
             };
           };
@@ -82,7 +79,14 @@ in
         };
 
         which-key.enable = true;
-        undotree.enable = true;
+        undotree = {
+          enable = true;
+          lazyLoad.settings.cmd = [
+            "UndotreeToggle"
+            "UndotreeShow"
+            "UndotreeFocus"
+          ];
+        };
 
         chatgpt = {
           enable = true;
@@ -133,6 +137,7 @@ in
         gitsigns.enable = true;
         neogen = {
           enable = true;
+          lazyLoad.settings.cmd = "Neogen";
           keymaps.generate = "<leader>n";
         };
         barbecue.enable = true;
@@ -143,7 +148,10 @@ in
             stages = "static";
           };
         };
-        trouble.enable = true;
+        trouble = {
+          enable = true;
+          lazyLoad.settings.cmd = "Trouble";
+        };
         colorizer.enable = true;
         refactoring = {
           enable = true;
@@ -152,6 +160,7 @@ in
 
         obsidian = {
           enable = true;
+          lazyLoad.settings.ft = "markdown";
           settings = {
             completion = {
               min_chars = 2;
@@ -163,9 +172,15 @@ in
               end
 
             '';
-            dir = "~/usr/docs/obsidian";
-            templates.subdir = "templates";
-            disable_frontmatter = true;
+            workspaces = [
+              {
+                name = "notes";
+                path = "~/usr/docs/obsidian";
+              }
+            ];
+            templates.folder = "templates";
+            frontmatter.enabled = false;
+            legacy_commands = false;
           };
 
         };
