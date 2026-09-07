@@ -39,6 +39,12 @@ in
     programs.nixvim = {
       enable = true;
 
+      # Nixvim pins its own nixpkgs and warns when the flake input follows ours.
+      # Following is deliberate -- it keeps a second full nixpkgs out of the lock
+      # and both are nixos-unstable -- so accept it explicitly, which is also the
+      # documented way to silence the warning.
+      nixpkgs.source = inputs.nixpkgs;
+
       defaultEditor = true;
 
       viAlias = true;

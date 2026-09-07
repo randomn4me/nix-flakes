@@ -2,10 +2,12 @@
   pkgs,
   lib,
   inputs,
-  outputs,
   config,
   ...
 }:
+let
+  wallpapers = import ./wallpapers;
+in
 {
   imports = [
     ./global
@@ -114,9 +116,9 @@
 
   colorscheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 
-  wallpaper = outputs.wallpapers.hollow-knight-abyss;
-  #wallpaper = outputs.wallpapers.aenami-bright-planet;
-  #wallpaper = outputs.wallpapers.aenami-15steps;
-  #wallpaper = outputs.wallpapers.aenami-far-from-tomorrow;
-  #wallpaper = outputs.wallpapers.aenami-cold;
+  wallpaper = wallpapers.hollow-knight-abyss;
+  #wallpaper = wallpapers.aenami-bright-planet;
+  #wallpaper = wallpapers.aenami-15steps;
+  #wallpaper = wallpapers.aenami-far-from-tomorrow;
+  #wallpaper = wallpapers.aenami-cold;
 }

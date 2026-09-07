@@ -15,6 +15,7 @@
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
 
     nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -105,7 +106,7 @@
       hostPathOf = name: machine: machine.hostPath or ./hosts/${name};
       homeFileOf = name: machine: machine.homeFile or ./home/${name}.nix;
 
-      modulesOf = name: machine: [ (hostPathOf name machine) ] ++ machine.extraModules or [ ];
+      modulesOf = name: machine: [ (hostPathOf name machine) ] ++ (machine.extraModules or [ ]);
 
       mkSystem =
         builder: name: machine:
@@ -155,8 +156,7 @@
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
       formatter = forEachSystem (pkgs: pkgs.nixfmt);
-
-      wallpapers = import ./home/wallpapers;
+      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
       nixosConfigurations = lib.mapAttrs mkNixos (lib.filterAttrs (_: m: !isDarwin m) machines) // {
         # peasec/netcup without their private-input services. Everything that
@@ -168,13 +168,11 @@
 
       darwinConfigurations = lib.mapAttrs mkDarwin (lib.filterAttrs (_: m: isDarwin m) machines);
 
-      homeConfigurations = lib.listToAttrs (
-        lib.concatLists (
-          lib.mapAttrsToList (
-            name: machine:
-            map (user: lib.nameValuePair "${user}@${name}" (mkHome name machine)) machine.users or [ ]
-          ) machines
+      homeConfigurations = lib.concatMapAttrs (
+        name: machine:
+        lib.listToAttrs (
+          map (user: lib.nameValuePair "${user}@${name}" (mkHome name machine)) (machine.users or [ ])
         )
-      );
+      ) machines;
     };
 }
