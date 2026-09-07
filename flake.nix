@@ -155,7 +155,9 @@
       homeModules = import ./modules/home-manager;
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
-      formatter = forEachSystem (pkgs: pkgs.nixfmt);
+      # nixfmt-tree is nixfmt wrapped in treefmt: `nix fmt` with no arguments
+      # formats the whole tree, honouring .gitignore.
+      formatter = forEachSystem (pkgs: pkgs.nixfmt-tree);
       devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
       nixosConfigurations = lib.mapAttrs mkNixos (lib.filterAttrs (_: m: !isDarwin m) machines) // {
