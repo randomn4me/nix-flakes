@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 with lib;
 
@@ -15,9 +21,11 @@ in
 
   config = mkIf cfg.enable {
     # Explicitly allow unfree for this package
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "code-of-courage"
-    ];
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "code-of-courage"
+      ];
 
     services.code-of-courage.enable = true;
 
@@ -34,16 +42,19 @@ in
       # services.custom.nginx.hsts never reaches this vhost. Repeat it here.
       # Keys must match the upstream module's locations exactly; a typo would
       # create a new (harmless but useless) location instead of extending one.
-      locations = genAttrs [
-        "/"
-        "~ \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp)$"
-        "~ \\.html?$"
-        "~ \\.json$"
-      ] (_: {
-        extraConfig = mkAfter ''
-          add_header Strict-Transport-Security $hsts_header always;
-        '';
-      });
+      locations =
+        genAttrs
+          [
+            "/"
+            "~ \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp)$"
+            "~ \\.html?$"
+            "~ \\.json$"
+          ]
+          (_: {
+            extraConfig = mkAfter ''
+              add_header Strict-Transport-Security $hsts_header always;
+            '';
+          });
     };
   };
 }

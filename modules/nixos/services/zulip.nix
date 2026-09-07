@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -35,7 +40,13 @@ let
   # network each is *also* reachable under the short alias the app expects
   # (database/memcached/rabbitmq/redis), so the SETTING_* hostnames match
   # upstream's compose unchanged.
-  serviceNames = [ "zulip-database" "zulip-memcached" "zulip-rabbitmq" "zulip-redis" "zulip" ];
+  serviceNames = [
+    "zulip-database"
+    "zulip-memcached"
+    "zulip-rabbitmq"
+    "zulip-redis"
+    "zulip"
+  ];
   unitOf = n: "${backend}-${n}.service";
 
   # The docker-zulip image creates its `zulip` user as uid/gid 1000 (Dockerfile:
@@ -54,9 +65,9 @@ let
   # "could not open global/pg_filenode.map: Permission denied"; rabbitmq: mnesia
   # operations time out). These track the pinned image tags below — bump them if
   # an image ever renumbers its service user.
-  postgresUid = 70;    # `postgres` in zulip/zulip-postgresql:14 (Alpine-based)
-  rabbitmqUid = 999;   # `rabbitmq` in rabbitmq:4.2
-  redisUid = 999;      # `redis`   in redis:alpine
+  postgresUid = 70; # `postgres` in zulip/zulip-postgresql:14 (Alpine-based)
+  rabbitmqUid = 999; # `rabbitmq` in rabbitmq:4.2
+  redisUid = 999; # `redis`   in redis:alpine
 
   # Entry-point scripts, ported verbatim from upstream compose.yaml (compose's
   # `$$` — a literal `$` — becomes a single `$` here). We override the image
@@ -210,7 +221,9 @@ in
     extraSettings = mkOption {
       type = types.attrsOf types.str;
       default = { };
-      example = { MAX_MESSAGE_LENGTH = "20000"; };
+      example = {
+        MAX_MESSAGE_LENGTH = "20000";
+      };
       description = "Extra Zulip settings.py values, passed as SETTING_<key> env vars.";
     };
   };
@@ -247,26 +260,34 @@ in
     # sops renders these KEY=VALUE env files outside the store (root:0400);
     # podman (rootful) reads them at container start via --env-file. The values
     # never touch the Nix store or `podman inspect`-able command lines.
-    sops.templates."zulip-database.env".content =
-      "POSTGRES_PASSWORD=${config.sops.placeholder."zulip/postgres-password"}\n";
-    sops.templates."zulip-memcached.env".content =
-      "MEMCACHED_PASSWORD=${config.sops.placeholder."zulip/memcached-password"}\n";
-    sops.templates."zulip-rabbitmq.env".content =
-      "RABBITMQ_DEFAULT_PASS=${config.sops.placeholder."zulip/rabbitmq-password"}\n";
-    sops.templates."zulip-redis.env".content =
-      "REDIS_PASSWORD=${config.sops.placeholder."zulip/redis-password"}\n";
+    sops.templates."zulip-database.env".content = "POSTGRES_PASSWORD=${
+      config.sops.placeholder."zulip/postgres-password"
+    }\n";
+    sops.templates."zulip-memcached.env".content = "MEMCACHED_PASSWORD=${
+      config.sops.placeholder."zulip/memcached-password"
+    }\n";
+    sops.templates."zulip-rabbitmq.env".content = "RABBITMQ_DEFAULT_PASS=${
+      config.sops.placeholder."zulip/rabbitmq-password"
+    }\n";
+    sops.templates."zulip-redis.env".content = "REDIS_PASSWORD=${
+      config.sops.placeholder."zulip/redis-password"
+    }\n";
     # The app needs every service password (to connect) plus its own secret key
     # and, optionally, the SMTP password (reused from mail-relay).
     sops.templates."zulip-app.env".content =
-      concatStringsSep "\n" ([
-        "SECRETS_postgres_password=${config.sops.placeholder."zulip/postgres-password"}"
-        "SECRETS_memcached_password=${config.sops.placeholder."zulip/memcached-password"}"
-        "SECRETS_rabbitmq_password=${config.sops.placeholder."zulip/rabbitmq-password"}"
-        "SECRETS_redis_password=${config.sops.placeholder."zulip/redis-password"}"
-        "SECRETS_secret_key=${config.sops.placeholder."zulip/secret-key"}"
-      ] ++ optional cfg.smtp.enable
-        "SECRETS_email_password=${config.sops.placeholder."mail-relay/password"}"
-      ) + "\n";
+      concatStringsSep "\n" (
+        [
+          "SECRETS_postgres_password=${config.sops.placeholder."zulip/postgres-password"}"
+          "SECRETS_memcached_password=${config.sops.placeholder."zulip/memcached-password"}"
+          "SECRETS_rabbitmq_password=${config.sops.placeholder."zulip/rabbitmq-password"}"
+          "SECRETS_redis_password=${config.sops.placeholder."zulip/redis-password"}"
+          "SECRETS_secret_key=${config.sops.placeholder."zulip/secret-key"}"
+        ]
+        ++ optional cfg.smtp.enable "SECRETS_email_password=${
+          config.sops.placeholder."mail-relay/password"
+        }"
+      )
+      + "\n";
 
     # ---- persistent state directories --------------------------------------
     systemd.tmpfiles.rules = [
@@ -300,38 +321,61 @@ in
         };
         environmentFiles = [ config.sops.templates."zulip-database.env".path ];
         volumes = [ "${cfg.dataDir}/postgresql:/var/lib/postgresql/data" ];
-        extraOptions = [ "--network=zulip" "--network-alias=database" ];
+        extraOptions = [
+          "--network=zulip"
+          "--network-alias=database"
+        ];
       };
 
       zulip-memcached = {
         image = cfg.images.memcached;
         entrypoint = "/bin/sh";
-        cmd = [ "-euc" memcachedCmd ];
+        cmd = [
+          "-euc"
+          memcachedCmd
+        ];
         environment = {
           SASL_CONF_PATH = "/home/memcache/memcached.conf";
           MEMCACHED_SASL_PWDB = "/home/memcache/memcached-sasl-db";
         };
         environmentFiles = [ config.sops.templates."zulip-memcached.env".path ];
-        extraOptions = [ "--network=zulip" "--network-alias=memcached" ];
+        extraOptions = [
+          "--network=zulip"
+          "--network-alias=memcached"
+        ];
       };
 
       zulip-rabbitmq = {
         image = cfg.images.rabbitmq;
         entrypoint = "/bin/sh";
-        cmd = [ "-euc" rabbitmqCmd ];
-        environment = { RABBITMQ_DEFAULT_USER = "zulip"; };
+        cmd = [
+          "-euc"
+          rabbitmqCmd
+        ];
+        environment = {
+          RABBITMQ_DEFAULT_USER = "zulip";
+        };
         environmentFiles = [ config.sops.templates."zulip-rabbitmq.env".path ];
         volumes = [ "${cfg.dataDir}/rabbitmq:/var/lib/rabbitmq" ];
-        extraOptions = [ "--network=zulip" "--network-alias=rabbitmq" ];
+        extraOptions = [
+          "--network=zulip"
+          "--network-alias=rabbitmq"
+        ];
       };
 
       zulip-redis = {
         image = cfg.images.redis;
         entrypoint = "/bin/sh";
-        cmd = [ "-euc" redisCmd ];
+        cmd = [
+          "-euc"
+          redisCmd
+        ];
         environmentFiles = [ config.sops.templates."zulip-redis.env".path ];
         volumes = [ "${cfg.dataDir}/redis:/data" ];
-        extraOptions = [ "--network=zulip" "--network-alias=redis" ];
+        extraOptions = [
+          "--network=zulip"
+          "--network-alias=redis"
+        ];
       };
 
       zulip = {
@@ -362,7 +406,12 @@ in
           "${cfg.dataDir}/app:/data"
           "${cfg.dataDir}/backups:/backups"
         ];
-        dependsOn = [ "zulip-database" "zulip-memcached" "zulip-rabbitmq" "zulip-redis" ];
+        dependsOn = [
+          "zulip-database"
+          "zulip-memcached"
+          "zulip-rabbitmq"
+          "zulip-redis"
+        ];
         extraOptions = [
           "--network=zulip"
           "--network-alias=zulip"
@@ -418,8 +467,9 @@ in
           description = "Nightly consistent Zulip backup (manage.py backup)";
           after = [ (unitOf "zulip") ];
           requires = [ (unitOf "zulip") ];
-          unitConfig.OnFailure =
-            mkIf config.services.custom.alerts.enable [ "ntfy-alert@zulip-backup.service" ];
+          unitConfig.OnFailure = mkIf config.services.custom.alerts.enable [
+            "ntfy-alert@zulip-backup.service"
+          ];
           serviceConfig = {
             Type = "oneshot";
             ExecStart = pkgs.writeShellScript "zulip-backup" ''
@@ -460,7 +510,7 @@ in
       '';
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString cfg.httpPort}";
-        proxyWebsockets = true;        # /json/events long-poll + websockets
+        proxyWebsockets = true; # /json/events long-poll + websockets
         recommendedProxySettings = true; # Host + X-Forwarded-{For,Proto,Host}
       };
     };

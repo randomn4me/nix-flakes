@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -23,38 +28,38 @@ let
   # `borgmatic list --json` (one call covers all repos), then formats archive
   # counts and the age of the newest archive per repo.
   summaryScript = pkgs.writeShellScript "borgmatic-summary" ''
-    set -euo pipefail
+        set -euo pipefail
 
-    # Render an ISO timestamp as a rough "Nh ago" / "Nd ago" age.
-    fmt_age() {
-      [ "$1" = "n/a" ] && { echo "n/a"; return; }
-      h=$(( ( $(${pkgs.coreutils}/bin/date +%s) - $(${pkgs.coreutils}/bin/date -d "$1" +%s) ) / 3600 ))
-      if [ "$h" -ge 48 ]; then echo "$(( h / 24 ))d ago"; else echo "''${h}h ago"; fi
-    }
+        # Render an ISO timestamp as a rough "Nh ago" / "Nd ago" age.
+        fmt_age() {
+          [ "$1" = "n/a" ] && { echo "n/a"; return; }
+          h=$(( ( $(${pkgs.coreutils}/bin/date +%s) - $(${pkgs.coreutils}/bin/date -d "$1" +%s) ) / 3600 ))
+          if [ "$h" -ge 48 ]; then echo "$(( h / 24 ))d ago"; else echo "''${h}h ago"; fi
+        }
 
-    json=$(borgmatic list --json)
+        json=$(borgmatic list --json)
 
-    body="Keeps ${toString retention.hourly}h/${toString retention.daily}d/${toString retention.weekly}w/${toString retention.monthly}m/${toString retention.yearly}y"
-    while IFS=$'\t' read -r repo n newest oldest; do
-      body="$body
-• $repo: $n archives, newest $(fmt_age "$newest"), oldest $(fmt_age "$oldest")"
-    done < <(echo "$json" | ${pkgs.jq}/bin/jq -r '
-      .[]
-      | [ (.repository.label // .repository.location),
-          (.archives | length | tostring),
-          (.archives[-1].time // "n/a"),
-          (.archives[0].time // "n/a") ]
-      | @tsv')
+        body="Keeps ${toString retention.hourly}h/${toString retention.daily}d/${toString retention.weekly}w/${toString retention.monthly}m/${toString retention.yearly}y"
+        while IFS=$'\t' read -r repo n newest oldest; do
+          body="$body
+    • $repo: $n archives, newest $(fmt_age "$newest"), oldest $(fmt_age "$oldest")"
+        done < <(echo "$json" | ${pkgs.jq}/bin/jq -r '
+          .[]
+          | [ (.repository.label // .repository.location),
+              (.archives | length | tostring),
+              (.archives[-1].time // "n/a"),
+              (.archives[0].time // "n/a") ]
+          | @tsv')
 
-    # Server disk and memory snapshot.
-    read -r disk_used disk_free < <(${pkgs.coreutils}/bin/df -h --output=pcent,avail / | ${pkgs.coreutils}/bin/tail -1)
-    mem_pct=$(${pkgs.gawk}/bin/awk '/MemTotal/{t=$2} /MemAvailable/{a=$2} END{printf "%d",(t-a)*100/t}' /proc/meminfo)
-    body="$body
+        # Server disk and memory snapshot.
+        read -r disk_used disk_free < <(${pkgs.coreutils}/bin/df -h --output=pcent,avail / | ${pkgs.coreutils}/bin/tail -1)
+        mem_pct=$(${pkgs.gawk}/bin/awk '/MemTotal/{t=$2} /MemAvailable/{a=$2} END{printf "%d",(t-a)*100/t}' /proc/meminfo)
+        body="$body
 
-Disk: $disk_used used, $disk_free free
-Memory: ''${mem_pct}% used"
+    Disk: $disk_used used, $disk_free free
+    Memory: ''${mem_pct}% used"
 
-    ${alertsCfg.ntfySend} ${alertsCfg.topic} "Backups OK (${hostName})" "$body" min white_check_mark
+        ${alertsCfg.ntfySend} ${alertsCfg.topic} "Backups OK (${hostName})" "$body" min white_check_mark
   '';
 in
 {
@@ -186,8 +191,9 @@ in
 
     # Reuse the ntfy alert template from services.custom.alerts to notify on
     # backup failures, like the other monitored units.
-    systemd.services.borgmatic.unitConfig.OnFailure =
-      mkIf alertsCfg.enable [ "ntfy-alert@borgmatic.service" ];
+    systemd.services.borgmatic.unitConfig.OnFailure = mkIf alertsCfg.enable [
+      "ntfy-alert@borgmatic.service"
+    ];
 
     # Daily "backups OK" heartbeat with a per-repository breakdown. A failed
     # run alerts through the same template, so a broken summary is visible too.
@@ -195,7 +201,12 @@ in
       description = "Daily borgmatic backup summary notification";
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
-      path = [ pkgs.borgmatic pkgs.borgbackup pkgs.openssh pkgs.sqlite ];
+      path = [
+        pkgs.borgmatic
+        pkgs.borgbackup
+        pkgs.openssh
+        pkgs.sqlite
+      ];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = summaryScript;

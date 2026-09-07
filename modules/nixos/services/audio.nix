@@ -4,7 +4,8 @@ let
   cfg = config.services.custom.audio;
 in
 {
-  options.services.custom.audio.enable = mkEnableOption "Enable pipewire with alsa und pulseaudio support";
+  options.services.custom.audio.enable =
+    mkEnableOption "Enable pipewire with alsa und pulseaudio support";
 
   config = mkIf cfg.enable {
     security.rtkit.enable = true;

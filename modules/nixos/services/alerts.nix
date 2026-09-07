@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -124,7 +129,13 @@ in
     };
 
     fail2ban.priority = mkOption {
-      type = types.enum [ "min" "low" "default" "high" "urgent" ];
+      type = types.enum [
+        "min"
+        "low"
+        "default"
+        "high"
+        "urgent"
+      ];
       default = "low";
       description = ''
         ntfy priority for fail2ban ban notifications. Bans are frequent and
@@ -135,7 +146,14 @@ in
 
     systemdServices = mkOption {
       type = types.listOf types.str;
-      default = [ "forgejo" "vaultwarden" "postgresql" "nginx" "ntfy-sh" "postfix" ];
+      default = [
+        "forgejo"
+        "vaultwarden"
+        "postgresql"
+        "nginx"
+        "ntfy-sh"
+        "postfix"
+      ];
       description = "Systemd services to monitor for failure";
     };
 
@@ -154,7 +172,10 @@ in
 
       mountpoints = mkOption {
         type = types.listOf types.str;
-        default = [ "/" "/boot" ];
+        default = [
+          "/"
+          "/boot"
+        ];
         description = ''
           Mountpoints to monitor for disk usage. Includes /boot by default: the
           ESP is small and fills with per-generation kernels, and Nix GC never
@@ -250,120 +271,135 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services = let
-      # OnFailure overrides for monitored services
-      serviceOverrides = builtins.listToAttrs (map (svc: {
-        name = svc;
-        value = {
-          unitConfig.OnFailure = [ "ntfy-alert@${svc}.service" ];
+    systemd.services =
+      let
+        # OnFailure overrides for monitored services
+        serviceOverrides = builtins.listToAttrs (
+          map (svc: {
+            name = svc;
+            value = {
+              unitConfig.OnFailure = [ "ntfy-alert@${svc}.service" ];
+            };
+          }) cfg.systemdServices
+        );
+
+        # ACME certificate renewal failure alerts
+        acmeOverrides =
+          let
+            acmeDomains = builtins.attrNames (
+              filterAttrs (_: vhost: vhost.enableACME or false) config.services.nginx.virtualHosts
+            );
+          in
+          mkIf cfg.acme.enable (
+            builtins.listToAttrs (
+              map (domain: {
+                name = "acme-${domain}";
+                value = {
+                  unitConfig.OnFailure = [ "ntfy-alert@acme-${domain}.service" ];
+                };
+              }) acmeDomains
+            )
+          );
+
+        # Forgejo backup failure alert
+        forgejoOverride = mkIf (cfg.forgejoBackup.enable && config.services.forgejo.dump.enable or false) {
+          forgejo-dump.unitConfig.OnFailure = [ "ntfy-alert@forgejo-dump.service" ];
         };
-      }) cfg.systemdServices);
 
-      # ACME certificate renewal failure alerts
-      acmeOverrides = let
-        acmeDomains = builtins.attrNames (filterAttrs (_: vhost: vhost.enableACME or false) config.services.nginx.virtualHosts);
-      in mkIf cfg.acme.enable (builtins.listToAttrs (map (domain: {
-        name = "acme-${domain}";
-        value = {
-          unitConfig.OnFailure = [ "ntfy-alert@acme-${domain}.service" ];
+        # Nix GC failure alert
+        nixGcOverride = mkIf cfg.nixGc.enable {
+          nix-gc.unitConfig.OnFailure = [ "ntfy-alert@nix-gc.service" ];
         };
-      }) acmeDomains));
 
-      # Forgejo backup failure alert
-      forgejoOverride = mkIf (cfg.forgejoBackup.enable && config.services.forgejo.dump.enable or false) {
-        forgejo-dump.unitConfig.OnFailure = [ "ntfy-alert@forgejo-dump.service" ];
-      };
-
-      # Nix GC failure alert
-      nixGcOverride = mkIf cfg.nixGc.enable {
-        nix-gc.unitConfig.OnFailure = [ "ntfy-alert@nix-gc.service" ];
-      };
-
-    in mkMerge [
-      # Template service for systemd failure notifications
-      {
-        "ntfy-alert@" = {
-          description = "Send ntfy alert for %i failure";
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${ntfySend} ${cfg.topic} 'Service Failed: %i' '${config.networking.hostName}: unit %i has failed' urgent rotating_light";
+      in
+      mkMerge [
+        # Template service for systemd failure notifications
+        {
+          "ntfy-alert@" = {
+            description = "Send ntfy alert for %i failure";
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "${ntfySend} ${cfg.topic} 'Service Failed: %i' '${config.networking.hostName}: unit %i has failed' urgent rotating_light";
+            };
           };
-        };
-      }
+        }
 
-      serviceOverrides
-      acmeOverrides
-      forgejoOverride
-      nixGcOverride
+        serviceOverrides
+        acmeOverrides
+        forgejoOverride
+        nixGcOverride
 
-      # Disk space monitoring
-      (mkIf cfg.diskSpace.enable {
-        disk-space-alert = {
-          description = "Check disk space and alert if above threshold";
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = pkgs.writeShellScript "check-disk-space" ''
-              for mp in ${lib.escapeShellArgs cfg.diskSpace.mountpoints}; do
-                # Skip mountpoints absent on this host (e.g. no separate /boot).
-                ${pkgs.util-linux}/bin/mountpoint -q "$mp" || continue
-                USAGE=$(${pkgs.coreutils}/bin/df "$mp" --output=pcent | ${pkgs.coreutils}/bin/tail -1 | ${pkgs.coreutils}/bin/tr -d ' %')
-                if [ "$USAGE" -ge ${toString cfg.diskSpace.threshold} ]; then
-                  ${ntfySend} ${cfg.topic} "Disk Space Warning" "${config.networking.hostName}: $mp at ''${USAGE}%" high warning
+        # Disk space monitoring
+        (mkIf cfg.diskSpace.enable {
+          disk-space-alert = {
+            description = "Check disk space and alert if above threshold";
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = pkgs.writeShellScript "check-disk-space" ''
+                for mp in ${lib.escapeShellArgs cfg.diskSpace.mountpoints}; do
+                  # Skip mountpoints absent on this host (e.g. no separate /boot).
+                  ${pkgs.util-linux}/bin/mountpoint -q "$mp" || continue
+                  USAGE=$(${pkgs.coreutils}/bin/df "$mp" --output=pcent | ${pkgs.coreutils}/bin/tail -1 | ${pkgs.coreutils}/bin/tr -d ' %')
+                  if [ "$USAGE" -ge ${toString cfg.diskSpace.threshold} ]; then
+                    ${ntfySend} ${cfg.topic} "Disk Space Warning" "${config.networking.hostName}: $mp at ''${USAGE}%" high warning
+                  fi
+                done
+              '';
+            };
+          };
+        })
+
+        # CPU / memory pressure monitoring
+        (mkIf cfg.resources.enable {
+          resource-alert = {
+            description = "Flag sustained high CPU or memory usage";
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = resourceScript;
+            };
+          };
+        })
+
+        # Catch-all failed-unit monitoring
+        (mkIf cfg.failedUnits.enable {
+          failed-units-alert = {
+            description = "Alert on any unit in a failed state";
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = failedUnitsScript;
+            };
+          };
+        })
+
+        # Boot notification
+        (mkIf cfg.bootNotify.enable {
+          boot-notify = {
+            description = "Notify on system boot";
+            after = [
+              "network-online.target"
+              "ntfy-sh.service"
+            ];
+            wants = [ "network-online.target" ];
+            wantedBy = [ "multi-user.target" ];
+            # Don't re-run on nixos-rebuild switch, which would otherwise send a
+            # spurious "booted" push even though the machine never rebooted.
+            restartIfChanged = false;
+            stopIfChanged = false;
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+              # Guard against activation restarts: only notify when the system has
+              # actually just booted (low uptime), not on a rebuild.
+              ExecStart = pkgs.writeShellScript "boot-notify" ''
+                UPTIME=$(${pkgs.coreutils}/bin/cut -d. -f1 /proc/uptime)
+                if [ "$UPTIME" -lt 300 ]; then
+                  ${ntfySend} ${cfg.topic} 'Booted (${config.networking.hostName})' 'system has booted' default arrows_counterclockwise
                 fi
-              done
-            '';
+              '';
+            };
           };
-        };
-      })
-
-      # CPU / memory pressure monitoring
-      (mkIf cfg.resources.enable {
-        resource-alert = {
-          description = "Flag sustained high CPU or memory usage";
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = resourceScript;
-          };
-        };
-      })
-
-      # Catch-all failed-unit monitoring
-      (mkIf cfg.failedUnits.enable {
-        failed-units-alert = {
-          description = "Alert on any unit in a failed state";
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = failedUnitsScript;
-          };
-        };
-      })
-
-      # Boot notification
-      (mkIf cfg.bootNotify.enable {
-        boot-notify = {
-          description = "Notify on system boot";
-          after = [ "network-online.target" "ntfy-sh.service" ];
-          wants = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
-          # Don't re-run on nixos-rebuild switch, which would otherwise send a
-          # spurious "booted" push even though the machine never rebooted.
-          restartIfChanged = false;
-          stopIfChanged = false;
-          serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = true;
-            # Guard against activation restarts: only notify when the system has
-            # actually just booted (low uptime), not on a rebuild.
-            ExecStart = pkgs.writeShellScript "boot-notify" ''
-              UPTIME=$(${pkgs.coreutils}/bin/cut -d. -f1 /proc/uptime)
-              if [ "$UPTIME" -lt 300 ]; then
-                ${ntfySend} ${cfg.topic} 'Booted (${config.networking.hostName})' 'system has booted' default arrows_counterclockwise
-              fi
-            '';
-          };
-        };
-      })
-    ];
+        })
+      ];
 
     systemd.timers.disk-space-alert = mkIf cfg.diskSpace.enable {
       wantedBy = [ "timers.target" ];

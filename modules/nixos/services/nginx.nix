@@ -29,7 +29,10 @@ in
 
     ports = mkOption {
       type = types.listOf types.port;
-      default = [ 80 443 ];
+      default = [
+        80
+        443
+      ];
       description = "TCP ports to open in firewall";
     };
 

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -178,7 +183,7 @@ in
   config = mkIf cfg.enable {
     services.forgejo = {
       enable = true;
-      package = pkgs.forgejo;  # Use latest instead of LTS
+      package = pkgs.forgejo; # Use latest instead of LTS
       database.type = cfg.databaseType;
       dump.enable = cfg.enableDump;
       lfs.enable = cfg.enableLFS;
@@ -196,7 +201,8 @@ in
           ENABLED = cfg.actions.enable;
           DEFAULT_ACTIONS_URL = cfg.actions.defaultActionsUrl;
         };
-      } // lib.optionalAttrs cfg.smtp.enable {
+      }
+      // lib.optionalAttrs cfg.smtp.enable {
         mailer = {
           ENABLED = true;
           PROTOCOL = "smtp";
@@ -208,12 +214,14 @@ in
     };
 
     systemd.services.forgejo-dump = mkIf cfg.enableDump {
-      serviceConfig.ExecStartPost = let
-        dumpDir = config.services.forgejo.dump.backupDir;
-        keep = toString cfg.dumpRetentionCount;
-      in [
-        "${pkgs.bash}/bin/bash -c 'ls -1t ${dumpDir}/forgejo-dump-*.zip 2>/dev/null | tail -n +$((${keep}+1)) | xargs -r rm -f'"
-      ];
+      serviceConfig.ExecStartPost =
+        let
+          dumpDir = config.services.forgejo.dump.backupDir;
+          keep = toString cfg.dumpRetentionCount;
+        in
+        [
+          "${pkgs.bash}/bin/bash -c 'ls -1t ${dumpDir}/forgejo-dump-*.zip 2>/dev/null | tail -n +$((${keep}+1)) | xargs -r rm -f'"
+        ];
     };
 
     # Create gitea-runner user/group early for sops
@@ -223,34 +231,39 @@ in
       description = "Gitea Actions runner user";
     };
 
-    users.groups.gitea-runner = mkIf cfg.runner.enable {};
+    users.groups.gitea-runner = mkIf cfg.runner.enable { };
 
     # Forgejo Actions Runner configuration
     services.gitea-actions-runner = mkIf cfg.runner.enable {
       package = pkgs.forgejo-runner;
-      instances = builtins.listToAttrs (builtins.genList (i: {
-        name = "runner-${toString i}";
-        value = {
-          enable = true;
-          name = "${cfg.runner.name}-${toString i}";
-          url = "https://${cfg.domain}";
-          tokenFile = cfg.runner.tokenFile;
-          labels = cfg.runner.labels;
-          hostPackages = cfg.runner.hostPackages;
-          settings = {
-            container = {
-              options = "-v /run/podman/podman.sock:/var/run/docker.sock --privileged";
-              valid_volumes = [ "/run/podman/podman.sock" "/var/run/docker.sock" ];
+      instances = builtins.listToAttrs (
+        builtins.genList (i: {
+          name = "runner-${toString i}";
+          value = {
+            enable = true;
+            name = "${cfg.runner.name}-${toString i}";
+            url = "https://${cfg.domain}";
+            tokenFile = cfg.runner.tokenFile;
+            labels = cfg.runner.labels;
+            hostPackages = cfg.runner.hostPackages;
+            settings = {
+              container = {
+                options = "-v /run/podman/podman.sock:/var/run/docker.sock --privileged";
+                valid_volumes = [
+                  "/run/podman/podman.sock"
+                  "/var/run/docker.sock"
+                ];
+              };
             };
           };
-        };
-      }) cfg.runner.count);
+        }) cfg.runner.count
+      );
     };
 
     # Enable Podman for container-based runners (rootless, daemonless)
     virtualisation.podman = mkIf cfg.runner.enable {
       enable = true;
-      dockerCompat = true;  # Creates docker alias for compatibility
+      dockerCompat = true; # Creates docker alias for compatibility
       dockerSocket.enable = true;
     };
 

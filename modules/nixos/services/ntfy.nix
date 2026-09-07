@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -77,7 +82,12 @@ in
       };
 
       defaultAccess = mkOption {
-        type = types.enum [ "read-write" "read-only" "write-only" "deny-all" ];
+        type = types.enum [
+          "read-write"
+          "read-only"
+          "write-only"
+          "deny-all"
+        ];
         default = "deny-all";
         description = "Default access for unauthenticated users";
       };
@@ -95,51 +105,63 @@ in
       };
 
       users = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            username = mkOption {
-              type = types.str;
-              description = "Username for ntfy authentication";
-            };
+        type = types.listOf (
+          types.submodule {
+            options = {
+              username = mkOption {
+                type = types.str;
+                description = "Username for ntfy authentication";
+              };
 
-            passwordFile = mkOption {
-              type = types.path;
-              description = "Path to file containing the user's password";
-            };
+              passwordFile = mkOption {
+                type = types.path;
+                description = "Path to file containing the user's password";
+              };
 
-            role = mkOption {
-              type = types.enum [ "user" "admin" ];
-              default = "user";
-              description = "User role (user or admin)";
-            };
+              role = mkOption {
+                type = types.enum [
+                  "user"
+                  "admin"
+                ];
+                default = "user";
+                description = "User role (user or admin)";
+              };
 
-            tokenFile = mkOption {
-              type = types.nullOr types.path;
-              default = null;
-              description = "Path to a file where a generated access token will be written for this user";
-            };
+              tokenFile = mkOption {
+                type = types.nullOr types.path;
+                default = null;
+                description = "Path to a file where a generated access token will be written for this user";
+              };
 
-            access = mkOption {
-              type = types.listOf (types.submodule {
-                options = {
-                  topic = mkOption {
-                    type = types.str;
-                    description = "Topic pattern (supports wildcards like 'alerts_*')";
-                  };
+              access = mkOption {
+                type = types.listOf (
+                  types.submodule {
+                    options = {
+                      topic = mkOption {
+                        type = types.str;
+                        description = "Topic pattern (supports wildcards like 'alerts_*')";
+                      };
 
-                  permission = mkOption {
-                    type = types.enum [ "read-write" "read-only" "write-only" "deny-all" ];
-                    default = "read-write";
-                    description = "Permission level for this topic";
-                  };
-                };
-              });
-              default = [];
-              description = "Access control list for topics";
+                      permission = mkOption {
+                        type = types.enum [
+                          "read-write"
+                          "read-only"
+                          "write-only"
+                          "deny-all"
+                        ];
+                        default = "read-write";
+                        description = "Permission level for this topic";
+                      };
+                    };
+                  }
+                );
+                default = [ ];
+                description = "Access control list for topics";
+              };
             };
-          };
-        });
-        default = [];
+          }
+        );
+        default = [ ];
         description = "Declaratively defined users";
       };
     };
@@ -215,7 +237,7 @@ in
     };
 
     # User provisioning service
-    systemd.services.ntfy-sh-provision-users = mkIf (cfg.auth.enableAuth && cfg.auth.users != []) {
+    systemd.services.ntfy-sh-provision-users = mkIf (cfg.auth.enableAuth && cfg.auth.users != [ ]) {
       description = "Provision ntfy users";
       requires = [ "ntfy-sh.service" ];
       after = [ "ntfy-sh.service" ];
@@ -226,49 +248,51 @@ in
         RemainAfterExit = true;
       };
 
-      script = let
-        ntfyPkg = config.services.ntfy-sh.package;
-        authFile = cfg.auth.authFile;
-        ntfy = "${ntfyPkg}/bin/ntfy";
-        provisionUser = user: ''
-          PASSWORD=$(cat ${user.passwordFile})
-          echo "Creating user ${user.username}..."
-          NTFY_PASSWORD="$PASSWORD" ${ntfy} user --auth-file=${authFile} add --role=${user.role} ${user.username} || echo "User ${user.username} already exists, updating password..."
-          NTFY_PASSWORD="$PASSWORD" ${ntfy} user --auth-file=${authFile} change-pass ${user.username} 2>/dev/null || true
-          ${ntfy} user --auth-file=${authFile} change-role ${user.username} ${user.role} 2>/dev/null || true
+      script =
+        let
+          ntfyPkg = config.services.ntfy-sh.package;
+          authFile = cfg.auth.authFile;
+          ntfy = "${ntfyPkg}/bin/ntfy";
+          provisionUser = user: ''
+            PASSWORD=$(cat ${user.passwordFile})
+            echo "Creating user ${user.username}..."
+            NTFY_PASSWORD="$PASSWORD" ${ntfy} user --auth-file=${authFile} add --role=${user.role} ${user.username} || echo "User ${user.username} already exists, updating password..."
+            NTFY_PASSWORD="$PASSWORD" ${ntfy} user --auth-file=${authFile} change-pass ${user.username} 2>/dev/null || true
+            ${ntfy} user --auth-file=${authFile} change-role ${user.username} ${user.role} 2>/dev/null || true
 
-          ${lib.concatMapStringsSep "\n" (acl: ''
-            echo "Setting access for ${user.username} on topic ${acl.topic}..."
-            ${ntfy} access --auth-file=${authFile} ${user.username} ${acl.topic} ${acl.permission}
-          '') user.access}
+            ${lib.concatMapStringsSep "\n" (acl: ''
+              echo "Setting access for ${user.username} on topic ${acl.topic}..."
+              ${ntfy} access --auth-file=${authFile} ${user.username} ${acl.topic} ${acl.permission}
+            '') user.access}
 
-          ${lib.optionalString (user.tokenFile != null) ''
-            echo "Provisioning access token for ${user.username}..."
-            TOKEN=$(${ntfy} token --auth-file=${authFile} add ${user.username} 2>&1 | ${pkgs.gnugrep}/bin/grep -oP 'tk_\w+')
-            echo "$TOKEN" > ${user.tokenFile}
-            chmod 600 ${user.tokenFile}
-            echo "Token written to ${user.tokenFile}"
-          ''}
+            ${lib.optionalString (user.tokenFile != null) ''
+              echo "Provisioning access token for ${user.username}..."
+              TOKEN=$(${ntfy} token --auth-file=${authFile} add ${user.username} 2>&1 | ${pkgs.gnugrep}/bin/grep -oP 'tk_\w+')
+              echo "$TOKEN" > ${user.tokenFile}
+              chmod 600 ${user.tokenFile}
+              echo "Token written to ${user.tokenFile}"
+            ''}
+          '';
+        in
+        ''
+          set -e
+
+          # Wait for ntfy to create the auth database
+          for i in $(seq 1 30); do
+            [ -f ${authFile} ] && break
+            echo "Waiting for auth-file to be created... ($i/30)"
+            sleep 1
+          done
+
+          if [ ! -f ${authFile} ]; then
+            echo "Auth-file ${authFile} not found after 30s, giving up"
+            exit 1
+          fi
+
+          ${lib.concatMapStringsSep "\n" provisionUser cfg.auth.users}
+
+          echo "User provisioning complete"
         '';
-      in ''
-        set -e
-
-        # Wait for ntfy to create the auth database
-        for i in $(seq 1 30); do
-          [ -f ${authFile} ] && break
-          echo "Waiting for auth-file to be created... ($i/30)"
-          sleep 1
-        done
-
-        if [ ! -f ${authFile} ]; then
-          echo "Auth-file ${authFile} not found after 30s, giving up"
-          exit 1
-        fi
-
-        ${lib.concatMapStringsSep "\n" provisionUser cfg.auth.users}
-
-        echo "User provisioning complete"
-      '';
     };
   };
 }

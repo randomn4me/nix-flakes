@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,8 +13,7 @@ let
   # Rewrite every sender (envelope + From: header) to the relay identity, so
   # locally generated mail (cron, fail2ban, ...) is accepted by the smarthost.
   # A regexp map is read directly by Postfix and needs no postmap step.
-  senderCanonical =
-    pkgs.writeText "sender_canonical" "/.+/ ${cfg.fromAddress}\n";
+  senderCanonical = pkgs.writeText "sender_canonical" "/.+/ ${cfg.fromAddress}\n";
 in
 {
   options.services.custom.mail-relay = {
@@ -59,7 +63,9 @@ in
     sops.secrets."mail-relay/password" = { };
 
     sops.templates."postfix-sasl-passwd" = {
-      content = "[${cfg.relayHost}]:${toString cfg.relayPort} ${cfg.authUser}:${config.sops.placeholder."mail-relay/password"}";
+      content = "[${cfg.relayHost}]:${toString cfg.relayPort} ${cfg.authUser}:${
+        config.sops.placeholder."mail-relay/password"
+      }";
       owner = config.services.postfix.user;
       mode = "0400";
     };
@@ -73,7 +79,10 @@ in
         # Only ever talk to localhost; never accept mail from the network.
         inet_interfaces = "loopback-only";
         inet_protocols = "all";
-        mynetworks = [ "127.0.0.0/8" "[::1]/128" ];
+        mynetworks = [
+          "127.0.0.0/8"
+          "[::1]/128"
+        ];
 
         # Relay everything through the authenticated smarthost over STARTTLS.
         # Brackets disable MX/SRV lookups for the smarthost name.

@@ -1,4 +1,9 @@
-{ config, lib, inputs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 
 with lib;
 
@@ -21,7 +26,10 @@ in
       type = types.listOf types.str;
       default = [ ];
       description = "List of domains that should redirect to the main domain. Each domain will also have a www. variant redirected.";
-      example = [ "serify.de" "serify.ai" ];
+      example = [
+        "serify.de"
+        "serify.ai"
+      ];
     };
   };
 

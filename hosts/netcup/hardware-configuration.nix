@@ -1,38 +1,53 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
-  imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+  ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "virtio_scsi" "usbhid" "sr_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "virtio_pci"
+    "virtio_scsi"
+    "usbhid"
+    "sr_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/d567f197-87b2-4f2d-a030-c41ad45b504e";
-      fsType = "btrfs";
-      options = [ "subvol=rootfs" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/d567f197-87b2-4f2d-a030-c41ad45b504e";
+    fsType = "btrfs";
+    options = [ "subvol=rootfs" ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/E7B7-3D1A";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/E7B7-3D1A";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/d567f197-87b2-4f2d-a030-c41ad45b504e";
-      fsType = "btrfs";
-      options = [ "subvol=home" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/d567f197-87b2-4f2d-a030-c41ad45b504e";
+    fsType = "btrfs";
+    options = [ "subvol=home" ];
+  };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/d567f197-87b2-4f2d-a030-c41ad45b504e";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/d567f197-87b2-4f2d-a030-c41ad45b504e";
+    fsType = "btrfs";
+    options = [ "subvol=nix" ];
+  };
 
   swapDevices = [ ];
 

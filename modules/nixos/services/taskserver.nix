@@ -28,15 +28,17 @@ in
     };
 
     organisations = mkOption {
-      type = types.attrsOf (types.submodule {
-        options = {
-          users = mkOption {
-            type = types.listOf types.str;
-            default = [];
-            description = "List of users in this organisation";
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            users = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              description = "List of users in this organisation";
+            };
           };
-        };
-      });
+        }
+      );
       default = {
         personal.users = [ "r4ndom" ];
       };
