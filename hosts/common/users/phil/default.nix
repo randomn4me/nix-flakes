@@ -45,6 +45,7 @@ in
   home-manager = {
     extraSpecialArgs = {
       inherit inputs outputs;
+      hostname = config.networking.hostName;
     };
     users.phil = import ../../../../home/${config.networking.hostName}.nix;
   };

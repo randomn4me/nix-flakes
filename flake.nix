@@ -119,12 +119,19 @@
       mkNixos = mkSystem lib.nixosSystem;
       mkDarwin = mkSystem lib.darwinSystem;
 
+      # homeManagerConfiguration takes pkgs directly, which makes the config's
+      # own nixpkgs.config a no-op -- allowUnfree therefore has to be set in
+      # pkgsFor below as well as in home/global. The NixOS-integrated
+      # home-manager builds its own pkgs and does read home/global's setting.
       mkHome =
         name: machine:
         lib.homeManagerConfiguration {
           pkgs = pkgsFor.${machine.system};
+          # `hostname` stands in for osConfig.networking.hostName, which a
+          # standalone home config has no access to.
           extraSpecialArgs = {
             inherit inputs outputs;
+            hostname = name;
           };
           modules = [ (homeFileOf name machine) ];
         };

@@ -38,6 +38,7 @@ in
   home-manager = {
     extraSpecialArgs = {
       inherit inputs outputs;
+      hostname = config.networking.hostName;
     };
     users.r4ndom = import ../../../../home/hetzner.nix;
     backupFileExtension = "backup";

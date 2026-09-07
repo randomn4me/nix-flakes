@@ -1,5 +1,5 @@
 {
-  osConfig,
+  hostname,
   config,
   lib,
   ...
@@ -44,7 +44,6 @@
 
       bashrcExtra =
         let
-          hostname = osConfig.networking.hostName;
           ps1_hostname_string = if hostname == "peasec" then "" else "(${hostname}) ";
         in
         ''

@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  osConfig,
+  hostname,
   ...
 }:
 let
@@ -31,12 +31,12 @@ in
           repositories = [
             {
               # Falkenstein (DE) storage box
-              path = "ssh://u487410@u487410.your-storagebox.de:23/./borg/${osConfig.networking.hostName}";
+              path = "ssh://u487410@u487410.your-storagebox.de:23/./borg/${hostname}";
               label = "falkenstein";
             }
             {
               # Helsinki (FI) storage box
-              path = "ssh://u489939@u489939.your-storagebox.de:23/./borg/${osConfig.networking.hostName}";
+              path = "ssh://u489939@u489939.your-storagebox.de:23/./borg/${hostname}";
               label = "helsinki";
             }
             {
@@ -54,7 +54,7 @@ in
 
         storage = {
           # Passphrase provisioned by sops (owner: phil) on the peasec host.
-          encryptionPasscommand = "${cat} /run/secrets/borg/${osConfig.networking.hostName}-passphrase";
+          encryptionPasscommand = "${cat} /run/secrets/borg/${hostname}-passphrase";
           extraConfig = {
             # Per-box key selection is handled by ~/.ssh/config (see ssh/backup.nix).
             ssh_command = "ssh";
