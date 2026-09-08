@@ -11,8 +11,14 @@ in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
+  # zsh needs to be enabled system-wide as well, otherwise it lands in
+  # neither /etc/shells nor gets an /etc/zshrc, and the login shell below
+  # starts without any of the system's environment.
+  programs.zsh.enable = true;
+
   users.users.phil = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = [
       "wheel"
     ]

@@ -7,6 +7,7 @@
 {
   imports = [
     ./ai.nix
+    ./zsh.nix
     ./git.nix
     ./tmux.nix
   ];
@@ -15,19 +16,16 @@
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
-    enableBashIntegration = true;
   };
 
   programs.eza = {
     enable = true;
     enableZshIntegration = true;
-    enableBashIntegration = true;
   };
 
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-    enableBashIntegration = true;
   };
 
   home.packages = with pkgs; [

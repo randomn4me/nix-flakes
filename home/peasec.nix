@@ -12,8 +12,6 @@ in
   imports = [
     ./global
 
-    ./features/cli/bash.nix
-
     ./features/ssh/private.nix
     ./features/ssh/peasec.nix
 

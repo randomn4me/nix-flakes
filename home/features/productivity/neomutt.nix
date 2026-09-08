@@ -66,7 +66,7 @@ in
     };
 
     settings = {
-      sidebar_sort_method = "path";
+      sidebar_sort_method = "unsorted";
       sidebar_folder_indent = "yes";
       sidebar_indent_string = " ";
 
@@ -362,5 +362,5 @@ in
     };
   };
 
-  programs.bash.shellAliases.mutt = "neomutt";
+  home.shellAliases.mutt = "neomutt";
 }

@@ -6,23 +6,28 @@
 }:
 {
   programs = {
-    bash = {
+    zsh = {
       enable = true;
       enableCompletion = true;
+      defaultKeymap = "emacs";
 
-      historySize = 10000;
-      historyFile = "\${HOME}/.bash_history";
-      historyControl = [
-        "erasedups"
-        "ignoredups"
-        "ignorespace"
-      ];
-      historyIgnore = [
-        "ls"
-        "cd"
-        "exit"
-        "reboot"
-      ];
+      history = {
+        path = "${config.home.homeDirectory}/.zhistory";
+        size = 50000;
+        save = 30000;
+        extended = true;
+        share = true;
+        append = true;
+        ignoreAllDups = true;
+        saveNoDups = true;
+        ignoreSpace = true;
+        ignorePatterns = [
+          "ls"
+          "cd"
+          "exit"
+          "reboot"
+        ];
+      };
 
       shellAliases = {
         ".." = "cd ..";
@@ -40,14 +45,31 @@
         disks = "echo '╓───── m o u n t . p o i n t s'; echo '╙────────────────────────────────────── ─ ─ '; lsblk -a; echo ''; echo '╓───── d i s k . u s a g e'; echo '╙────────────────────────────────────── ─ ─ '; df -h;";
       };
 
-      sessionVariables.PROMPT_DIRTRIM = 2;
-
-      bashrcExtra =
+      initContent =
         let
-          ps1_hostname_string = if hostname == "peasec" then "" else "(${hostname}) ";
+          prompt_hostname_string = if hostname == "peasec" then "" else "(${hostname}) ";
         in
         ''
-          export PS1="${ps1_hostname_string}\w >> ";
+          setopt HIST_REDUCE_BLANKS
+          setopt COMPLETE_ALIASES
+          setopt correct
+
+          zstyle ':completion:*' menu select
+
+          # Collapses to …/last-three once the path gets deep.
+          PROMPT="${prompt_hostname_string}%(4~|…/%3~|%~) » "
+
+          # ALT+backspace deletes up to the next punctuation, not just to the
+          # next whitespace like the default WORDCHARS does.
+          my-backward-delete-word() {
+            local WORDCHARS='~!#$%^&*(){}[]<>?+;'
+            zle backward-delete-word
+          }
+          zle -N my-backward-delete-word
+          bindkey '\e^?' my-backward-delete-word
+
+          bindkey ' ' magic-space
+
           export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/share:$HOME/.local/share/flatpak/exports/share";
 
           # per-core cpu temperature, straight from sysfs
@@ -72,14 +94,12 @@
           export MANPAGER='nvim --cmd ":lua vim.g.noplugins=1" +Man!'
           export MANWIDTH=999
           export VISUAL=nvim
-
-          bind Space:magic-space
         '';
     };
 
     nix-index = {
       enable = true;
-      enableBashIntegration = true;
+      enableZshIntegration = true;
     };
   };
 }

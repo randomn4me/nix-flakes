@@ -62,9 +62,10 @@ in
       };
     };
 
-    bash.shellAliases = {
-      "done-today" = "${task} completed end:today";
-    };
+  };
+
+  home.shellAliases = {
+    "done-today" = "${task} completed end:today";
   };
 
   services.taskwarrior-sync.enable = true;
