@@ -65,6 +65,28 @@ in
           enable = true;
           create = "both";
           expunge = "both";
+          # Exchange pre-creates a pile of folders that either are not mail or
+          # are not ours to delete, and it refuses DELETE on them over IMAP, so
+          # keep them off the near side with patterns instead.
+          #
+          # "Archiv" is the built-in special-use archive -- this mailbox is
+          # German-localised, so it collides confusingly with "Archive", the
+          # user folder that actually holds the mail. The rest are calendar,
+          # contacts, tasks etc., which only ever produced UIDVALIDITY errors.
+          #
+          # The trailing "*" matters: Kalender has a Geburtstage child, and
+          # without it mbsync recreates the parent locally just to hold the
+          # child. "Archiv" deliberately has none -- it would eat "Archive".
+          patterns = [
+            "*"
+            "!Archiv"
+            "!Aufgaben*"
+            "!Journal*"
+            "!Kalender*"
+            "!Kontakte*"
+            "!Notizen*"
+            "!RSS-Abonnements*"
+          ];
           extraConfig.account = {
             PipelineDepth = 1;
           }; # https://kdecherf.com/blog/2017/05/01/mbsync-and-office-365/
