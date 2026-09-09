@@ -32,7 +32,7 @@
     audacis-blog.url = "git+ssh://forgejo@git.audacis.net/philippkuehn/blog";
     audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
 
-    serify-page.url = "git+ssh://forgejo@git.audacis.net/serify/serify-page?ref=feat/one-pager";
+    serify-page.url = "git+ssh://forgejo@git.audacis.net/serify/serify-page";
     serify-page.inputs.nixpkgs.follows = "nixpkgs";
 
     code-of-courage.url = "git+ssh://gitlab.dev.peasec.de/praktikum/25ss_LG1_CodeOfCourage.git";
