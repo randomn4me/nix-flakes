@@ -34,9 +34,9 @@ in
 
         folders = {
           inbox = "Inbox";
-          drafts = "Entw&APw-rfe";
+          drafts = "Entwürfe";
           sent = "Gesendete Elemente";
-          trash = "Gel&APY-schte Elemente";
+          trash = "Gelöschte Elemente";
         };
 
         signature = {
@@ -80,11 +80,11 @@ in
         neomutt = {
           enable = true;
           extraMailboxes = [
-            "Archiv"
-            "Entw&APw-rfe"
+            "Archive"
+            "Entwürfe"
             "Gesendete Elemente"
             "Junk-E-Mail"
-            "Gel&APY-schte Elemente"
+            "Gelöschte Elemente"
           ];
           sendMailCommand = "${msmtp_command} -a peasec";
           extraConfig =
@@ -98,13 +98,13 @@ in
               color sidebar_highlight #${colors.base0F} default
 
               named-mailboxes "peasec"    "+Inbox"
-              named-mailboxes " archive"  "+Archiv"
-              named-mailboxes " drafts"   "+Entw&APw-rfe"
+              named-mailboxes " archive"  "+Archive"
+              named-mailboxes " drafts"   "+Entwürfe"
               named-mailboxes " sent"     "+Gesendete Elemente"
               named-mailboxes " junk"     "+Junk-E-Mail"
-              named-mailboxes " trash"    "+Gel&APY-schte Elemente"
+              named-mailboxes " trash"    "+Gelöschte Elemente"
 
-              macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archiv\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
+              macro index e      ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>+Archive\n<sync-mailbox>:set confirmappend=yes delete=yes\n"
             '';
         };
       };
