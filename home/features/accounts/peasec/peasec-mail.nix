@@ -99,8 +99,8 @@ in
 
               named-mailboxes "peasec"    "+Inbox"
               named-mailboxes " archive"  "+Archiv"
-              named-mailboxes " sent"     "+Gesendete Elemente"
               named-mailboxes " drafts"   "+Entw&APw-rfe"
+              named-mailboxes " sent"     "+Gesendete Elemente"
               named-mailboxes " junk"     "+Junk-E-Mail"
               named-mailboxes " trash"    "+Gel&APY-schte Elemente"
 

@@ -96,8 +96,8 @@ in
             ''
               named-mailboxes "audacis"   "+Inbox"
               named-mailboxes " archive"  "+Archive"
-              named-mailboxes " sent"     "+Sent"
               named-mailboxes " drafts"   "+Drafts"
+              named-mailboxes " sent"     "+Sent"
               named-mailboxes " junk"     "+spambucket"
               named-mailboxes " trash"    "+Trash"
 
@@ -134,8 +134,8 @@ in
             ''
               named-mailboxes "sink"   "+Inbox"
               named-mailboxes " archive"  "+Archive"
-              named-mailboxes " sent"     "+Sent"
               named-mailboxes " drafts"   "+Drafts"
+              named-mailboxes " sent"     "+Sent"
               named-mailboxes " junk"     "+spambucket"
               named-mailboxes " trash"    "+Trash"
 
