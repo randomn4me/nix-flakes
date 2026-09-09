@@ -153,7 +153,7 @@
         PermitRootLogin = "yes";
       };
     };
-    journald.extraConfig = "SystemMaxUse=100M";
+    journald.settings.Journal.SystemMaxUse = "100M";
   };
 
   sops.defaultSopsFile = ./secrets.yaml;
