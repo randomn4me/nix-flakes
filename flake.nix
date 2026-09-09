@@ -53,28 +53,6 @@
     let
       inherit (self) outputs;
       lib = nixpkgs.lib // home-manager.lib // nix-darwin.lib;
-
-      # ── machines ────────────────────────────────────────────────────────
-      #
-      # The one place a machine is declared. To add another:
-      #
-      #   1. hosts/<name>/{default,hardware-configuration}.nix
-      #   2. home/<name>.nix -- hosts/common/users/<user> imports the home
-      #      config by hostname, so the file name has to match `<name>`
-      #   3. one entry here
-      #   4. a creation_rule in .sops.yaml, if the host holds secrets
-      #
-      # `system` is declared once and drives both the machine and its
-      # home-manager output, so the two cannot drift apart -- the macbook
-      # spent a while being built as aarch64-linux because they were written
-      # out separately.
-      #
-      # Optional per-machine keys:
-      #   hostPath     path to the host module      (default ./hosts/<name>)
-      #   homeFile     path to the home config      (default ./home/<name>.nix)
-      #   users        standalone home-manager outputs to generate, as
-      #                homeConfigurations."<user>@<name>"
-      #   extraModules extra NixOS/darwin modules
       machines = {
         peasec = {
           system = "x86_64-linux";
@@ -84,14 +62,9 @@
         netcup = {
           system = "aarch64-linux";
           users = [ "phil" ];
-          # Evaluating this needs every private git remote reachable;
-          # nixosConfigurations.netcup-core below is the same box without it.
           extraModules = [ ./hosts/netcup/external-services.nix ];
         };
 
-        # Host dir, flake output and home file were each named differently
-        # before this table existed; the mapping is spelled out rather than
-        # renamed, since the output name is what darwin-rebuild is invoked with.
         macbook-pro-pk = {
           system = "aarch64-darwin";
           users = [ "pkuehn" ];
@@ -100,7 +73,6 @@
         };
       };
 
-      # ── plumbing ────────────────────────────────────────────────────────
       isDarwin = machine: lib.hasSuffix "-darwin" machine.system;
 
       hostPathOf = name: machine: machine.hostPath or ./hosts/${name};
@@ -120,16 +92,10 @@
       mkNixos = mkSystem lib.nixosSystem;
       mkDarwin = mkSystem lib.darwinSystem;
 
-      # homeManagerConfiguration takes pkgs directly, which makes the config's
-      # own nixpkgs.config a no-op -- allowUnfree therefore has to be set in
-      # pkgsFor below as well as in home/global. The NixOS-integrated
-      # home-manager builds its own pkgs and does read home/global's setting.
       mkHome =
         name: machine:
         lib.homeManagerConfiguration {
           pkgs = pkgsFor.${machine.system};
-          # `hostname` stands in for osConfig.networking.hostName, which a
-          # standalone home config has no access to.
           extraSpecialArgs = {
             inherit inputs outputs;
             hostname = name;
@@ -137,7 +103,6 @@
           modules = [ (homeFileOf name machine) ];
         };
 
-      # Only the systems some machine actually runs on.
       systems = lib.unique (lib.mapAttrsToList (_: machine: machine.system) machines);
 
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
@@ -155,16 +120,10 @@
       homeModules = import ./modules/home-manager;
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
-      # nixfmt-tree is nixfmt wrapped in treefmt: `nix fmt` with no arguments
-      # formats the whole tree, honouring .gitignore.
       formatter = forEachSystem (pkgs: pkgs.nixfmt-tree);
       devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
 
       nixosConfigurations = lib.mapAttrs mkNixos (lib.filterAttrs (_: m: !isDarwin m) machines) // {
-        # peasec/netcup without their private-input services. Everything that
-        # holds data -- nginx, acme, postgres, forgejo, vaultwarden, zulip,
-        # ntfy, the backups -- is still in here, so the box stays rebuildable
-        # when one of those remotes is down.
         netcup-core = mkNixos "netcup" (removeAttrs machines.netcup [ "extraModules" ]);
       };
 
