@@ -92,10 +92,10 @@ in
       refreshRate = 60;
       scaling = 1.0;
       primary = true;
-      # All nine number keys stay on the laptop panel; the office display
-      # gets whatever workspace is pushed to it (SUPER + SHIFT + Tab) rather
-      # than claiming one on its own the moment it is plugged in.
-      workspaces = lib.range 1 9;
+      # Number keys 1-8 stay on the laptop panel; 9 belongs to the office
+      # display below, so it is reachable by key press instead of only by
+      # pushing a workspace over (SUPER + SHIFT + Tab).
+      workspaces = lib.range 1 8;
     }
     {
       # Office display. Only takes effect while it is actually connected, so
@@ -106,9 +106,9 @@ in
       refreshRate = 60;
       scaling = 1.0;
       x = 1920;
-      # Its own workspace, well clear of the number keys, so connecting it
-      # never pulls one of those nine off the laptop panel.
-      workspaces = [ 10 ];
+      # The last number key, and this monitor's default. Only 9 lands here,
+      # so connecting the display never pulls 1-8 off the laptop panel.
+      workspaces = [ 9 ];
     }
   ];
 
