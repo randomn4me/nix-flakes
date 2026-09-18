@@ -42,14 +42,11 @@
     fail2ban.enable = true;
     backup = {
       enable = true;
-      # Default set plus Zulip's nightly tarball (DB + config) and its uploaded
-      # files. Kept explicit here since this is host-specific backup policy.
+      # Default set. Kept explicit here since this is host-specific backup policy.
       sourceDirectories = [
         "/var/lib/vaultwarden"
         "/var/lib/forgejo"
         "/var/lib/ntfy-sh"
-        "/var/lib/zulip/backups"
-        "/var/lib/zulip/app"
         "/var/lib/goatcounter"
       ];
     };
@@ -76,10 +73,6 @@
     freshrss = {
       enable = false;
       passwordFile = config.sops.secrets."freshrss/passphrase".path;
-    };
-    zulip = {
-      enable = true;
-      domain = "chat.serify.eu";
     };
     goatcounter = {
       enable = true;
