@@ -478,11 +478,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789543425,
-        "narHash": "sha256-GAbvlMMTjMTtQt8mNB7efBV5zgAoXDLukebEiF6G/h0=",
+        "lastModified": 1790020582,
+        "narHash": "sha256-Y9Oq0Qg0bQS09GPIOz09EzAUnFT52LVdW+AIEZ5RpL0=",
         "ref": "refs/heads/main",
-        "rev": "9beef8876390f590e89b59e7c5985ce35b427f2d",
-        "revCount": 160,
+        "rev": "d75d82a44b449e6e04b055e8f261538d4edac612",
+        "revCount": 162,
         "type": "git",
         "url": "ssh://forgejo@git.audacis.net/serify/serify-page"
       },
