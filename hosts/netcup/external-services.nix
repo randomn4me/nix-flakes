@@ -13,10 +13,12 @@
     ../../modules/nixos/services/audacis-blog.nix
     ../../modules/nixos/services/serify-page.nix
     ../../modules/nixos/services/code-of-courage.nix
+    ../../modules/nixos/services/feedback.nix
   ];
 
   services.custom = {
     audacis-blog.enable = true;
+    feedback.enable = true;
     serify-page = {
       enable = true;
       redirectDomains = [
