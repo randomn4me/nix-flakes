@@ -47,7 +47,6 @@
         "/var/lib/vaultwarden"
         "/var/lib/forgejo"
         "/var/lib/ntfy-sh"
-        "/var/lib/goatcounter"
       ];
     };
 
@@ -74,10 +73,7 @@
       enable = false;
       passwordFile = config.sops.secrets."freshrss/passphrase".path;
     };
-    goatcounter = {
-      enable = true;
-      domain = "stats.serify.eu";
-    };
+    umami.enable = true;
 
     ntfy = {
       enable = true;

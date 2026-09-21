@@ -23,7 +23,7 @@
     ./vaultwarden.nix
     ./freshrss.nix
     ./zulip.nix
-    ./goatcounter.nix
+    ./umami.nix
     ./ntfy.nix
     ./alerts.nix
     ./backup.nix
