@@ -38,6 +38,15 @@ in
       forceSSL = true;
       serverName = cfg.domain;
 
+      # The tool promises anonymous feedback and uvicorn runs with
+      # --no-access-log, so nginx must not log IP + time + `POST /w/<code>` for
+      # every submission either. The error log stays on. Covers the HTTPS server
+      # only: the port-80 redirect block that forceSSL generates ignores
+      # extraConfig.
+      extraConfig = ''
+        access_log off;
+      '';
+
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.feedback-tool.port}";
         # Host + X-Forwarded-*, needed for Secure cookies behind --proxy-headers.
