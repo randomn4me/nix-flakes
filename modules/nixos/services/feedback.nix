@@ -40,12 +40,10 @@ in
 
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.feedback-tool.port}";
-        extraConfig = ''
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-        '';
+        # Host + X-Forwarded-*, needed for Secure cookies behind --proxy-headers.
+        # Never add proxy_set_header Host on top: nginx then sends Host twice and
+        # uvicorn (h11) rejects every request with "Invalid HTTP request received."
+        recommendedProxySettings = true;
       };
     };
   };
