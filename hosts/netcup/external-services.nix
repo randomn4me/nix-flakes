@@ -18,7 +18,10 @@
 
   services.custom = {
     audacis-blog.enable = true;
-    feedback.enable = true;
+    feedback = {
+      enable = true;
+      domain = "poll.serify.eu";
+    };
     serify-page = {
       enable = true;
       redirectDomains = [
