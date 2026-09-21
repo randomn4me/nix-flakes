@@ -152,7 +152,9 @@ in
         # Consistent point-in-time snapshot of Vaultwarden's database, taken
         # before the filesystem archive runs. Forgejo's Postgres data is
         # captured through its own dump zip under /var/lib/forgejo, so no
-        # postgresql hook is needed here.
+        # postgresql hook is needed here. Other services append their databases
+        # to these hook lists from their own modules (feedback.nix, umami.nix),
+        # gated on this module being enabled.
         sqlite_databases = [
           {
             name = "vaultwarden";

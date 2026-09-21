@@ -9,6 +9,7 @@ with lib;
 
 let
   cfg = config.services.custom.feedback;
+  backupCfg = config.services.custom.backup;
 in
 {
   imports = [ inputs.feedback-tool.nixosModules.default ];
@@ -32,6 +33,23 @@ in
 
     # File content must be `ADMIN_PASSWORD=<value>` (read as an EnvironmentFile).
     sops.secrets."feedback/admin-password" = { };
+
+    # Point-in-time dump of the SQLite database on every borgmatic run
+    # (services.custom.backup). dataDir is the DynamicUser symlink into
+    # /var/lib/private/feedback-tool; root can follow it since it owns the 0700
+    # /var/lib/private.
+    # borgmatic's root cannot write the service-owned directory, so it reads the
+    # WAL database read-only, which only works while -wal/-shm exist. The tool
+    # holds one idle connection open for its whole lifetime to keep them there;
+    # a stopped feedback-tool therefore fails the backup run loudly, on purpose.
+    services.borgmatic = mkIf backupCfg.enable {
+      settings.sqlite_databases = [
+        {
+          name = "feedback-tool";
+          path = "${config.services.feedback-tool.dataDir}/feedback.db";
+        }
+      ];
+    };
 
     services.nginx.virtualHosts.${cfg.domain} = {
       enableACME = true;

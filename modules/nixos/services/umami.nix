@@ -38,6 +38,22 @@ in
     # Plain random string (e.g. `openssl rand -hex 32`); signs login sessions.
     sops.secrets."umami/app-secret" = { };
 
+    # Dump the database on every borgmatic run (services.custom.backup).
+    # borgmatic runs as root, Postgres only does peer auth on the socket, so dump
+    # as the postgres superuser: with `username` and no password the nixpkgs
+    # module wraps pg_dump/psql/pg_restore in `sudo -u postgres` and relaxes the
+    # unit's hardening for it. Chosen over services.postgresqlBackup: no second
+    # timer to line up with borgmatic's randomized hourly start, no dump lying
+    # around on disk, and a failed dump fails the borgmatic run, which alerts.
+    services.borgmatic = mkIf config.services.custom.backup.enable {
+      settings.postgresql_databases = [
+        {
+          name = "umami";
+          username = "postgres";
+        }
+      ];
+    };
+
     services.nginx.virtualHosts.${cfg.domain} = {
       enableACME = true;
       forceSSL = true;
