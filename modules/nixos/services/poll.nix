@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   ...
 }:
@@ -11,27 +10,6 @@ with lib;
 let
   cfg = config.services.custom.poll;
   backupCfg = config.services.custom.backup;
-
-  # One-time move of the data from before the rename to poll-tool: the unit was
-  # feedback-tool with /var/lib/private/feedback-tool/feedback.db. Runs as root
-  # ("+") after systemd created the new state directory, only while the old
-  # database exists and the new one does not; the app renames the tables
-  # (workshops -> polls) on start. Remove once the old directory is gone.
-  adoptFeedbackDb = pkgs.writeShellScript "poll-tool-adopt-feedback-db" ''
-    set -eu
-    old=/var/lib/private/feedback-tool
-    new=/var/lib/private/poll-tool
-    if [ -e "$old/feedback.db" ] && [ ! -e "$new/poll.db" ]; then
-      for suffix in "" -wal -shm; do
-        if [ -e "$old/feedback.db$suffix" ]; then
-          ${pkgs.coreutils}/bin/mv "$old/feedback.db$suffix" "$new/poll.db$suffix"
-        fi
-      done
-      ${pkgs.coreutils}/bin/chown -R --reference="$new" "$new"
-      ${pkgs.coreutils}/bin/rmdir "$old" || true
-      ${pkgs.coreutils}/bin/rm -f /var/lib/feedback-tool
-    fi
-  '';
 in
 {
   imports = [ inputs.poll-tool.nixosModules.default ];
@@ -52,8 +30,6 @@ in
       baseUrl = "https://${cfg.domain}";
       passwordFile = config.sops.secrets."poll/admin-password".path;
     };
-
-    systemd.services.poll-tool.serviceConfig.ExecStartPre = [ "+${adoptFeedbackDb}" ];
 
     # File content must be `ADMIN_PASSWORD=<value>` (read as an EnvironmentFile).
     sops.secrets."poll/admin-password" = { };
