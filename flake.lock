@@ -437,11 +437,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790061984,
-        "narHash": "sha256-CKLnKTJqfDYEsS8+hJj7ObMvqAz1XaGIoKFjKQ2Ys50=",
+        "lastModified": 1790063546,
+        "narHash": "sha256-Fm3hNd9CANWm5GaMsz2rEQEtjCGDkOJqrPhOLxaNqos=",
         "ref": "refs/heads/main",
-        "rev": "371c7510114cdc715a110dd1a832374eb6069bb2",
-        "revCount": 39,
+        "rev": "1c364d5a427d609ed77584e9eed1560c07d255af",
+        "revCount": 40,
         "type": "git",
         "url": "ssh://forgejo@git.audacis.net/serify/poll-tool"
       },
