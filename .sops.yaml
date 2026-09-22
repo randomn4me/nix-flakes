@@ -2,8 +2,13 @@ keys:
   # You can get your age public key by running: age-keygen -y /path/to/key.txt
   # Phil's user key, ~/.config/sops/age/keys.txt (mode 600). Kept out of any
   # host's /var/lib/sops-nix so `sops <file>` works as an unprivileged user
-  # with no env vars and no sudo. Back it up — it is the only admin recipient.
+  # with no env vars and no sudo. Back it up.
   - &admin age1jydqxerp9mx5ax83j27t3z5gcd7cgwscwv84ywylnnh33jh6ea9serp3dp
+  # The same kind of user key on macbook-pro-pk and on netcup (phil). The
+  # macbook one keeps netcup's secrets, the borg passphrase among them,
+  # decryptable when netcup itself is gone.
+  - &admin-macbook age122ksj67qsqk209l7y3wg82c657zz6ysspsytkp9clj3v07f6g33s8alevm
+  - &admin-netcup age1jeqx4ygu3mdzl86neq65dahzjtzsdaa368ka5kdktg5uqnltgdms7dlqwt
   - &netcup age1e2hh3n7fmx3sfgflxgscerfym7eqsn9gc4kq3fqwsq5cx5n7g90s9ld2v2
   - &macbook age1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklm  # replace with actual key
   - &peasec age1zmgj7efa0qnp57n892ctzgc7qyq9ewwdghdql2gkvxjly5hanp5qmwur48
@@ -22,6 +27,8 @@ creation_rules:
     key_groups:
       - age:
           - *admin
+          - *admin-macbook
+          - *admin-netcup
           - *netcup
 
   - path_regex: hosts/macbook-work/secrets\.yaml$
