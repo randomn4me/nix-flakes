@@ -94,27 +94,6 @@
         "type": "github"
       }
     },
-    "feedback-tool": {
-      "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790003946,
-        "narHash": "sha256-cp7UQt4MM1eaoB8SimuVpLScjNvscBzxjpWDYOk+ffA=",
-        "ref": "refs/heads/main",
-        "rev": "6e3485825fb97981cbd8589734849ca038b8318d",
-        "revCount": 7,
-        "type": "git",
-        "url": "ssh://forgejo@git.audacis.net/serify/feedback-tool"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://forgejo@git.audacis.net/serify/feedback-tool"
-      }
-    },
     "firefox-addons": {
       "inputs": {
         "nixpkgs": [
@@ -450,12 +429,32 @@
         "type": "github"
       }
     },
+    "poll-tool": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790061984,
+        "narHash": "sha256-CKLnKTJqfDYEsS8+hJj7ObMvqAz1XaGIoKFjKQ2Ys50=",
+        "ref": "refs/heads/main",
+        "rev": "371c7510114cdc715a110dd1a832374eb6069bb2",
+        "revCount": 39,
+        "type": "git",
+        "url": "ssh://forgejo@git.audacis.net/serify/poll-tool"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://forgejo@git.audacis.net/serify/poll-tool"
+      }
+    },
     "root": {
       "inputs": {
         "audacis-blog": "audacis-blog",
         "code-of-courage": "code-of-courage",
         "disko": "disko",
-        "feedback-tool": "feedback-tool",
         "firefox-addons": "firefox-addons",
         "forge-agent": "forge-agent",
         "hardware": "hardware",
@@ -466,6 +465,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixvim": "nixvim",
+        "poll-tool": "poll-tool",
         "serify-page": "serify-page",
         "sops-nix": "sops-nix"
       }

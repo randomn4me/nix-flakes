@@ -35,8 +35,8 @@
     serify-page.url = "git+ssh://forgejo@git.audacis.net/serify/serify-page";
     serify-page.inputs.nixpkgs.follows = "nixpkgs";
 
-    feedback-tool.url = "git+ssh://forgejo@git.audacis.net/serify/feedback-tool";
-    feedback-tool.inputs.nixpkgs.follows = "nixpkgs";
+    poll-tool.url = "git+ssh://forgejo@git.audacis.net/serify/poll-tool";
+    poll-tool.inputs.nixpkgs.follows = "nixpkgs";
 
     code-of-courage.url = "git+ssh://gitlab.dev.peasec.de/praktikum/25ss_LG1_CodeOfCourage.git";
     code-of-courage.inputs.nixpkgs.follows = "nixpkgs";

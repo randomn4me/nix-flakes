@@ -13,12 +13,12 @@
     ../../modules/nixos/services/audacis-blog.nix
     ../../modules/nixos/services/serify-page.nix
     ../../modules/nixos/services/code-of-courage.nix
-    ../../modules/nixos/services/feedback.nix
+    ../../modules/nixos/services/poll.nix
   ];
 
   services.custom = {
     audacis-blog.enable = true;
-    feedback = {
+    poll = {
       enable = true;
       domain = "poll.serify.eu";
     };

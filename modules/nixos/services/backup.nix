@@ -152,7 +152,7 @@ in
         # Consistent point-in-time snapshot of Vaultwarden's database, taken
         # before the filesystem archive runs. Other services append their
         # databases to these hook lists from their own modules (forgejo.nix,
-        # feedback.nix, umami.nix), gated on this module being enabled.
+        # poll.nix, umami.nix), gated on this module being enabled.
         sqlite_databases = [
           {
             name = "vaultwarden";
