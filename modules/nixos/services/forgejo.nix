@@ -224,6 +224,18 @@ in
         ];
     };
 
+    # Dump the database on every borgmatic run (services.custom.backup), so it is
+    # as fresh as the repositories archived next to it instead of lagging up to a
+    # day behind in the forgejo-dump zip. Same peer-auth setup as umami.nix.
+    services.borgmatic = mkIf (config.services.custom.backup.enable && cfg.databaseType == "postgres") {
+      settings.postgresql_databases = [
+        {
+          name = config.services.forgejo.database.name;
+          username = "postgres";
+        }
+      ];
+    };
+
     # Create gitea-runner user/group early for sops
     users.users.gitea-runner = mkIf cfg.runner.enable {
       isSystemUser = true;
