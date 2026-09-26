@@ -189,6 +189,12 @@ in
     # The sqlite dump hook shells out to the sqlite3 binary.
     systemd.services.borgmatic.path = [ pkgs.sqlite ];
 
+    # borg tags its locks with hostname@MAC, but inside the unit Python finds
+    # no MAC and makes up a random one per process. Its stale lock check then
+    # takes a killed run's leftover lock for another host's and never removes
+    # it, so every later run times out on it. A fixed id makes it removable.
+    systemd.services.borgmatic.environment.BORG_HOST_ID = "${hostName}@borgmatic";
+
     # Reuse the ntfy alert template from services.custom.alerts to notify on
     # backup failures, like the other monitored units.
     systemd.services.borgmatic.unitConfig.OnFailure = mkIf alertsCfg.enable [
@@ -199,6 +205,7 @@ in
     # run alerts through the same template, so a broken summary is visible too.
     systemd.services.borgmatic-summary = mkIf summaryEnable {
       description = "Daily borgmatic backup summary notification";
+      environment.BORG_HOST_ID = "${hostName}@borgmatic";
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       path = [
