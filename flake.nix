@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    # Podman 5.8.6 for netcup: 5.8.7 breaks Forgejo CI (podman#29805). Drop once fixed.
+    nixpkgs-podman.url = "github:nixos/nixpkgs/44a91898084f46797b5fac650c7e8c9ac38c43d4";
     hardware.url = "github:nixos/nixos-hardware";
 
     home-manager.url = "github:nix-community/home-manager";

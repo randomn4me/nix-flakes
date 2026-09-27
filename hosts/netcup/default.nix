@@ -14,6 +14,18 @@
     ../common/optional/sops.nix
   ];
 
+  # Podman 5.8.7 (CVE fix in buildah/copier) refuses to copy into a container
+  # through an absolute symlink, so every Forgejo CI job on Debian/Ubuntu images
+  # (/var/run -> /run) fails with "copyContent: ... path escapes from parent".
+  # Keep 5.8.6 until a fixed podman lands in nixpkgs:
+  # https://github.com/podman-container-tools/podman/issues/29805
+  # (.github/workflows/podman-fix-watch.yml opens an issue once it is closed).
+  nixpkgs.overlays = [
+    (final: prev: {
+      inherit (inputs.nixpkgs-podman.legacyPackages.${prev.stdenv.hostPlatform.system}) podman;
+    })
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   # The ESP (/boot) is only 255 MB and each generation stores a kernel + initrd
