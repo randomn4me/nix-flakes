@@ -40,6 +40,9 @@
     poll-tool.url = "git+ssh://forgejo@git.audacis.net/serify/poll-tool";
     poll-tool.inputs.nixpkgs.follows = "nixpkgs";
 
+    serify-crm.url = "git+ssh://forgejo@git.audacis.net/serify/serify-crm";
+    serify-crm.inputs.nixpkgs.follows = "nixpkgs";
+
     code-of-courage.url = "git+ssh://gitlab.dev.peasec.de/praktikum/25ss_LG1_CodeOfCourage.git";
     code-of-courage.inputs.nixpkgs.follows = "nixpkgs";
 
