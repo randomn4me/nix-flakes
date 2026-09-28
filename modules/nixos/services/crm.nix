@@ -91,6 +91,9 @@ in
         proxyPass = "http://127.0.0.1:${toString config.services.serify-crm.port}";
         recommendedProxySettings = true;
       };
+      # contact-relay files leads over loopback; from outside the endpoint
+      # has no business being reachable.
+      locations."= /api/v1/leads".return = "404";
     };
   };
 }
