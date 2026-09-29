@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -40,5 +41,7 @@
     zip
     unzip
     rclone
+
+    inputs.forgent.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
