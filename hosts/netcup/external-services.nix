@@ -41,17 +41,14 @@
     };
   };
 
-  # The pilot form endpoint, filing each enquiry in the CRM as well as
-  # mailing it (serify-page docs/contact-form.md).
+  # The pilot form endpoint, mailing each enquiry (serify-page
+  # docs/contact-form.md).
+  # TODO: file enquiries in the CRM once serify-page grows a
+  # `contactForm.crm` option: url = http://127.0.0.1:<serify-crm port>/api/v1/leads,
+  # tokenFile = sops secret "serify-page/crm-token" (CRM_TOKEN=<contact-relay token>).
   services.serify-page.contactForm = {
     enable = true;
     from = config.services.custom.mail-relay.fromAddress;
     to = "contact@serify.eu";
-    crm = {
-      url = "http://127.0.0.1:${toString config.services.serify-crm.port}/api/v1/leads";
-      # File content: CRM_TOKEN=<token named contact-relay, created in the CRM UI>
-      tokenFile = config.sops.secrets."serify-page/crm-token".path;
-    };
   };
-  sops.secrets."serify-page/crm-token" = { };
 }
