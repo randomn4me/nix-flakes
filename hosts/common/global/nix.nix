@@ -44,13 +44,19 @@
     # excluded: they are only ever consumed by netcup's service modules, and
     # registering them globally makes an unreachable remote (expired key, VPN
     # off, rotated host key) break rebuilds on every host.
-    registry = lib.mapAttrs (_: value: { flake = value; }) (
-      lib.removeAttrs inputs [
-        "audacis-blog"
-        "serify-page"
-        "code-of-courage"
-        "forge-agent"
-      ]
-    );
+    # The exclusions are derived from flake.lock so new private inputs can't be
+    # forgotten here.
+    registry =
+      let
+        lock = builtins.fromJSON (builtins.readFile "${inputs.self}/flake.lock");
+        isPrivate =
+          node:
+          let
+            original = lock.nodes.${node}.original or { };
+          in
+          (original.type or "") == "git" && lib.hasPrefix "ssh://" (original.url or "");
+        private = lib.attrNames (lib.filterAttrs (_: isPrivate) lock.nodes.${lock.root}.inputs);
+      in
+      lib.mapAttrs (_: value: { flake = value; }) (lib.removeAttrs inputs private);
   };
 }
