@@ -59,6 +59,7 @@
         "/var/lib/vaultwarden"
         "/var/lib/forgejo"
         "/var/lib/ntfy-sh"
+        "/var/lib/taskchampion-sync-server"
       ];
     };
 
@@ -86,6 +87,11 @@
       passwordFile = config.sops.secrets."freshrss/passphrase".path;
     };
     umami.enable = true;
+
+    taskchampion = {
+      enable = true;
+      environmentFile = config.sops.secrets."taskchampion/env".path;
+    };
 
     ntfy = {
       enable = true;
@@ -182,6 +188,10 @@
   # Vaultwarden /admin panel token (file content: ADMIN_TOKEN=<argon2-hash>).
   # Read by systemd (root) as an EnvironmentFile, so default root ownership is fine.
   sops.secrets."vaultwarden/admin-token" = { };
+
+  # TaskChampion allowed client (file content: CLIENT_ID=<uuid>), read by
+  # systemd (root) as an EnvironmentFile.
+  sops.secrets."taskchampion/env" = { };
 
   system.stateVersion = "25.05";
 }

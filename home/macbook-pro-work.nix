@@ -5,6 +5,7 @@
   imports = [
     ./features/accounts/private
     ./features/accounts/peasec
+    ./features/productivity/taskwarrior.nix
   ];
   home.username = "pkuehn";
   home.homeDirectory = "/Users/pkuehn";

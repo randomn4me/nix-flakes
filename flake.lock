@@ -275,11 +275,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1790261016,
-        "narHash": "sha256-68gJrB+yxpCWxxxJks5RqddRv2wQuMWm216pQelqd4o=",
+        "lastModified": 1790828335,
+        "narHash": "sha256-aipBm1OvYZWJrkxJcR+CteLRkQeQC/ZSevnsbD8jy1M=",
         "ref": "refs/heads/main",
-        "rev": "8c4d1cb199033c7f060a869b52c4e9435ce2e5d7",
-        "revCount": 768,
+        "rev": "d06b157bad07d12ae68790efeb3d09dbb5dbeebb",
+        "revCount": 769,
         "type": "git",
         "url": "ssh://forgejo@git.audacis.net/philippkuehn/forgent"
       },

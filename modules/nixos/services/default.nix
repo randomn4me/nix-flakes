@@ -18,7 +18,7 @@
     ./grafana.nix
     ./hedgedoc.nix
     ./mastodon.nix
-    ./taskserver.nix
+    ./taskchampion.nix
     ./forgejo.nix
     ./vaultwarden.nix
     ./freshrss.nix
