@@ -14,11 +14,11 @@
         "rev": "b1edf667574979aa90c5d796fbcafcc49f8c66d8",
         "revCount": 172,
         "type": "git",
-        "url": "ssh://forgejo@git.audacis.net/philippkuehn/blog"
+        "url": "ssh://git@github.com/randomn4me/audacis-blog"
       },
       "original": {
         "type": "git",
-        "url": "ssh://forgejo@git.audacis.net/philippkuehn/blog"
+        "url": "ssh://git@github.com/randomn4me/audacis-blog"
       }
     },
     "base16-schemes": {

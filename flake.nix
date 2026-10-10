@@ -31,7 +31,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    audacis-blog.url = "git+ssh://forgejo@git.audacis.net/philippkuehn/blog";
+    audacis-blog.url = "git+ssh://git@github.com/randomn4me/audacis-blog";
     audacis-blog.inputs.nixpkgs.follows = "nixpkgs";
 
     serify-page.url = "git+ssh://forgejo@git.audacis.net/serify/serify-page";
