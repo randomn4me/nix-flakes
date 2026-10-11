@@ -19,7 +19,7 @@
   # (/var/run -> /run) fails with "copyContent: ... path escapes from parent".
   # Keep 5.8.6 until a fixed podman lands in nixpkgs:
   # https://github.com/podman-container-tools/podman/issues/29805
-  # (.github/workflows/podman-fix-watch.yml opens an issue once it is closed).
+  # (.github/workflows/podman-fix-watch.yml comments on #1 once nixpkgs moves on).
   nixpkgs.overlays = [
     (final: prev: {
       inherit (inputs.nixpkgs-podman.legacyPackages.${prev.stdenv.hostPlatform.system}) podman;

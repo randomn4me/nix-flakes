@@ -1,17 +1,15 @@
 # netcup pins podman 5.8.6 (hosts/netcup/default.nix) because 5.8.7 breaks
-# Forgejo CI with "path escapes from parent". Watch the upstream issue and open
-# an issue here, assigned to the repo owner (→ mail), once it is closed, so the
-# pin gets dropped again.
+# Forgejo CI with "path escapes from parent" (podman#29805). The upstream issue
+# is closed, but the fix (buildah#7129) is not in any podman release yet. Watch
+# the podman version on nixos-unstable and comment on the tracking issue
+# (→ mail) whenever it moves past the known-broken releases, so the pin gets
+# dropped once a fixed podman is available.
 name: podman fix watch
 
 on:
   schedule:
     - cron: "17 6 * * *"
   workflow_dispatch:
-    inputs:
-      issue:
-        description: "Upstream podman issue number to check"
-        default: "29805"
   push:
     branches: [main]
     paths: [.github/workflows/podman-fix-watch.yml]
@@ -23,40 +21,45 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check upstream issue
+      - name: Check podman on nixos-unstable
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          UPSTREAM: podman-container-tools/podman
-          NUMBER: ${{ inputs.issue || '29805' }}
+          TRACKING_ISSUE: "1"
+          # Releases without the buildah#7129 fix. Extend this list when a new
+          # release turns out to be still broken.
+          KNOWN_BROKEN: "5.8.7 5.8.8 6.1.2 6.1.3"
         run: |
           set -euo pipefail
 
-          read -r state reason closed_at < <(gh api "repos/$UPSTREAM/issues/$NUMBER" \
-            --jq '[.state, (.state_reason // "-"), (.closed_at // "-")] | @tsv')
-          echo "$UPSTREAM#$NUMBER: $state ($reason)"
-          [ "$state" = closed ] || exit 0
+          state=$(gh issue view "$TRACKING_ISSUE" --json state --jq .state)
+          [ "$state" = OPEN ] || { echo "#$TRACKING_ISSUE is $state"; exit 0; }
 
-          title="podman#$NUMBER closed: drop the podman 5.8.6 pin on netcup"
-          if gh issue list --state all --limit 500 --json title --jq '.[].title' | grep -qxF "$title"; then
-            echo "Issue already exists"
+          version=$(curl -fsSL https://raw.githubusercontent.com/NixOS/nixpkgs/nixos-unstable/pkgs/by-name/po/podman/package.nix \
+            | sed -nE 's/^\s*version = "([^"]+)";.*/\1/p' | head -1)
+          [ -n "$version" ] || { echo "Could not determine podman version"; exit 1; }
+          echo "podman on nixos-unstable: $version"
+
+          if [ "$(printf '%s\n' 5.8.6 "$version" | sort -V | tail -1)" = 5.8.6 ] \
+            || grep -qwF "$version" <<<"$KNOWN_BROKEN"; then
+            echo "Still pinned or known broken"
             exit 0
           fi
 
-          nixpkgs_version=$(curl -fsSL https://raw.githubusercontent.com/NixOS/nixpkgs/nixos-unstable/pkgs/by-name/po/podman/package.nix \
-            | sed -nE 's/^\s*version = "([^"]+)";.*/\1/p' | head -1)
+          marker="<!-- podman-fix-watch:$version -->"
+          if gh api "repos/$GH_REPO/issues/$TRACKING_ISSUE/comments" --paginate --jq '.[].body' | grep -qF "$marker"; then
+            echo "Already commented for $version"
+            exit 0
+          fi
 
-          gh issue create \
-            --title "$title" \
-            --assignee "$GITHUB_REPOSITORY_OWNER" \
-            --body "$(cat <<EOF
-          https://github.com/$UPSTREAM/issues/$NUMBER was closed on $closed_at (reason: \`$reason\`).
+          gh issue comment "$TRACKING_ISSUE" --body "$(cat <<EOF
+          $marker
+          podman on \`nixos-unstable\` is now **$version**, newer than the known-broken releases ($KNOWN_BROKEN).
 
-          podman on \`nixos-unstable\` is currently **${nixpkgs_version:-unknown}** (pinned: 5.8.6).
+          Check whether it contains buildah#7129 ("copier: put: resolve symlinks before os.Root path check"):
+          https://github.com/podman-container-tools/podman/releases/tag/v$version
 
-          Once nixpkgs ships a podman release that contains the fix:
-          1. Remove the \`nixpkgs-podman\` input from \`flake.nix\` and the podman overlay in \`hosts/netcup/default.nix\`.
-          2. \`nix flake update nixpkgs\`, rebuild netcup, and rerun a Forgejo CI job.
-          3. Delete \`.github/workflows/podman-fix-watch.yml\`.
+          - If yes: drop the pin as described above.
+          - If no: add \`$version\` to \`KNOWN_BROKEN\` in \`.github/workflows/podman-fix-watch.yml\`.
           EOF
           )"
