@@ -79,7 +79,15 @@
       runner = {
         enable = true;
         count = 2;
-        tokenFile = config.sops.secrets."forgejo/runner-connection".path;
+        # Runner UUIDs are not secret: sudo jq -r .uuid /var/lib/gitea-runner/runner-{0,1}/.runner
+        uuids = [
+          "REPLACE-ME-runner-0"
+          "REPLACE-ME-runner-1"
+        ];
+        tokenFiles = [
+          config.sops.secrets."forgejo/runner-0-token".path
+          config.sops.secrets."forgejo/runner-1-token".path
+        ];
       };
     };
     freshrss = {
@@ -173,12 +181,10 @@
     # module's DynamicUser is forced off here and no ntfy-sh user exists), so
     # the default root:keys 0400 is what this secret needs.
     "ntfy/philippkuehn" = { };
-    # Forgejo runner token (format: TOKEN=<secret>)
-    "forgejo/runner-connection" = {
-      owner = "gitea-runner";
-      group = "gitea-runner";
-      mode = "0440";
-    };
+    # Forgejo runner tokens (raw, no TOKEN= prefix), read by the runner units
+    # as systemd credentials, so default root ownership is enough.
+    "forgejo/runner-0-token" = { };
+    "forgejo/runner-1-token" = { };
   };
 
   # Per-box SSH keys for the Hetzner storage boxes (used by ssh/backup.nix).

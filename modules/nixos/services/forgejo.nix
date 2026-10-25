@@ -99,16 +99,16 @@ in
         description = "Number of parallel runner instances";
       };
 
-      name = mkOption {
-        type = types.str;
-        default = config.networking.hostName;
-        description = "Name for the runner instance";
+      uuids = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = "UUID of each registered runner (from Forgejo or the old .runner file), one per instance";
       };
 
-      tokenFile = mkOption {
-        type = types.nullOr types.path;
-        default = null;
-        description = "Path to file containing TOKEN=<secret> for runner registration";
+      tokenFiles = mkOption {
+        type = types.listOf types.path;
+        default = [ ];
+        description = "Files containing the raw runner token (no TOKEN= prefix), one per instance";
       };
 
       labels = mkOption {
@@ -236,29 +236,34 @@ in
       ];
     };
 
-    # Create gitea-runner user/group early for sops
-    users.users.gitea-runner = mkIf cfg.runner.enable {
-      isSystemUser = true;
-      group = "gitea-runner";
-      description = "Gitea Actions runner user";
-    };
-
-    users.groups.gitea-runner = mkIf cfg.runner.enable { };
+    assertions = mkIf cfg.runner.enable [
+      {
+        assertion =
+          length cfg.runner.uuids == cfg.runner.count && length cfg.runner.tokenFiles == cfg.runner.count;
+        message = "services.custom.forgejo.runner: uuids and tokenFiles need one entry per runner (count = ${toString cfg.runner.count}).";
+      }
+      {
+        assertion = !(any (hasPrefix "REPLACE-ME") cfg.runner.uuids);
+        message = "services.custom.forgejo.runner.uuids still contains a placeholder.";
+      }
+    ];
 
     # Forgejo Actions Runner configuration
-    services.gitea-actions-runner = mkIf cfg.runner.enable {
-      package = pkgs.forgejo-runner;
+    services.forgejo-runner = mkIf cfg.runner.enable {
       instances = builtins.listToAttrs (
         builtins.genList (i: {
           name = "runner-${toString i}";
           value = {
             enable = true;
-            name = "${cfg.runner.name}-${toString i}";
-            url = "https://${cfg.domain}";
-            tokenFile = cfg.runner.tokenFile;
-            labels = cfg.runner.labels;
+            runtimes.podman = true;
             hostPackages = cfg.runner.hostPackages;
+            secrets.server.connections.default.token_url = elemAt cfg.runner.tokenFiles i;
             settings = {
+              runner.labels = cfg.runner.labels;
+              server.connections.default = {
+                url = "https://${cfg.domain}";
+                uuid = elemAt cfg.runner.uuids i;
+              };
               container = {
                 options = "-v /run/podman/podman.sock:/var/run/docker.sock --privileged";
                 valid_volumes = [
