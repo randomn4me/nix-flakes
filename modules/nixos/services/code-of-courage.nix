@@ -17,6 +17,13 @@ in
 
   options.services.custom.code-of-courage = {
     enable = mkEnableOption "Code of Courage - Interactive comic for security education";
+
+    redirectDomains = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Old or alternative hostnames that 301-redirect to ${domain}, keeping the path.";
+      example = [ "codeofcourage.dev.peasec.de" ];
+    };
   };
 
   config = mkIf cfg.enable {
@@ -29,32 +36,40 @@ in
 
     services.code-of-courage.enable = true;
 
-    # Override the nginx virtualHost to use ACME instead of manual SSL certificates
-    services.nginx.virtualHosts.${domain} = {
-      enableACME = mkForce true;
-      forceSSL = mkForce true;
-      # Remove manual SSL certificate configuration
-      sslCertificate = mkForce null;
-      sslCertificateKey = mkForce null;
+    services.nginx.virtualHosts =
+      genAttrs cfg.redirectDomains (_: {
+        enableACME = true;
+        forceSSL = true;
+        globalRedirect = domain;
+      })
+      // {
+        # Override the nginx virtualHost to use ACME instead of manual SSL certificates
+        ${domain} = {
+          enableACME = mkForce true;
+          forceSSL = mkForce true;
+          # Remove manual SSL certificate configuration
+          sslCertificate = mkForce null;
+          sslCertificateKey = mkForce null;
 
-      # Every location below sets its own add_header, and nginx replaces rather
-      # than merges the inherited set — so the http-level HSTS from
-      # services.custom.nginx.hsts never reaches this vhost. Repeat it here.
-      # Keys must match the upstream module's locations exactly; a typo would
-      # create a new (harmless but useless) location instead of extending one.
-      locations =
-        genAttrs
-          [
-            "/"
-            "~ \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp)$"
-            "~ \\.html?$"
-            "~ \\.json$"
-          ]
-          (_: {
-            extraConfig = mkAfter ''
-              add_header Strict-Transport-Security $hsts_header always;
-            '';
-          });
-    };
+          # Every location below sets its own add_header, and nginx replaces rather
+          # than merges the inherited set — so the http-level HSTS from
+          # services.custom.nginx.hsts never reaches this vhost. Repeat it here.
+          # Keys must match the upstream module's locations exactly; a typo would
+          # create a new (harmless but useless) location instead of extending one.
+          locations =
+            genAttrs
+              [
+                "/"
+                "~ \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp)$"
+                "~ \\.html?$"
+                "~ \\.json$"
+              ]
+              (_: {
+                extraConfig = mkAfter ''
+                  add_header Strict-Transport-Security $hsts_header always;
+                '';
+              });
+        };
+      };
   };
 }

@@ -33,7 +33,10 @@
         "serify.ai"
       ];
     };
-    code-of-courage.enable = true;
+    code-of-courage = {
+      enable = true;
+      redirectDomains = [ "codeofcourage.dev.peasec.de" ];
+    };
     crm = {
       enable = true;
       domain = "crm.serify.eu";
